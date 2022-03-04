@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.bgImage1 {
+  background-image: url(../src/assets/bg/bg.png);
+  height: 100vh;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.splash {
+  background-image: url(../src/assets/bg/splash.png);
+  height: 100vh;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.logo {
+  color: white;
+  font-size: 20px;
+}
+
+.authmain-flex {
+  display: grid;
+  justify-content: end;
+  align-items: center;
+  /* text-align: right; */
+}
+
+.authmain-section {
+  padding-top: 65px;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.bg-design {
+  background-color: blueviolet;
+  border-radius: 20px;
+  width: 350px;
+}
+
+.otpVerification-input {
+  max-width: 30px;
+  border-radius: 5px;
+}
