@@ -30,7 +30,7 @@ const ResetPassword = (props) => {
       //inputFields.password.localeCompare(inputFields.confirmPassword)
       inputFields.password != inputFields.confirmPassword
     ) {
-      alert("Pwd & COnfirm Pwd should be identical");
+      alert("Pwd & Confirm Pwd should be same");
       return false;
     } else {
       return true;
@@ -40,6 +40,7 @@ const ResetPassword = (props) => {
   const submitResetPassword = () => {
     if (validators()) {
       console.log(inputFields);
+      props.parentCallBack("Done");
     }
   };
 

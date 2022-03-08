@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
 import { _EMAIL_VALIDATOR, _PWD_VALIDATOR } from "../../../utils/Validators";
 import ReCAPTCHA from "react-google-recaptcha";
+import Dashboard from "./Dashboard";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   //const [login, setLogin] = useState("login");
+  const navigate = useNavigate();
   const [loginFields, setLoginFields] = useState({
     userName: "",
     password: "",
@@ -28,6 +31,7 @@ const Login = (props) => {
   const submitLogin = () => {
     if (inputValidators()) {
       console.log(loginFields);
+      navigate("/dashboard");
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AuthMain from "../authentication/Auth-Main";
+import Logo from "..\\src\\assets\\logo\\lttslogo.svg";
 
 const Main = () => {
   const [splash, setSplash] = useState(true);
@@ -11,7 +12,8 @@ const Main = () => {
   const regularFlow = () => {
     return (
       <div className="bgImage1">
-        <div className="logo">Logo</div>
+        {/* <div className="logo">Logo</div> */}
+        <img src={Logo} className="lttslogo" />
         <AuthMain />
       </div>
     );

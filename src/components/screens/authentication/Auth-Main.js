@@ -8,6 +8,8 @@ import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import OtpVerification from "./OtpVerification";
 import ResetPassword from "./ResetPassword";
+import { FormLabel } from "react-bootstrap";
+import Logo from "..\\src\\assets\\icons\\success.svg";
 
 const AuthMain = () => {
   const [login, setLogin] = useState(_LABELS[0].login);
@@ -45,8 +47,31 @@ const AuthMain = () => {
         return setLogin(_LABELS[2].otp);
       case _LABELS[3].reset:
         return setLogin(_LABELS[3].reset);
+      default:
+        setLogin("done");
     }
     // if (value === "forgotPassword") setLogin("forgotPassword");
+  };
+
+  const resetSuccess = () => {
+    // setTimeout(() => {
+    //   setLogin(_LABELS[0].login);
+    // }, 2000);
+    return (
+      <div>
+        {/* <img
+          src={require("../../../assets/icons/success.svg")}
+          className="success-page"
+        /> */}
+        <img src={Logo} className="lttslogo" />
+        <FormLabel className="heading mt-4">Thank You!</FormLabel>
+        <FormLabel className="subheading mt-4">
+          Your registration has been successfully completed
+        </FormLabel>
+        {/* <div>Thank You</div>
+        <div>Your registration verifi</div> */}
+      </div>
+    );
   };
 
   const renderComponent = () => {
@@ -61,7 +86,7 @@ const AuthMain = () => {
         ) : login === _LABELS[3].reset ? (
           <ResetPassword parentCallBack={check.bind()} />
         ) : (
-          <div>thankyou</div>
+          <div>{resetSuccess()}</div>
         )}
       </div>
     );
@@ -71,7 +96,10 @@ const AuthMain = () => {
     <div className="authmain-section">
       <div className="authmain-flex">
         {/* <div className="logo">sdkflsd</div> */}
-        <div className="logo text-center">{setTitle()}</div>
+        {login != "done" && (
+          <div className="logo text-center">{setTitle()}</div>
+        )}
+
         <div className="bg-design p-4 mt-4">{renderComponent()}</div>
       </div>
     </div>

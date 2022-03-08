@@ -28,6 +28,19 @@ const OtpVerification = (props) => {
     // if (otpFields[0] != "") setInputFoucs(1);
   };
 
+  const submitOtp = () => {
+    let isValid = true;
+    otpFields.forEach((otp) => {
+      if (otp === "") isValid = false;
+    });
+
+    if (isValid) {
+      props.parentCallBack(_LABELS[3].reset);
+    } else {
+      alert("OTP required");
+    }
+  };
+
   return (
     <div className="mt-2">
       <div className="d-flex justify-content-between">
@@ -38,18 +51,16 @@ const OtpVerification = (props) => {
               type="text"
               class="form-control"
               className="otpVerification-input"
-              value={otpFields[index]}
+              // value={otpFields[index]}
               maxLength={1}
-              autoFocus={index === 0 ? true : false}
+              //autoFocus={index === 0 ? true : false}
               onChange={(ev) => onChangeinput(ev, index)}
             />
           </div>
         ))}
       </div>
 
-      <a onClick={() => props.parentCallBack(_LABELS[3].reset)}>
-        {_LABELS[2].otp}
-      </a>
+      <a onClick={() => submitOtp()}>{_LABELS[2].otp}</a>
       <div>
         <a onClick={() => props.parentCallBack(_LABELS[1].password)}>Go Back</a>
       </div>
