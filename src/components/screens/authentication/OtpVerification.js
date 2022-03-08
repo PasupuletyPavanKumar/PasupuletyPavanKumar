@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
+import { Button } from "react-bootstrap";
 
 const OtpVerification = (props) => {
   const otpFields = ["", "", "", ""];
@@ -42,7 +43,7 @@ const OtpVerification = (props) => {
   };
 
   return (
-    <div className="mt-2">
+    <div className="form-style">
       <div className="d-flex justify-content-between">
         {otpFields.map((otp, index) => (
           <div class="form-group ">
@@ -55,14 +56,41 @@ const OtpVerification = (props) => {
               maxLength={1}
               //autoFocus={index === 0 ? true : false}
               onChange={(ev) => onChangeinput(ev, index)}
+              style={{
+                maxWidth: "60px",
+                height: "60px",
+
+                background: "rgba(0,43,114, 0.6)",
+                color: "white",
+                border: "none",
+
+                webkitBoxShadow: "none",
+                boxShadow: "none",
+                borderRadius: "8px",
+              }}
             />
           </div>
         ))}
       </div>
-
-      <a onClick={() => submitOtp()}>{_LABELS[2].otp}</a>
+      <Button
+        variant="primary"
+        type="button"
+        onClick={() => submitOtp()}
+        className="submit-button"
+      >
+        {_LABELS[2].otp}
+      </Button>
+      <br />
+      <br />
       <div>
-        <a onClick={() => props.parentCallBack(_LABELS[1].password)}>Go Back</a>
+        <center>
+          <a
+            onClick={() => props.parentCallBack(_LABELS[1].password)}
+            className="label"
+          >
+            Go Back
+          </a>
+        </center>
       </div>
     </div>
   );

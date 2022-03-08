@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import AuthMain from "../authentication/Auth-Main";
 import Logo from "..\\src\\assets\\logo\\lttslogo.svg";
-
+import { Container, Col } from "react-bootstrap";
 const Main = () => {
   const [splash, setSplash] = useState(true);
 
   const splashScreen = () => {
-    return <div className="splash"></div>;
+    return <Container fluid className="splash" />;
   };
 
   const regularFlow = () => {
     return (
-      <div className="bgImage1">
-        {/* <div className="logo">Logo</div> */}
-        <img src={Logo} className="lttslogo" />
+      <Container fluid className="bgImage1">
+        <Col xs={6} md={6}>
+          <img src={Logo} className="lttslogo" />
+        </Col>
         <AuthMain />
-      </div>
+      </Container>
     );
   };
 
@@ -25,7 +26,11 @@ const Main = () => {
     }, 2000);
   });
 
-  return <div>{splash ? splashScreen() : regularFlow()}</div>;
+  return (
+    <div className="container-fluid-sm">
+      {splash ? splashScreen() : regularFlow()}
+    </div>
+  );
 };
 
 export default Main;

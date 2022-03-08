@@ -4,6 +4,14 @@ import { _EMAIL_VALIDATOR, _PWD_VALIDATOR } from "../../../utils/Validators";
 import ReCAPTCHA from "react-google-recaptcha";
 import Dashboard from "./Dashboard";
 import { useNavigate } from "react-router-dom";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  Form,
+  Button,
+  FormCheck,
+} from "react-bootstrap";
 
 const Login = (props) => {
   //const [login, setLogin] = useState("login");
@@ -14,7 +22,7 @@ const Login = (props) => {
   });
 
   const inputValidators = () => {
-    if (loginFields.userName == "" || loginFields.password == "") {
+    if (loginFields.userName === "" || loginFields.password === "") {
       alert("All fields required");
       return false;
     } else if (_EMAIL_VALIDATOR(loginFields.userName)) {
@@ -43,54 +51,73 @@ const Login = (props) => {
   };
 
   return (
-    <div>
-      {/* <form onSubmit={submitLogin}> */}
-      <div className="form-group">
-        <label for="usr">Username</label>
-        <input
-          type="text"
-          className="form-control"
+    <Form className="form-style">
+      <FormGroup controlId="username">
+        <FormLabel className="label">Username</FormLabel>
+        <FormControl
+          type="email"
+          style={{
+            background: "transparent",
+            color: "white",
+            height: "5%",
+            alignSelf: "center",
+            borderRadius: 0,
+            border: "none",
+            borderBottom: "1px solid rgb(101, 170, 255)",
+            webkitBoxShadow: "none",
+            boxShadow: "none",
+          }}
           id="usr"
           value={loginFields.userName}
           onChange={(e) => handleInputFields(e, 1)}
         />
-      </div>
-      <div className="form-group">
-        <label for="pwd">Password</label>
-        <input
+      </FormGroup>
+
+      <FormGroup controlId="username">
+        <FormLabel className="label">Password</FormLabel>
+        <FormControl
           type="password"
-          className="form-control"
+          style={{
+            background: "transparent",
+            color: "white",
+            height: "5%",
+            borderRadius: 0,
+            border: "none",
+            borderBottom: "1px solid rgb(101, 170, 255)",
+            webkitBoxShadow: "none",
+            boxShadow: "none",
+          }}
           id="pwd"
           value={loginFields.password}
           onChange={(e) => handleInputFields(e, 2)}
         />
-      </div>
+      </FormGroup>
 
-      <div className="d-flex justify-content-between">
-        <div>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" value="" />
-              Remember me
-            </label>
-          </div>
-        </div>
-        <a onClick={() => props.parentCallBack(_LABELS[1].password)}>
+      <FormGroup controlId="checkbox" className="check">
+        <FormCheck type="checkbox" label="Remember me" className="label" />
+        <a
+          onClick={() => props.parentCallBack(_LABELS[1].password)}
+          className="link"
+        >
           {_LABELS[1].password}
         </a>
-      </div>
-
-      <div>
+      </FormGroup>
+      <center>
         <ReCAPTCHA
+          className="captcha"
           sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
           //onChange={onChange}
         />
-      </div>
-      <button className="submit" type="submit" onClick={submitLogin}>
+      </center>
+      <Button
+        variant="primary"
+        type="button"
+        className="submit-button"
+        onClick={submitLogin}
+      >
         Login
-      </button>
-      {/* </form> */}
-    </div>
+      </Button>
+    </Form>
   );
 };
 

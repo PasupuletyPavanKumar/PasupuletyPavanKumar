@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
 import { _EMAIL_VALIDATOR } from "../../../utils/Validators";
+import {
+  Button,
+  FormControl,
+  FormGroup,
+  Form,
+  FormLabel,
+} from "react-bootstrap";
 
 const ForgotPassword = (props) => {
   const [inputField, setInput] = useState({
@@ -16,7 +23,7 @@ const ForgotPassword = (props) => {
   };
 
   const inputValidator = () => {
-    if (inputField.username == "") {
+    if (inputField.username === "") {
       alert("Email is required");
       return false;
     } else if (_EMAIL_VALIDATOR(inputField.username)) {
@@ -35,27 +42,55 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <div>
-      <div class="form-group">
-        <label for="usr">Emailid/username</label>
-        <input
-          type="text"
-          class="form-control"
+    <Form className="form-style">
+      <FormGroup controlId="username">
+        <FormLabel for="usr" className="label">
+          Email id/Username
+        </FormLabel>{" "}
+        <br />
+        <FormControl
+          type="email"
+          style={{
+            background: "transparent",
+            color: "white",
+            height: "5%",
+            alignSelf: "center",
+            borderRadius: 0,
+            border: "none",
+            boxShadow: "none",
+            borderBottom: "1px solid rgb(101,170,255)",
+          }}
           id="usr"
           value={inputField.username}
           onChange={handleInput}
         />
-      </div>
-      <a onClick={submitForgotPassword}>{_LABELS[1].password}</a>
-      {/* <a onClick={() => props.parentCallBack(_LABELS[2].otp)}>
+      </FormGroup>
+      <br />
+      <FormGroup controlId="username">
+        <Button
+          variant="primary"
+          type="button"
+          className="submit-button"
+          onClick={submitForgotPassword}
+        >
+          {_LABELS[1].password}
+        </Button>
+        {/* <a onClick={() => props.parentCallBack(_LABELS[2].otp)}>
         {_LABELS[1].password}
       </a> */}
-      <div>
-        <a onClick={() => props.parentCallBack(_LABELS[0].login)}>
-          Back to Login
-        </a>
-      </div>
-    </div>
+      </FormGroup>
+      <br />
+      <FormGroup>
+        <center>
+          <a
+            onClick={() => props.parentCallBack(_LABELS[0].login)}
+            className="link"
+          >
+            Back to Login
+          </a>
+        </center>
+      </FormGroup>
+    </Form>
   );
 };
 

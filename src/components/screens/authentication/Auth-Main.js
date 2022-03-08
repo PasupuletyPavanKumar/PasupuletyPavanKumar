@@ -3,13 +3,13 @@ import {
   _AUTHTITLES,
   _LABELS,
 } from "../../../config/constants/general-constants";
-import { Button } from "react-bootstrap";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import OtpVerification from "./OtpVerification";
 import ResetPassword from "./ResetPassword";
 import { FormLabel } from "react-bootstrap";
-import Logo from "..\\src\\assets\\icons\\success.svg";
+import { Container, Row, Col } from "react-bootstrap";
+import Logo from "..\\src\\assets\\icons\\Icon-checkmark-circle.svg";
 
 const AuthMain = () => {
   const [login, setLogin] = useState(_LABELS[0].login);
@@ -30,9 +30,9 @@ const AuthMain = () => {
   const setTitle = () => {
     const title = getTitle();
     return (
-      <div>
-        <div>{title.title}</div>
-        <div>{title.desc}</div>
+      <div className="title">
+        <div className="heading">{title.title}</div>
+        <div className="subheading">{title.desc}</div>
       </div>
     );
   };
@@ -54,22 +54,16 @@ const AuthMain = () => {
   };
 
   const resetSuccess = () => {
-    // setTimeout(() => {
-    //   setLogin(_LABELS[0].login);
-    // }, 2000);
+    setTimeout(() => {
+      setLogin(_LABELS[0].login);
+    }, 3000);
     return (
       <div>
-        {/* <img
-          src={require("../../../assets/icons/success.svg")}
-          className="success-page"
-        /> */}
         <img src={Logo} className="lttslogo" />
-        <FormLabel className="heading mt-4">Thank You!</FormLabel>
-        <FormLabel className="subheading mt-4">
+        <FormLabel className="heading mt-4 thankYou">Thank You!</FormLabel>
+        <FormLabel className="subheading mt-4 thankYou">
           Your registration has been successfully completed
         </FormLabel>
-        {/* <div>Thank You</div>
-        <div>Your registration verifi</div> */}
       </div>
     );
   };
@@ -93,16 +87,29 @@ const AuthMain = () => {
   };
 
   return (
-    <div className="authmain-section">
-      <div className="authmain-flex">
-        {/* <div className="logo">sdkflsd</div> */}
-        {login != "done" && (
-          <div className="logo text-center">{setTitle()}</div>
-        )}
-
-        <div className="bg-design p-4 mt-4">{renderComponent()}</div>
-      </div>
-    </div>
+    <Container fluid={true} className="authmain-flex">
+      <Row>
+        <Col
+          xs={{ span: 3, offset: 6 }}
+          md={{ span: 4, offset: 7 }}
+          className="title"
+        >
+          {login != "done" && (
+            <div className="logo text-center">{setTitle()}</div>
+          )}
+          {/* {setTitle()} */}
+        </Col>
+      </Row>
+      <Row>
+        <Col
+          xs={{ span: 3, offset: 6 }}
+          md={{ span: 4, offset: 7 }}
+          className="formbox"
+        >
+          {renderComponent()}
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

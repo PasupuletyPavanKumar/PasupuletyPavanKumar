@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
 import { _PWD_VALIDATOR } from "../../../utils/Validators";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  Form,
+  Button,
+  FormCheck,
+} from "react-bootstrap";
 
 const ResetPassword = (props) => {
   const [inputFields, setInputFields] = useState({
@@ -40,34 +48,66 @@ const ResetPassword = (props) => {
   const submitResetPassword = () => {
     if (validators()) {
       console.log(inputFields);
-      props.parentCallBack("Done");
+      props.parentCallBack("done");
     }
   };
 
   return (
-    <div>
-      <div class="form-group">
-        <label for="usr">New Password</label>
-        <input
+    <Form className="form-style">
+      <FormGroup controlId="newpassword">
+        <FormLabel className="label">New Password</FormLabel>
+        <FormControl
           type="password"
-          class="form-control"
+          style={{
+            background: "transparent",
+            color: "white",
+            height: "5%",
+            alignSelf: "center",
+            borderRadius: 0,
+            border: "none",
+            borderBottom: "1px solid rgb(101, 170, 255)",
+            webkitBoxShadow: "none",
+            boxShadow: "none",
+          }}
           id="usr"
           value={inputFields.password}
           onChange={(e) => handleInputFields(e, 1)}
         />
-      </div>
-      <div class="form-group">
-        <label for="pwd">Confirm Password</label>
-        <input
+      </FormGroup>
+
+      <FormGroup controlId="confirm-password">
+        <FormLabel className="label">Confirm Password</FormLabel>
+        <FormControl
           type="password"
-          class="form-control"
-          id="pwd"
+          style={{
+            background: "transparent",
+            color: "white",
+            height: "5%",
+            alignSelf: "center",
+            borderRadius: 0,
+            border: "none",
+            borderBottom: "1px solid rgb(101, 170, 255)",
+            webkitBoxShadow: "none",
+            boxShadow: "none",
+          }}
+          id="usr"
           value={inputFields.confirmPassword}
           onChange={(e) => handleInputFields(e, 2)}
         />
-      </div>
-      <a onClick={submitResetPassword}>{_LABELS[3].reset}</a>
-    </div>
+      </FormGroup>
+      <br />
+      <FormGroup>
+        <center>
+          <Button
+            onClick={submitResetPassword}
+            className="submit-button"
+            type="button"
+          >
+            {_LABELS[3].reset}
+          </Button>
+        </center>
+      </FormGroup>
+    </Form>
   );
 };
 
