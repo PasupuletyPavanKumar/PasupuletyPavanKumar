@@ -12,20 +12,22 @@ import {
   Button,
   FormCheck,
 } from "react-bootstrap";
+import { AuthenticationService } from "../../../services/authentication-service/AuthenticationService";
 
 const Login = (props) => {
   //const [login, setLogin] = useState("login");
   const navigate = useNavigate();
+  const authService = new AuthenticationService();
   const [loginFields, setLoginFields] = useState({
-    userName: "",
+    username: "",
     password: "",
   });
 
   const inputValidators = () => {
-    if (loginFields.userName === "" || loginFields.password === "") {
+    if (loginFields.username === "" || loginFields.password === "") {
       alert("All fields required");
       return false;
-    } else if (_EMAIL_VALIDATOR(loginFields.userName)) {
+    } else if (_EMAIL_VALIDATOR(loginFields.username)) {
       alert("Enter valid email");
       return false;
     } else if (_PWD_VALIDATOR(loginFields.password)) {
@@ -38,14 +40,27 @@ const Login = (props) => {
 
   const submitLogin = () => {
     if (inputValidators()) {
-      console.log(loginFields);
-      navigate("/dashboard");
+      const reqBody = {
+        grant_type: "password",
+        client_id: "aikno - ssd",
+        client_secret: "xxx",
+        scope: "openid",
+        username: loginFields.username,
+        password: loginFields.password,
+      };
+      authService.login(reqBody).then((res) => {
+        if (res) {
+          console.log(res);
+        }
+      });
+      // console.log(loginFields);
+      // navigate("/dashboard");
     }
   };
 
   const handleInputFields = (event, field) => {
     setLoginFields({
-      userName: field === 1 ? event.target.value.trim() : loginFields.userName,
+      username: field === 1 ? event.target.value.trim() : loginFields.username,
       password: field === 2 ? event.target.value.trim() : loginFields.password,
     });
   };
@@ -68,7 +83,7 @@ const Login = (props) => {
             boxShadow: "none",
           }}
           id="usr"
-          value={loginFields.userName}
+          value={loginFields.username}
           onChange={(e) => handleInputFields(e, 1)}
         />
       </FormGroup>
