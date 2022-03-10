@@ -5,17 +5,32 @@ import { DataService } from "../data-service/DataService";
 export class AuthenticationService {
   // constructor() {}
 
-
-
   login = async (reqBody) => {
-    const response = await axios.post("http://localhost:8096/login",reqBody, {headers: {"Content-Type": "application/x-www-form-urlencoded"}});    
+    const response = await axios.post("http://localhost:8096/login", reqBody, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    });
     if (response) {
-const resData = response.data;
-console.log(resData);
-DataService.setToken(resData.access_token, resData.refresh_token);
+      const resData = response.data;
+      console.log(resData);
+      DataService.setToken(resData.access_token, resData.refresh_token);
 
-return true;
+      return true;
+    }
+  };
 
-}
+  logout = async (reqBody) => {
+    const response = await axios.post("http://localhost:8096/logout", reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: DataService.getUserDetails().accessToken,
+      },
+      //headers: { "Authorization": "" },
+    });
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+
+      return true;
+    }
   };
 }
