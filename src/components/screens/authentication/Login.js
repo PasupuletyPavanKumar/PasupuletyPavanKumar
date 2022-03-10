@@ -9,7 +9,7 @@ import {
   FormControl,
   FormLabel,
   Form,
-  Button,
+  Row,
   FormCheck,
 } from "react-bootstrap";
 import { AuthenticationService } from "../../../services/authentication-service/AuthenticationService";
@@ -117,14 +117,16 @@ const Login = (props) => {
         />
       </FormGroup>
 
-      <FormGroup controlId="checkbox" className="check">
-        <FormCheck type="checkbox" label="Remember me" className="label" />
+      <FormGroup controlId="checkbox">
+        <Row>
+        <FormCheck type="checkbox" label="Remember me" className="check" />
         <a
           onClick={() => props.parentCallBack(_LABELS[1].password)}
           className="link"
         >
           {_LABELS[1].password}
         </a>
+        </Row>
       </FormGroup>
       <center>
         <ReCAPTCHA
@@ -133,14 +135,14 @@ const Login = (props) => {
           //onChange={onChange}
         />
       </center>
-      <Button
+      <button
         variant="primary"
         type="button"
         className="submit-button"
         onClick={submitLogin}
       >
         Login
-      </Button>
+      </button>
     </Form>
   );
 };

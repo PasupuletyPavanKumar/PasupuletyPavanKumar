@@ -6,17 +6,17 @@ const Main = () => {
   const [splash, setSplash] = useState(true);
 
   const splashScreen = () => {
-    return <Container fluid className="splash" />;
+    return <div className="container-fluid-sm splash" />;
   };
 
   const regularFlow = () => {
     return (
-      <Container fluid className="bgImage1">
-        <Col xs={6} md={6}>
+      <div className="container-fluid-sm bgImage1">
+        <div className="col-sm-6">
           <img src={Logo} className="lttslogo" />
-        </Col>
+        </div>
         <AuthMain />
-      </Container>
+      </div>
     );
   };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
-import { Button } from "react-bootstrap";
+import { Button, FormGroup, Form, FormControl } from "react-bootstrap";
 
 const OtpVerification = (props) => {
   const otpFields = ["", "", "", ""];
@@ -44,42 +44,30 @@ const OtpVerification = (props) => {
 
   return (
     <div className="form-style">
-      <div className="d-flex justify-content-between">
+      
+        <div className="d-flex">
         {otpFields.map((otp, index) => (
-          <div class="form-group ">
             <input
               key={index.toString()}
-              type="text"
-              class="form-control"
-              className="otpVerification-input"
+              type="text" 
+              pattern="[0-9]+"
               // value={otpFields[index]}
               maxLength={1}
               //autoFocus={index === 0 ? true : false}
               onChange={(ev) => onChangeinput(ev, index)}
-              style={{
-                maxWidth: "60px",
-                height: "60px",
-
-                background: "rgba(0,43,114, 0.6)",
-                color: "white",
-                border: "none",
-
-                webkitBoxShadow: "none",
-                boxShadow: "none",
-                borderRadius: "8px",
-              }}
+              className="otpinput"
             />
-          </div>
         ))}
-      </div>
-      <Button
+       </div>
+       <br/>
+      <button
         variant="primary"
         type="button"
-        onClick={() => submitOtp()}
+        onClick={submitOtp}
         className="submit-button"
       >
         {_LABELS[2].otp}
-      </Button>
+      </button>
       <br />
       <br />
       <div>
@@ -93,6 +81,7 @@ const OtpVerification = (props) => {
         </center>
       </div>
     </div>
+
   );
 };
 

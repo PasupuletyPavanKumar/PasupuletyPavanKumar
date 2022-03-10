@@ -98,13 +98,13 @@ const ResetPassword = (props) => {
       <br />
       <FormGroup>
         <center>
-          <Button
+          <button
             onClick={submitResetPassword}
-            className="submit-button"
             type="button"
+            className="submit-button"
           >
             {_LABELS[3].reset}
-          </Button>
+          </button>
         </center>
       </FormGroup>
     </Form>

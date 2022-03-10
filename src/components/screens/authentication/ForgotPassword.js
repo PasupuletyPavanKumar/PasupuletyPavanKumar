@@ -42,11 +42,11 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <Form className="form-style">
-      <FormGroup controlId="username">
-        <FormLabel for="usr" className="label">
+    <div className="form-style">
+      <div>
+        <label for="usr" className="label">
           Email id/Username
-        </FormLabel>{" "}
+        </label>
         <br />
         <FormControl
           type="email"
@@ -57,40 +57,41 @@ const ForgotPassword = (props) => {
             alignSelf: "center",
             borderRadius: 0,
             border: "none",
+            borderBottom: "1px solid rgb(101, 170, 255)",
+            webkitBoxShadow: "none",
             boxShadow: "none",
-            borderBottom: "1px solid rgb(101,170,255)",
           }}
           id="usr"
           value={inputField.username}
           onChange={handleInput}
         />
-      </FormGroup>
+      </div>
       <br />
-      <FormGroup controlId="username">
-        <Button
+      <div>
+        <button
           variant="primary"
           type="button"
           className="submit-button"
           onClick={submitForgotPassword}
         >
           {_LABELS[1].password}
-        </Button>
+        </button>
         {/* <a onClick={() => props.parentCallBack(_LABELS[2].otp)}>
         {_LABELS[1].password}
       </a> */}
-      </FormGroup>
+      </div>
       <br />
-      <FormGroup>
+      <div>
         <center>
           <a
             onClick={() => props.parentCallBack(_LABELS[0].login)}
-            className="link"
+            className="label"
           >
             Back to Login
           </a>
         </center>
-      </FormGroup>
-    </Form>
+      </div>
+    </div>
   );
 };
 

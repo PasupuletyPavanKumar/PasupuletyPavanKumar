@@ -55,15 +55,18 @@ const AuthMain = () => {
 
   const resetSuccess = () => {
     setTimeout(() => {
-      setLogin(_LABELS[0].login);
+    setLogin(_LABELS[0].login);
     }, 3000);
     return (
-      <div>
-        <img src={Logo} className="lttslogo" />
-        <FormLabel className="heading mt-4 thankYou">Thank You!</FormLabel>
-        <FormLabel className="subheading mt-4 thankYou">
+      <div className="form-style">
+        <center>
+        <img src={Logo} className="thankyou" />
+        <br/>
+        <label className="head">Thank you!</label>
+        <label className="subhead">
           Your registration has been successfully completed
-        </FormLabel>
+        </label>
+        </center>
       </div>
     );
   };

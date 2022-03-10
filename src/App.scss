@@ -4,7 +4,7 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
 
-/* Customization in bootstrap*/
+/* Customization in submit button*/
 $theme-colors: (
   primary: transparent,
 );
@@ -12,6 +12,18 @@ $btn-border-radius: 25px;
 $btn-width: 100%;
 $box-shadow: inset 2px 2px 19px #008bdd;
 $border: 2px solid #0077bd;
+
+.input{ 
+  $background: transparent;
+  $color: #ffff;
+  $height: 5%;
+  $border-radius: 0;
+  $border: none;
+  $borderBottom: 1px solid rgb(101, 170, 255);
+  $webkit-box-shadow: none;
+  $box-shadow: none;
+}
+
 
 /*Background setting for all the web pages*/
 .bgImage1 {
@@ -43,8 +55,9 @@ $border: 2px solid #0077bd;
 .authmain-flex {
   // margin-top: 5vh;
   margin-left: 60vw;
-  font: Open Sans;
+  font-family: Open Sans;
   opacity: 1;
+  
 }
 
 /* setting for all authentication pages*/
@@ -55,12 +68,11 @@ $border: 2px solid #0077bd;
 
 .heading {
   &:not(col-sm) {
-    font-size: 22px;
+    font-size: 20px;
   }
   &:not(col-md) {
-    font-size: 30px;
-    column-span: 310px;
-    height: 40px;
+    font-size: 32px;
+   
   }
   opacity: 1;
 }
@@ -71,8 +83,6 @@ $border: 2px solid #0077bd;
   }
   &:not(col-md) {
     font-size: 18px;
-    column-span: 310px;
-    height: 24px;
   }
   opacity: 0.5;
 }
@@ -92,22 +102,24 @@ $border: 2px solid #0077bd;
 .label {
   margin-top: 20px;
   color: rgb(101, 170, 255);
-  font-size: 12px;
+  font-size: 14px;
 }
-
-.check {
+.d-flex{
   justify-content: space-between;
 }
+.check {
+  margin-top: 20px;
+  margin-left: 20px;
+  color: rgb(101, 170, 255);
+}
 .link {
-  font-size: 12px;
+  margin-top: 20px;
+  margin-left: 150px;
+  font-size: 14px;
   color: rgb(101, 170, 255);
   cursor: pointer;
-  align-self: right;
 }
-.otpVerification-input {
-  max-width: 30px;
-  border-radius: 5px;
-}
+
 
 .captcha {
   margin-top: 20px;
@@ -117,17 +129,56 @@ $border: 2px solid #0077bd;
   width: 20%;
 }
 
+.otpinput{
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(52, 135, 184, 0.3);
+  color: white;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bolder;
+}
 .submit-button {
+  background: transparent;
   margin-top: 20px;
   border: $border;
   border-radius: $btn-border-radius;
   width: $btn-width;
+  height:7vh;
+  justify-self: center;
   box-shadow: $box-shadow;
+  text-align: center;
+  color:#ffff;
 }
 
-.thankYou {
-  color: white;
+.thankyou {
+  align-self: center;
+  margin-top: 5vh;
+  height: 10vh;
+  width: 10vw;
 }
+
+.head{
+  color:#ffff;
+  margin-top: 5vh;
+  font-size: 30px;
+  font-weight: bold;
+
+}
+
+.subhead{
+  color:#ffff;
+  margin-top: 2vh;
+  opacity: 0.5;
+  font-size: 18px;
+
+
+}
+
 
 /*import bootstrap to set the customized changes*/
 @import "../node_modules/bootstrap/scss/bootstrap";
