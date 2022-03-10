@@ -40,21 +40,34 @@ const Login = (props) => {
 
   const submitLogin = () => {
     if (inputValidators()) {
-      const reqBody = {
-        grant_type: "password",
-        client_id: "aikno - ssd",
-        client_secret: "xxx",
-        scope: "openid",
-        username: loginFields.username,
-        password: loginFields.password,
+
+
+var urlencoded = new URLSearchParams();
+urlencoded.append("grant_type", "password");
+urlencoded.append("client_id", "aikno-ssd");
+urlencoded.append("client_secret", "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4");
+urlencoded.append("username", loginFields.username);
+urlencoded.append("password", loginFields.password);
+urlencoded.append("scope", "openid");
+
+      const reqBody = {  
+"grant_type": "password", 
+        "client_id": "aikno-ssd",
+        "client_secret": "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4",
+       "scope": "openid",
+               
+        "username": loginFields.username,
+        "password": loginFields.password,  
+"scope": "openid",            
       };
-      authService.login(reqBody).then((res) => {
+      authService.login(urlencoded).then((res) => {
         if (res) {
-          console.log(res);
+          
+navigate("/dashboard");
         }
       });
       // console.log(loginFields);
-      // navigate("/dashboard");
+      // 
     }
   };
 
