@@ -13,7 +13,7 @@ const Dashboard = () => {
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", "aikno-ssd");
     urlencoded.append("client_secret", "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4");
-    urlencoded.append("refresh_token", DataService.getUserDetails(1));
+    urlencoded.append("refresh_token", DataService.getUserDetails().refreshToken);
 
     const reqBody = {
       client_id: "aikno-ssd",
@@ -37,7 +37,7 @@ const Dashboard = () => {
         className="submit-button"
         onClick={logOut}
       >
-        Login
+        Logout
       </Button>
     </div>
   );

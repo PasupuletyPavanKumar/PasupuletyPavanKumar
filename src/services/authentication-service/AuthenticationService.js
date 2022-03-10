@@ -19,18 +19,21 @@ export class AuthenticationService {
   };
 
   logout = async (reqBody) => {
-    const response = await axios.post("http://localhost:8096/logout", reqBody, {
+    const response = await axios.post("http://localhost:8095/logout", reqBody, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: DataService.getUserDetails().accessToken,
+        Authorization: "Bearer "+DataService.getUserDetails().accessToken,
       },
       //headers: { "Authorization": "" },
     });
     if (response) {
-      const resData = response.data;
-      console.log(resData);
+      //const resData = response.data;
+      console.log(response);
+      console.log(response.status);
 
       return true;
+    }else{
+        console.log("No response");    
     }
   };
 }
