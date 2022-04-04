@@ -53,50 +53,31 @@ const ResetPassword = (props) => {
   };
 
   return (
-    <Form className="form-style">
-      <FormGroup controlId="newpassword">
-        <FormLabel className="label">New Password</FormLabel>
-        <FormControl
+    <div class="form" className="form-style">
+      <div class="form-group">
+        <label for="usr" className="label">New Password</label>
+        <br/>
+        <input
           type="password"
-          style={{
-            background: "transparent",
-            color: "white",
-            height: "5%",
-            alignSelf: "center",
-            borderRadius: 0,
-            border: "none",
-            borderBottom: "1px solid rgb(101, 170, 255)",
-            webkitBoxShadow: "none",
-            boxShadow: "none",
-          }}
+          className="input-field"
           id="usr"
           value={inputFields.password}
           onChange={(e) => handleInputFields(e, 1)}
         />
-      </FormGroup>
+      </div>
 
-      <FormGroup controlId="confirm-password">
-        <FormLabel className="label">Confirm Password</FormLabel>
-        <FormControl
+      <div class="form-group">
+        <label  for="pwd" className="label"> Confirm Password</label>
+        <br/>
+        <input
           type="password"
-          style={{
-            background: "transparent",
-            color: "white",
-            height: "5%",
-            alignSelf: "center",
-            borderRadius: 0,
-            border: "none",
-            borderBottom: "1px solid rgb(101, 170, 255)",
-            webkitBoxShadow: "none",
-            boxShadow: "none",
-          }}
-          id="usr"
+         className="input-field"
+          id="pwd"
           value={inputFields.confirmPassword}
           onChange={(e) => handleInputFields(e, 2)}
         />
-      </FormGroup>
-      <br />
-      <FormGroup>
+      </div>
+      <div class="form-group">
         <center>
           <button
             onClick={submitResetPassword}
@@ -106,8 +87,8 @@ const ResetPassword = (props) => {
             {_LABELS[3].reset}
           </button>
         </center>
-      </FormGroup>
-    </Form>
+      </div>
+    </div>
   );
 };
 

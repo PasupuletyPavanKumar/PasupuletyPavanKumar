@@ -7,13 +7,20 @@ import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import OtpVerification from "./OtpVerification";
 import ResetPassword from "./ResetPassword";
-import { FormLabel } from "react-bootstrap";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import Logo from "..\\src\\assets\\icons\\Icon-checkmark-circle.svg";
 
+//Description:Auth-Main function get description of login screens heading from "config\constants\general-constant.js" and set the 
+//login screens heading (login screen:login heading, forgot password:forgot password heading, etc) respectively. 
+// It also contain the container for all the login forms.
+//input:null
+//path:navigate to Login.js
+//output:returns heading and flex for all the login screen forms
 const AuthMain = () => {
+  //intially state of screens is set to login to display login page first
   const [login, setLogin] = useState(_LABELS[0].login);
 
+  //getTitle function retrieves the heading from authtitles constant from general-constant.js and return it 
   const getTitle = () => {
     switch (login) {
       case _LABELS[0].login:
@@ -27,9 +34,11 @@ const AuthMain = () => {
     }
   };
 
+  //setTitle function set the title that is returned by the getTitle function
   const setTitle = () => {
     const title = getTitle();
     return (
+      // displays the title with defined css
       <div className="title">
         <div className="heading">{title.title}</div>
         <div className="subheading">{title.desc}</div>
@@ -37,6 +46,7 @@ const AuthMain = () => {
     );
   };
 
+  //check function checks the label value to set the state of the login screen
   const check = (value) => {
     switch (value) {
       case _LABELS[0].login:
@@ -53,6 +63,7 @@ const AuthMain = () => {
     // if (value === "forgotPassword") setLogin("forgotPassword");
   };
 
+  //resetSuccess function redirects thank you page to login page after 3 seconds 
   const resetSuccess = () => {
     setTimeout(() => {
     setLogin(_LABELS[0].login);
@@ -71,6 +82,8 @@ const AuthMain = () => {
     );
   };
 
+  //renderComponent function navigate the content of the login screens according to 
+  //the label and return back on parent callback   
   const renderComponent = () => {
     return (
       <div>
@@ -90,11 +103,11 @@ const AuthMain = () => {
   };
 
   return (
-    <Container fluid={true} className="authmain-flex">
-      <Row>
-        <Col
-          xs={{ span: 3, offset: 6 }}
-          md={{ span: 4, offset: 7 }}
+    //container for all login forms
+    <Container fluid className="authmain-flex">
+        
+         {/*displays the title*/}
+        <Col md={{ span: 8, offset: 2 }}
           className="title"
         >
           {login != "done" && (
@@ -102,16 +115,14 @@ const AuthMain = () => {
           )}
           {/* {setTitle()} */}
         </Col>
-      </Row>
-      <Row>
-        <Col
-          xs={{ span: 3, offset: 6 }}
-          md={{ span: 4, offset: 7 }}
+        
+         {/*displays the container for forms*/}
+        <Col md={{ span: 8, offset: 2 }}
           className="formbox"
         >
           {renderComponent()}
         </Col>
-      </Row>
+
     </Container>
   );
 };

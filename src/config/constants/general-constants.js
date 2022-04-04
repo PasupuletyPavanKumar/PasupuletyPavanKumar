@@ -1,3 +1,4 @@
+//defines the titles for the login screen
 export const _AUTHTITLES = [
   {
     title: "Welcome Back",
@@ -21,6 +22,8 @@ export const _AUTHTITLES = [
   },
 ];
 
+
+//defines the label of the login screens
 export const _LABELS = [
   {
     login: "Login",

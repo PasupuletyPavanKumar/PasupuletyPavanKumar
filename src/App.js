@@ -5,10 +5,14 @@ import { Routes, Route } from "react-router-dom";
 import ForgotPassword from "./components/screens/authentication/ForgotPassword";
 import Dashboard from "./components/screens/authentication/Dashboard";
 
+//Description:App function defines the route path to the different element of the project
+
 function App() {
   return (
     <Routes>
+      {/*navigate to the login screens*/}
       <Route path="/" element={<Main />} />
+      {/*navigate to the dashboard screens*/}
       <Route path="/dashboard" element={<Dashboard />} />
 
       {/* <Route path="forgot" element={<ForgotPassword />} /> */}

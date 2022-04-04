@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
-import { Button, FormGroup, Form, FormControl } from "react-bootstrap";
 
+/*update this with vinay's code*/
 const OtpVerification = (props) => {
   const otpFields = ["", "", "", ""];
   const [inputFocus, setInputFoucs] = useState(0);
@@ -72,12 +72,12 @@ const OtpVerification = (props) => {
       <br />
       <div>
         <center>
-          <a
+          <text
             onClick={() => props.parentCallBack(_LABELS[1].password)}
-            className="label"
+            className="backlink"
           >
             Go Back
-          </a>
+          </text>
         </center>
       </div>
     </div>

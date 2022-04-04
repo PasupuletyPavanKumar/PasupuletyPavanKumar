@@ -75,59 +75,42 @@ const Login = (props) => {
   };
 
   return (
-    <Form className="form-style">
-      <FormGroup controlId="username">
-        <FormLabel className="label">Username</FormLabel>
-        <FormControl
-          type="email"
-          style={{
-            background: "transparent",
-            color: "white",
-            height: "5%",
-            alignSelf: "center",
-            borderRadius: 0,
-            border: "none",
-            borderBottom: "1px solid rgb(101, 170, 255)",
-            webkitBoxShadow: "none",
-            boxShadow: "none",
-          }}
+    <div class="form" className="form-style">
+      <div class="form-group">
+        <label for="usr" className="label">Username</label>
+        <br/>
+        <input
+          type="text"
+          className="input-field"
           id="usr"
           value={loginFields.username}
           onChange={(e) => handleInputFields(e, 1)}
         />
-      </FormGroup>
+      </div>
 
-      <FormGroup controlId="username">
-        <FormLabel className="label">Password</FormLabel>
-        <FormControl
+      <div class="form-group">
+        <label className="label">Password</label>
+        <br/>
+        <input
           type="password"
-          style={{
-            background: "transparent",
-            color: "white",
-            height: "5%",
-            borderRadius: 0,
-            border: "none",
-            borderBottom: "1px solid rgb(101, 170, 255)",
-            webkitBoxShadow: "none",
-            boxShadow: "none",
-          }}
+          className="input-field"
           id="pwd"
           value={loginFields.password}
           onChange={(e) => handleInputFields(e, 2)}
         />
-      </FormGroup>
+      </div>
 
-      <FormGroup controlId="checkbox">
-        <Row>
+      <div class="form-group">
+        <div class="row">
         <FormCheck type="checkbox" label="Remember me" className="check" />
-        <a
+        <text
           onClick={() => props.parentCallBack(_LABELS[1].password)}
           className="link"
         >
           {_LABELS[1].password}
-        </a>
-        </Row>
-      </FormGroup>
+        </text>
+        </div>
+      </div>
       <center>
         <ReCAPTCHA
           className="captcha"
@@ -143,7 +126,7 @@ const Login = (props) => {
       >
         Login
       </button>
-    </Form>
+    </div>
   );
 };
 
