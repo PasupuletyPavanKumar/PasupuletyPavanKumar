@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { _LABELS } from "../../../config/constants/general-constants";
 import { _EMAIL_VALIDATOR, _PWD_VALIDATOR } from "../../../utils/Validators";
 import ReCAPTCHA from "react-google-recaptcha";
-import Dashboard from "./Dashboard";
 import { useNavigate } from "react-router-dom";
 import {
   FormGroup,
@@ -77,8 +76,10 @@ const Login = (props) => {
   return (
     <div class="form" className="form-style">
       <div class="form-group">
-        <label for="usr" className="label">Username</label>
-        <br/>
+        <label for="usr" className="label">
+          Username
+        </label>
+        <br />
         <input
           type="text"
           className="input-field"
@@ -90,7 +91,7 @@ const Login = (props) => {
 
       <div class="form-group">
         <label className="label">Password</label>
-        <br/>
+        <br />
         <input
           type="password"
           className="input-field"
@@ -102,13 +103,13 @@ const Login = (props) => {
 
       <div class="form-group">
         <div class="row">
-        <FormCheck type="checkbox" label="Remember me" className="check" />
-        <text
-          onClick={() => props.parentCallBack(_LABELS[1].password)}
-          className="link"
-        >
-          {_LABELS[1].password}
-        </text>
+          <FormCheck type="checkbox" label="Remember me" className="check" />
+          <text
+            onClick={() => props.parentCallBack(_LABELS[1].password)}
+            className="link"
+          >
+            {_LABELS[1].password}
+          </text>
         </div>
       </div>
       <center>

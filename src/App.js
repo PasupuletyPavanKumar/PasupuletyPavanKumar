@@ -2,8 +2,9 @@ import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./components/screens/main/Main";
 import { Routes, Route } from "react-router-dom";
-import ForgotPassword from "./components/screens/authentication/ForgotPassword";
-import Dashboard from "./components/screens/authentication/Dashboard";
+// import ForgotPassword from "./components/screens/authentication/ForgotPassword";
+// import Dashboard from "./components/screens/authentication/Dashboard";
+import Home from "./components/screens/dashboard/Home";
 
 //Description:App function defines the route path to the different element of the project
 
@@ -13,7 +14,7 @@ function App() {
       {/*navigate to the login screens*/}
       <Route path="/" element={<Main />} />
       {/*navigate to the dashboard screens*/}
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Home />} />
 
       {/* <Route path="forgot" element={<ForgotPassword />} /> */}
     </Routes>
