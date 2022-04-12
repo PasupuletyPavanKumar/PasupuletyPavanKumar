@@ -11,7 +11,7 @@ import {
   Row,
   FormCheck,
 } from "react-bootstrap";
-import { AuthenticationService } from "../../../services/authentication-service/AuthenticationService";
+import { AuthenticationService } from "../../../services/api-service/AuthenticationService";
 
 const Login = (props) => {
   //const [login, setLogin] = useState("login");

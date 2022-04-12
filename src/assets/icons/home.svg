@@ -1,0 +1,16 @@
+<svg id="Component_21_1" data-name="Component 21 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#003763"/>
+      <stop offset="0.5" stop-color="#004072"/>
+      <stop offset="1" stop-color="#00adee"/>
+    </linearGradient>
+  </defs>
+  <path id="Path_31348" data-name="Path 31348" d="M32,0A32,32,0,1,1,0,32,32,32,0,0,1,32,0Z" fill="url(#linear-gradient)"/>
+  <g id="Icon_feather-grid" data-name="Icon feather-grid" transform="translate(16.9 16.9)">
+    <path id="Path_31404" data-name="Path 31404" d="M3,3h9.411v9.411H3Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_31405" data-name="Path 31405" d="M14,3h9.411v9.411H14Z" transform="translate(3.589)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_31406" data-name="Path 31406" d="M14,14h9.411v9.411H14Z" transform="translate(3.589 3.589)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_31407" data-name="Path 31407" d="M3,14h9.411v9.411H3Z" transform="translate(0 3.589)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  </g>
+</svg>

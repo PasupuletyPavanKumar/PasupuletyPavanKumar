@@ -15,6 +15,11 @@ function App() {
       <Route path="/" element={<Main />} />
       {/*navigate to the dashboard screens*/}
       <Route path="/dashboard" element={<Home />} />
+      <Route path="/notification" element={<Home />} />
+      <Route path="/admin" element={<Home />} />
+      <Route path="/licenses" element={<Home />} />
+      <Route path="/settings" element={<Home />} />
+      <Route path="/help" element={<Home />} />
 
       {/* <Route path="forgot" element={<ForgotPassword />} /> */}
     </Routes>

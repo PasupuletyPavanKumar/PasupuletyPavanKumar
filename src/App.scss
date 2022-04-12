@@ -230,3 +230,25 @@
   border-left: 1px solid yellow;
   border-left-width: 4px;
 }
+
+.bootstrap-modal {
+  .modal-content {
+    border-radius: 16px;
+  }
+}
+
+.custom-button {
+  background-color: red;
+}
+
+.modal-heading {
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+.modal-button {
+  width: 25%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background: #004072 0% 0% no-repeat padding-box;
+}

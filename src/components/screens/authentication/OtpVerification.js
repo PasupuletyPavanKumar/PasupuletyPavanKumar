@@ -44,22 +44,21 @@ const OtpVerification = (props) => {
 
   return (
     <div className="form-style">
-      
-        <div className="d-flex">
+      <div className="d-flex">
         {otpFields.map((otp, index) => (
-            <input
-              key={index.toString()}
-              type="text" 
-              pattern="[0-9]+"
-              // value={otpFields[index]}
-              maxLength={1}
-              //autoFocus={index === 0 ? true : false}
-              onChange={(ev) => onChangeinput(ev, index)}
-              className="otpinput"
-            />
+          <input
+            key={index.toString()}
+            type="text"
+            pattern="[0-9]+"
+            // value={otpFields[index]}
+            maxLength={1}
+            //autoFocus={index === 0 ? true : false}
+            onChange={(ev) => onChangeinput(ev, index)}
+            className="otpinput"
+          />
         ))}
-       </div>
-       <br/>
+      </div>
+      <br />
       <button
         variant="primary"
         type="button"
@@ -81,7 +80,6 @@ const OtpVerification = (props) => {
         </center>
       </div>
     </div>
-
   );
 };
 
