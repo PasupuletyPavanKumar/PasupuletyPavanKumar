@@ -8,7 +8,8 @@ import ForgotPassword from "./ForgotPassword";
 import OtpVerification from "./OtpVerification";
 import ResetPassword from "./ResetPassword";
 import { Container, Col } from "react-bootstrap";
-import Logo from "..\\src\\assets\\icons\\Icon-checkmark-circle.svg";
+//import Logo from "..\\src\\assets\\icons\\Icon-checkmark-circle.svg";
+import Logo from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
 
 //Description:Auth-Main function get description of login screens heading from "config\constants\general-constant.js" and set the 
 //login screens heading (login screen:login heading, forgot password:forgot password heading, etc) respectively. 
