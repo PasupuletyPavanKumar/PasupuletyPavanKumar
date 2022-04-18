@@ -1,22 +1,18 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
+// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg"
+// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
+// import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
 
-import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
-
-import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
-
+import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import LogoLicense from "..\\src\\assets\\icons\\License_graditi_bg.svg";
 
 
 import axios from "axios";
 
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-
-
-
-
-
 
 
 const DashboardMain = () => {
@@ -26,7 +22,6 @@ const DashboardMain = () => {
 
   const [posts, setPosts] = useState({ blogs: [] });
 
-  const id = 2
 
   useEffect(() => {
 
@@ -34,7 +29,8 @@ const DashboardMain = () => {
 
       const { data } = await axios(
 
-        "http://localhost:8097/recentActivity/superUser/fetch/Mithun"
+        "http://localhost:8097/recentActivity/superUser/fetch/Bhanu"
+        //"https://jsonplaceholder.typicode.com/users/"
 
       );
 
@@ -46,29 +42,13 @@ const DashboardMain = () => {
 
     fetchPostList();
 
-    // authService.recentActivity().then((res) => {
-
-    //   if (res) {
-    //     console.log("fetched recent activity")
-    //     console.log(props)
-    //   }
-    // })
-
   }, [setPosts]);
 
-
-
-
-
   return (
-
-
 
     <div class="container">
 
       <div className="welcome-tag"> Welcome to Dashboard</div> <br />
-
-
 
       <div class="row row-flex">
 
@@ -93,8 +73,6 @@ const DashboardMain = () => {
           <div class="content colour">
 
             <label> 105</label>
-
-
 
             <img src={LogoAdmin} class="img" />
 
@@ -126,13 +104,9 @@ const DashboardMain = () => {
 
       </div>
 
-
-
-
-
       <div>
 
-        <ReactBootStrap.Table className="tbl1" >
+        <ReactBootStrap.Table>
 
           <thead>
 
@@ -182,10 +156,7 @@ const DashboardMain = () => {
 
         </ReactBootStrap.Table>
 
-
-
       </div>
-
 
 
     </div>
