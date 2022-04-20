@@ -1,20 +1,29 @@
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./components/screens/main/Main";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 // import ForgotPassword from "./components/screens/authentication/ForgotPassword";
 // import Dashboard from "./components/screens/authentication/Dashboard";
 import Home from "./components/screens/dashboard/Home";
+import { useEffect } from "react";
 
 //Description:App function defines the route path to the different element of the project
 
 function App() {
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("accessToken")) {
+  //     navigate("/dashboard");
+  //   } else navigate("");
+  // }, []);
+
   return (
     <Routes>
       {/*navigate to the login screens*/}
-      <Route path="/" element={<Main />} />
+      <Route path="" element={<Main />} />
       {/*navigate to the dashboard screens*/}
-      <Route path="/dashboard" element={<Home />} />
+      <Route path={"/dashboard"} element={<Home />} />
       <Route path="/notification" element={<Home />} />
       <Route path="/admin" element={<Home />} />
       <Route path="/licenses" element={<Home />} />

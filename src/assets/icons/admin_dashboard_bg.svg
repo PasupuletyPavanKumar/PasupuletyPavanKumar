@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="112" height="112" viewBox="0 0 112 112">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#003763"/>
+      <stop offset="0.656" stop-color="#0077bd"/>
+      <stop offset="1" stop-color="#00adee"/>
+    </linearGradient>
+    <filter id="Path_31348" x="0" y="0" width="112" height="112" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#003763" flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_19144" data-name="Group 19144" transform="translate(-1079.727 -337)">
+    <g transform="matrix(1, 0, 0, 1, 1079.73, 337)" filter="url(#Path_31348)">
+      <path id="Path_31348-2" data-name="Path 31348" d="M41,0A41,41,0,1,1,0,41,41,41,0,0,1,41,0Z" transform="translate(12 9)" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="Group_137" data-name="Group 137" transform="translate(1102.307 360.548)">
+      <g id="Icon_feather-users" data-name="Icon feather-users">
+        <g id="spacer" fill="rgba(255,255,255,0)" stroke="rgba(0,0,0,0)" stroke-width="1">
+          <rect width="61.619" height="53.242" stroke="none"/>
+          <rect x="0.5" y="0.5" width="60.619" height="52.242" fill="none"/>
+        </g>
+        <g id="Icon_feather-users-2" data-name="Icon feather-users" transform="translate(10.907 10.337)">
+          <path id="Path_427" data-name="Path 427" d="M30.449,33.356V29.737A7.237,7.237,0,0,0,23.211,22.5H8.737A7.237,7.237,0,0,0,1.5,29.737v3.619" transform="translate(-1.5 -0.789)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          <path id="Path_428" data-name="Path 428" d="M21.974,11.737A7.237,7.237,0,1,1,14.737,4.5,7.237,7.237,0,0,1,21.974,11.737Z" transform="translate(-0.263 -4.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          <path id="Path_429" data-name="Path 429" d="M35.428,33.315V29.7A7.237,7.237,0,0,0,30,22.7" transform="translate(4.376 -0.748)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          <path id="Path_430" data-name="Path 430" d="M24,4.7a7.237,7.237,0,0,1,0,14.022" transform="translate(3.139 -4.46)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

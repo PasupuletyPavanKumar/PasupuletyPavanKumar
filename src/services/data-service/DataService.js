@@ -6,9 +6,13 @@ const userDetails = {
 
 export const DataService = {
   setToken(accessToken, refreshToken) {
-    userDetails.accessToken = accessToken;
-    userDetails.refreshToken = refreshToken;
-    console.log(userDetails);
+    sessionStorage.setItem("accessToken", accessToken);
+    sessionStorage.setItem("refreshToken", refreshToken);
+    console.log(sessionStorage);
+    // userDetails.accessToken = accessToken;
+    // userDetails.refreshToken = refreshToken;
+    // console.log(userDetails);
+    // console.log(userDetails.accessToken);
   },
 
   setUser(user) {

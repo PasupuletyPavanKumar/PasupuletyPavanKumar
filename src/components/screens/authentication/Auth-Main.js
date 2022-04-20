@@ -9,10 +9,11 @@ import OtpVerification from "./OtpVerification";
 import ResetPassword from "./ResetPassword";
 import { Container, Col } from "react-bootstrap";
 //import Logo from "..\\src\\assets\\icons\\Icon-checkmark-circle.svg";
-import Logo from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
+import Logo from "../../../assets/icons/Icon-checkmark-circle.svg";
+//import Logo from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
 
-//Description:Auth-Main function get description of login screens heading from "config\constants\general-constant.js" and set the 
-//login screens heading (login screen:login heading, forgot password:forgot password heading, etc) respectively. 
+//Description:Auth-Main function get description of login screens heading from "config\constants\general-constant.js" and set the
+//login screens heading (login screen:login heading, forgot password:forgot password heading, etc) respectively.
 // It also contain the container for all the login forms.
 //input:null
 //path:navigate to Login.js
@@ -21,7 +22,7 @@ const AuthMain = () => {
   //intially state of screens is set to login to display login page first
   const [login, setLogin] = useState(_LABELS[0].login);
 
-  //getTitle function retrieves the heading from authtitles constant from general-constant.js and return it 
+  //getTitle function retrieves the heading from authtitles constant from general-constant.js and return it
   const getTitle = () => {
     switch (login) {
       case _LABELS[0].login:
@@ -64,27 +65,27 @@ const AuthMain = () => {
     // if (value === "forgotPassword") setLogin("forgotPassword");
   };
 
-  //resetSuccess function redirects thank you page to login page after 3 seconds 
+  //resetSuccess function redirects thank you page to login page after 3 seconds
   const resetSuccess = () => {
     setTimeout(() => {
-    setLogin(_LABELS[0].login);
+      setLogin(_LABELS[0].login);
     }, 3000);
     return (
       <div className="form-style">
         <center>
-        <img src={Logo} className="thankyou" />
-        <br/>
-        <label className="head">Thank you!</label>
-        <label className="subhead">
-          Your registration has been successfully completed
-        </label>
+          <img src={Logo} className="thankyou" />
+          <br />
+          <label className="head">Thank you!</label>
+          <label className="subhead">
+            Your registration has been successfully completed
+          </label>
         </center>
       </div>
     );
   };
 
-  //renderComponent function navigate the content of the login screens according to 
-  //the label and return back on parent callback   
+  //renderComponent function navigate the content of the login screens according to
+  //the label and return back on parent callback
   const renderComponent = () => {
     return (
       <div>
@@ -106,24 +107,18 @@ const AuthMain = () => {
   return (
     //container for all login forms
     <Container fluid className="authmain-flex">
-        
-         {/*displays the title*/}
-        <Col md={{ span: 8, offset: 2 }}
-          className="title"
-        >
-          {login != "done" && (
-            <div className="logo text-center">{setTitle()}</div>
-          )}
-          {/* {setTitle()} */}
-        </Col>
-        
-         {/*displays the container for forms*/}
-        <Col md={{ span: 8, offset: 2 }}
-          className="formbox"
-        >
-          {renderComponent()}
-        </Col>
+      {/*displays the title*/}
+      <Col md={{ span: 8, offset: 2 }} className="title">
+        {login != "done" && (
+          <div className="logo text-center">{setTitle()}</div>
+        )}
+        {/* {setTitle()} */}
+      </Col>
 
+      {/*displays the container for forms*/}
+      <Col md={{ span: 8, offset: 2 }} className="formbox">
+        {renderComponent()}
+      </Col>
     </Container>
   );
 };
