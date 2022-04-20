@@ -23,21 +23,6 @@ const DashboardMain = () => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   useEffect(() => {
-    const fetchPostList = async () => {
-      const { data } = await axios(
-        "http://localhost:8097/recentActivity/superUser/fetch/Bhanu"
-        //"https://jsonplaceholder.typicode.com/users/"
-      );
-
-      setPosts({ blogs: data });
-
-      console.log(data);
-    };
-
-    fetchPostList();
-  }, [setPosts]);
-
-  useEffect(() => {
     getActivityList();
   }, []);
 
