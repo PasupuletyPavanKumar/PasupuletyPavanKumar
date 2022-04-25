@@ -10,6 +10,7 @@ import Licenses from "./Licenses";
 import Settings from "./Settings";
 import Help from "./Help";
 import { ReactComponent as LttsLogo } from "../../../assets/logo/LTTS_blue.svg";
+import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
 import SettingsPage from "./SettingsPage";
 
 const Home = (props) => {
@@ -28,11 +29,11 @@ const Home = (props) => {
       title: "Admin Management",
       active: "admin",
     },
-    {
-      src: "assets/icons/license_white.svg",
-      title: "Total Licenses",
-      active: "licenses",
-    },
+    // {
+    //   src: "assets/icons/license_white.svg",
+    //   title: "Total Licenses",
+    //   active: "licenses",
+    // },
     {
       src: "assets/icons/setting_white.svg",
       title: "Settings",
@@ -67,6 +68,15 @@ const Home = (props) => {
     // });
   };
 
+  const profileIconData = () => {
+    console.log("Profile Icon Data");
+    <div>
+      <div>Status|Online</div>
+      <div>Status|Online</div>
+      <div>Status|Online</div>
+    </div>;
+  };
+
   const selectOption = (data) => {
     switch (data.title) {
       case sideBarIcons[0].title:
@@ -78,13 +88,13 @@ const Home = (props) => {
       case sideBarIcons[2].title:
         navigate("/admin");
         break;
+      // case sideBarIcons[3].title:
+      //   navigate("/licenses");
+      //   break;
       case sideBarIcons[3].title:
-        navigate("/licenses");
-        break;
-      case sideBarIcons[4].title:
         navigate("/settings");
         break;
-      case sideBarIcons[5].title:
+      case sideBarIcons[4].title:
         navigate("/help");
         break;
 
@@ -141,9 +151,9 @@ const Home = (props) => {
       case "admin":
         return <AdminManagement />;
         break;
-      case "licenses":
-        return <Licenses />;
-        break;
+      // case "licenses":
+      //   return <Licenses />;
+      //   break;
       case "settings":
         return <SettingsPage />;
         break;
@@ -171,13 +181,20 @@ const Home = (props) => {
           <div className="home-header">
             {/* <img src={require("../../../assets/logo/LTTS_blue.svg")}></img> */}
             <LttsLogo />
-            <Button
+            <AiKnoLogo />
+            {/* <Button
               type="button"
               onClick={logOut()}
               className="button-right m-3"
             >
               Logout
-            </Button>
+            </Button> */}
+            <img
+              src={require("../../../assets/logo/profile.png")}
+              className="button-right m-3 rounded"
+              style={{ height: "35px", width: "35px" }}
+              onClick={profileIconData()}
+            />
           </div>
           {mainContent()}
         </div>

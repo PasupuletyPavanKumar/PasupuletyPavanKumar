@@ -3,9 +3,34 @@ import ApiUrl from "../../config/constants/api-url";
 import { DataService } from "../data-service/DataService";
 
 export class AuthenticatedService {
+  notificationDomain = "http://localhost:8098/";
   recentDomain = "http://localhost:8097/";
   addAdminDomain = "http://localhost:8095/";
   getAdminsDomain = "http://localhost:8092/";
+
+  getNotificationsCount = async (user = "Mithun") => {
+    const url = this.notificationDomain + ApiUrl.notificationsCount + user;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getNotifications = async (user = "Mithun") => {
+    // const url = this.notificationDomain + ApiUrl.notifications + user;
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/todos/"
+    );
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
 
   addAdmin = async (reqBody) => {
     const url = this.addAdminDomain + ApiUrl.addAdmin;

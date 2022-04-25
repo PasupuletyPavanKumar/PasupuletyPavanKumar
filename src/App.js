@@ -26,7 +26,7 @@ function App() {
       <Route path={"/dashboard"} element={<Home />} />
       <Route path="/notification" element={<Home />} />
       <Route path="/admin" element={<Home />} />
-      <Route path="/licenses" element={<Home />} />
+      {/* <Route path="/licenses" element={<Home />} /> */}
       <Route path="/settings" element={<Home />} />
       <Route path="/help" element={<Home />} />
 
