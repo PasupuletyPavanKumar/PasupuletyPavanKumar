@@ -51,7 +51,8 @@ export class AuthenticatedService {
   };
 
   recentActivity = async (user = "Mithun") => {
-    const url = this.recentDomain + ApiUrl.recentActivity + user;
+    //const url = this.recentDomain + ApiUrl.recentActivity + user;
+    const url = "https://jsonplaceholder.typicode.com/todos";
     const response = await axios.get(url);
 
     if (response) {
