@@ -33,14 +33,16 @@ const AdminManagement = () => {
     reqBody.append("email", addAdminFields.emailid);
     reqBody.append("location", addAdminFields.location);
     //reqBody.append("role", addAdminFields.role);
-    reqBody.append("isSuperUser", false);
-    reqBody.append("isAdmin", true);
-    reqBody.append("isSpecialist", false);
-    reqBody.append("isUser", false);
+    reqBody.append("isSuperUser", "false");
+    reqBody.append("isAdmin", "true");
+    reqBody.append("isSpecialist", "false");
+    reqBody.append("isUser", "false");
+    reqBody.append("byUser", "ashwin@ltts.com");
+    reqBody.append("byUserRole", "superUser");
 
     console.log(addAdminFields);
     console.log(sessionStorage.getItem("accessToken"));
-    console.log(sessionStorage.getItem("refreshToken"));
+    //console.log(sessionStorage.getItem("refreshToken"));
 
     for (var pair of reqBody.entries()) {
       console.log(pair[0] + ", " + pair[1]);
@@ -239,7 +241,7 @@ const AdminManagement = () => {
             </div>
           </div>
         </form>
-        <Button className="modal-button" onClick={createAdmin()}>
+        <Button className="modal-button" onClick={createAdmin}>
           Submit
         </Button>
       </Modal>

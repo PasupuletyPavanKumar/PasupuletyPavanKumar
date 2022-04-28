@@ -4,9 +4,13 @@ import React, { Fragment, useEffect, useMemo, useState } from "react";
 // import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
 // import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
 
-import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
-import LogoLicense from "..\\src\\assets\\icons\\License_graditi_bg.svg";
+// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+// import LogoLicense from "..\\src\\assets\\icons\\License_graditi_bg.svg";
+
+import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Notification-bg.svg";
+import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Admin_graditi_bg.svg";
+import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
 
 import axios from "axios";
 
@@ -20,12 +24,15 @@ const DashboardMain = () => {
 
   const [notificationCount, setNotificationCount] = useState([]);
 
+  const [adminsCount, setAdminsCount] = useState([]);
+
   const [activityData, setActivityData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getNotificationCount();
+    getAdminCount();
     getActivityList();
   }, []);
 
@@ -37,10 +44,15 @@ const DashboardMain = () => {
 
   const getNotificationCount = () => {
     authenticatedService.getNotificationsCount().then((res) => {
-      if (res) {
-        setNotificationCount(res);
-        console.log(res);
-      }
+      console.log(res);
+      setNotificationCount(res);
+    });
+  };
+
+  const getAdminCount = () => {
+    authenticatedService.getAdminsCount().then((res) => {
+      console.log(res);
+      setAdminsCount(res);
     });
   };
 
@@ -70,7 +82,7 @@ const DashboardMain = () => {
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="content colour">
-            <label> 105</label>
+            <label> {adminsCount}</label>
 
             <img src={LogoAdmin} class="img" />
 
@@ -81,7 +93,7 @@ const DashboardMain = () => {
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="content colour">
-            <label> 15</label>
+            <label> {23}</label>
 
             <img src={LogoLicense} class="img" />
 
@@ -113,11 +125,11 @@ const DashboardMain = () => {
             </thead>
 
             <tbody>
-              {currentTableData.map((item) => (
+              {activityData.map((item) => (
                 <tr key={item.userId}>
-                  <td>{item.title}</td>
+                  <td>{item.dateOfActivity}</td>
 
-                  <td>{item.completed}</td>
+                  <td>{item.byUser}</td>
 
                   <td>{item.action}</td>
 
