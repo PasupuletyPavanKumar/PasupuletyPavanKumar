@@ -8,6 +8,8 @@ const ApiUrl = {
   getAllAdmins: "userManagement/fetchUsers/",
   addAdmin: "userManagement/create",
   updateAdmin: "userManagement/update/",
+  deleteAdmin: "userManagement/delete/",
+  getProfileDetails: "userManagement/fetchByUserName/",
 };
 
 export default ApiUrl;

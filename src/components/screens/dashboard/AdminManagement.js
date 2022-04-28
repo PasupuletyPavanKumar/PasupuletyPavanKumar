@@ -11,6 +11,7 @@ const AdminManagement = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
+    setshowDeleteModal(false);
     setIsEdit(false);
     setAddAdminFields({
       firstname: "",
@@ -22,6 +23,10 @@ const AdminManagement = () => {
     });
     setShow(true);
   };
+
+  const [showDeleteModal, setshowDeleteModal] = useState(false);
+  const handleDeleteModalClose = () => setshowDeleteModal(false);
+  const handleDeleteModalShow = () => setshowDeleteModal(true);
 
   const inputValidators = () => {};
 
@@ -68,6 +73,11 @@ const AdminManagement = () => {
       });
     } else {
       console.log("Call Edit Api", reqBody);
+      authenticatedService.updateAdmin(reqBody).then((res) => {
+        if (res) {
+          <div>{handleClose()}</div>;
+        }
+      });
     }
   };
 
@@ -75,6 +85,19 @@ const AdminManagement = () => {
     authenticatedService.getAdmin().then((res) => {
       if (res) {
         setadminList(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const deleteAdmin = () => {
+    var reqBody = new FormData();
+    reqBody.append("byUser", "");
+    reqBody.append("byUserRole", "");
+
+    authenticatedService.deleteAdmin(reqBody).then((res) => {
+      if (res) {
+        handleClose();
       }
       console.log(res);
     });
@@ -92,6 +115,7 @@ const AdminManagement = () => {
 
   const updateAdmin = (item) => {
     setIsEdit(true);
+    setshowDeleteModal(false);
     setAddAdminFields({
       firstname: item.title,
       lastname: item.lastname,
@@ -102,6 +126,11 @@ const AdminManagement = () => {
     });
     setShow(true);
     console.log(item);
+  };
+
+  const deleteAdminModal = (item) => {
+    setShow(true);
+    setshowDeleteModal(true);
   };
 
   useEffect(() => {
@@ -123,70 +152,9 @@ const AdminManagement = () => {
     });
   };
 
-  return (
-    <div>
-      <div className="text-right m-3">
-        <Button type="button" onClick={handleShow} className="custom-button">
-          Add Admin
-        </Button>
-      </div>
-      <div class="container">
-        <div class="row row-flex">
-          <div className="welcome-tag"> Admin Management</div> <br /> <br />
-          <br />
-        </div>
-
-        <div>
-          <ReactBootStrap.Table className="tbl1">
-            <thead>
-              <tr className="title1">
-                <th>DATE</th>
-
-                <th>USERNAME</th>
-
-                <th>FIRSTNAME</th>
-
-                <th>EMAILID</th>
-
-                <th>MOBILE NUMBER</th>
-
-                <th>ROLE</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {adminList &&
-                adminList.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="cursor-pointer"
-                    onClick={() => updateAdmin(item)}
-                  >
-                    <td>{item.title}</td>
-
-                    <td>{item.id}</td>
-
-                    <td>{item.firstName}</td>
-
-                    <td>{item.email}</td>
-
-                    <td>{item.contactNumber}</td>
-
-                    {/* <td>{item.onUser}</td> */}
-
-                    <td>{isAdmin(item)}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </ReactBootStrap.Table>
-        </div>
-      </div>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size={"lg"}
-        className="bootstrap-modal"
-      >
+  const adminForm = () => {
+    return (
+      <div>
         <div className="modal-heading">
           {isEdit ? "Edit Admin Details" : "Create New Admin"}
         </div>
@@ -282,6 +250,112 @@ const AdminManagement = () => {
         <Button className="modal-button" onClick={createAdmin}>
           Submit
         </Button>
+      </div>
+    );
+  };
+
+  const deletModal = () => {
+    return (
+      <div className="m-3">
+        <div className="text-center">Are you sure</div>
+        <div className="text-center mt-3">
+          <button
+            type="button"
+            className="btn btn-danger mr-3"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={deleteAdmin}
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <div className="text-right m-3">
+        <Button type="button" onClick={handleShow} className="custom-button">
+          Add Admin
+        </Button>
+      </div>
+      <div className="container">
+        <div className="row row-flex">
+          <div className="welcome-tag"> Admin Management</div> <br /> <br />
+          <br />
+        </div>
+
+        <div>
+          <ReactBootStrap.Table className="tbl1">
+            <thead>
+              <tr className="title1">
+                <th>DATE</th>
+
+                <th>USERNAME</th>
+
+                <th>FIRSTNAME</th>
+
+                <th>EMAILID</th>
+
+                <th>MOBILE NUMBER</th>
+
+                <th style={{ minWidth: "160px" }}>ROLE</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {adminList &&
+                adminList.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.title}</td>
+
+                    <td>{item.id}</td>
+
+                    <td>{item.firstName}</td>
+
+                    <td>{item.email}</td>
+
+                    <td>{item.contactNumber}</td>
+
+                    {/* <td>{item.onUser}</td> */}
+
+                    <td className="d-flex justify-content-between">
+                      <div>{isAdmin(item)} </div>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => updateAdmin(item)}
+                      >
+                        EDIT
+                      </div>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => deleteAdminModal(item)}
+                      >
+                        DELETE
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </ReactBootStrap.Table>
+        </div>
+      </div>
+
+      {/* Edit/Add Admin Modal  */}
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size={"lg"}
+        className="bootstrap-modal"
+      >
+        {showDeleteModal ? deletModal() : adminForm()}
       </Modal>
     </div>
   );

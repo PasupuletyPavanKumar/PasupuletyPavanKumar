@@ -95,9 +95,23 @@ export class AuthenticatedService {
     }
   };
 
+  deleteAdmin = async (reqBody, user = "superUser") => {
+    const url = this.AdminDomain + ApiUrl.deleteAdmin + user;
+    const response = await axios.get(url, reqBody, {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
   recentActivity = async (user = "Mithun") => {
-    const url = this.recentDomain + ApiUrl.recentActivity + user;
-    //const url = "https://jsonplaceholder.typicode.com/todos";
+    //const url = this.recentDomain + ApiUrl.recentActivity + user;
+    const url = "https://jsonplaceholder.typicode.com/todos";
     const response = await axios.get(url);
 
     if (response) {
@@ -111,6 +125,19 @@ export class AuthenticatedService {
     const url = this.AdminDomain + ApiUrl.getAllAdmins + user;
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/todos"
+    );
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getProfileDetails = async (user = "superUser") => {
+    const url = this.AdminDomain + ApiUrl.getProfileDetails + user;
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/todos/1"
     );
 
     if (response) {
