@@ -1,16 +1,12 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg"
-// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
-// import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Icon-checkmark-circle.svg";
+import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import LogoLicense from "..\\src\\assets\\icons\\License_graditi_bg.svg";
 
-// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
-// import LogoLicense from "..\\src\\assets\\icons\\License_graditi_bg.svg";
-
-import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Notification-bg.svg";
-import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Admin_graditi_bg.svg";
-import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
+// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Notification-bg.svg";
+// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Admin_graditi_bg.svg";
+// import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
 
 import axios from "axios";
 

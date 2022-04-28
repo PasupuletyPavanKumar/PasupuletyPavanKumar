@@ -79,6 +79,22 @@ export class AuthenticatedService {
     }
   };
 
+  updateAdmin = async (reqBody, user = "Mithun") => {
+    const url = this.AdminDomain + ApiUrl.updateAdmin + user;
+    const response = await axios.put(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
   recentActivity = async (user = "Mithun") => {
     const url = this.recentDomain + ApiUrl.recentActivity + user;
     //const url = "https://jsonplaceholder.typicode.com/todos";
@@ -93,7 +109,9 @@ export class AuthenticatedService {
 
   getAdmin = async (user = "superUser") => {
     const url = this.AdminDomain + ApiUrl.getAllAdmins + user;
-    const response = await axios.get(url);
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/todos"
+    );
 
     if (response) {
       const resData = response.data;

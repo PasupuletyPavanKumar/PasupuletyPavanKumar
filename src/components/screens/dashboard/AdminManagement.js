@@ -7,9 +7,21 @@ import axios from "axios";
 const AdminManagement = () => {
   const authenticatedService = new AuthenticatedService();
   const [show, setShow] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setIsEdit(false);
+    setAddAdminFields({
+      firstname: "",
+      lastname: "",
+      username: "",
+      emailid: "",
+      location: "Bangalore",
+      role: "",
+    });
+    setShow(true);
+  };
 
   const inputValidators = () => {};
 
@@ -48,11 +60,15 @@ const AdminManagement = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    authenticatedService.addAdmin(reqBody).then((res) => {
-      if (res) {
-        <div>{handleClose()}</div>;
-      }
-    });
+    if (!isEdit) {
+      authenticatedService.addAdmin(reqBody).then((res) => {
+        if (res) {
+          <div>{handleClose()}</div>;
+        }
+      });
+    } else {
+      console.log("Call Edit Api", reqBody);
+    }
   };
 
   const getAdminsList = () => {
@@ -62,6 +78,30 @@ const AdminManagement = () => {
       }
       console.log(res);
     });
+  };
+
+  const isAdmin = (item) => {
+    return item.isAdmin
+      ? "Admin"
+      : item.isSpecialist
+      ? "Specialist"
+      : item.isUser
+      ? "User"
+      : "Role";
+  };
+
+  const updateAdmin = (item) => {
+    setIsEdit(true);
+    setAddAdminFields({
+      firstname: item.title,
+      lastname: item.lastname,
+      username: item.username,
+      emailid: item.email,
+      location: item.location,
+      role: isAdmin(item),
+    });
+    setShow(true);
+    console.log(item);
   };
 
   useEffect(() => {
@@ -117,10 +157,14 @@ const AdminManagement = () => {
             <tbody>
               {adminList &&
                 adminList.map((item) => (
-                  <tr key={item.id}>
+                  <tr
+                    key={item.id}
+                    className="cursor-pointer"
+                    onClick={() => updateAdmin(item)}
+                  >
                     <td>{item.title}</td>
 
-                    <td>{item.userName}</td>
+                    <td>{item.id}</td>
 
                     <td>{item.firstName}</td>
 
@@ -130,15 +174,7 @@ const AdminManagement = () => {
 
                     {/* <td>{item.onUser}</td> */}
 
-                    <td>
-                      {item.isAdmin
-                        ? "Admin"
-                        : item.isSpecialist
-                        ? "Specialist"
-                        : item.isUser
-                        ? "User"
-                        : "Role"}
-                    </td>
+                    <td>{isAdmin(item)}</td>
                   </tr>
                 ))}
             </tbody>
@@ -151,7 +187,9 @@ const AdminManagement = () => {
         size={"lg"}
         className="bootstrap-modal"
       >
-        <div className="modal-heading">Create New Admin</div>
+        <div className="modal-heading">
+          {isEdit ? "Edit Admin Details" : "Create New Admin"}
+        </div>
         <form className="p-5">
           <div className="row">
             <div className="form-group col-sm-6 m-auto p-3">
