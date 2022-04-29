@@ -7,6 +7,7 @@ import { AuthenticatedService } from "../../../services/api-service/Authenticate
 const Settings = () => {
   const [profileData, setProfileData] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [submitButtonShow, setSubmitButtonShow] = useState(false);
   const authenticatedService = new AuthenticatedService();
 
   const [profileDataFields, setProfileDataFields] = useState({
@@ -20,6 +21,7 @@ const Settings = () => {
   });
 
   const updateProfileDate = () => {
+    setSubmitButtonShow(true);
     setDisabled(false);
   };
 
@@ -171,10 +173,13 @@ const Settings = () => {
               onChange={(e) => handleInputFields(e, 6)}
             ></input>
           </div>
-
-          <div>
-            <Button onClick={updateDetails}>Submit</Button>
-          </div>
+          {submitButtonShow ? (
+            <div>
+              <Button onClick={updateDetails}>Submit</Button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

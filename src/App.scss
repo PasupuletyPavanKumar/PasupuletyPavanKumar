@@ -572,7 +572,6 @@ input {
 
 //Settings style ends
 
-
 ////Super user dashboard and recent activity css
 
 row-flex {
@@ -581,12 +580,12 @@ row-flex {
 }
 
 .sub-head {
-text-align: left;
-font: normal normal bold 15px/20px Open Sans;
-letter-spacing: 0px;
-color: #003763;
-opacity: 1;
-padding-top: 10px;
+  text-align: left;
+  font: normal normal bold 15px/20px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+  padding-top: 10px;
 }
 
 .img {
@@ -596,66 +595,64 @@ padding-top: 10px;
 .lblLeft {
   padding-top: 5px;
   font: normal normal bold 20px/30px Open Sans;
-  color:#004072;
+  color: #004072;
 }
 
 .content {
   height: 100%;
   padding: 20px 20px 10px;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 6px 6px 10px #00376340;
   opacity: 0.5;
   border-radius: 25px;
 }
-.content:hover{
-  background-color:#00ADEE;
+.content:hover {
+  background-color: #00adee;
 }
 
-.divbody{
+.divbody {
   //background: #94c8f240;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 6px 6px 10px #00376340;
   border-radius: 18px;
   opacity: 0.5;
-  height:300px;
-  width:1130px;
-  margin-left:65px;
+  height: 300px;
+  width: 1130px;
+  margin-left: 65px;
 }
-.paginav{
-  margin-top:85px;
+.paginav {
+  margin-top: 85px;
 }
-.tblheight{
-  height:100px;
+.tblheight {
+  height: 100px;
 }
-.tblhead{
-color:#004072;
-text-align: left;
-font: normal normal 600 12px/17px Open Sans;
-background-color:whitesmoke;
+.tblhead {
+  color: #004072;
+  text-align: left;
+  font: normal normal 600 12px/17px Open Sans;
+  background-color: whitesmoke;
+}
 
-}
-
-.divleft{
+.divleft {
   display: flex;
   flex-direction: column;
-  width:270px;
-  height:90px;
-  }
-  .divright{
-   float:right;
-   width:270px;
-   height:90px;
-   margin-top:-81px;
-  }
+  width: 270px;
+  height: 90px;
+}
+.divright {
+  float: right;
+  width: 270px;
+  height: 90px;
+  margin-top: -81px;
+}
 
-  .ptag{
-    margin-bottom: 0.5rem;
-    margin-top: -10px;
-    text-align: left;
-    //font: normal normal normal 16px/25px Open Sans;
-    font-size:15px;
-
-  }
-  .div-head{
-    margin-left:70px;
-  }
+.ptag {
+  margin-bottom: 0.5rem;
+  margin-top: -10px;
+  text-align: left;
+  //font: normal normal normal 16px/25px Open Sans;
+  font-size: 15px;
+}
+.div-head {
+  margin-left: 70px;
+}

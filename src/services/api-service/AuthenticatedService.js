@@ -95,11 +95,16 @@ export class AuthenticatedService {
     }
   };
 
-  deleteAdmin = async (reqBody, user = "superUser") => {
+  // for delete api call pass headers and then reqBody or else it wont work
+  deleteAdmin = async (reqBody, user = "nfrgasrfgfddra") => {
+    console.log(sessionStorage.getItem("accessToken"));
     const url = this.AdminDomain + ApiUrl.deleteAdmin + user;
-    const response = await axios.get(url, reqBody, {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+    const response = await axios.delete(url, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+      data: reqBody,
     });
 
     if (response) {
