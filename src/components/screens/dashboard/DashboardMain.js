@@ -63,10 +63,11 @@ const DashboardMain = () => {
 
   return (
     <div>
-          <div class="container">
+          <div class="div-head">
+           
               <div className="sub-head"> Welcome to Dashboard</div> <br />
                    <div class="row row-flex">
-                        <div class="col-md-6 col-sm-6 col-xs-12" >
+                        <div class="col-md-5 col-sm-6 col-xs-12" >
                           <div class="content">
                             <div className="divleft">
                               <label  className="lblLeft">{notificationCount}25</label> 
@@ -77,7 +78,7 @@ const DashboardMain = () => {
                              </div>
                           </div>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-5 col-sm-6 col-xs-12">
                            <div class="content">
                             <div className="divleft">
                               <label className="lblLeft">{adminsCount}105</label> 
@@ -92,6 +93,7 @@ const DashboardMain = () => {
                     </div>
                     <br /> 
                     <div className="sub-head"> Recent Activity</div> <br/>
+               
             </div>
             
 
@@ -147,10 +149,7 @@ const DashboardMain = () => {
                             
                           </tbody>
                      </ReactBootStrap.Table>
-                  </div>
-
-
-                    <div className="paginav">
+                     <div className="paginav">
                         <ul class="pagination justify-content-end ">
                           <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                           <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -159,6 +158,8 @@ const DashboardMain = () => {
                           <li class="page-item"><a class="page-link" href="#">Next</a></li>
                         </ul>
                     </div>
+                  </div>
+
 
             </div>
    
