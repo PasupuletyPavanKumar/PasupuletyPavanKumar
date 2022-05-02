@@ -2,13 +2,12 @@ import React, { Fragment, useEffect, useMemo, useState } from "react";
 
 import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
 import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
-import LogoLicense from "..\\src\\assets\\icons\\License_graditi_bg.svg";
+
 
 // import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Notification-bg.svg";
 // import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Admin_graditi_bg.svg";
 // import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
 
-import axios from "axios";
 
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
@@ -74,23 +73,23 @@ const DashboardMain = () => {
     const slice = data.slice(offset, offset + perPage);
     let postData;
     <div>
-      <div>
-        {/* <ReactBootStrap.Table> */}
+      <div class="d-flex align-items-start">
+         <ReactBootStrap.Table> 
         {
           (postData = slice.map((item) => (
             <tbody>
               <tr key={item.id}>
-                <td>{item.title}</td>
-                <td>{item.title}</td>
-                <td>{item.title}</td>
-                <td>{item.title}</td>
-                <td>{item.title}</td>
-                <td>{item.title}</td>
+                <td>{item.userId}</td>
+                <td>{item.id}</td>
+                <td>{item.id}</td>
+                <td>{item.id}</td>
+                <td>{item.id}</td>
+                <td>{item.id}</td>
               </tr>
             </tbody>
           )))
         }
-        ;{/* </ReactBootStrap.Table> */}
+      </ReactBootStrap.Table> 
       </div>
     </div>;
 
@@ -105,7 +104,7 @@ const DashboardMain = () => {
 
   return (
     <div>
-      <div class="div-head">
+      <div class="d-flex flex-column div-head">
         <div className="sub-head"> Welcome to Dashboard</div> <br />
         <div class="row row-flex">
           <div class="col-md-5 col-sm-6 col-xs-12">
@@ -170,6 +169,16 @@ const DashboardMain = () => {
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+            containerClassName={'pagination'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            activeClassName={'active'}
           />
         </div>
       </div>
