@@ -13,6 +13,7 @@ import axios from "axios";
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import Pagination from "./Pagination";
+import ReactPaginate from "react-paginate";
 
 const DashboardMain = () => {
   let PageSize = 5;
@@ -26,13 +27,19 @@ const DashboardMain = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  //pagination and get data
+  const [offset, setOffset] = useState(0);
+  const [data, setData] = useState([]);
+  const [perPage] = useState(3);
+  const [pageCount, setPageCount] = useState(0);
+
   useEffect(() => {
     getNotificationCount();
     getAdminCount();
     getActivityList();
-  }, []);
+  }, [offset]);
 
-    const currentTableData = useMemo(() => {
+  const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return activityData.slice(firstPageIndex, lastPageIndex);
@@ -55,168 +62,171 @@ const DashboardMain = () => {
   const getActivityList = () => {
     authenticatedService.recentActivity().then((res) => {
       if (res) {
-        setActivityData(res);
+        //setActivityData(res);
+        paginationCode(res);
       }
       console.log(res);
     });
   };
 
+  const paginationCode = (res) => {
+    const data = res;
+    const slice = data.slice(offset, offset + perPage);
+    let postData;
+    <div>
+      <div>
+        {/* <ReactBootStrap.Table> */}
+        {
+          (postData = slice.map((item) => (
+            <tbody>
+              <tr key={item.id}>
+                <td>{item.title}</td>
+                <td>{item.title}</td>
+                <td>{item.title}</td>
+                <td>{item.title}</td>
+                <td>{item.title}</td>
+                <td>{item.title}</td>
+              </tr>
+            </tbody>
+          )))
+        }
+        ;{/* </ReactBootStrap.Table> */}
+      </div>
+    </div>;
+
+    setData(postData);
+    setPageCount(Math.ceil(data.length / perPage));
+  };
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1);
+  };
+
   return (
     <div>
-          <div class="div-head">
-           
-              <div className="sub-head"> Welcome to Dashboard</div> <br />
-                   <div class="row row-flex">
-                        <div class="col-md-5 col-sm-6 col-xs-12" >
-                          <div class="content">
-                            <div className="divleft">
-                              <label  className="lblLeft">{notificationCount}25</label> 
-                              <p className="ptag"> Notification</p>
-                            </div>
-                            <div className="divright">
-                              <img src={LogoNotification} class="img" />
-                             </div>
-                          </div>
-                        </div>
-                        <div class="col-md-5 col-sm-6 col-xs-12">
-                           <div class="content">
-                            <div className="divleft">
-                              <label className="lblLeft">{adminsCount}105</label> 
-                              <p className="ptag"> Admin Management</p>
-                            </div>
-                            <div className="divright">
-                               <img src={LogoAdmin} class="img" />
-                            </div>
-                            </div> 
-                      </div>
-
-                    </div>
-                    <br /> 
-                    <div className="sub-head"> Recent Activity</div> <br/>
-               
+      <div class="div-head">
+        <div className="sub-head"> Welcome to Dashboard</div> <br />
+        <div class="row row-flex">
+          <div class="col-md-5 col-sm-6 col-xs-12">
+            <div class="content">
+              <div className="divleft">
+                <label className="lblLeft">{notificationCount}25</label>
+                <p className="ptag"> Notification</p>
+              </div>
+              <div className="divright">
+                <img src={LogoNotification} class="img" />
+              </div>
             </div>
-            
-
-            <div className="divbody"><br/>
-                  
-                  <div className="tblheight">
-                      <ReactBootStrap.Table>
-                      
-                          <thead className="tblhead">
-                            <tr>
-                              <th>DATE</th>
-
-                              <th>USERNAME</th>
-
-                              <th>ACTION</th>
-
-                              <th>EMAILID</th>
-
-                              <th>OPERATION</th>
-
-                              <th>ON USER</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-
-                                <tr>
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-                                </tr>
-                                <tr>
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-
-                                  <td>Data</td>
-                                </tr>
-                            
-                          </tbody>
-                     </ReactBootStrap.Table>
-                     <div className="paginav">
-                        <ul class="pagination justify-content-end ">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </div>
-                  </div>
-
-
+          </div>
+          <div class="col-md-5 col-sm-6 col-xs-12">
+            <div class="content">
+              <div className="divleft">
+                <label className="lblLeft">{adminsCount}105</label>
+                <p className="ptag"> Admin Management</p>
+              </div>
+              <div className="divright">
+                <img src={LogoAdmin} class="img" />
+              </div>
             </div>
-   
+          </div>
+        </div>
+        <br />
+        <div className="sub-head"> Recent Activity</div> <br />
+      </div>
+
+      <div className="divbody">
+        <br />
+
+        <div className="tblheight">
+          <ReactBootStrap.Table>
+            <thead className="tblhead">
+              <tr>
+                <th>DATE</th>
+
+                <th>USERNAME</th>
+
+                <th>ACTION</th>
+
+                <th>EMAILID</th>
+
+                <th>OPERATION</th>
+
+                <th>ON USER</th>
+              </tr>
+            </thead>
+            {data}
+          </ReactBootStrap.Table>
+          <ReactPaginate
+            className="pagination justify-content-end"
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
+      </div>
     </div>
   );
 
-      // return (
+  // return (
 
-      //   <div class="container">
-      //     <div>
-      //       <div>
-      //         <ReactBootStrap.Table className="tbl1">
-      //           <thead>
-      //             <tr className="title1">
-      //               <th>DATE</th>
+  //   <div class="container">
+  //     <div>
+  //       <div>
+  //         <ReactBootStrap.Table className="tbl1">
+  //           <thead>
+  //             <tr className="title1">
+  //               <th>DATE</th>
 
-      //               <th>USERNAME</th>
+  //               <th>USERNAME</th>
 
-      //               <th>ACTION</th>
+  //               <th>ACTION</th>
 
-      //               <th>EMAILID</th>
+  //               <th>EMAILID</th>
 
-      //               <th>OPERATION</th>
+  //               <th>OPERATION</th>
 
-      //               <th>ON USER</th>
-      //             </tr>
-      //           </thead>
-      //           <tbody>
-      //             {activityData.map((item) => (
-      //               <tr key={item.userId}>
-      //                 <td>{item.dateOfActivity}</td>
+  //               <th>ON USER</th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>
+  //             {activityData.map((item) => (
+  //               <tr key={item.userId}>
+  //                 <td>{item.dateOfActivity}</td>
 
-      //                 <td>{item.byUser}</td>
+  //                 <td>{item.byUser}</td>
 
-      //                 <td>{item.action}</td>
+  //                 <td>{item.action}</td>
 
-      //                 <td>{item.email}</td>
+  //                 <td>{item.email}</td>
 
-      //                 <td>{item.operation}</td>
+  //                 <td>{item.operation}</td>
 
-      //                 <td>{item.onUser}</td>
-      //               </tr>
-      //             ))}
-      //           </tbody>
+  //                 <td>{item.onUser}</td>
+  //               </tr>
+  //             ))}
+  //           </tbody>
 
-      //         </ReactBootStrap.Table>
-      //         <Pagination
-      //           className="pagination-bar"
-      //           currentPage={currentPage}
-      //           totalCount={activityData.length}
-      //           pageSize={PageSize}
-      //           onPageChange={(page) => setCurrentPage(page)}
-      //         />
-      //       </div>
-      //     </div>
-      //   </div>
-      // );
+  //         </ReactBootStrap.Table>
+  //         <Pagination
+  //           className="pagination-bar"
+  //           currentPage={currentPage}
+  //           totalCount={activityData.length}
+  //           pageSize={PageSize}
+  //           onPageChange={(page) => setCurrentPage(page)}
+  //         />
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default DashboardMain;
