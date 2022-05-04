@@ -10,6 +10,7 @@ const ApiUrl = {
   updateAdmin: "userManagement/update/",
   deleteAdmin: "userManagement/delete/",
   getProfileDetails: "userManagement/fetchByUserName/",
+  exportFile: "generateCsvReport/",
 };
 
 export default ApiUrl;

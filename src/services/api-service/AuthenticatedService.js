@@ -7,6 +7,7 @@ export class AuthenticatedService {
   recentDomain = "http://localhost:8097/";
   //addAdminDomain = "http://localhost:8095/";
   AdminDomain = "http://localhost:8092/";
+  exportFileDomain = "http://localhost:8053/";
 
   getNotificationsCount = async (user = "yogesh") => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
@@ -144,6 +145,17 @@ export class AuthenticatedService {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/todos/1"
     );
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  exportFile = async (userRole = "", userName = "") => {
+    const url = this.exportFileDomain + ApiUrl.exportFile + userRole + userName;
+    const response = await axios.get(url);
 
     if (response) {
       const resData = response.data;

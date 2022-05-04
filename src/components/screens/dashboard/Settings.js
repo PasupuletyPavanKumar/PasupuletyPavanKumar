@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ImageAvatars from "./ImageAvatars";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-
 
 const Settings = () => {
   const [profileData, setProfileData] = useState([]);
@@ -36,10 +34,10 @@ const Settings = () => {
           role: res.isAdmin
             ? "Admin"
             : res.isSpecialist
-              ? "Specialist"
-              : res.isUser
-                ? "User"
-                : "Role",
+            ? "Specialist"
+            : res.isUser
+            ? "User"
+            : "Role",
           phone: res.phone,
         });
       }
@@ -106,12 +104,15 @@ const Settings = () => {
             onClick={updateProfileDate}
           >
             {<EditIcon />}
-
           </div>
         </div>
         <div class="form-group">
           <label for="usr">First Name</label>
-          <input type="text" class="form-control commonforall text-primary" id="usr" name="firstname"
+          <input
+            type="text"
+            class="form-control commonforall text-primary"
+            id="usr"
+            name="firstname"
             disabled={disabled}
             value={profileDataFields.firstname}
             onChange={(e) => handleInputFields(e, 1)}
@@ -119,7 +120,11 @@ const Settings = () => {
         </div>
         <div class="form-group">
           <label for="pwd">Last Name</label>
-          <input type="text" class="form-control commonforall" id="usr" name="lastname"
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="lastname"
             disabled={disabled}
             value={profileDataFields.lastname}
             onChange={(e) => handleInputFields(e, 2)}
@@ -127,33 +132,52 @@ const Settings = () => {
         </div>
         <div class="form-group">
           <label for="usr">User Name</label>
-          <input type="text" class="form-control commonforall" id="usr" name="username"
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="username"
             disabled={disabled}
             value={profileDataFields.username}
             onChange={(e) => handleInputFields(e, 3)}
-
           />
-        </div><div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="pwd">Email ID</label>
-          <input type="text" class="form-control commonforall" id="usr" name="emailid"
-
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="emailid"
             disabled={disabled}
             value={profileDataFields.emailid}
             onChange={(e) => handleInputFields(e, 4)}
           />
-        </div><div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="usr">Location</label>
-          <input type="text" class="form-control commonforall" id="usr" name="location"
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="location"
             disabled={disabled}
             value={profileDataFields.location}
             onChange={(e) => handleInputFields(e, 5)}
           />
-        </div><div class="form-group"><label for="pwd">Mobile Number</label>
-          <input type="text" class="form-control commonforall" id="usr" name="mobilenumber"
+        </div>
+        <div class="form-group">
+          <label for="pwd">Mobile Number</label>
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="mobilenumber"
             disabled={disabled}
             value={profileDataFields.phone}
             onChange={(e) => handleInputFields(e, 6)}
-          /></div>
+          />
+        </div>
       </div>
     </div>
   );

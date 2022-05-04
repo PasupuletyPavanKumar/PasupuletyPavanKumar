@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
+import * as XLSX from "xlsx/xlsx.mjs";
 
 const AdminManagement = () => {
   const authenticatedService = new AuthenticatedService();
@@ -101,6 +102,25 @@ const AdminManagement = () => {
       }
       console.log(res);
     });
+  };
+
+  const exportFile = () => {
+    alert("Export");
+    authenticatedService.exportFile().then((res) => {
+      if (res) {
+        downloadToExcel(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const downloadToExcel = (data) => {
+    let ws = XLSX.utils.json_to_sheet(data);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "sheet");
+    let buf = XLSX.write(wb, { bookType: "xlsx", type: "buffer" }); // generate a nodejs buffer
+    let str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
+    XLSX.writeFile(wb, `myfilename.xlsx`);
   };
 
   const isAdmin = (item) => {
@@ -298,10 +318,14 @@ const AdminManagement = () => {
           </div>
           <div className="Drop">
             <select className="filter">filter</select>
-            <select  className="export">export</select>
+            <div className="text-right m-3">
+              <Button type="button" onClick={exportFile}>
+                Export
+              </Button>
+            </div>
+            {/* <select className="export">export</select> */}
           </div>
         </div>
-        
 
         <div>
           <ReactBootStrap.Table className="tbl1">
