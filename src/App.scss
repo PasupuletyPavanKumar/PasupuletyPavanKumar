@@ -584,3 +584,47 @@ row-flex {
 .div-head {
   margin-left: 70px;
 }
+
+
+// admin managrment
+.main {
+  width: 100%;
+  margin: 1px auto;
+  margin-left: 1px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.Drop {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+select {
+  width: 130px;
+}
+
+.filter {
+  border: 2px solid #FFFFFF;
+  border-radius: 50px;
+  opacity: 1;
+  background-color: white;
+}
+
+.export {
+  border: 2px solid #FFFFFF;
+  border-radius: 50px;
+  opacity: 1;
+  background-color: white;
+}
+
+
+// ends

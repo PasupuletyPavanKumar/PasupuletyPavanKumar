@@ -291,6 +291,18 @@ const AdminManagement = () => {
           <br />
         </div>
 
+        <div class="main">
+          <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <div className="Drop">
+            <select className="filter">filter</select>
+            <select  className="export">export</select>
+          </div>
+        </div>
+        
+
         <div>
           <ReactBootStrap.Table className="tbl1">
             <thead>
