@@ -5,9 +5,11 @@ const userDetails = {
 };
 
 export const DataService = {
-  setToken(accessToken, refreshToken) {
+  setToken(accessToken, refreshToken, username, role) {
     sessionStorage.setItem("accessToken", accessToken);
     sessionStorage.setItem("refreshToken", refreshToken);
+    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("role", role);
     console.log(sessionStorage);
     // userDetails.accessToken = accessToken;
     // userDetails.refreshToken = refreshToken;

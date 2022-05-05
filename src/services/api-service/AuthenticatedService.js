@@ -153,14 +153,15 @@ export class AuthenticatedService {
     }
   };
 
-  exportFile = async (userRole = "", userName = "") => {
-    const url = this.exportFileDomain + ApiUrl.exportFile + userRole + userName;
+  exportFile = async (userRole = "superUser", userName = "shashi") => {
+    const url =
+      this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
     const response = await axios.get(url);
 
     if (response) {
       const resData = response.data;
       console.log(resData);
-      return resData;
+      return response;
     }
   };
 }

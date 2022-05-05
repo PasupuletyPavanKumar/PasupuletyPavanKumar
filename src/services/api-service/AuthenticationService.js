@@ -2,6 +2,7 @@ import axios from "axios";
 import ApiUrl from "../../config/constants/api-url";
 // import { customAxios } from "../interceptor/interceptor";
 import { DataService } from "../data-service/DataService";
+import jwtDecode from "jwt-decode";
 
 export class AuthenticationService {
   // constructor() {}
@@ -16,7 +17,17 @@ export class AuthenticationService {
     if (response) {
       const resData = response.data;
       console.log(resData);
-      DataService.setToken(resData.access_token, resData.refresh_token);
+      const decode = jwtDecode(resData.access_token);
+      DataService.setToken(
+        resData.access_token,
+        resData.refresh_token,
+        decode.preferred_username,
+        decode.resource_access.aiknossd.roles
+      );
+      console.log(decode);
+      console.log(decode.preferred_username);
+      const role = decode.resource_access.aiknossd.roles;
+      console.log(role);
       return true;
     }
   };

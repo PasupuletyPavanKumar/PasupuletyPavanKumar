@@ -46,7 +46,7 @@ const Home = (props) => {
   const logOut = () => {
     console.log(DataService.getUserDetails().refreshToken);
     var urlencoded = new URLSearchParams();
-    urlencoded.append("client_id", "aikno-ssd");
+    urlencoded.append("client_id", "aiknossd");
     urlencoded.append("client_secret", "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4");
     urlencoded.append(
       // "refresh_token",
@@ -143,7 +143,7 @@ const Home = (props) => {
     console.log("page", page);
     switch (page) {
       case "dashboard":
-        return <DashboardMain />;
+        return <DashboardMain role={sessionStorage.getItem("role")} />;
         break;
       case "notification":
         return <Notification />;

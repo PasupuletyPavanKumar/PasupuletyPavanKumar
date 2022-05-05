@@ -55,8 +55,8 @@ const AdminManagement = () => {
     reqBody.append("isAdmin", "true");
     reqBody.append("isSpecialist", "false");
     reqBody.append("isUser", "false");
-    reqBody.append("byUser", "ashwin@ltts.com");
-    reqBody.append("byUserRole", "superUser");
+    reqBody.append("byUser", sessionStorage.getItem("username"));
+    reqBody.append("byUserRole", "role");
 
     console.log(addAdminFields);
     console.log(sessionStorage.getItem("accessToken"));
@@ -105,12 +105,11 @@ const AdminManagement = () => {
   };
 
   const exportFile = () => {
-    alert("Export");
     authenticatedService.exportFile().then((res) => {
       if (res) {
         downloadToExcel(res);
       }
-      console.log(res);
+      console.log(res.headers);
     });
   };
 

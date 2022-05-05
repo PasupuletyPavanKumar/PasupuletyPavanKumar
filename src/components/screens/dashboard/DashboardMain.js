@@ -1,21 +1,27 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
-
-// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Notification-bg.svg";
-// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/Admin_graditi_bg.svg";
+import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
+import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 // import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
-
 
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import Pagination from "./Pagination";
 import ReactPaginate from "react-paginate";
 
-const DashboardMain = () => {
+const DashboardMain = (props) => {
   let PageSize = 5;
+  let red = "col-md-6";
+  const config = {
+    role: props.role,
+    column: props.role === "super-user" ? 2 : 4,
+  };
+
+  console.log(props);
+
   const authenticatedService = new AuthenticatedService();
 
   const [notificationCount, setNotificationCount] = useState([]);
@@ -74,22 +80,22 @@ const DashboardMain = () => {
     let postData;
     <div>
       <div class="d-flex align-items-start">
-         <ReactBootStrap.Table> 
-        {
-          (postData = slice.map((item) => (
-            <tbody>
-              <tr key={item.id}>
-                <td>{item.userId}</td>
-                <td>{item.id}</td>
-                <td>{item.id}</td>
-                <td>{item.id}</td>
-                <td>{item.id}</td>
-                <td>{item.id}</td>
-              </tr>
-            </tbody>
-          )))
-        }
-      </ReactBootStrap.Table> 
+        <ReactBootStrap.Table>
+          {
+            (postData = slice.map((item) => (
+              <tbody>
+                <tr key={item.id}>
+                  <td>{item.userId}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                </tr>
+              </tbody>
+            )))
+          }
+        </ReactBootStrap.Table>
       </div>
     </div>;
 
@@ -104,10 +110,10 @@ const DashboardMain = () => {
 
   return (
     <div>
-      <div class="d-flex flex-column div-head">
+      <div class="div-head">
         <div className="sub-head"> Welcome to Dashboard</div> <br />
         <div class="row row-flex">
-          <div class="col-md-5 col-sm-6 col-xs-12">
+          <div class={red}>
             <div class="content">
               <div className="divleft">
                 <label className="lblLeft">{notificationCount}25</label>
@@ -118,8 +124,8 @@ const DashboardMain = () => {
               </div>
             </div>
           </div>
-          
-          <div class="col-md-5 col-sm-6 col-xs-12">
+
+          <div class={red}>
             <div class="content">
               <div className="divleft">
                 <label className="lblLeft">{adminsCount}105</label>
@@ -170,16 +176,16 @@ const DashboardMain = () => {
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
-            breakClassName={'page-item'}
-            breakLinkClassName={'page-link'}
-            containerClassName={'pagination'}
-            pageClassName={'page-item'}
-            pageLinkClassName={'page-link'}
-            previousClassName={'page-item'}
-            previousLinkClassName={'page-link'}
-            nextClassName={'page-item'}
-            nextLinkClassName={'page-link'}
-            activeClassName={'active'}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            containerClassName={"pagination"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            activeClassName={"active"}
           />
         </div>
       </div>

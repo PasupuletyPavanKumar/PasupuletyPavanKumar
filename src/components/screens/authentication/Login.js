@@ -41,7 +41,7 @@ const Login = (props) => {
     if (inputValidators()) {
       var urlencoded = new URLSearchParams();
       urlencoded.append("grant_type", "password");
-      urlencoded.append("client_id", "aikno-ssd");
+      urlencoded.append("client_id", "aiknossd");
       urlencoded.append("client_secret", "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4");
       urlencoded.append("username", loginFields.username);
       urlencoded.append("password", loginFields.password);
