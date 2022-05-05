@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" viewBox="0 0 112 112">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#003763"/>
+      <stop offset="0.656" stop-color="#0077bd"/>
+      <stop offset="1" stop-color="#00adee"/>
+    </linearGradient>
+    <filter id="Path_31349" x="0" y="0" width="112" height="112" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#003763" flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_12_1" data-name="Component 12 – 1" transform="translate(12 9)">
+    <g transform="matrix(1, 0, 0, 1, -12, -9)" filter="url(#Path_31349)">
+      <path id="Path_31349-2" data-name="Path 31349" d="M41,0A41,41,0,1,1,0,41,41,41,0,0,1,41,0Z" transform="translate(12 9)" fill="url(#linear-gradient)"/>
+    </g>
+    <path id="Union_13" data-name="Union 13" d="M28.438,35a2.067,2.067,0,0,1-2.189-2.187V13.125a2.067,2.067,0,0,1,2.189-2.187h4.374A2.067,2.067,0,0,1,35,13.125V32.813A2.067,2.067,0,0,1,32.813,35ZM15.313,35a2.066,2.066,0,0,1-2.187-2.187V2.187A2.067,2.067,0,0,1,15.313,0h4.374a2.067,2.067,0,0,1,2.187,2.187V32.813A2.066,2.066,0,0,1,19.687,35ZM2.187,35A2.067,2.067,0,0,1,0,32.813V24.064a2.068,2.068,0,0,1,2.187-2.189H6.562a2.069,2.069,0,0,1,2.189,2.189v8.749A2.067,2.067,0,0,1,6.562,35Z" transform="translate(23.631 24)" fill="none" stroke="#fff" stroke-width="3"/>
+  </g>
+</svg>
