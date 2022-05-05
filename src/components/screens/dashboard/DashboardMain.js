@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
-import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
-import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
+// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
+// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 // import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
 
 import * as ReactBootStrap from "react-bootstrap";
@@ -14,15 +14,19 @@ import ReactPaginate from "react-paginate";
 
 const DashboardMain = (props) => {
   let PageSize = 5;
-  let red = "col-md-6";
+  const images = [];
   const config = {
     role: props.role,
     column: props.role === "super-user" ? 2 : 4,
+    colClass: props.role === "super-user" ? "col-md-6" : "col-md-3",
+    image: props.images,
   };
 
   console.log(props);
 
   const authenticatedService = new AuthenticatedService();
+
+  const [countData, setCountData] = useState([]);
 
   const [notificationCount, setNotificationCount] = useState([]);
 
@@ -44,23 +48,32 @@ const DashboardMain = (props) => {
     getActivityList();
   }, [offset]);
 
-  const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return activityData.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  const reuseCountCode = (res, name) => {
+    const obj = {
+      count: res,
+      name: name,
+    };
+    if (countData.length > 0) {
+      if (name === "Notification") setCountData([obj, ...countData]);
+      else if (name === "Admin") setCountData([...countData, obj]);
+    } else {
+      setCountData([obj]);
+    }
+  };
 
   const getNotificationCount = () => {
     authenticatedService.getNotificationsCount().then((res) => {
       console.log(res);
-      setNotificationCount(res);
+      // setNotificationCount(res);\
+      reuseCountCode(res, "Notification");
     });
   };
 
   const getAdminCount = () => {
     authenticatedService.getAdminsCount().then((res) => {
       console.log(res);
-      setAdminsCount(res);
+      reuseCountCode(res, "Admin");
+      // setAdminsCount(res);
     });
   };
 
@@ -108,24 +121,43 @@ const DashboardMain = (props) => {
     setOffset(selectedPage + 1);
   };
 
+  const loopData = () => {
+    const options = [];
+    for (let index = 0; index < config.column; index++) {
+      options.push(
+        <div class={config.colClass}>
+          <div class="content">
+            <div className="divleft">
+              <label className="lblLeft">
+                {countData.length > 0 && countData[index].count}
+              </label>
+              <p className="ptag">
+                {" "}
+                {countData.length > 0 && countData[index].name}
+              </p>
+            </div>
+            <div className="divright">
+              <img
+                src={require(`../../../${config.image[index]}`)}
+                class="img"
+                key={index.toString()}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return options;
+  };
+
   return (
     <div>
       <div class="div-head">
         <div className="sub-head"> Welcome to Dashboard</div> <br />
         <div class="row row-flex">
-          <div class={red}>
-            <div class="content">
-              <div className="divleft">
-                <label className="lblLeft">{notificationCount}25</label>
-                <p className="ptag"> Notification</p>
-              </div>
-              <div className="divright">
-                <img src={LogoNotification} class="img" />
-              </div>
-            </div>
-          </div>
+          {loopData()}
 
-          <div class={red}>
+          {/* <div class={red}>
             <div class="content">
               <div className="divleft">
                 <label className="lblLeft">{adminsCount}105</label>
@@ -135,7 +167,7 @@ const DashboardMain = (props) => {
                 <img src={LogoAdmin} class="img" />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <br />
         <div className="sub-head"> Recent Activity</div> <br />

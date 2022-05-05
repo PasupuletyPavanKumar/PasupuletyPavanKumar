@@ -137,13 +137,39 @@ const Home = (props) => {
     );
   };
 
+  const image = [
+    "assets/icons/Notification-bg.svg",
+    "assets/icons/Admin_graditi_bg.svg",
+    "assets/icons/Notification-bg.svg",
+    "assets/icons/Notification-bg.svg",
+  ];
+  const superUserImage = [
+    "assets/icons/Notification-bg.svg",
+    "assets/icons/Admin_graditi_bg",
+  ];
+
   const mainContent = () => {
     let page = window.location.pathname;
     page = page.replace(/[/]/g, "");
     console.log("page", page);
     switch (page) {
       case "dashboard":
-        return <DashboardMain role={sessionStorage.getItem("role")} />;
+        return (
+          <DashboardMain
+            role={sessionStorage.getItem("role")}
+            images={
+              sessionStorage.getItem("role") === "super-user"
+                ? superUserImage
+                : sessionStorage.getItem("role") === "admin"
+                ? image
+                : sessionStorage.getItem("role") === "specialist"
+                ? image
+                : sessionStorage.getItem("role") === "user"
+                ? image
+                : image
+            }
+          />
+        );
         break;
       case "notification":
         return <Notification />;
