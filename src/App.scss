@@ -625,3 +625,34 @@ select {
 }
 
 // ends
+
+//Admin reports css
+.divbody-admin-reports {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 18px;
+  opacity: 0.5;
+  height: 300px;
+  width: 1080px;
+  margin-left: 50px;
+}
+.img-adminreport {
+  float: left;
+}
+.div-head-admin {
+  width: 90%;
+  margin-left: 50px;
+}
+.div-specilist-admin{
+ margin-left:100px;
+}
+.ptag-adminreports{
+  text-align: left;
+  color: #003763;
+  font: normal bold Open Sans ;font: normal bold Open Sans ;
+}
+.lbl-adminreports{
+  font: normal normal bold 30px/47px Open Sans;
+  color: #004072;
+}
+//end
