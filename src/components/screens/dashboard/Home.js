@@ -139,15 +139,21 @@ const Home = (props) => {
     );
   };
 
-  const image = [
+  const adminImage = [
+    "assets/icons/Reports_graditi_bg.svg",
     "assets/icons/Notification-bg.svg",
     "assets/icons/Admin_graditi_bg.svg",
-    "assets/icons/Notification-bg.svg",
-    "assets/icons/Notification-bg.svg",
+    "assets/icons/Server_graditi_bg.svg",
   ];
   const superUserImage = [
     "assets/icons/Notification-bg.svg",
     "assets/icons/Admin_graditi_bg.svg",
+  ];
+  const specialistImage = [
+    "assets/icons/Reports_graditi_bg.svg",
+    "assets/icons/Notification-bg.svg",
+    "assets/icons/Admin_graditi_bg.svg",
+    "assets/icons/Server_graditi_bg.svg",
   ];
 
   const mainContent = () => {
@@ -163,12 +169,12 @@ const Home = (props) => {
               sessionStorage.getItem("role") === "super-user"
                 ? superUserImage
                 : sessionStorage.getItem("role") === "admin"
-                ? image
+                ? adminImage
                 : sessionStorage.getItem("role") === "specialist"
-                ? image
+                ? specialistImage
                 : sessionStorage.getItem("role") === "user"
-                ? image
-                : image
+                ? specialistImage
+                : specialistImage
             }
           />
         );
