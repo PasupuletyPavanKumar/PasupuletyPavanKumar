@@ -35,12 +35,12 @@ const Home = (props) => {
       active: "admin",
     },
     {
-      src: "assets/icons/Assigned_to_others.svg",
+      src: "assets/icons/assign_to_user_white.svg",
       title: "Assign to User",
       active: "assignToUser",
     },
     {
-      src: "assets/icons/Assigned_to_me.svg",
+      src: "assets/icons/assigned_to_me_white.svg",
       title: "Assign to Me",
       active: "assignToMe",
     },
@@ -124,6 +124,27 @@ const Home = (props) => {
     setSidebarActive(data.active);
   };
 
+  const loadSideBarIcons = (data, index) => {
+    return (
+      <div
+        key={index.toString()}
+        className={
+          sidebarActive === data.active
+            ? "home-sideBarActive"
+            : "home-sideBarNonActive" + " " + "cursor-pointer" + " " + "m-3"
+        }
+        onClick={() => selectOption(data)}
+      >
+        <img
+          src={require(`../../../${data.src}`)}
+          key={index.toString()}
+          className="dashboard-icons"
+        />
+        <div className="font12 text-white">{data.title}</div>
+      </div>
+    );
+  };
+
   const sideMenuBar = () => {
     return (
       <div className="text-center dashboard-icons-margin">
@@ -135,28 +156,19 @@ const Home = (props) => {
               data.title != "Assign to Me" &&
               data.title != "Upload & Assign" &&
               data.title != "Server Management" &&
-              sessionStorage.getItem("role") === "super-user" ? (
-                <div
-                  key={index.toString()}
-                  className={
-                    sidebarActive === data.active
-                      ? "home-sideBarActive"
-                      : "home-sideBarNonActive" +
-                        " " +
-                        "cursor-pointer" +
-                        " " +
-                        "m-3"
-                  }
-                  onClick={() => selectOption(data)}
-                >
-                  <img
-                    src={require(`../../../${data.src}`)}
-                    key={index.toString()}
-                    className="dashboard-icons"
-                  />
-                  <div className="font12 text-white">{data.title}</div>
-                </div>
-              ) : null}
+              sessionStorage.getItem("role") === "super-user"
+                ? loadSideBarIcons(data, index)
+                : data.title != "Assign to User" &&
+                  data.title != "Assign to Me" &&
+                  data.title != "Upload & Assign" &&
+                  sessionStorage.getItem("role") === "admin"
+                ? loadSideBarIcons(data, index)
+                : data.title != "Upload & Assign" &&
+                  data.title != "Server Management" &&
+                  (sessionStorage.getItem("role") === "specialist" ||
+                    sessionStorage.getItem("role") === "user")
+                ? loadSideBarIcons(data, index)
+                : null}
             </div>
           ))}
         </div>
