@@ -26,14 +26,34 @@ const Home = (props) => {
     },
     {
       src: "assets/icons/admin_white.svg",
+      title: "Reports",
+      active: "reports",
+    },
+    {
+      src: "assets/icons/admin_white.svg",
       title: "Admin Management",
       active: "admin",
     },
-    // {
-    //   src: "assets/icons/license_white.svg",
-    //   title: "Total Licenses",
-    //   active: "licenses",
-    // },
+    {
+      src: "assets/icons/admin_white.svg",
+      title: "Assign to User",
+      active: "assignToUser",
+    },
+    {
+      src: "assets/icons/admin_white.svg",
+      title: "Assign to Me",
+      active: "assignToMe",
+    },
+    {
+      src: "assets/icons/admin_white.svg",
+      title: "Upload & Assign",
+      active: "upload",
+    },
+    {
+      src: "assets/icons/admin_white.svg",
+      title: "Server Management",
+      active: "server",
+    },
     {
       src: "assets/icons/setting_white.svg",
       title: "Settings",
@@ -110,28 +130,33 @@ const Home = (props) => {
         <div>
           {sideBarIcons.map((data, index) => (
             <div>
-              {/* {index != 3 && sessionStorage.getItem("role") === "super-user" ? ( */}
-              <div
-                key={index.toString()}
-                className={
-                  sidebarActive === data.active
-                    ? "home-sideBarActive"
-                    : "home-sideBarNonActive" +
-                      " " +
-                      "cursor-pointer" +
-                      " " +
-                      "m-3"
-                }
-                onClick={() => selectOption(data)}
-              >
-                <img
-                  src={require(`../../../${data.src}`)}
+              {data.title != "Reports" &&
+              data.title != "Assign to User" &&
+              data.title != "Assign to Me" &&
+              data.title != "Upload & Assign" &&
+              data.title != "Server Management" &&
+              sessionStorage.getItem("role") === "super-user" ? (
+                <div
                   key={index.toString()}
-                  className="dashboard-icons"
-                />
-                <div className="font12 text-white">{data.title}</div>
-              </div>
-              {/* ) : null} */}
+                  className={
+                    sidebarActive === data.active
+                      ? "home-sideBarActive"
+                      : "home-sideBarNonActive" +
+                        " " +
+                        "cursor-pointer" +
+                        " " +
+                        "m-3"
+                  }
+                  onClick={() => selectOption(data)}
+                >
+                  <img
+                    src={require(`../../../${data.src}`)}
+                    key={index.toString()}
+                    className="dashboard-icons"
+                  />
+                  <div className="font12 text-white">{data.title}</div>
+                </div>
+              ) : null}
             </div>
           ))}
         </div>

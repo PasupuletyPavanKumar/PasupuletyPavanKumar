@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
-// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
-// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
+import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
+import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
@@ -144,7 +144,7 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <label className="lblLeft">{adminsCount}</label>
-        <p className="ptag">Admin</p>
+        <p className="ptag">Reports</p>
       </div>
     );
   };
@@ -162,7 +162,7 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <label className="lblLeft">{adminsCount}</label>
-        <p className="ptag">Server Management</p>
+        <p className="ptag">Assign To User</p>
       </div>
     );
   };
@@ -171,7 +171,7 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <label className="lblLeft">{adminsCount}</label>
-        <p className="ptag">Server Management</p>
+        <p className="ptag">Assign to Specialist</p>
       </div>
     );
   };
