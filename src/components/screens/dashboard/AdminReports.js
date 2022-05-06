@@ -1,11 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-
-import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
 import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
-import LogoRepots from "..\\src\\assets\\icons\\Reports_graditi_bg.svg";
-import LogoServer from "..\\src\\assets\\icons\\Server_graditi_bg.svg";
-
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 
@@ -80,10 +75,8 @@ const AdminReports = () => {
                                 <label className="lbl-adminreports">370</label>
                                 <p > 320 Active Users</p>
                             </div>
-
                         </div>
                     </div>
-
                     <div class="col-sm-5">
                         <div class="content">
                             <div>
@@ -94,7 +87,6 @@ const AdminReports = () => {
                                 <label className="lbl-adminreports">500</label>
                                 <p >450 Active Users</p>
                             </div>
-
                         </div>
                     </div>
 
@@ -102,10 +94,8 @@ const AdminReports = () => {
                 <br />
 
             </div>
-
             <div className="divbody-admin-reports">
                 <br />
-
                 <div className="tblheight">
                     <ReactBootStrap.Table>
                         <thead className="tblhead">
@@ -125,9 +115,6 @@ const AdminReports = () => {
                         </thead>
                         {data}
                     </ReactBootStrap.Table>
-
-
-
                 </div>
             </div>
         </div>
