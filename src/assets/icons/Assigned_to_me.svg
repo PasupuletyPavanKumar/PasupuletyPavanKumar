@@ -1,0 +1,15 @@
+<svg id="Component_26_1" data-name="Component 26 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#003763"/>
+      <stop offset="0.5" stop-color="#004072"/>
+      <stop offset="1" stop-color="#00adee"/>
+    </linearGradient>
+  </defs>
+  <path id="Path_31424" data-name="Path 31424" d="M32,0A32,32,0,1,1,0,32,32,32,0,0,1,32,0Z" fill="url(#linear-gradient)"/>
+  <g id="Icon_feather-user-check" data-name="Icon feather-user-check" transform="translate(17.48 17)">
+    <path id="Path_31401" data-name="Path 31401" d="M20.8,22.92V20.28A5.28,5.28,0,0,0,15.52,15H6.28A5.28,5.28,0,0,0,1,20.28v2.64" transform="translate(0 4.08)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_31402" data-name="Path 31402" d="M15.06,8.28A5.28,5.28,0,1,1,9.78,3,5.28,5.28,0,0,1,15.06,8.28Z" transform="translate(1.197)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_31403" data-name="Path 31403" d="M17,11.64l2.64,2.64L24.92,9" transform="translate(3.393 2.023)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  </g>
+</svg>

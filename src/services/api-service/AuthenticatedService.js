@@ -9,7 +9,7 @@ export class AuthenticatedService {
   AdminDomain = "http://localhost:8092/";
   exportFileDomain = "http://localhost:8053/";
 
-  getNotificationsCount = async (user = "yogesh") => {
+  getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
 
     let apiRes = null;

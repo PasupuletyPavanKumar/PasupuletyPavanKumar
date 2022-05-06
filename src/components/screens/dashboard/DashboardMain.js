@@ -1,11 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
-// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
-// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
-// import LogoLicense from "/home/user/AiKno/AiKnoWebApp/AiKnoFrontEnd_v2/AiKnoFrontend/src/assets/icons/License_graditi_bg.svg";
+import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
+import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
@@ -26,7 +25,7 @@ const DashboardMain = (props) => {
 
   const authenticatedService = new AuthenticatedService();
 
-  const [countData, setCountData] = useState([]);
+  const [countData, setCountData] = [];
 
   const [notificationCount, setNotificationCount] = useState([]);
 
@@ -46,7 +45,7 @@ const DashboardMain = (props) => {
     getNotificationCount();
     getAdminCount();
     getActivityList();
-  }, [offset]);
+  }, []);
 
   const reuseCountCode = (res, name) => {
     const obj = {
@@ -56,6 +55,8 @@ const DashboardMain = (props) => {
     if (countData.length > 0) {
       if (name === "Notification") setCountData([obj, ...countData]);
       else if (name === "Admin") setCountData([...countData, obj]);
+
+      console.log("data ======>", [...countData, obj]);
     } else {
       setCountData([obj]);
     }
@@ -64,16 +65,16 @@ const DashboardMain = (props) => {
   const getNotificationCount = () => {
     authenticatedService.getNotificationsCount().then((res) => {
       console.log(res);
-      // setNotificationCount(res);\
-      reuseCountCode(res, "Notification");
+      setNotificationCount(res);
+      // reuseCountCode(res, "Notification");
     });
   };
 
   const getAdminCount = () => {
     authenticatedService.getAdminsCount().then((res) => {
       console.log(res);
-      reuseCountCode(res, "Admin");
-      // setAdminsCount(res);
+      // reuseCountCode(res, "Admin");
+      setAdminsCount(res);
     });
   };
 
@@ -121,13 +122,88 @@ const DashboardMain = (props) => {
     setOffset(selectedPage + 1);
   };
 
+  const notification = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{notificationCount}</label>
+        <p className="ptag">Notification</p>
+      </div>
+    );
+  };
+
+  const admin = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Admin</p>
+      </div>
+    );
+  };
+
+  const reports = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Reports</p>
+      </div>
+    );
+  };
+
+  const serverManagementCount = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Server Management</p>
+      </div>
+    );
+  };
+
+  const assignToUserCount = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Assign To User</p>
+      </div>
+    );
+  };
+
+  const assignToSpecialistCount = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Assign to Specialist</p>
+      </div>
+    );
+  };
+
   const loopData = () => {
     const options = [];
     for (let index = 0; index < config.column; index++) {
       options.push(
         <div class={config.colClass}>
           <div class="content">
-            <div className="divleft">
+            {props.role === "super-user"
+              ? index === 0
+                ? notification()
+                : admin()
+              : props.role === "admin"
+              ? index === 0
+                ? reports()
+                : index === 1
+                ? notification()
+                : index === 2
+                ? admin()
+                : serverManagementCount()
+              : props.role === "specialist" || props.role === "user"
+              ? index === 0
+                ? reports()
+                : index === 1
+                ? notification()
+                : index === 2
+                ? assignToUserCount()
+                : assignToSpecialistCount()
+              : null}
+            {/* <div className="divleft">
               <label className="lblLeft">
                 {countData.length > 0 && countData[index].count}
               </label>
@@ -135,7 +211,7 @@ const DashboardMain = (props) => {
                 {" "}
                 {countData.length > 0 && countData[index].name}
               </p>
-            </div>
+            </div> */}
             <div className="divright">
               <img
                 src={require(`../../../${config.image[index]}`)}

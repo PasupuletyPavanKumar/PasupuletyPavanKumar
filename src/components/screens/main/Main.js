@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AuthMain from "../authentication/Auth-Main";
-import Logo from "..\\src\\assets\\logo\\lttslogo.svg";
-import AiknoLogo from "..\\src\\assets\\logo\\AiKnologo.svg";
-// import Logo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/lttslogo.svg";
-// import AiknoLogo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/AiKnologo.svg";
+
+// import Logo from "..\\src\\assets\\logo\\lttslogo.svg";
+// import AiknoLogo from "..\\src\\assets\\logo\\AiKnologo.svg";
+
+import Logo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/lttslogo.svg";
+import AiknoLogo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/AiKnologo.svg";
 
 //Description:main function consist of the background implementation of the login screens.
 //input:null
