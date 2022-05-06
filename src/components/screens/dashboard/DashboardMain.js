@@ -149,6 +149,33 @@ const DashboardMain = (props) => {
     );
   };
 
+  const serverManagementCount = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Server Management</p>
+      </div>
+    );
+  };
+
+  const assignToUserCount = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Server Management</p>
+      </div>
+    );
+  };
+
+  const assignToSpecialistCount = () => {
+    return (
+      <div className="divleft">
+        <label className="lblLeft">{adminsCount}</label>
+        <p className="ptag">Server Management</p>
+      </div>
+    );
+  };
+
   const loopData = () => {
     const options = [];
     for (let index = 0; index < config.column; index++) {
@@ -161,12 +188,20 @@ const DashboardMain = (props) => {
                 : admin()
               : props.role === "admin"
               ? index === 0
-                ? notification()
-                : index === 1
-                ? admin()
-                : index === 2
                 ? reports()
-                : reports()
+                : index === 1
+                ? notification()
+                : index === 2
+                ? admin()
+                : serverManagementCount()
+              : props.role === "specialist" || props.role === "user"
+              ? index === 0
+                ? reports()
+                : index === 1
+                ? notification()
+                : index === 2
+                ? assignToUserCount()
+                : assignToSpecialistCount()
               : null}
             {/* <div className="divleft">
               <label className="lblLeft">
