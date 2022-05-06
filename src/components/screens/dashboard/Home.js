@@ -110,6 +110,7 @@ const Home = (props) => {
         <div>
           {sideBarIcons.map((data, index) => (
             <div>
+              {/* {index != 3 && sessionStorage.getItem("role") === "super-user" ? ( */}
               <div
                 key={index.toString()}
                 className={
@@ -130,6 +131,7 @@ const Home = (props) => {
                 />
                 <div className="font12 text-white">{data.title}</div>
               </div>
+              {/* ) : null} */}
             </div>
           ))}
         </div>
@@ -145,7 +147,7 @@ const Home = (props) => {
   ];
   const superUserImage = [
     "assets/icons/Notification-bg.svg",
-    "assets/icons/Admin_graditi_bg",
+    "assets/icons/Admin_graditi_bg.svg",
   ];
 
   const mainContent = () => {
