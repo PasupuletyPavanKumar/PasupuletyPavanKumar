@@ -25,7 +25,7 @@ const Home = (props) => {
       active: "notification",
     },
     {
-      src: "assets/icons/admin_white.svg",
+      src: "assets/icons/reports_white.svg",
       title: "Reports",
       active: "reports",
     },
@@ -35,22 +35,22 @@ const Home = (props) => {
       active: "admin",
     },
     {
-      src: "assets/icons/admin_white.svg",
+      src: "assets/icons/Assigned_to_others.svg",
       title: "Assign to User",
       active: "assignToUser",
     },
     {
-      src: "assets/icons/admin_white.svg",
+      src: "assets/icons/Assigned_to_me.svg",
       title: "Assign to Me",
       active: "assignToMe",
     },
     {
-      src: "assets/icons/admin_white.svg",
+      src: "assets/icons/file_upload_white.svg",
       title: "Upload & Assign",
       active: "upload",
     },
     {
-      src: "assets/icons/admin_white.svg",
+      src: "assets/icons/server_white.svg",
       title: "Server Management",
       active: "server",
     },
@@ -177,8 +177,8 @@ const Home = (props) => {
   const specialistImage = [
     "assets/icons/Reports_graditi_bg.svg",
     "assets/icons/Notification-bg.svg",
-    "assets/icons/Admin_graditi_bg.svg",
-    "assets/icons/Server_graditi_bg.svg",
+    "assets/icons/Assigned_to_me.svg",
+    "assets/icons/Assigned_to_others.svg",
   ];
 
   const mainContent = () => {
