@@ -207,9 +207,8 @@ const Home = (props) => {
                 ? superUserImage
                 : sessionStorage.getItem("role") === "admin"
                 ? adminImage
-                : sessionStorage.getItem("role") === "specialist"
-                ? specialistImage
-                : sessionStorage.getItem("role") === "user"
+                : sessionStorage.getItem("role") === "specialist" ||
+                  sessionStorage.getItem("role") === "user"
                 ? specialistImage
                 : specialistImage
             }
