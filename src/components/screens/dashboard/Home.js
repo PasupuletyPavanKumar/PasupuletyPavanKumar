@@ -12,6 +12,10 @@ import Help from "./Help";
 import { ReactComponent as LttsLogo } from "../../../assets/logo/LTTS_blue.svg";
 import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
 import SettingsPage from "./SettingsPage";
+import Reports from "./Reports";
+import AssignFiles from "./AssignFiles";
+import UploadAssign from "./UploadAssign";
+import ServerManagement from "./ServerManagement";
 
 const Home = (props) => {
   const navigate = useNavigate();
@@ -99,26 +103,35 @@ const Home = (props) => {
 
   const selectOption = (data) => {
     switch (data.title) {
-      case sideBarIcons[0].title:
+      case "Home":
         navigate("/dashboard");
         break;
-      case sideBarIcons[1].title:
+      case "Notifications":
         navigate("/notification");
         break;
-      case sideBarIcons[2].title:
+      case "Reports":
+        navigate("/reports");
+        break;
+      case "Admin Management":
         navigate("/admin");
         break;
-      // case sideBarIcons[3].title:
-      //   navigate("/licenses");
-      //   break;
-      case sideBarIcons[3].title:
+      case "Assign to User":
+        navigate("/assignToUser");
+        break;
+      case "Assign to Me":
+        navigate("/assignToMe");
+        break;
+      case "Upload & Assign":
+        navigate("/uploadAssign");
+        break;
+      case "Server Management":
+        navigate("/server");
+        break;
+      case "Settings":
         navigate("/settings");
         break;
-      case sideBarIcons[4].title:
-        navigate("/help");
-        break;
-
       default:
+        navigate("/help");
         break;
     }
     setSidebarActive(data.active);
@@ -214,25 +227,24 @@ const Home = (props) => {
             }
           />
         );
-        break;
       case "notification":
         return <Notification />;
-        break;
+      case "reports":
+        return <Reports />;
       case "admin":
         return <AdminManagement />;
-        break;
-      // case "licenses":
-      //   return <Licenses />;
-      //   break;
+      case "assignToUser":
+        return <AssignFiles />;
+      case "assignToMe":
+        return <AssignFiles />;
+      case "uploadAssign":
+        return <UploadAssign />;
+      case "server":
+        return <ServerManagement />;
       case "settings":
         return <SettingsPage />;
-        break;
-      case "help":
-        return <Help />;
-        break;
-
       default:
-        break;
+        return <Help />;
     }
   };
 
