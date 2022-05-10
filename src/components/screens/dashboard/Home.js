@@ -20,7 +20,8 @@ import ServerManagement from "./ServerManagement";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  sessionStorage.setItem("role", "admin");
+  //sessionStorage.setItem("role", "admin");
+
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
     {

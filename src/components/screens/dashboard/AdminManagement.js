@@ -83,6 +83,10 @@ const AdminManagement = () => {
     }
   };
 
+  const createSpecialistUser = () => {
+    console.log("createSpecialistUser");
+  };
+
   const getAdminsList = () => {
     authenticatedService.getAdmin().then((res) => {
       if (res) {
@@ -133,7 +137,6 @@ const AdminManagement = () => {
       : "Role";
   };
 
-
   const updateAdmin = (item) => {
     setIsEdit(true);
     setshowDeleteModal(false);
@@ -173,17 +176,26 @@ const AdminManagement = () => {
     });
   };
 
-
   const adminForm = () => {
     return (
       <div className="popup">
-
-        <button type="button" className="close" aria-label="Close" onClick={handleClose} >
+        <button
+          type="button"
+          className="close"
+          aria-label="Close"
+          onClick={handleClose}
+        >
           <span aria-hidden="true">&times;</span>
         </button>
-      
+
         <div className="modal-heading">
-          {isEdit ? "Edit Admin Details" : "Create New Admin"}
+          {isEdit
+            ? sessionStorage.getItem("role") === "super-user"
+              ? "Edit Admin Details"
+              : "Edit Specialist/User Details"
+            : sessionStorage.getItem("role") === "super-user"
+            ? "Create New Admin"
+            : "Add Specialist/User"}
         </div>
         <form className="p-3">
           <div className="row">
@@ -266,28 +278,54 @@ const AdminManagement = () => {
               </label>
               <br />
               <div className="input-field">
-                <select
-                name="role"
+                {sessionStorage.getItem("role") === "super-user" ? (
+                  <select
+                    name="Role"
+                    id="role"
+                    className="select-pane"
+                    value={addAdminFields.role}
+                    onChange={(e) => handleInputFields(e, 6)}
+                  >
+                    <option value="Admin">Admin</option>
+                  </select>
+                ) : (
+                  <select
+                    name="Role"
+                    id="role"
+                    className="select-pane"
+                    value={addAdminFields.role}
+                    onChange={(e) => handleInputFields(e, 6)}
+                  >
+                    <option value="Specialist">Specialist</option>
+                    <option value="User">User</option>
+                  </select>
+                )}
+              </div>
+              {/* <input
+                type="text"
+                className="input-field"
                 id="role"
-                className="select-pane"
                 value={addAdminFields.role}
                 onChange={(e) => handleInputFields(e, 6)}
-                >
-                <option value="Admin">Admin</option>
-                <option value="Specialist">Specialist</option>
-                <option value="User">User</option>
-                <option value="SpecialistAndUser">Specialist And User</option>
-              </select>
-            
-              </div>
+              /> */}
             </div>
           </div>
         </form>
         <center>
-        <button className="modal-button" onClick={createAdmin}>
-          SUBMIT
-        </button>
+          <button className="modal-button" onClick={createAdmin}>
+            SUBMIT
+          </button>
         </center>
+        {/* <Button
+          className="modal-button"
+          onClick={
+            sessionStorage.getItem("role") === "super-user"
+              ? createAdmin
+              : createSpecialistUser
+          }
+        >
+          Submit
+        </Button> */}
       </div>
     );
   };
@@ -295,37 +333,32 @@ const AdminManagement = () => {
   const deletModal = () => {
     return (
       <div className="del-popup">
-        <button type="button" className="close" aria-label="Close" onClick={handleClose}>
+        <button
+          type="button"
+          className="close"
+          aria-label="Close"
+          onClick={handleClose}
+        >
           <span aria-hidden="true">&times;</span>
         </button>
         <div className="delete-modal">Are you sure?</div>
-        <br/>
+        <br />
 
         <div className="delete-text">
           Do you want to delete this admin.
-          <br/>
+          <br />
           The process cannot be undone.
-          </div>
-          <br/>
-          <center>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={handleClose}
-          >
+        </div>
+        <br />
+        <center>
+          <button type="button" className="cancel-button" onClick={handleClose}>
             Cancel
           </button>
           &ensp;
-          <button
-            type="button"
-            className="delete-button"
-            onClick={deleteAdmin}
-          >
+          <button type="button" className="delete-button" onClick={deleteAdmin}>
             Delete
           </button>
-          </center>
-         
-        
+        </center>
       </div>
     );
   };
@@ -334,7 +367,9 @@ const AdminManagement = () => {
     <div>
       <div className="text-right m-3">
         <button type="button" onClick={handleShow} className="custom-button">
-          Create New Admin
+          {sessionStorage.getItem("role") === "super-user"
+            ? "Add Admin"
+            : "Add Specialist/User"}
         </button>
       </div>
       <div className="container">
@@ -417,7 +452,7 @@ const AdminManagement = () => {
 
       {/* Edit/Add Admin Modal  */}
 
-<Modal
+      <Modal
         show={show}
         onHide={handleClose}
         size={"md"}
@@ -425,7 +460,7 @@ const AdminManagement = () => {
       >
         {showDeleteModal ? deletModal() : adminForm()}
       </Modal>
-</div>
+    </div>
   );
 };
 
