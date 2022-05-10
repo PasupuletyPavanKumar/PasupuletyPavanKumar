@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import CloseIcon from "../../../assets/icons/close.svg";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
@@ -113,6 +114,10 @@ const AdminManagement = () => {
       : "Role";
   };
 
+  const checkIfSuperUser = () =>{
+    return true;
+  }
+
   const updateAdmin = (item) => {
     setIsEdit(true);
     setshowDeleteModal(false);
@@ -152,17 +157,23 @@ const AdminManagement = () => {
     });
   };
 
+
   const adminForm = () => {
     return (
-      <div>
+      <div className="popup">
+
+        <button type="button" className="close" aria-label="Close" onClick={handleClose} >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      
         <div className="modal-heading">
           {isEdit ? "Edit Admin Details" : "Create New Admin"}
         </div>
-        <form className="p-5">
+        <form className="p-3">
           <div className="row">
             <div className="form-group col-sm-6 m-auto p-3">
-              <label for="usr" className="label">
-                FirstName
+              <label for="usr" className="label-popup">
+                First Name
               </label>
               <br />
               <input
@@ -174,8 +185,8 @@ const AdminManagement = () => {
               />
             </div>
             <div className="form-group col-sm-6 m-auto p-3">
-              <label for="usr" className="label">
-                LastName
+              <label for="usr" className="label-popup">
+                Last Name
               </label>
               <br />
               <input
@@ -187,8 +198,8 @@ const AdminManagement = () => {
               />
             </div>
             <div className="form-group col-sm-6 m-auto p-3">
-              <label for="usr" className="label">
-                Username
+              <label for="usr" className="label-popup">
+                User Name
               </label>
               <br />
               <input
@@ -200,8 +211,8 @@ const AdminManagement = () => {
               />
             </div>
             <div className="form-group col-sm-6 m-auto p-3">
-              <label for="usr" className="label">
-                EmailID
+              <label for="usr" className="label-popup">
+                Email ID
               </label>
               <br />
               <input
@@ -213,7 +224,7 @@ const AdminManagement = () => {
               />
             </div>
             <div className="form-group col-sm-6 m-auto p-3">
-              <label for="usr" className="label">
+              <label for="usr" className="label-popup">
                 Location
               </label>
               <br />
@@ -222,6 +233,7 @@ const AdminManagement = () => {
                 <select
                   name="Locations"
                   id="location"
+                  className="select-pane"
                   value={addAdminFields.location}
                   onChange={(e) => handleInputFields(e, 5)}
                 >
@@ -232,48 +244,80 @@ const AdminManagement = () => {
                 </select>
               </div>
             </div>
-            <div className="form-group col-sm-6 m-auto p-3">
-              <label for="usr" className="label">
+            <div className="form-group col-sm-6 m-auto p-2">
+              <label for="usr" className="label-popup">
                 Role
               </label>
               <br />
-              <input
-                type="text"
-                className="input-field"
-                id="usr"
+              <div className="input-field">
+                {checkIfSuperUser?
+                <select
+                name="role"
+                id="role"
+                className="select-pane"
                 value={addAdminFields.role}
                 onChange={(e) => handleInputFields(e, 6)}
-              />
+                >
+                <option value="Admin">Admin</option>
+              </select>:
+              <select
+              name="role"
+              id="role"
+              value={addAdminFields.role}
+              onChange={(e) => handleInputFields(e, 6)}
+              >
+              <option value="Specialist">Specialist</option>
+              <option value="User">User</option>
+              <option value="SpecialistAndUser">Specialist And User</option>
+            </select>
+              }
+              </div>
             </div>
           </div>
         </form>
-        <Button className="modal-button" onClick={createAdmin}>
-          Submit
-        </Button>
+        <center>
+        <button className="modal-button" onClick={createAdmin}>
+          SUBMIT
+        </button>
+        </center>
       </div>
     );
   };
 
   const deletModal = () => {
     return (
-      <div className="m-3">
-        <div className="text-center">Are you sure</div>
-        <div className="text-center mt-3">
+      <div className="del-popup">
+        <button type="button" className="close" aria-label="Close" onClick={handleClose}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div className="delete-modal">Are you sure?</div>
+        <br/>
+
+        <div className="delete-text">
+          Do you want to delete this admin.
+          <br/>
+          The process cannot be undone.
+          </div>
+          <br/>
+          <center>
           <button
             type="button"
-            className="btn btn-danger mr-3"
+            className="cancel-button"
             onClick={handleClose}
           >
             Cancel
           </button>
+          &ensp;
           <button
             type="button"
-            className="btn btn-primary"
+            className="delete-button"
             onClick={deleteAdmin}
           >
-            Yes
+            Delete
           </button>
-        </div>
+          </center>
+         
+        
       </div>
     );
   };
@@ -281,9 +325,9 @@ const AdminManagement = () => {
   return (
     <div>
       <div className="text-right m-3">
-        <Button type="button" onClick={handleShow} className="custom-button">
-          Add Admin
-        </Button>
+        <button type="button" onClick={handleShow} className="custom-button">
+          Create New Admin
+        </button>
       </div>
       <div className="container">
         <div className="row row-flex">
@@ -349,15 +393,15 @@ const AdminManagement = () => {
 
       {/* Edit/Add Admin Modal  */}
 
-      <Modal
+<Modal
         show={show}
         onHide={handleClose}
-        size={"lg"}
+        size={"md"}
         className="bootstrap-modal"
       >
         {showDeleteModal ? deletModal() : adminForm()}
       </Modal>
-    </div>
+</div>
   );
 };
 

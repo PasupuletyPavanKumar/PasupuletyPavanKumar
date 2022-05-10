@@ -6,6 +6,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 // import Dashboard from "./components/screens/authentication/Dashboard";
 import Home from "./components/screens/dashboard/Home";
 import { useEffect } from "react";
+import ServerManagement from "./components/screens/dashboard/ServerManagement";
 
 //Description:App function defines the route path to the different element of the project
 
@@ -29,7 +30,7 @@ function App() {
       {/* <Route path="/licenses" element={<Home />} /> */}
       <Route path="/settings" element={<Home />} />
       <Route path="/help" element={<Home />} />
-
+      <Route path="/server-management" element={<ServerManagement />} />
       {/* <Route path="forgot" element={<ForgotPassword />} /> */}
     </Routes>
   );
