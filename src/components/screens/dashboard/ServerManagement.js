@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import * as ReactBootStrap from "react-bootstrap";
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -187,5 +188,12 @@ const ServerManagement = () => {
                          
   );
 }
+=======
+import React from "react";
+
+const ServerManagement = () => {
+  return <div>"ServerManagement</div>;
+};
+>>>>>>> 79ea407ec3d8642cf43d780c6614eeb4d0ae92c5
 
 export default ServerManagement;

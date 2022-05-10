@@ -6,60 +6,53 @@ import Settings from "./Settings";
 
 const SettingsPage = () => {
   const [state, setstate] = useState("settings");
+  const [value, setValue] = useState(false);
   return (
-    <div className="container fullbg">
-      <Row>
-        <Col lg={4} className="maincol">
-          <div className="container1">
-            <h5
-              className={state === "Settings" ? "change" : ""}
+
+    <div className="container-fluid BGimage ">
+      <div class="row justify-content-center">
+        <div class="col-md-1"></div>
+        {value ? null : (
+          <div class="col-md-3  lcon">
+
+            <h5 className={state === "Settings" ? "change" : ""}
               onClick={() => setstate("Settings")}
             >
               {" "}
-              Account Settings
+              Account Settings</h5>
+            <p>Persional information and email</p>
+            <hr></hr>
+            <h5 className={state === "Security" ? "change" : ""}
+              onClick={() => setstate("Security")}
+            >
+              Security</h5>
+            <p>change password</p>
+            <hr></hr>
+
+            <h5
+              className={state === "Policy" ? "change" : ""}
+              onClick={() => setstate("Policy")}
+            >
+              {" "}
+              privacy & policy
             </h5>
+            <p>Lorem ipsum dolor sit amet Consectet...</p>
 
-            <div>
-              <label className="label1">persional information,Email</label>
-              <hr></hr>
-            </div>
-            <div>
-              <h5
-                className={state === "Security" ? "change" : ""}
-                onClick={() => setstate("Security")}
-              >
-                Security
-              </h5>
-              <label className="label2">change password</label>
-              <hr></hr>
-            </div>
-            <div>
-              <h6
-                className={state === "Policy" ? "change" : ""}
-                onClick={() => setstate("Policy")}
-              >
-                {" "}
-                privacy & policy
-              </h6>
-              <label className="label3">
-                Lorem ipsum dolor sit amet Consectet...{" "}
-              </label>
-            </div>
           </div>
-        </Col>
+        )}
 
-        <Col lg={8} className="container2">
+        <div class={value ? "col-md-9" : "col-md-6"}>
           {state === "Settings" ? (
             <Settings />
           ) : state === "Security" ? (
             <Security />
           ) : state === "Policy" ? (
-            <Policy />
+            <Policy value={value} setValue={setValue} />
           ) : (
             <></>
           )}
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };

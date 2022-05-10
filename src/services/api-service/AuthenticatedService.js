@@ -7,8 +7,9 @@ export class AuthenticatedService {
   recentDomain = "http://localhost:8097/";
   //addAdminDomain = "http://localhost:8095/";
   AdminDomain = "http://localhost:8092/";
+  exportFileDomain = "http://localhost:8053/";
 
-  getNotificationsCount = async (user = "yogesh") => {
+  getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
 
     let apiRes = null;
@@ -149,6 +150,18 @@ export class AuthenticatedService {
       const resData = response.data;
       console.log(resData);
       return resData;
+    }
+  };
+
+  exportFile = async (userRole = "superUser", userName = "shashi") => {
+    const url =
+      this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return response;
     }
   };
 }

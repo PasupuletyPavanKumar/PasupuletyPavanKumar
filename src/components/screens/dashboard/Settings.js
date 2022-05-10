@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ImageAvatars from "./ImageAvatars";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
@@ -7,7 +6,6 @@ import { AuthenticatedService } from "../../../services/api-service/Authenticate
 const Settings = () => {
   const [profileData, setProfileData] = useState([]);
   const [disabled, setDisabled] = useState(true);
-  const [submitButtonShow, setSubmitButtonShow] = useState(false);
   const authenticatedService = new AuthenticatedService();
 
   const [profileDataFields, setProfileDataFields] = useState({
@@ -21,7 +19,6 @@ const Settings = () => {
   });
 
   const updateProfileDate = () => {
-    setSubmitButtonShow(true);
     setDisabled(false);
   };
 
@@ -97,89 +94,89 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className="containermainstyle">
-      <div>
-        <div
-          style={{ float: "right" }}
-          className="cursor-pointer"
-          onClick={updateProfileDate}
-        >
-          {<EditIcon />}
+    <div class="col-md-6">
+      <div class="scon">
+        <div class="userimage">
+          <p class="settingsimage">image</p>
+          <div
+            style={{ float: "right" }}
+            className="cursor-pointer"
+            onClick={updateProfileDate}
+          >
+            {<EditIcon />}
+          </div>
         </div>
-        <div className="avatars">{<ImageAvatars />}</div>
-      </div>
-
-      <div className="container2sub">
-        <div className="container2sub1">
-          <div className="twofields">
-            <label className=" Fnamelabel">FirstName</label>
-            <input
-              className="inputallcontainer2"
-              type="text"
-              disabled={disabled}
-              value={profileDataFields.firstname}
-              onChange={(e) => handleInputFields(e, 1)}
-            ></input>
-          </div>
-          <div className="twofields">
-            <label className="lnamelabel">LastName</label>
-            <input
-              className="inputallcontainer2"
-              type="text"
-              disabled={disabled}
-              value={profileDataFields.lastname}
-              onChange={(e) => handleInputFields(e, 2)}
-            ></input>
-          </div>
-
-          <div className="fourfields">
-            <label className="unamelabel">UserName</label>
-            <input
-              className="inputallcontainer2"
-              type="text"
-              disabled={disabled}
-              value={profileDataFields.username}
-              onChange={(e) => handleInputFields(e, 3)}
-            ></input>
-          </div>
-          <div className="fourfields">
-            <label className="emaillabel">EmailID</label>
-            <input
-              className="inputallcontainer2"
-              type="text"
-              disabled={disabled}
-              value={profileDataFields.emailid}
-              onChange={(e) => handleInputFields(e, 4)}
-            ></input>
-          </div>
-
-          <div className="fourfields">
-            <label className="locationlabel">Location</label>
-            <input
-              className="inputallcontainer2"
-              type="text"
-              disabled={disabled}
-              value={profileDataFields.location}
-              onChange={(e) => handleInputFields(e, 5)}
-            ></input>
-          </div>
-          <div className="fourfields">
-            <label className="numberlabel">MobileNumber</label>
-            <input
-              className="inputallcontainer2"
-              type="text"
-              disabled={disabled}
-              value={profileDataFields.phone}
-              onChange={(e) => handleInputFields(e, 6)}
-            ></input>
-          </div>
-          {submitButtonShow ? (
-            <div>
-              <Button onClick={updateDetails}>Submit</Button>
-            </div>
-          ) : (
-            ""
-          )}
+        <div class="form-group">
+          <label for="usr">First Name</label>
+          <input
+            type="text"
+            class="form-control commonforall text-primary"
+            id="usr"
+            name="firstname"
+            disabled={disabled}
+            value={profileDataFields.firstname}
+            onChange={(e) => handleInputFields(e, 1)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Last Name</label>
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="lastname"
+            disabled={disabled}
+            value={profileDataFields.lastname}
+            onChange={(e) => handleInputFields(e, 2)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="usr">User Name</label>
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="username"
+            disabled={disabled}
+            value={profileDataFields.username}
+            onChange={(e) => handleInputFields(e, 3)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Email ID</label>
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="emailid"
+            disabled={disabled}
+            value={profileDataFields.emailid}
+            onChange={(e) => handleInputFields(e, 4)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="usr">Location</label>
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="location"
+            disabled={disabled}
+            value={profileDataFields.location}
+            onChange={(e) => handleInputFields(e, 5)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Mobile Number</label>
+          <input
+            type="text"
+            class="form-control commonforall"
+            id="usr"
+            name="mobilenumber"
+            disabled={disabled}
+            value={profileDataFields.phone}
+            onChange={(e) => handleInputFields(e, 6)}
+          />
         </div>
       </div>
     </div>

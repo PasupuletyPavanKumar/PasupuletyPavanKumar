@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Policy = () => {
+// import maximize from "..\\src\\assets\\icons\\fullscreen.svg";
+
+import maximize from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/fullscreen.svg";
+
+const Policy = ({ value, setValue }) => {
   return (
-    <div>
-      <h1>hello policy</h1>
+    <div className="policybg">
+      <div className="policyicon">
+        <img onClick={() => setValue(!value)} src={maximize}></img>
+      </div>
     </div>
   );
 };

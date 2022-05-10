@@ -4,6 +4,7 @@ import CloseIcon from "../../../assets/icons/close.svg";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
+import * as XLSX from "xlsx/xlsx.mjs";
 
 const AdminManagement = () => {
   const authenticatedService = new AuthenticatedService();
@@ -55,8 +56,8 @@ const AdminManagement = () => {
     reqBody.append("isAdmin", "true");
     reqBody.append("isSpecialist", "false");
     reqBody.append("isUser", "false");
-    reqBody.append("byUser", "ashwin@ltts.com");
-    reqBody.append("byUserRole", "superUser");
+    reqBody.append("byUser", sessionStorage.getItem("username"));
+    reqBody.append("byUserRole", "role");
 
     console.log(addAdminFields);
     console.log(sessionStorage.getItem("accessToken"));
@@ -102,6 +103,24 @@ const AdminManagement = () => {
       }
       console.log(res);
     });
+  };
+
+  const exportFile = () => {
+    authenticatedService.exportFile().then((res) => {
+      if (res) {
+        downloadToExcel(res);
+      }
+      console.log(res.headers);
+    });
+  };
+
+  const downloadToExcel = (data) => {
+    let ws = XLSX.utils.json_to_sheet(data);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "sheet");
+    let buf = XLSX.write(wb, { bookType: "xlsx", type: "buffer" }); // generate a nodejs buffer
+    let str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
+    XLSX.writeFile(wb, `myfilename.xlsx`);
   };
 
   const isAdmin = (item) => {
@@ -333,6 +352,22 @@ const AdminManagement = () => {
         <div className="row row-flex">
           <div className="welcome-tag"> Admin Management</div> <br /> <br />
           <br />
+        </div>
+
+        <div class="main">
+          <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <div className="Drop">
+            <select className="filter">filter</select>
+            <div className="text-right m-3">
+              <Button type="button" onClick={exportFile}>
+                Export
+              </Button>
+            </div>
+            {/* <select className="export">export</select> */}
+          </div>
         </div>
 
         <div>
