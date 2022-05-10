@@ -133,9 +133,6 @@ const AdminManagement = () => {
       : "Role";
   };
 
-  const checkIfSuperUser = () =>{
-    return true;
-  }
 
   const updateAdmin = (item) => {
     setIsEdit(true);
@@ -269,7 +266,6 @@ const AdminManagement = () => {
               </label>
               <br />
               <div className="input-field">
-                {checkIfSuperUser?
                 <select
                 name="role"
                 id="role"
@@ -278,18 +274,11 @@ const AdminManagement = () => {
                 onChange={(e) => handleInputFields(e, 6)}
                 >
                 <option value="Admin">Admin</option>
-              </select>:
-              <select
-              name="role"
-              id="role"
-              value={addAdminFields.role}
-              onChange={(e) => handleInputFields(e, 6)}
-              >
-              <option value="Specialist">Specialist</option>
-              <option value="User">User</option>
-              <option value="SpecialistAndUser">Specialist And User</option>
-            </select>
-              }
+                <option value="Specialist">Specialist</option>
+                <option value="User">User</option>
+                <option value="SpecialistAndUser">Specialist And User</option>
+              </select>
+            
               </div>
             </div>
           </div>
