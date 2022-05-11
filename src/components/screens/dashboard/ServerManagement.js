@@ -11,6 +11,7 @@ const ServerManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const handleClose = () => setShow(false);
+
   const handleShow = () => {
     setshowDeleteModal(false);
     setIsEdit(false);

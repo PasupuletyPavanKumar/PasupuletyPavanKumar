@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
- import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
- import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
 //import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
 //import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
