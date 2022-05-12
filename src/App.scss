@@ -957,3 +957,62 @@ select {
   font-size: 12px;
 }
 
+
+//Specialist Reports css
+.user-head{
+  padding-top:20px;
+  margin-left: 36px;
+}
+.userfiles-specialist-rpt {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 18px;
+  opacity: 0.5;
+  height: 250px;
+  width: 300px;
+  margin-left: 50px;
+}
+.user-file-activity:hover {
+  background-color: #0077BD;
+}
+.user-file-activity{
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 10px;
+  opacity: 1;
+  height: 50px;
+  width: 200px;
+  margin-left: 50px;
+  margin-top:5px;
+}
+.user-files-head{
+  margin-top:20px;
+ margin-left:50px;
+}
+.user-chartdiv{
+  margin-top:10px;
+  margin-left:20px;
+  width:600px;
+}
+.user-weekly{
+  margin-left:180px;
+  margin-top:10px;
+}
+.div-userchart-head{
+  height:30px;
+  margin-left:15px;
+  margin-top:10px;
+}
+.specilist-head{
+  margin-left: 36px;
+}
+.userweekly-specialist-rpt {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 18px;
+  opacity: 0.5;
+  height: 250px;
+  width: 650px;
+  margin-left: 20px;
+}
+//end
