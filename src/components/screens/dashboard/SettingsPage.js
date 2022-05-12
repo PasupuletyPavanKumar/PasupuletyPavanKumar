@@ -5,7 +5,7 @@ import Security from "./Security";
 import Settings from "./Settings";
 
 const SettingsPage = () => {
-  const [state, setstate] = useState("settings");
+  const [state, setstate] = useState("Settings");
   const [value, setValue] = useState(false);
   return (
 

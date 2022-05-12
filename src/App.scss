@@ -1015,4 +1015,94 @@ select {
   width: 650px;
   margin-left: 20px;
 }
+// AssignUser
+
+.user {
+  margin-left: 98px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 1070px;
+  text-align: left;
+  font: normal normal bold 20px/27px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+}
+
+.AssignUsermain {
+  margin-top: 12px;
+  margin-left: 90px;
+  width: 1100px;
+  border: 2px solid #FFFFFF;
+  border-radius: 24px;
+  opacity: 1;
+  height: 500px;
+
+
+}
+
+.assifnsearch {
+  width: 100%;
+  margin: 1px auto;
+  margin-left: 1px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.assigndropdown {
+  width: 430px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.assigndrop {
+  border: 2px solid #ffffff;
+  border-radius: 50px;
+  opacity: 1;
+  background-color: white;
+  height: 45px;
+}
+
+.usersearchanddropdown {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 7px;
+}
+
+.assignuserheadings {
+  display: flex;
+  width: 483px;
+  justify-content: space-between;
+  cursor: pointer;
+  // text-align: center;
+  font: normal normal normal 12px/25px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  text-transform: uppercase;
+  opacity: 0.75;
+
+}
+.controlchange {
+  border-bottom: 3px solid #00ADEE;
+  padding-bottom: 3px;
+  // text-align: center;
+// font: normal normal 600 12px/25px Open Sans;
+letter-spacing: 0px;
+color: #00ADEE;
+text-transform: uppercase;
+opacity: 1;
+}
+
+.subheadinguser{
+  text-align: left;
+font: normal normal 600 12px/17px Open Sans;
+letter-spacing: 0px;
+color: #003763;
+text-transform: uppercase;
+opacity: 1;
+display: flex;
+justify-content: space-between;
+}
+
 //end

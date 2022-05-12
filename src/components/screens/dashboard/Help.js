@@ -1,67 +1,92 @@
 import React, { useState } from 'react';
-import "./Help.css"
+import "./Help.css";
+import My_ticket from "..\\src\\assets\\icons\\My_ticket.svg";
+import Help_center from "..\\src\\assets\\icons\\Help_center.svg";
+import FAQ from "..\\src\\assets\\icons\\FAQ.svg";
+import Mytickets from './Mytickets';
+import Helpcenter from "./Helpcenter";
+import Helpfaqs from "./Helpfaqs";
+
+
+
 
 const Help = () => {
 
- 
-  const [change, setChange] = useState(false);
+
+  
+  const [controlchange, setControlchange] = useState("Mytickets");
+  const [maxmin,setMaxmin]= useState(false);
+  // const [next, setNext] = useState(false);
 
   return (
     <div className="container-fluid">
       <div class="row">
         <div class="col-md-11 helpcontainer">
           <div>
-            <div class="row">
-              <div class="col-md-3 leftcon">
-                <p>Lets take a step and help you better.</p>
-                <div class="form-group has-search">
-                  <span class="fa fa-search form-control-feedback"></span>
-                  <input type="text" class="form-control" placeholder="Search" />
-                </div>
-                <h5>My Tickets</h5>
-                <p>You can see the status your existing</p>
-                <h5>Help Center</h5>
-                <p>Issues-tree of up three levels</p>
-                <h5>FAQs section
-                </h5>
-                <p>Issues-tree of up to three levels</p>
-              </div>
-
-              <div class="col-md-8 ">
-                <div>
-                  <div className='ticket'>
-                    <h2 className='th'>Ticket history</h2>
-                    <button type="button" class="btn btn-success">RAISE A TICKET</button>
+            <div>
+              <div class="row">
+              {maxmin? null : (
+                <div class="col-md-3 leftcon">
+                  <p>Lets take a step ahead and help you better.</p>
+                  <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control" placeholder="Search" />
                   </div>
-                  <p className='pendingclass'>Pending</p>
-                  <div className='rightcon'>
-                    <p>Subject of the issues</p>
-                    <p className={change ? "hide" : ""} onClick={()=>setChange(!change)}>comment</p>
-                    <div className={change ? "":"hide"}>
-                    <div class="form-group">
-                      <textarea class="form-control textboxcontrol" placeholder='write your replay here...' id="exampleFormControlTextarea1" rows="2">
-                      </textarea>
-                      <input class="btn btn-primary submit-help" type="submit" value="Submit"></input>
+                  <div className={controlchange === "Mytickets" ? "onchange" : ""}  style={{ display: "flex", width: "272px", height: "73px" }}>
+                    <img className='helpicons' src={My_ticket}></img>
+                    <div  style={{ padding: "2px" }}>
+                      <h6 className='cursor' onClick={() => setControlchange("Mytickets")}>
+                        {" "}
+                        My Tickets</h6>
+                      <p>You can see the status your existing</p>
                     </div>
+                  </div>
+                  <div className={controlchange === "Helpcenter" ? "onchange" : ""}  style={{ display: "flex" }}>
+                    <img className='helpicons' src={Help_center}></img>
+                    <div style={{ padding: "2px" }}>
+                      <h6 className='cursor' onClick={() => setControlchange("Helpcenter")}>
+                        {" "}
+                        Help Center</h6>
+                      <p>Issues-tree of up three levels</p>
                     </div>
                   </div>
 
-
-                  <p className='pendingclass'>Resolve</p>
-                  <div className='right1con'>
-                    <p>Subject of the issues</p>
+                  <div className={controlchange === "Helpfaqs" ? "onchange" : ""} style={{ display: "flex" }}>
+                    <img className='helpicons' src={FAQ}></img>
+                    <div  style={{ padding: "2px" }}>
+                      <h6 className='cursor' onClick={() => setControlchange("Helpfaqs")} >
+                        {""}
+                        FAQs section</h6>
+                      <p>Issues-tree of up to three levels</p>
+                    </div>
                   </div>
-
-                  <div className='right2con'>
-                    <p>Subject of the issues</p>
-                  </div>
+                 
                 </div>
+                )}
+
+
+            
+                <div class={maxmin ? "col-md-12" : "col-md-8"}>
+                  {controlchange === "Mytickets" ? (
+                    <Mytickets />
+                  ) : controlchange === "Helpcenter" ? (
+
+                    <Helpcenter />
+                  ) : controlchange ==="Helpfaqs" ? (
+
+                    <Helpfaqs maxmin={maxmin} setMaxmin={setMaxmin}/>
+                  ) : (
+                      <></>
+                   )}
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 }
 
