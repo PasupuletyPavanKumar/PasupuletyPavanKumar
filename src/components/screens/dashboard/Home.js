@@ -20,7 +20,7 @@ import ServerManagement from "./ServerManagement";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  //sessionStorage.setItem("role", "admin");
+  // sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -177,7 +177,7 @@ const Home = (props) => {
                   data.title != "Upload & Assign" &&
                   sessionStorage.getItem("role") === "admin"
                 ? loadSideBarIcons(data, index)
-                : data.title != "Upload & Assign" &&
+                : data.title != "Admin Management" &&
                   data.title != "Server Management" &&
                   (sessionStorage.getItem("role") === "specialist" ||
                     sessionStorage.getItem("role") === "user")
