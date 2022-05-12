@@ -12,8 +12,7 @@ import Help from "./Help";
 import { ReactComponent as LttsLogo } from "../../../assets/logo/LTTS_blue.svg";
 import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
 import SettingsPage from "./SettingsPage";
-//import Reports from "./Reports";
-import Reports from "./SpecialistReports";
+import Reports from "./Reports";
 import AssignFiles from "./AssignFiles";
 import UploadAssign from "./UploadAssign";
 import ServerManagement from "./ServerManagement";
@@ -21,7 +20,7 @@ import ServerManagement from "./ServerManagement";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  sessionStorage.setItem("role", "specialist");
+  // sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
