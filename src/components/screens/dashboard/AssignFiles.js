@@ -1,5 +1,7 @@
 import React from "react";
 import  { useState } from "react";
+import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
 
 const AssignFiles = () => {
@@ -70,6 +72,9 @@ const AssignFiles = () => {
               <td>Dooley</td>
               <td>Dooley</td>
               <td>john@example.com</td>
+              <td><img src={Icon_eye}></img>
+              <img src={Icon_trash}></img>
+              </td>
             </tr>
             <tr>
               <td>Mary</td>
