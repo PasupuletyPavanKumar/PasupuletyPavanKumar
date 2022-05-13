@@ -16,11 +16,12 @@ import Reports from "./Reports";
 import AssignFiles from "./AssignFiles";
 import UploadAssign from "./UploadAssign";
 import ServerManagement from "./ServerManagement";
+import UserReports from "./UserReports";
 
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  // sessionStorage.setItem("role", "specialist");
+  sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -231,7 +232,12 @@ const Home = (props) => {
       case "notification":
         return <Notification />;
       case "reports":
-        return <Reports />;
+        if (sessionStorage.getItem("role") === "admin") {
+          return <Reports />;
+        } else {
+          return <UserReports />;
+        }
+
       case "admin":
         return <AdminManagement />;
       case "assignToUser":
