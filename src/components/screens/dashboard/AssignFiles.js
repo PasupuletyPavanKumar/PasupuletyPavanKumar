@@ -72,6 +72,7 @@ const AssignFiles = () => {
               <td>Dooley</td>
               <td>Dooley</td>
               <td>john@example.com</td>
+              <td>Completed</td>
               <td><img src={Icon_eye}></img>
               <img src={Icon_trash}></img>
               </td>
