@@ -22,40 +22,41 @@ const SpecialistReports = () => {
         Legend
     );
 
-    const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+    const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'];
 
     const data = {
         responsive: true,
         labels,
         datasets: [
             {
-                label: 'Pending',
-                data: [300, 400, 500, 600, 690],
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-
+              label: 'Pending ',
+              data: [300,400,500,600,700,900,110],
+              backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            
             },
             {
-                label: 'Processing',
-                data: [100, 100, 100, 100, 100],
-                backgroundColor: 'rgba(128,0,0)',
+              label: 'Processing ',
+              data: [100,100,100,100,100,100,110],
+              backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
-
+        
             {
-                label: 'Ok',
-                data: [200, 200, 200, 200, 200],
-                backgroundColor: 'rgba(255, 99, 132, 250)',
-            },
-            {
-                label: 'Comlpleted',
-                data: [250, 100, 630, 300, 650],
-                backgroundColor: 'rgba(0,128,128)',
+              label: 'Ok ',
+              data: [200,200,200,200,200,200,130],
+              backgroundColor: 'rgba(255, 99, 132, 250)',
             },
             {
-                label: 'NOT Ok Files',
-                data: [200, 150, 510, 260, 540],
-                backgroundColor: 'rgba(128,128,0)',
+              label: 'Completed ',
+              data: [250,100,630,300,650,300,150],
+              backgroundColor: 'rgba(255, 250, 132, 250)',
             },
-        ],
+            {
+              label: 'Not Ok Files',
+              data: [250,100,630,300,650,300,110],
+              backgroundColor: 'rgba(255,165,0)',
+            },
+            
+          ],
     };
 
     return (
