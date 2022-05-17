@@ -13,6 +13,7 @@ const ApiUrl = {
   exportFile: "generateCsvReport/",
   updateProfilePassword: "userManagement/updatePassword",
   getServersList: "serverManagement/fetchAllServer/",
+  addServer: "serverManagement/add",
 };
 
 export default ApiUrl;

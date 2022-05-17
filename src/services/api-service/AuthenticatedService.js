@@ -81,6 +81,22 @@ export class AuthenticatedService {
     }
   };
 
+  addServer = async (reqBody) => {
+    const url = this.AdminDomain + ApiUrl.addServer;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
   updateAdmin = async (reqBody, user = "Mithun") => {
     const url = this.AdminDomain + ApiUrl.updateAdmin + user;
     const response = await axios.put(url, reqBody, {
