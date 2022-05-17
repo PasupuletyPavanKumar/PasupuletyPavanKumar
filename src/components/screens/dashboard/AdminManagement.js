@@ -52,12 +52,24 @@ const AdminManagement = () => {
     reqBody.append("email", addAdminFields.emailid);
     reqBody.append("location", addAdminFields.location);
     //reqBody.append("role", addAdminFields.role);
-    reqBody.append("isSuperUser", "false");
-    reqBody.append("isAdmin", "true");
-    reqBody.append("isSpecialist", "false");
-    reqBody.append("isUser", "false");
+    reqBody.append(
+      "isSuperUser",
+      sessionStorage.getItem("role") === "super-user" ? "true" : "false"
+    );
+    reqBody.append(
+      "isAdmin",
+      sessionStorage.getItem("role") === "admin" ? "true" : "false"
+    );
+    reqBody.append(
+      "isSpecialist",
+      sessionStorage.getItem("role") === "specialist" ? "true" : "false"
+    );
+    reqBody.append(
+      "isUser",
+      sessionStorage.getItem("role") === "user" ? "true" : "false"
+    );
     reqBody.append("byUser", sessionStorage.getItem("username"));
-    reqBody.append("byUserRole", "role");
+    reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
     console.log(addAdminFields);
     console.log(sessionStorage.getItem("accessToken"));

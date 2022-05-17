@@ -42,7 +42,8 @@ export class AuthenticatedService {
   };
 
   getNotifications = async (user = "yogesh") => {
-    const url = this.notificationDomain + ApiUrl.notifications + user;
+    // const url = this.notificationDomain + ApiUrl.notifications + user;
+    const url = "https://jsonplaceholder.typicode.com/todos";
     //const response = await axios.get(url);
 
     let apiRes = null;
@@ -82,6 +83,22 @@ export class AuthenticatedService {
 
   updateAdmin = async (reqBody, user = "Mithun") => {
     const url = this.AdminDomain + ApiUrl.updateAdmin + user;
+    const response = await axios.put(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
+  updateProfilePassword = async (reqBody) => {
+    const url = this.AdminDomain + ApiUrl.updateProfilePassword;
     const response = await axios.put(url, reqBody, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -156,6 +173,17 @@ export class AuthenticatedService {
   exportFile = async (userRole = "superUser", userName = "shashi") => {
     const url =
       this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return response;
+    }
+  };
+
+  getServerList = async (userName = sessionStorage.getItem("username")) => {
+    const url = this.AdminDomain + ApiUrl.getServersList + userName;
     const response = await axios.get(url);
 
     if (response) {

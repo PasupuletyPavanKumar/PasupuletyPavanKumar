@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { Modal } from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-import * as XLSX from "xlsx/xlsx.mjs";
 
 const ServerManagement = () => {
   const authenticatedService = new AuthenticatedService();
@@ -28,41 +27,23 @@ const ServerManagement = () => {
 
   const inputValidators = () => {};
 
-  const [adminList, setadminList] = useState([]);
+  const [serversList, setServersList] = useState([]);
   const [addAdminFields, setAddAdminFields] = useState({
     staticIp: "",
     ipAddress: "",
   });
 
-  const getAdminsList = () => {
-    authenticatedService.getAdmin().then((res) => {
+  const getServersList = () => {
+    authenticatedService.getServerList().then((res) => {
       if (res) {
-        setadminList(res);
+        setServersList(res);
       }
       console.log(res);
     });
   };
 
-  const exportFile = () => {
-    authenticatedService.exportFile().then((res) => {
-      if (res) {
-        downloadToExcel(res);
-      }
-      console.log(res.headers);
-    });
-  };
-
-  const downloadToExcel = (data) => {
-    let ws = XLSX.utils.json_to_sheet(data);
-    let wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "sheet");
-    let buf = XLSX.write(wb, { bookType: "xlsx", type: "buffer" }); // generate a nodejs buffer
-    let str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
-    XLSX.writeFile(wb, `myfilename.xlsx`);
-  };
-
   useEffect(() => {
-    getAdminsList();
+    getServersList();
   }, []);
 
   const handleInputFields = (event, field) => {
@@ -74,7 +55,7 @@ const ServerManagement = () => {
     });
   };
 
-  const adminForm = () => {
+  const addServerForm = () => {
     return (
       <div className="popup">
         <button
@@ -309,7 +290,7 @@ const ServerManagement = () => {
         size={"md"}
         className="bootstrap-modal"
       >
-        {showDeleteModal ? null : adminForm()}
+        {showDeleteModal ? null : addServerForm()}
       </Modal>
     </div>
   );

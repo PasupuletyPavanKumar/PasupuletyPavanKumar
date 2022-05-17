@@ -93,7 +93,7 @@ const Reports = () => {
         <br />
         <div className="sub-head">
           {" "}
-          Recent Activity
+          Specialist & User Report
           <select className="filter-adminreports">
             <option value="lastweek"> Last 7 days </option>
           </select>

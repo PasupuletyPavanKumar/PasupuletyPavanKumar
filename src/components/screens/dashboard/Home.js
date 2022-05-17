@@ -21,7 +21,7 @@ import UserReports from "./UserReports";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  sessionStorage.setItem("role", "specialist");
+  sessionStorage.setItem("role", "admin");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -180,8 +180,12 @@ const Home = (props) => {
                 ? loadSideBarIcons(data, index)
                 : data.title != "Admin Management" &&
                   data.title != "Server Management" &&
-                  (sessionStorage.getItem("role") === "specialist" ||
-                    sessionStorage.getItem("role") === "user")
+                  sessionStorage.getItem("role") === "specialist"
+                ? loadSideBarIcons(data, index)
+                : data.title != "Admin Management" &&
+                  data.title != "Server Management" &&
+                  data.title != "Upload & Assign" &&
+                  sessionStorage.getItem("role") === "user"
                 ? loadSideBarIcons(data, index)
                 : null}
             </div>
