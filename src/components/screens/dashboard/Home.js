@@ -17,11 +17,12 @@ import AssignFiles from "./AssignFiles";
 import UploadAssign from "./UploadAssign";
 import ServerManagement from "./ServerManagement";
 import UserReports from "./UserReports";
+import ProjectSettings from "./ProjectSettings";
 
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  sessionStorage.setItem("role", "admin");
+  sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -59,6 +60,11 @@ const Home = (props) => {
       src: "assets/icons/server_white.svg",
       title: "Server Management",
       active: "server",
+    },
+    {
+      src: "assets/icons/pro_settings_white.svg",
+      title: "Project Settings",
+      active: "project",
     },
     {
       src: "assets/icons/setting_white.svg",
@@ -129,6 +135,9 @@ const Home = (props) => {
       case "Server Management":
         navigate("/server");
         break;
+      case "Project Settings":
+        navigate("/project");
+        break;
       case "Settings":
         navigate("/settings");
         break;
@@ -171,11 +180,13 @@ const Home = (props) => {
               data.title != "Assign to Me" &&
               data.title != "Upload & Assign" &&
               data.title != "Server Management" &&
+              data.title != "Project Settings" &&
               sessionStorage.getItem("role") === "super-user"
                 ? loadSideBarIcons(data, index)
                 : data.title != "Assign to User" &&
                   data.title != "Assign to Me" &&
                   data.title != "Upload & Assign" &&
+                  data.title != "Project Settings" &&
                   sessionStorage.getItem("role") === "admin"
                 ? loadSideBarIcons(data, index)
                 : data.title != "Admin Management" &&
@@ -185,6 +196,7 @@ const Home = (props) => {
                 : data.title != "Admin Management" &&
                   data.title != "Server Management" &&
                   data.title != "Upload & Assign" &&
+                  data.title != "Project Settings" &&
                   sessionStorage.getItem("role") === "user"
                 ? loadSideBarIcons(data, index)
                 : null}
@@ -252,6 +264,8 @@ const Home = (props) => {
         return <UploadAssign />;
       case "server":
         return <ServerManagement />;
+      case "project":
+        return <ProjectSettings />;
       case "settings":
         return <SettingsPage />;
       default:
