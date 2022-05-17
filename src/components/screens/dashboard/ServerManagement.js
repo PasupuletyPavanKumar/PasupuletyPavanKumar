@@ -62,6 +62,14 @@ const ServerManagement = () => {
     getServersList();
   }, []);
 
+  const disablePastDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate() + 1).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
+  };
+
   const handleInputFields = (event, field) => {
     setAddServerFields({
       serverName:
@@ -210,6 +218,7 @@ const ServerManagement = () => {
                 id="usr"
                 value={addServerFields.startDate}
                 onChange={(e) => handleInputFields(e, 4)}
+                min={disablePastDate()}
               />
             </div>
             <div className="form-group col-sm-4 m-auto p-3">
@@ -223,6 +232,8 @@ const ServerManagement = () => {
                 id="usr"
                 value={addServerFields.stopDate}
                 onChange={(e) => handleInputFields(e, 5)}
+                min={addServerFields.startDate}
+                disabled={addServerFields.startDate ? "" : "disabled"}
               />
             </div>
             <div className="form-group col-sm-4 m-auto p-2">
