@@ -22,7 +22,7 @@ import ProjectSettings from "./ProjectSettings";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  sessionStorage.setItem("role", "specialist");
+  //sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },

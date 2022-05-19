@@ -14,6 +14,8 @@ const ApiUrl = {
   updateProfilePassword: "userManagement/updatePassword",
   getServersList: "serverManagement/fetchAllServer/",
   addServer: "serverManagement/add",
+  //get all docs list assigned by specialist/user
+  docsAssignedByMe: "fetchAssignedByMeDocumentDetails/",
 };
 
 export default ApiUrl;
