@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="112" height="112" viewBox="0 0 112 112">
+  <defs>
+    <filter id="Path_31349" x="0" y="0" width="112" height="112" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#003763" flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Icon_material-notifications-none" x="16.484" y="12.516" width="73.032" height="81.133" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-2"/>
+      <feFlood flood-opacity="0.149"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_19145" data-name="Group 19145" transform="translate(-487.738 -430)">
+    <g transform="matrix(1, 0, 0, 1, 487.74, 430)" filter="url(#Path_31349)">
+      <path id="Path_31349-2" data-name="Path 31349" d="M41,0A41,41,0,1,1,0,41,41,41,0,0,1,41,0Z" transform="translate(12 9)" fill="#00adee"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 487.74, 430)" filter="url(#Icon_material-notifications-none)">
+      <path id="Icon_material-notifications-none-2" data-name="Icon material-notifications-none" d="M23.849,48.466a4.643,4.643,0,0,0,4.629-4.629H19.22a4.643,4.643,0,0,0,4.629,4.629ZM37.737,34.579V23.007c0-7.106-3.773-13.054-10.415-14.628V6.805a3.472,3.472,0,0,0-6.944,0V8.379c-6.62,1.574-10.415,7.5-10.415,14.628V34.579L5.333,39.208v2.315H42.366V39.208l-4.629-4.629Zm-4.629,2.315H14.591V23.007c0-5.74,3.495-10.415,9.258-10.415s9.258,4.675,9.258,10.415Z" transform="translate(29.15 24.18)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.8" height="20" viewBox="0 0 16.8 20">
+  <g id="Group_19260" data-name="Group 19260" transform="translate(-583.762 -100.036)">
+    <g id="Icon_feather-file-text" data-name="Icon feather-file-text" transform="translate(581.762 100.036)">
+      <g id="Path_31444" data-name="Path 31444" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12,2H5.6A1.6,1.6,0,0,0,4,3.6V16.4A1.6,1.6,0,0,0,5.6,18h9.6a1.6,1.6,0,0,0,1.6-1.6V6.8Z" stroke="none"/>
+        <path d="M 5.59999942779541 2 C 4.716339111328125 2 4 2.716339111328125 4 3.600000381469727 L 4 16.39999961853027 C 4 17.28364944458008 4.716339111328125 18 5.59999942779541 18 L 15.19999980926514 18 C 16.08364868164062 18 16.79999923706055 17.28364944458008 16.79999923706055 16.39999961853027 L 16.79999923706055 6.800000190734863 L 12 2 L 5.59999942779541 2 M 5.59999942779541 0 L 12 0 C 12.53042984008789 0 13.03913974761963 0.2107105255126953 13.41420936584473 0.5857906341552734 L 18.21421051025391 5.38578987121582 C 18.58929061889648 5.760860443115234 18.79999923706055 6.269570350646973 18.79999923706055 6.800000190734863 L 18.79999923706055 16.39999961853027 C 18.79999923706055 18.38504981994629 17.18504905700684 20 15.19999980926514 20 L 5.59999942779541 20 C 3.614950180053711 20 2 18.38504981994629 2 16.39999961853027 L 2 3.600000381469727 C 2 1.614950180053711 3.614950180053711 0 5.59999942779541 0 Z" stroke="none" fill="#fff"/>
+      </g>
+      <path id="Path_31445" data-name="Path 31445" d="M14,2V6.8h4.8" transform="translate(-2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_31446" data-name="Path 31446" d="M14.4,13H8" transform="translate(-0.8 -2.2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_31447" data-name="Path 31447" d="M14.4,17H8" transform="translate(-0.8 -3)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_31448" data-name="Path 31448" d="M9.6,9H8" transform="translate(-0.8 -1.4)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
