@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-// import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-// import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
-import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
-import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+// import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
+// import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
 
 const AssignFiles = () => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
   const [allDocsList, setAllDocsList] = useState([]);
 
   const authenticatedService = new AuthenticatedService();
+
+  const setDocType = (docState) => {
+    setUsercontrolchange(docState);
+    console.log(docState);
+  };
 
   const getAssignedByMeList = () => {
     authenticatedService.docsAssignedByMeList().then((res) => {
@@ -24,8 +29,15 @@ const AssignFiles = () => {
   };
 
   useEffect(() => {
-    // specialist get the docs assigned to user
-    getAssignedByMeList();
+    let page = window.location.pathname;
+    page = page.replace(/[/]/g, "");
+    console.log(page);
+    if (page === "assignToUser") {
+      // specialist get the docs assigned to user
+      getAssignedByMeList();
+    } else {
+      console.log("call assign to me api");
+    }
   }, []);
 
   return (
@@ -54,14 +66,14 @@ const AssignFiles = () => {
               className={
                 usercontrolchange === "ALL FILES" ? "controlchange" : ""
               }
-              onClick={() => setUsercontrolchange("ALL FILES")}
+              onClick={() => setDocType("ALL FILES")}
             >
               {" "}
               ALL FILES
             </h6>
             <h6
               className={usercontrolchange === "PENDING" ? "controlchange" : ""}
-              onClick={() => setUsercontrolchange("PENDING")}
+              onClick={() => setDocType("PENDING")}
             >
               {" "}
               PENDING
@@ -70,7 +82,7 @@ const AssignFiles = () => {
               className={
                 usercontrolchange === "PROCESSING" ? "controlchange" : ""
               }
-              onClick={() => setUsercontrolchange("PROCESSING")}
+              onClick={() => setDocType("PROCESSING")}
             >
               {" "}
               PROCESSING
@@ -79,7 +91,7 @@ const AssignFiles = () => {
               className={
                 usercontrolchange === "COMPLETED" ? "controlchange" : ""
               }
-              onClick={() => setUsercontrolchange("COMPLETED")}
+              onClick={() => setDocType("COMPLETED")}
             >
               {" "}
               COMPLETED
