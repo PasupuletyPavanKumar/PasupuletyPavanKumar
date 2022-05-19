@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { DataService } from "../../../services/data-service/DataService";
 import { AuthenticationService } from "../../../services/api-service/AuthenticationService";
 import { BrowserRouter, Link, useNavigate } from "react-router-dom";
@@ -21,7 +20,7 @@ import UserReports from "./UserReports";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  sessionStorage.setItem("role", "admin");
+  //sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -136,7 +135,7 @@ const Home = (props) => {
         navigate("/help");
         break;
     }
-    setSidebarActive(data.active);
+    // setSidebarActive(data.active);
   };
 
   const loadSideBarIcons = (data, index) => {
@@ -162,7 +161,7 @@ const Home = (props) => {
 
   const sideMenuBar = () => {
     return (
-      <div className="text-center dashboard-icons-margin">
+      <div className="text-center home-sideMenu">
         <div>
           {sideBarIcons.map((data, index) => (
             <div>
@@ -191,7 +190,9 @@ const Home = (props) => {
             </div>
           ))}
         </div>
+        {/* */}
       </div>
+      //</div>
     );
   };
 
