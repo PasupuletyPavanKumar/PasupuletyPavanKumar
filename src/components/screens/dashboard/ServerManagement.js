@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { Modal } from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-import * as XLSX from "xlsx/xlsx.mjs";
 
 const ServerManagement = () => {
   const authenticatedService = new AuthenticatedService();
@@ -15,9 +14,18 @@ const ServerManagement = () => {
   const handleShow = () => {
     setshowDeleteModal(false);
     setIsEdit(false);
-    setAddAdminFields({
-      ServerName: "",
+    setAddServerFields({
+      serverName: "",
       ipAddress: "",
+      location: "Bangalore",
+      startDate: "",
+      stopDate: "",
+      serverStatus: "Active",
+      listOfApplication: "IC",
+      cpu: "",
+      GPU: "",
+      RAM: "",
+      storage: "",
     });
     setShow(true);
   };
@@ -26,57 +34,120 @@ const ServerManagement = () => {
   const handleDeleteModalClose = () => setshowDeleteModal(false);
   const handleDeleteModalShow = () => setshowDeleteModal(true);
 
-  const inputValidators = () => {};
-
-  const [adminList, setadminList] = useState([]);
-  const [addAdminFields, setAddAdminFields] = useState({
-    ServerName: "",
+  const [serversList, setServersList] = useState([]);
+  const [addServerFields, setAddServerFields] = useState({
+    serverName: "",
     ipAddress: "",
+    location: "Bangalore",
+    startDate: "",
+    stopDate: "",
+    serverStatus: "Active",
+    listOfApplication: "IC",
+    cpu: "",
+    GPU: "",
+    RAM: "",
+    storage: "",
   });
 
-  const exportFile = () => {
-    authenticatedService.exportFile().then((res) => {
+  const getServersList = () => {
+    authenticatedService.getServerList().then((res) => {
       if (res) {
-        downloadToExcel(res);
-      }
-      console.log(res.headers);
-    });
-  };
-
-  const downloadToExcel = (data) => {
-    let ws = XLSX.utils.json_to_sheet(data);
-    let wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "sheet");
-    let buf = XLSX.write(wb, { bookType: "xlsx", type: "buffer" }); // generate a nodejs buffer
-    let str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
-    XLSX.writeFile(wb, `myfilename.xlsx`);
-  };
-
-  const getAdminsList = () => {
-    authenticatedService.getAdmin().then((res) => {
-      if (res) {
-        setadminList(res);
+        setServersList(res);
       }
       console.log(res);
     });
   };
 
   useEffect(() => {
-    getAdminsList();
+    getServersList();
   }, []);
 
+  const disablePastDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate() + 1).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
+  };
+
   const handleInputFields = (event, field) => {
-    setAddAdminFields({
-      firstname:
-        field === 1 ? event.target.value.trim() : addAdminFields.ServerName,
-      lastname:
-        field === 2 ? event.target.value.trim() : addAdminFields.ipAddress,
+    setAddServerFields({
+      serverName:
+        field === 1 ? event.target.value.trim() : addServerFields.serverName,
+      ipAddress:
+        field === 2 ? event.target.value.trim() : addServerFields.ipAddress,
+      location:
+        field === 3 ? event.target.value.trim() : addServerFields.location,
+      startDate:
+        field === 4 ? event.target.value.trim() : addServerFields.startDate,
+      stopDate:
+        field === 5 ? event.target.value.trim() : addServerFields.stopDate,
+      serverStatus:
+        field === 6 ? event.target.value.trim() : addServerFields.serverStatus,
+      listOfApplication:
+        field === 7
+          ? event.target.value.trim()
+          : addServerFields.listOfApplication,
+      cpu: field === 8 ? event.target.value.trim() : addServerFields.cpu,
+      GPU: field === 9 ? event.target.value.trim() : addServerFields.GPU,
+      RAM: field === 10 ? event.target.value.trim() : addServerFields.RAM,
+      storage:
+        field === 11 ? event.target.value.trim() : addServerFields.storage,
     });
   };
 
-  const adminForm = () => {
+  const inputValidators = () => {
+    if (
+      addServerFields.serverName == "" ||
+      addServerFields.ipAddress == "" ||
+      addServerFields.location == "" ||
+      addServerFields.startDate == "" ||
+      addServerFields.stopDate == "" ||
+      addServerFields.listOfApplication == "" ||
+      addServerFields.cpu == "" ||
+      addServerFields.GPU == "" ||
+      addServerFields.RAM == "" ||
+      addServerFields.storage == ""
+    ) {
+      alert("All fields required");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const addNewServer = () => {
+    if (inputValidators()) {
+      alert("Add New Server");
+      var reqBody = new FormData();
+      reqBody.append("serverName", addServerFields.serverName);
+      reqBody.append("adminUserName", sessionStorage.getItem("username"));
+      reqBody.append("serverStaticIpAddress", addServerFields.ipAddress);
+      reqBody.append("serverLocation", addServerFields.location);
+      reqBody.append("serverStartDate", addServerFields.startDate);
+      reqBody.append("serverStopDate", addServerFields.stopDate);
+      reqBody.append("status", addServerFields.serverStatus);
+      reqBody.append("listOfApplications", addServerFields.listOfApplication);
+      reqBody.append("serverCPU", addServerFields.cpu);
+      reqBody.append("serverGPU", addServerFields.GPU);
+      reqBody.append("serverRAM", addServerFields.RAM);
+      reqBody.append("serverStorage", addServerFields.storage);
+
+      for (var pair of reqBody.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      authenticatedService.addServer(reqBody).then((res) => {
+        if (res) {
+          <div>{handleClose()}</div>;
+        }
+      });
+    }
+  };
+
+  const addServerForm = () => {
     return (
-      <div className="popup">
+      <div className="p-4">
         <button
           type="button"
           className="close"
@@ -98,7 +169,7 @@ const ServerManagement = () => {
                 type="text"
                 className="input-field"
                 id="ServerName"
-                value={addAdminFields.serverName}
+                value={addServerFields.serverName}
                 onChange={(e) => handleInputFields(e, 1)}
               />
             </div>
@@ -111,7 +182,7 @@ const ServerManagement = () => {
                 type="text"
                 className="input-field"
                 id="ipAddress"
-                value={addAdminFields.ipAddress}
+                value={addServerFields.ipAddress}
                 onChange={(e) => handleInputFields(e, 2)}
               />
             </div>
@@ -126,7 +197,7 @@ const ServerManagement = () => {
                   name="Locations"
                   id="location"
                   className="select-pane"
-                  value={addAdminFields.location}
+                  value={addServerFields.location}
                   onChange={(e) => handleInputFields(e, 3)}
                 >
                   <option value="Bangalore">Bangalore</option>
@@ -145,8 +216,9 @@ const ServerManagement = () => {
                 type="date"
                 className="input-field"
                 id="usr"
-                value={addAdminFields.startDate}
+                value={addServerFields.startDate}
                 onChange={(e) => handleInputFields(e, 4)}
+                min={disablePastDate()}
               />
             </div>
             <div className="form-group col-sm-4 m-auto p-3">
@@ -158,8 +230,10 @@ const ServerManagement = () => {
                 type="date"
                 className="input-field"
                 id="usr"
-                value={addAdminFields.stopDate}
+                value={addServerFields.stopDate}
                 onChange={(e) => handleInputFields(e, 5)}
+                min={addServerFields.startDate}
+                disabled={addServerFields.startDate ? "" : "disabled"}
               />
             </div>
             <div className="form-group col-sm-4 m-auto p-2">
@@ -172,7 +246,7 @@ const ServerManagement = () => {
                   name="Status"
                   id="status"
                   className="select-pane"
-                  value={addAdminFields.status}
+                  value={addServerFields.serverStatus}
                   onChange={(e) => handleInputFields(e, 6)}
                 >
                   <option value="Active">Active</option>
@@ -191,7 +265,7 @@ const ServerManagement = () => {
                   name="ListOfApplications"
                   id="loa"
                   className="select-pane"
-                  value={addAdminFields.listOfApplication}
+                  value={addServerFields.listOfApplication}
                   onChange={(e) => handleInputFields(e, 7)}
                 >
                   <option value="IC">IC</option>
@@ -214,7 +288,7 @@ const ServerManagement = () => {
                 type="text"
                 className="input-field"
                 id="CPU"
-                value={addAdminFields.cpu}
+                value={addServerFields.cpu}
                 onChange={(e) => handleInputFields(e, 8)}
               />
             </div>
@@ -227,7 +301,7 @@ const ServerManagement = () => {
                 type="text"
                 className="input-field"
                 id="gpu"
-                value={addAdminFields.GPU}
+                value={addServerFields.GPU}
                 onChange={(e) => handleInputFields(e, 9)}
               />
             </div>
@@ -240,7 +314,7 @@ const ServerManagement = () => {
                 type="text"
                 className="input-field"
                 id="RAM"
-                value={addAdminFields.RAM}
+                value={addServerFields.RAM}
                 onChange={(e) => handleInputFields(e, 10)}
               />
             </div>
@@ -254,14 +328,16 @@ const ServerManagement = () => {
                 type="text"
                 className="input-field"
                 id="storage"
-                value={addAdminFields.Storage}
+                value={addServerFields.storage}
                 onChange={(e) => handleInputFields(e, 11)}
               />
             </div>
           </div>
         </form>
         <center>
-          <button className="modal-button">SUBMIT</button>
+          <button className="modal-button" onClick={addNewServer}>
+            SUBMIT
+          </button>
         </center>
       </div>
     );
@@ -285,88 +361,89 @@ const ServerManagement = () => {
           </div>
           <br />
           <div class="row row-flex">
-            <div class="col-sm-6">
-              <div class="server-tab">
-                <div class="row">
-                  <div className="server-title"> Server A</div>
-                  <div>
-                    <button
-                      type="button"
-                      className="export-button"
-                      onClick={exportFile}
-                    >
-                      Export
-                    </button>
-                  </div>
-                </div>
-                <br />
-                <div>
-                  {/* first row */}
-                  <div class="row row-flex">
-                    {/* CPU daily */}
-                    <div class="col-sm-5 server-content">
-                      <div className="row-sm-5 divleft">
-                        <label className="col-sm-2 server-text">
-                          CPU Daily
-                        </label>
-                        <p className="mtag">Usage</p>
-                      </div>
-                      <div className="col-sm-3 divright">
-                        <CircularProgressbar value={66} text={"100%"} />
+            {serversList &&
+              serversList.map((item) => (
+                <div class="col-sm-6">
+                  <div class="server-tab">
+                    <div class="row">
+                      <div className="server-title"> Server A</div>
+                      <div>
+                        <button type="button" className="export-button">
+                          Export
+                        </button>
                       </div>
                     </div>
-                    <div class="col-sm-5 server-content">
-                      <div className="row-sm-5 divleft">
-                        <label className="col-sm-3 server-text">Storage</label>
-                        <p className="mtag">
-                          Usage
-                          <text className="storage"> D TB</text>
-                        </p>
+                    <br />
+                    <div>
+                      {/* first row */}
+                      <div class="row row-flex">
+                        {/* CPU daily */}
+                        <div class="col-sm-5 server-content">
+                          <div className="row-sm-5 divleft">
+                            <label className="col-sm-2 server-text">
+                              CPU Daily
+                            </label>
+                            <p className="mtag">Usage</p>
+                          </div>
+                          <div className="col-sm-3 divright">
+                            <CircularProgressbar value={66} text={"100%"} />
+                          </div>
+                        </div>
+                        <div class="col-sm-5 server-content">
+                          <div className="row-sm-5 divleft">
+                            <label className="col-sm-3 server-text">
+                              Storage
+                            </label>
+                            <p className="mtag">
+                              Usage
+                              <text className="storage"> D TB</text>
+                            </p>
+                          </div>
+                          <div className="col-sm-3 divright">
+                            <CircularProgressbar
+                              value={66}
+                              text={"66%"}
+                              className
+                            />
+                          </div>
+                        </div>
                       </div>
-                      <div className="col-sm-3 divright">
-                        <CircularProgressbar
-                          value={66}
-                          text={"66%"}
-                          className
-                        />
+                    </div>
+                    {/* Table */}
+                    <div class="row row-flex ">
+                      <div class="col server-table">
+                        <div className="tblheight">
+                          <ReactBootStrap.Table>
+                            <thead className="tblhead">
+                              <tr>
+                                <th>DATE</th>
+
+                                <th>IP ADDRESS</th>
+
+                                <th>SERVER NAME</th>
+
+                                <th>SERVER STATUS</th>
+                              </tr>
+                            </thead>
+
+                            <tbody className="tblbody">
+                              <tr>
+                                <td>Data</td>
+
+                                <td>Data</td>
+
+                                <td>Data</td>
+
+                                <td>Data</td>
+                              </tr>
+                            </tbody>
+                          </ReactBootStrap.Table>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* Table */}
-                <div class="row row-flex ">
-                  <div class="col server-table">
-                    <div className="tblheight">
-                      <ReactBootStrap.Table>
-                        <thead className="tblhead">
-                          <tr>
-                            <th>DATE</th>
-
-                            <th>IP ADDRESS</th>
-
-                            <th>SERVER NAME</th>
-
-                            <th>SERVER STATUS</th>
-                          </tr>
-                        </thead>
-
-                        <tbody className="tblbody">
-                          <tr>
-                            <td>Data</td>
-
-                            <td>Data</td>
-
-                            <td>Data</td>
-
-                            <td>Data</td>
-                          </tr>
-                        </tbody>
-                      </ReactBootStrap.Table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))}
 
             <div class="col-sm-6">
               <div class="server-tab">
@@ -456,7 +533,7 @@ const ServerManagement = () => {
         size={"md"}
         className="server-modal"
       >
-        {showDeleteModal ? null : adminForm()}
+        {showDeleteModal ? null : addServerForm()}
       </Modal>
     </div>
   );

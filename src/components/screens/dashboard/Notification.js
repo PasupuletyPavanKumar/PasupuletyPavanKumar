@@ -34,11 +34,11 @@ const Notification = () => {
           notifications.map((item) => (
             <p>
               <p className="p1" key={item.id}>
-                {item.id}
+                {item.operation}
               </p>
 
               <p className="p2" key={item.id}>
-                {item.title}
+                {item.description}
               </p>
             </p>
           ))}

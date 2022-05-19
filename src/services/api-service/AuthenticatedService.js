@@ -8,6 +8,7 @@ export class AuthenticatedService {
   //addAdminDomain = "http://localhost:8095/";
   AdminDomain = "http://localhost:8092/";
   exportFileDomain = "http://localhost:8053/";
+  docsListDomain = "http://localhost:8066/";
 
   getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
@@ -42,8 +43,7 @@ export class AuthenticatedService {
   };
 
   getNotifications = async (user = "yogesh") => {
-    // const url = this.notificationDomain + ApiUrl.notifications + user;
-    const url = "https://jsonplaceholder.typicode.com/todos";
+    const url = this.notificationDomain + ApiUrl.notifications + user;
     //const response = await axios.get(url);
 
     let apiRes = null;
@@ -97,22 +97,6 @@ export class AuthenticatedService {
     }
   };
 
-  updateProfilePassword = async (reqBody) => {
-    const url = this.AdminDomain + ApiUrl.updateProfilePassword;
-    const response = await axios.put(url, reqBody, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-      },
-    });
-
-    if (response) {
-      const resData = response.data;
-      console.log(resData);
-      return true;
-    }
-  };
-
   // for delete api call pass headers and then reqBody or else it wont work
   deleteAdmin = async (reqBody, user = "nfrgasrfgfddra") => {
     console.log(sessionStorage.getItem("accessToken"));
@@ -141,6 +125,26 @@ export class AuthenticatedService {
       const resData = response.data;
       console.log(resData);
       return resData;
+    }
+  };
+
+  // get all docs list assigned by specialist/user
+  docsAssignedByMeList = async (
+    role = sessionStorage.getItem("role"),
+    id = "6274d9472381980ad0f0c763"
+  ) => {
+    const url = this.docsListDomain + ApiUrl.docsAssignedByMe + role + "/" + id;
+    // const response = await axios.get(url);
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
     }
   };
 
@@ -173,17 +177,6 @@ export class AuthenticatedService {
   exportFile = async (userRole = "superUser", userName = "shashi") => {
     const url =
       this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
-    const response = await axios.get(url);
-
-    if (response) {
-      const resData = response.data;
-      console.log(resData);
-      return response;
-    }
-  };
-
-  getServerList = async (userName = sessionStorage.getItem("username")) => {
-    const url = this.AdminDomain + ApiUrl.getServersList + userName;
     const response = await axios.get(url);
 
     if (response) {

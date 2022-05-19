@@ -32,6 +32,7 @@ function App() {
       <Route path="/assignToMe" element={<Home />} />
       <Route path="/uploadAssign" element={<Home />} />
       <Route path="/server" element={<Home />} />
+      <Route path="/project" element={<Home />} />
       <Route path="/settings" element={<Home />} />
       <Route path="/help" element={<Home />} />
       <Route path="/server-management" element={<ServerManagement />} />
