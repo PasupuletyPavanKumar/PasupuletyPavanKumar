@@ -14,8 +14,17 @@ const ApiUrl = {
   updateProfilePassword: "userManagement/updatePassword",
   getServersList: "serverManagement/fetchAllServer/",
   addServer: "serverManagement/add",
-  //get all docs list assigned by specialist/user
-  docsAssignedByMe: "fetchAssignedByMeDocumentDetails/",
+  //get all docs list assigned by specialist
+  allDocsListAssignedBySpecialist: "fetchAssignedByMeDocumentDetails/",
+  //get pending docs list assigned by specialist
+  pendingDocsListAssignedBySpecialist:
+    "fetchAssignedByMePendingDocumentDetailsForSpecialist/",
+  //get processing docs list assigned by specialist
+  processingDocsListAssignedBySpecialist:
+    "fetchAssignedByMeProcessingDocumentDetailsForSpecialist/",
+  //get completed docs list assigned by specialist
+  completedDocsListAssignedBySpecialist:
+    "fetchAssignedByMeProcessedDocumentDetailsForSpecialist/",
 };
 
 export default ApiUrl;

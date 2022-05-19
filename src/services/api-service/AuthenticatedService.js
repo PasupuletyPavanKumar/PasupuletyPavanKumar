@@ -128,12 +128,92 @@ export class AuthenticatedService {
     }
   };
 
-  // get all docs list assigned by specialist/user
-  docsAssignedByMeList = async (
+  // get all docs list assigned by specialist
+  allDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
     id = "6274d9472381980ad0f0c763"
   ) => {
-    const url = this.docsListDomain + ApiUrl.docsAssignedByMe + role + "/" + id;
+    const url =
+      this.docsListDomain +
+      ApiUrl.allDocsListAssignedBySpecialist +
+      role +
+      "/" +
+      id;
+    // const response = await axios.get(url);
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  // get pending docs list assigned by specialist
+  pendingDocsAssignedBySpecialist = async (
+    role = sessionStorage.getItem("role"),
+    id = "6274d9472381980ad0f0c763"
+  ) => {
+    const url =
+      this.docsListDomain +
+      ApiUrl.pendingDocsListAssignedBySpecialist +
+      role +
+      "/" +
+      id;
+    // const response = await axios.get(url);
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  // get processing docs list assigned by specialist
+  processingDocsAssignedBySpecialist = async (
+    role = sessionStorage.getItem("role"),
+    id = "6274d9472381980ad0f0c763"
+  ) => {
+    const url =
+      this.docsListDomain +
+      ApiUrl.processingDocsListAssignedBySpecialist +
+      role +
+      "/" +
+      id;
+    // const response = await axios.get(url);
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  // get completed docs list assigned by specialist
+  completedDocsAssignedBySpecialist = async (
+    role = sessionStorage.getItem("role"),
+    id = "6274d9472381980ad0f0c763"
+  ) => {
+    const url =
+      this.docsListDomain +
+      ApiUrl.completedDocsListAssignedBySpecialist +
+      role +
+      "/" +
+      id;
     // const response = await axios.get(url);
     let apiRes = null;
     try {

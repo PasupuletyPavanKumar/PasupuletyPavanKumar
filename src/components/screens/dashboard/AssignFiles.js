@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+// import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+// import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
-// import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
-// import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
+import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
 
 const AssignFiles = () => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
@@ -13,13 +13,58 @@ const AssignFiles = () => {
 
   const authenticatedService = new AuthenticatedService();
 
-  const setDocType = (docState) => {
+  const setDocState = (docState) => {
     setUsercontrolchange(docState);
+    getDocsList(docState);
+  };
+
+  const getDocsList = (docState) => {
+    if (docState === "ALL FILES") {
+      console.log("Inside All Files");
+      getAssignedByMeList();
+    } else if (docState === "PENDING") {
+      console.log("Inside Pending");
+      getSpecialistAssignedPendingDocs();
+    } else if (docState === "PROCESSING") {
+      getSpecialistAssignedProcessingDocs();
+    } else {
+      getSpecialistAssignedCompletedDocs();
+    }
     console.log(docState);
   };
 
   const getAssignedByMeList = () => {
-    authenticatedService.docsAssignedByMeList().then((res) => {
+    authenticatedService.allDocsAssignedBySpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const getSpecialistAssignedPendingDocs = () => {
+    authenticatedService.pendingDocsAssignedBySpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const getSpecialistAssignedProcessingDocs = () => {
+    authenticatedService.processingDocsAssignedBySpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const getSpecialistAssignedCompletedDocs = () => {
+    authenticatedService.completedDocsAssignedBySpecialist().then((res) => {
       if (res) {
         res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
         console.log(res);
@@ -66,14 +111,14 @@ const AssignFiles = () => {
               className={
                 usercontrolchange === "ALL FILES" ? "controlchange" : ""
               }
-              onClick={() => setDocType("ALL FILES")}
+              onClick={() => setDocState("ALL FILES")}
             >
               {" "}
               ALL FILES
             </h6>
             <h6
               className={usercontrolchange === "PENDING" ? "controlchange" : ""}
-              onClick={() => setDocType("PENDING")}
+              onClick={() => setDocState("PENDING")}
             >
               {" "}
               PENDING
@@ -82,7 +127,7 @@ const AssignFiles = () => {
               className={
                 usercontrolchange === "PROCESSING" ? "controlchange" : ""
               }
-              onClick={() => setDocType("PROCESSING")}
+              onClick={() => setDocState("PROCESSING")}
             >
               {" "}
               PROCESSING
@@ -91,7 +136,7 @@ const AssignFiles = () => {
               className={
                 usercontrolchange === "COMPLETED" ? "controlchange" : ""
               }
-              onClick={() => setDocType("COMPLETED")}
+              onClick={() => setDocState("COMPLETED")}
             >
               {" "}
               COMPLETED
