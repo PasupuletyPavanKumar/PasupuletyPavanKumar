@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-// import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-// import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
-import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
-import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+// import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
+// import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
 
 const AssignFiles = () => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
@@ -140,6 +140,20 @@ const AssignFiles = () => {
             >
               {" "}
               COMPLETED
+            </h6>
+            <h6
+              className={usercontrolchange === "OK" ? "controlchange" : ""}
+              onClick={() => setDocState("OK")}
+            >
+              {" "}
+              OK
+            </h6>
+            <h6
+              className={usercontrolchange === "NOT OK" ? "controlchange" : ""}
+              onClick={() => setDocState("NOT OK")}
+            >
+              {" "}
+              NOT OK
             </h6>
           </div>
           <table class="table">

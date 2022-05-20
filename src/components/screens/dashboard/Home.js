@@ -21,7 +21,7 @@ import ProjectSettings from "./ProjectSettings";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  //sessionStorage.setItem("role", "specialist");
+  sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -61,7 +61,7 @@ const Home = (props) => {
       active: "server",
     },
     {
-      src: "assets/icons/pro_settings_white.svg",
+      src: "assets/icons/Pro_settings_white.svg",
       title: "Project Settings",
       active: "project",
     },
@@ -144,7 +144,7 @@ const Home = (props) => {
         navigate("/help");
         break;
     }
-    // setSidebarActive(data.active);
+    setSidebarActive(data.active);
   };
 
   const loadSideBarIcons = (data, index) => {
@@ -170,7 +170,7 @@ const Home = (props) => {
 
   const sideMenuBar = () => {
     return (
-      <div className="text-center home-sideMenu">
+      <div className="text-center dashboard-icons-margin">
         <div>
           {sideBarIcons.map((data, index) => (
             <div>
