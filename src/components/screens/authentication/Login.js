@@ -12,9 +12,11 @@ import {
   FormCheck,
 } from "react-bootstrap";
 import { AuthenticationService } from "../../../services/api-service/AuthenticationService";
+import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 
 const Login = (props) => {
   //const [login, setLogin] = useState("login");
+  const authenticatedService = new AuthenticatedService();
   const navigate = useNavigate();
   const authService = new AuthenticationService();
   const [loginFields, setLoginFields] = useState({
@@ -35,6 +37,15 @@ const Login = (props) => {
     } else {
       return true;
     }
+  };
+
+  const getProfileDetails = () => {
+    console.log("inside getProfileDetails");
+    authenticatedService.getProfileDetails().then((res) => {
+      if (res) {
+        console.log(res);
+      }
+    });
   };
 
   const submitLogin = () => {
@@ -58,11 +69,10 @@ const Login = (props) => {
       };
       authService.login(urlencoded).then((res) => {
         if (res) {
+          getProfileDetails();
           navigate("/dashboard");
         }
       });
-      // console.log(loginFields);
-      //
     }
   };
 
