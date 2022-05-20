@@ -42,7 +42,10 @@ const Home = (props) => {
     },
     {
       src: "assets/icons/assign_to_user_white.svg",
-      title: "Assign to User",
+      title:
+        sessionStorage.getItem("role") === "specialist"
+          ? "Assign to User"
+          : "Assign to Specialist",
       active: "assignToUser",
     },
     {
@@ -125,6 +128,9 @@ const Home = (props) => {
       case "Assign to User":
         navigate("/assignToUser");
         break;
+      case "Assign to Specialist":
+        navigate("/assignToUser");
+        break;
       case "Assign to Me":
         navigate("/assignToMe");
         break;
@@ -176,13 +182,15 @@ const Home = (props) => {
             <div>
               {data.title != "Reports" &&
               data.title != "Assign to User" &&
-              data.title != "Assign to Me" &&
+              (data.title != "Assign to Me" ||
+                data.title != "Assign to Specialist") &&
               data.title != "Upload & Assign" &&
               data.title != "Server Management" &&
               data.title != "Project Settings" &&
               sessionStorage.getItem("role") === "super-user"
                 ? loadSideBarIcons(data, index)
-                : data.title != "Assign to User" &&
+                : (data.title != "Assign to Me" ||
+                    data.title != "Assign to Specialist") &&
                   data.title != "Assign to Me" &&
                   data.title != "Upload & Assign" &&
                   data.title != "Project Settings" &&

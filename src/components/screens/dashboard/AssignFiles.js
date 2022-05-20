@@ -10,6 +10,7 @@ import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 const AssignFiles = () => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
   const [allDocsList, setAllDocsList] = useState([]);
+  const [page, setPage] = useState([]);
 
   const authenticatedService = new AuthenticatedService();
 
@@ -20,20 +21,96 @@ const AssignFiles = () => {
 
   const getDocsList = (docState) => {
     if (docState === "ALL FILES") {
-      console.log("Inside All Files");
-      getAssignedByMeList();
+      if (page === "assignToUser") {
+        getSpecialistAssignedAllDocsList();
+        console.log("getSpecialistAssignedAllDocsList");
+      } else {
+        getUserAssignedAllDocsList();
+        console.log("getUserAssignedAllDocsList");
+      }
     } else if (docState === "PENDING") {
-      console.log("Inside Pending");
-      getSpecialistAssignedPendingDocs();
+      if (page === "assignToUser") {
+        if (sessionStorage.getItem("role") === "specialist") {
+          getSpecialistAssignedPendingDocs();
+          console.log("getSpecialistAssignedPendingDocs");
+        } else {
+          getSpecialistAssignedPendingDocsToUser();
+          console.log("getSpecialistAssignedPendingDocsToUser");
+        }
+      } else {
+        if (sessionStorage.getItem("role") === "specialist") {
+          getUserAssignedPendingDocs();
+          console.log("getUserAssignedPendingDocs");
+        } else {
+          specialistAssignedPendingDocsToUser();
+          console.log("specialistAssignedPendingDocsToUser");
+        }
+      }
     } else if (docState === "PROCESSING") {
-      getSpecialistAssignedProcessingDocs();
-    } else {
-      getSpecialistAssignedCompletedDocs();
+      if (page === "assignToUser") {
+        if (sessionStorage.getItem("role") === "specialist") {
+          getSpecialistAssignedProcessingDocs();
+          console.log("getSpecialistAssignedProcessingDocs");
+        }
+      } else {
+        if (sessionStorage.getItem("role") === "user") {
+          specialistAssignedProcessingDocsToUser();
+          console.log("specialistAssignedProcessingDocsToUser");
+        }
+      }
+    } else if (docState === "COMPLETED") {
+      if (page === "assignToUser") {
+        if (sessionStorage.getItem("role") === "specialist") {
+          getSpecialistAssignedProcessedDocs();
+          console.log("getSpecialistAssignedProcessedDocs");
+        }
+      } else {
+        if (sessionStorage.getItem("role") === "user") {
+          specialistAssignedProcessedDocsToUser();
+          console.log("specialistAssignedProcessedDocsToUser");
+        }
+      }
+    } else if (docState === "OK") {
+      if (page === "assignToUser") {
+        if (sessionStorage.getItem("role") === "specialist") {
+          //yet to get API
+          console.log("yet to get API");
+        } else {
+          assignedToSpecialistOkDocs();
+          console.log("assignedToSpecialistOkDocs");
+        }
+      } else {
+        if (sessionStorage.getItem("role") === "specialist") {
+          getUserAssignedOkDocs();
+          console.log("getUserAssignedOkDocs");
+        } else {
+          specialistAssignedOkDocsToUser();
+          console.log("specialistAssignedOkDocsToUser");
+        }
+      }
+    } else if (docState === "NOT OK") {
+      if (page === "assignToUser") {
+        if (sessionStorage.getItem("role") === "specialist") {
+          //yet to get API
+          console.log("yet to get API");
+        } else {
+          assignedToSpecialistNotOkDocs();
+          console.log("assignedToSpecialistNotOkDocs");
+        }
+      } else {
+        if (sessionStorage.getItem("role") === "specialist") {
+          getUserAssignedNotOkDocs();
+          console.log("getUserAssignedNotOkDocs");
+        } else {
+          specialistAssignedNotOkDocsToUser();
+          console.log("specialistAssignedNotOkDocsToUser");
+        }
+      }
     }
-    console.log(docState);
   };
 
-  const getAssignedByMeList = () => {
+  // get all docs assigned by specialist for specialist/user screen
+  const getSpecialistAssignedAllDocsList = () => {
     authenticatedService.allDocsAssignedBySpecialist().then((res) => {
       if (res) {
         res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
@@ -43,6 +120,7 @@ const AssignFiles = () => {
     });
   };
 
+  // get pending docs assigned by specialist for specialist screen
   const getSpecialistAssignedPendingDocs = () => {
     authenticatedService.pendingDocsAssignedBySpecialist().then((res) => {
       if (res) {
@@ -53,6 +131,7 @@ const AssignFiles = () => {
     });
   };
 
+  // get processing docs assigned by specialist for specialist screen
   const getSpecialistAssignedProcessingDocs = () => {
     authenticatedService.processingDocsAssignedBySpecialist().then((res) => {
       if (res) {
@@ -63,8 +142,145 @@ const AssignFiles = () => {
     });
   };
 
-  const getSpecialistAssignedCompletedDocs = () => {
+  // get completed docs assigned by specialist for specialist screen
+  const getSpecialistAssignedProcessedDocs = () => {
     authenticatedService.completedDocsAssignedBySpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  // get all docs assigned by user for specialist screen
+  const getUserAssignedAllDocsList = () => {
+    authenticatedService.allDocsAssignedByUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  // get pending docs assigned by user for specialist screen
+  const getUserAssignedPendingDocs = () => {
+    authenticatedService.pendingDocsAssignedByUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  // get OK docs assigned by user for specialist screen
+  const getUserAssignedOkDocs = () => {
+    authenticatedService.oKDocsAssignedByUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  // get Not OK docs assigned by user for specialist screen
+  const getUserAssignedNotOkDocs = () => {
+    authenticatedService.notOKDocsAssignedByUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  // get pending docs assigned by user to specialist for user screen
+  const getSpecialistAssignedPendingDocsToUser = () => {
+    authenticatedService.pendingDocsAssignedByUserToSpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  //get user assigned specialist oked docs list
+  const assignedToSpecialistOkDocs = () => {
+    authenticatedService.oKDocsAssignedByUserToSpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  //get user assigned specialist noyoked docs list
+  const assignedToSpecialistNotOkDocs = () => {
+    authenticatedService.notOKDocsAssignedByUserToSpecialist().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  //get specialist assigned pending docs for user in user screen
+  const specialistAssignedPendingDocsToUser = () => {
+    authenticatedService.specialistAssignedPendingDocsToUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  //get specialist assigned processing docs for user in user screen
+  const specialistAssignedProcessingDocsToUser = () => {
+    authenticatedService
+      .specialistAssignedProcessingDocsToUser()
+      .then((res) => {
+        if (res) {
+          res != "404"
+            ? setAllDocsList(res)
+            : setAllDocsList("No Docs Assigned");
+          console.log(res);
+        }
+        console.log(res);
+      });
+  };
+
+  //get specialist assigned processed docs for user in user screen
+  const specialistAssignedProcessedDocsToUser = () => {
+    authenticatedService.specialistAssignedProcessedDocsToUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  //get specialist assigned ok docs for user in user screen
+  const specialistAssignedOkDocsToUser = () => {
+    authenticatedService.specialistAssignedOkDocsToUser().then((res) => {
+      if (res) {
+        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  //get specialist assigned not ok docs for user in user screen
+  const specialistAssignedNotOkDocsToUser = () => {
+    authenticatedService.specialistAssignedNotOkDocsToUser().then((res) => {
       if (res) {
         res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
         console.log(res);
@@ -76,11 +292,13 @@ const AssignFiles = () => {
   useEffect(() => {
     let page = window.location.pathname;
     page = page.replace(/[/]/g, "");
+    setPage(page);
     console.log(page);
     if (page === "assignToUser") {
       // specialist get the docs assigned to user
-      getAssignedByMeList();
+      getSpecialistAssignedAllDocsList();
     } else {
+      getUserAssignedAllDocsList();
       console.log("call assign to me api");
     }
   }, []);
@@ -139,8 +357,16 @@ const AssignFiles = () => {
               onClick={() => setDocState("COMPLETED")}
             >
               {" "}
-              COMPLETED
+              PROCESSED
             </h6>
+            {/* if(
+            {(page === "assignToUser" &&
+              sessionStorage.getItem("role") === "specialist") ||
+              (page === "assignToMe" &&
+                sessionStorage.getItem("role") === "user")}
+            )
+            {
+              <div> */}
             <h6
               className={usercontrolchange === "OK" ? "controlchange" : ""}
               onClick={() => setDocState("OK")}
@@ -155,6 +381,8 @@ const AssignFiles = () => {
               {" "}
               NOT OK
             </h6>
+            {/* </div>
+            } */}
           </div>
           <table class="table">
             <thead>
