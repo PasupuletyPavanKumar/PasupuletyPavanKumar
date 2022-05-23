@@ -266,9 +266,9 @@ const Home = (props) => {
       case "admin":
         return <AdminManagement />;
       case "assignToUser":
-        return <AssignFiles />;
+        return <AssignFiles page={page} />;
       case "assignToMe":
-        return <AssignFiles />;
+        return <AssignFiles page={page} />;
       case "uploadAssign":
         return <UploadAssign />;
       case "server":

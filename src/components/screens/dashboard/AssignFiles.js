@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-// import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-// import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
-import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
-import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+// import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
+// import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
 
-const AssignFiles = () => {
+const AssignFiles = (props) => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
   const [allDocsList, setAllDocsList] = useState([]);
   const [page, setPage] = useState([]);
@@ -290,18 +291,20 @@ const AssignFiles = () => {
   };
 
   useEffect(() => {
-    let page = window.location.pathname;
-    page = page.replace(/[/]/g, "");
+    // let page = window.location.pathname;
+    // page = page.replace(/[/]/g, "");
+    const page = props.page;
     setPage(page);
-    console.log(page);
+    console.log("files --->", page);
     if (page === "assignToUser") {
       // specialist get the docs assigned to user
       getSpecialistAssignedAllDocsList();
+      console.log("files --->", "getSpecialistAssignedAllDocsList");
     } else {
       getUserAssignedAllDocsList();
-      console.log("call assign to me api");
+      console.log("getUserAssignedAllDocsList");
     }
-  }, []);
+  }, [props]);
 
   return (
     <div>
