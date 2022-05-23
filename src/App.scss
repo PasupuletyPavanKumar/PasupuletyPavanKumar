@@ -117,6 +117,11 @@
   letter-spacing: 0px;
   color: #004072;
   opacity: 1;
+  @media (max-width: 425px) {
+    margin: 1vh;
+    justify-content: center;
+    vertical-align: middle;
+  }
 }
 
 .heading {
