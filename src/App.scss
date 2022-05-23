@@ -2,22 +2,53 @@
 *:focus {
   outline: none;
 }
-
-.bgImage1 {
-  background-image: url(../src/assets/bg/bg.png);
-  height: 100vh;
-  width: 50vw;
-  background-repeat: no-repeat;
-  background-size: cover;
+.screen-split {
+  @media (max-width: 425px) {
+    background-image: url(../src/assets/bg/bg.png);
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+  }
+  @media (min-width: 426px) {
+    .bgImage1 {
+      background-image: url(../src/assets/bg/bg.png);
+      height: 100vh;
+      width: 50vw;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .bgImage2 {
+      @media (min-width: 426px) {
+        background-image: url(../src/assets/bg/Background-lightcolor.png);
+        height: 100vh;
+        width: 50vw;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    }
+  }
 }
+// .bgImage1 {
+//   @media (min-width: 426px) {
+//     background-image: url(../src/assets/bg/bg.png);
+//     height: 100vh;
+//     width: 50vw;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//   }
+// }
 
-.bgImage2 {
-  background-image: url(../src/assets/bg/Background-lightcolor.png);
-  height: 100vh;
-  width: 50vw;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+// .bgImage2 {
+//   @media (min-width: 426px) {
+//     background-image: url(../src/assets/bg/Background-lightcolor.png);
+//     height: 100vh;
+//     width: 50vw;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//   }
+// }
 
 .bgImage3 {
   background-image: url(../src/assets/bg/Background-lightcolor.png);
@@ -34,25 +65,49 @@
 
 /*LTTS logo setting for all the web pages*/
 .lttslogo {
-  margin-top: 1vh;
-  height: 10vh;
-  width: 18vw;
+  @media (min-width: 426px) {
+    height: 10vh;
+    width: 17vw;
+    float: left;
+  }
+  @media (max-width: 426px) {
+    float: left;
+    height: 5vh;
+    width: 7vw;
+  }
 }
 
 /*Aikno logo setting for all the web pages*/
 .aiknologo {
-  margin-top: 25vh;
-  margin-left: 25vh;
-  height: 15vh;
-  width: 15vw;
+  @media (min-width: 426px) {
+    height: 15vh;
+    width: 15vw;
+    margin: 25vh 25vh 12vw 12vw;
+    float: center;
+  }
+
+  @media (max-width: 425px) {
+    margin-top: 1vh;
+    float: center;
+    height: 5vh;
+    width: 7vw;
+  }
 }
 
 /*Content setting for all authentication pages*/
 .authmain-flex {
-  margin-top: 12vh;
-  font: Open Sans;
-  opacity: 1;
-  justify-content: center;
+  @media (min-width: 426px) {
+    opacity: 1;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+  }
+
+  @media (max-width: 425px) {
+    margin: 1vh;
+    justify-content: center;
+    vertical-align: middle;
+  }
 }
 
 /* setting for all authentication pages*/
@@ -81,11 +136,21 @@
 
 /*container setting for login forms*/
 .formbox {
-  margin-top: 5vh;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid #ffffff;
-  border-radius: 24px;
-  box-shadow: 6px 6px 12px rgba(48, 46, 46, 0.1);
+  @media (min-width: 426px) {
+    margin: 5vh 5vh 5vw 5vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ffffff;
+    border-radius: 24px;
+    box-shadow: 6px 6px 12px rgba(48, 46, 46, 0.1);
+  }
+  @media (max-width: 425px) {
+    background-color: rgb(255, 255, 255);
+    margin: 1vh 1vh 1vw 1vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    box-shadow: 6px 6px 12px rgba(48, 46, 46, 0.1);
+  }
 }
 
 /*padding inside container for login forms*/
@@ -276,11 +341,11 @@
 .modal-heading {
   margin-left: 1vw;
   margin-top: 4vh;
-  font: 24px Open Sans;
   letter-spacing: 0px;
   font-weight: bold;
   color: #003763;
   opacity: 1;
+  font: normal normal bold 20px/27px Open Sans;
 }
 
 .popup {
@@ -876,6 +941,17 @@ row-flex {
   padding-left: 2.375rem;
 }
 
+.search {
+  margin-left: 1vw;
+  background: #ffff 0% 0% no-repeat padding-box;
+
+  border: 1px solid #ffff;
+  border-radius: 100px;
+  color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  width: 20vw;
+  height: 5vh;
+}
 .Drop {
   width: 300px;
   display: flex;
@@ -1039,6 +1115,7 @@ select {
 }
 
 .assigndropdown {
+  margin-left: -5vh;
   width: 430px;
   display: flex;
   justify-content: space-between;
@@ -1050,6 +1127,9 @@ select {
   opacity: 1;
   background-color: white;
   height: 45px;
+  text-align: center;
+  font: normal normal 600 16px Open Sans;
+  color: #003763;
 }
 
 .usersearchanddropdown {
@@ -1099,6 +1179,7 @@ select {
   border-radius: 24px;
   opacity: 1;
 }
+
 .assign-tab {
   margin-top: 2vh;
   margin-left: 2vw;
@@ -1280,4 +1361,85 @@ select {
   width: 50vw;
 }
 
+.project-head {
+  margin: 4vh 4vw;
+  text-align: left;
+  font: normal normal bold 22px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+}
+
+.project-setting-flex {
+  margin: 5vh 5vw 5vh 5vw;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid #ffffff;
+  border-radius: 24px;
+  opacity: 1;
+  height: auto;
+  width: auto;
+}
+
+.filterdropdown {
+  width: 10vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.exp {
+  font: normal normal 600 12px/20px Open Sans;
+  letter-spacing: 0px;
+  margin: 2vh 2vw 2vh 2vw;
+  color: #003763;
+  opacity: 1;
+}
+
+.projectsettingheadings {
+  display: flex;
+  width: 12vw;
+  justify-content: space-between;
+  cursor: pointer;
+  // text-align: center;
+  font: normal normal normal 12px/25px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.setting-flex {
+  margin: 2vh 2vw;
+  justify-content: center;
+  width: auto;
+  background: rgba(255, 255, 255, 0.6) 0% 0% no-repeat padding-box;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+}
+
+.setting-button {
+  float: right;
+}
+
+.project-button {
+  height: 7vh;
+  width: 18vw;
+  background-color: #ffaa00;
+  color: white;
+  border: 2px solid #ffaa00;
+  opacity: 1;
+  box-shadow: 6px 6px 10px #00000026;
+  font-size: 14px;
+  border-radius: 100px;
+  font-weight: bold;
+  float: right;
+}
+
+.project-modal {
+  margin: auto;
+  padding: auto;
+  .modal-content {
+    width: 50vw;
+    border-radius: 16px;
+  }
+}
 //end
