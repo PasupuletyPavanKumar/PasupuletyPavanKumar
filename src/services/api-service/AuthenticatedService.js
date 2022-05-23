@@ -9,6 +9,9 @@ export class AuthenticatedService {
   AdminDomain = "http://localhost:8092/";
   exportFileDomain = "http://localhost:8053/";
   docsListDomain = "http://localhost:8066/";
+  projectListDomain = "http://localhost:9097/";
+  allUsersDomain = "http://localhost:8095/";
+  filesListDomain = "http://localhost:8099/";
 
   getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
@@ -525,6 +528,39 @@ export class AuthenticatedService {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/todos"
     );
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getProjects = async () => {
+    const url = this.projectListDomain + ApiUrl.getProjectList;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getFiles = async (id) => {
+    const url = this.filesListDomain + ApiUrl.getFilesList + "/" + id;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getUsers = async () => {
+    const url = this.allUsersDomain + ApiUrl.allUsersList;
+    const response = await axios.get(url);
 
     if (response) {
       const resData = response.data;

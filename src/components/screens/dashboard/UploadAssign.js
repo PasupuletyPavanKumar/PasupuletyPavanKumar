@@ -13,6 +13,9 @@ const UploadAssign = () => {
   const authenticatedService = new AuthenticatedService();
   const [show, setShow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [projectList, setProjectList] = useState();
+  const [usersList, setUsersList] = useState();
+  const [filesList, setFilesList] = useState();
 
   const handleClose = () => setShow(false);
 
@@ -26,29 +29,47 @@ const UploadAssign = () => {
     setShow(true);
   };
 
-  const [showDeleteModal, setshowDeleteModal] = useState(false);
-  const handleDeleteModalClose = () => setshowDeleteModal(false);
-  const handleDeleteModalShow = () => setshowDeleteModal(true);
-
-  const inputValidators = () => {};
-
   const [adminList, setadminList] = useState([]);
   const [addAdminFields, setAddAdminFields] = useState({
     ServerName: "",
     ipAddress: "",
   });
 
-  const getAdminsList = () => {
-    authenticatedService.getAdmin().then((res) => {
+  const [showDeleteModal, setshowDeleteModal] = useState(false);
+  const handleDeleteModalClose = () => setshowDeleteModal(false);
+  const handleDeleteModalShow = () => setshowDeleteModal(true);
+
+  const showFiles = () => {
+    console.log("show selected project files");
+    authenticatedService.getFiles().then((res) => {
       if (res) {
-        setadminList(res);
+        setFilesList(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const getProjectList = () => {
+    authenticatedService.getProjects().then((res) => {
+      if (res) {
+        setProjectList(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const getUsersList = () => {
+    authenticatedService.getUsers().then((res) => {
+      if (res) {
+        setUsersList(res);
       }
       console.log(res);
     });
   };
 
   useEffect(() => {
-    getAdminsList();
+    getProjectList();
+    getUsersList();
   }, []);
 
   const handleInputFields = (event, field) => {
@@ -133,7 +154,7 @@ const UploadAssign = () => {
                 <div className="form-group col-sm-4 p-3">
                   <Autocomplete
                     autoSelect
-                    options={myoption}
+                    options={usersList}
                     style={{
                       height: "4vh",
                       width: "30vw",
@@ -194,7 +215,9 @@ const UploadAssign = () => {
                 <Autocomplete
                   autoSelect
                   options={projectoption}
-                  style={{ height: "5vh", width: "35vw" }}
+                  // style={{ height: "5vh", width: "35vw" }}
+                  className="combo"
+                  onChange={showFiles}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -207,6 +230,78 @@ const UploadAssign = () => {
             </div>
 
             <div className="row row-flex">
+              {filesList &&
+                filesList.map((item) => (
+                  <div className="col-12 col-sm-2 tab-flex">
+                    <div className="tab-left">
+                      <img src={file} className="file-img" />
+                    </div>
+                    <div className="tab-right">
+                      <label className="tab-text">FileName1</label>
+                      <p className="">description</p>
+                      <p className="">MTR</p>
+                    </div>
+                    <div className="checkbox2">
+                      <input type="checkbox" />
+                    </div>
+                  </div>
+                ))}
+            </div>
+            {/* <div className="col-12 col-sm-2 tab-flex">
+                <div className="tab-left">
+                  <img src={file} className="file-img" />
+                </div>
+                <div className="tab-right">
+                  <label className="tab-text">FileName1</label>
+                  <p className="">description</p>
+                  <p className="">MTR</p>
+                </div>
+                <div className="checkbox2">
+                  <input type="checkbox" />
+                </div>
+              </div>
+              <div className="col-12 col-sm-2 tab-flex">
+                <div className="tab-left">
+                  <img src={file} className="file-img" />
+                </div>
+                <div className="tab-right">
+                  <label className="tab-text">FileName1</label>
+                  <p className="">description</p>
+                  <p className="">MTR</p>
+                </div>
+                <div className="checkbox2">
+                  <input type="checkbox" />
+                </div>
+              </div>
+
+              <div className="col-12 col-sm-2 tab-flex">
+                <div className="tab-left">
+                  <img src={file} className="file-img" />
+                </div>
+                <div className="tab-right">
+                  <label className="tab-text">FileName1</label>
+                  <p className="">description</p>
+                  <p className="">MTR</p>
+                </div>
+                <div className="checkbox2">
+                  <input type="checkbox" />
+                </div>
+              </div>
+              <div className="col-12 col-sm-2 tab-flex">
+                <div className="tab-left">
+                  <img src={file} className="file-img" />
+                </div>
+                <div className="tab-right">
+                  <label className="tab-text">FileName1</label>
+                  <p className="">description</p>
+                  <p className="">MTR</p>
+                </div>
+                <div className="checkbox2">
+                  <input type="checkbox" />
+                </div>
+              </div> */}
+
+            {/* <div className="row row-flex">
               <div className="col-12 col-sm-2 tab-flex">
                 <div className="tab-left">
                   <img src={file} className="file-img" />
@@ -260,62 +355,7 @@ const UploadAssign = () => {
                   <input type="checkbox" />
                 </div>
               </div>
-            </div>
-            <div className="row row-flex">
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-            </div>
+            </div> */}
             {/* end of third row */}
           </div>
         </div>
