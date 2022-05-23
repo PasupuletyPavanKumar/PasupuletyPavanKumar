@@ -21,7 +21,7 @@ import ProjectSettings from "./ProjectSettings";
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
-  //sessionStorage.setItem("role", "specialist");
+  sessionStorage.setItem("role", "specialist");
 
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -42,7 +42,10 @@ const Home = (props) => {
     },
     {
       src: "assets/icons/assign_to_user_white.svg",
-      title: "Assign to User",
+      title:
+        sessionStorage.getItem("role") === "specialist"
+          ? "Assign to User"
+          : "Assign to Specialist",
       active: "assignToUser",
     },
     {
@@ -61,7 +64,7 @@ const Home = (props) => {
       active: "server",
     },
     {
-      src: "assets/icons/pro_settings_white.svg",
+      src: "assets/icons/Pro_settings_white.svg",
       title: "Project Settings",
       active: "project",
     },
@@ -125,6 +128,9 @@ const Home = (props) => {
       case "Assign to User":
         navigate("/assignToUser");
         break;
+      case "Assign to Specialist":
+        navigate("/assignToUser");
+        break;
       case "Assign to Me":
         navigate("/assignToMe");
         break;
@@ -144,7 +150,7 @@ const Home = (props) => {
         navigate("/help");
         break;
     }
-    // setSidebarActive(data.active);
+    setSidebarActive(data.active);
   };
 
   const loadSideBarIcons = (data, index) => {
@@ -170,19 +176,21 @@ const Home = (props) => {
 
   const sideMenuBar = () => {
     return (
-      <div className="text-center home-sideMenu">
+      <div className="text-center dashboard-icons-margin">
         <div>
           {sideBarIcons.map((data, index) => (
             <div>
               {data.title != "Reports" &&
               data.title != "Assign to User" &&
-              data.title != "Assign to Me" &&
+              (data.title != "Assign to Me" ||
+                data.title != "Assign to Specialist") &&
               data.title != "Upload & Assign" &&
               data.title != "Server Management" &&
               data.title != "Project Settings" &&
               sessionStorage.getItem("role") === "super-user"
                 ? loadSideBarIcons(data, index)
-                : data.title != "Assign to User" &&
+                : (data.title != "Assign to Me" ||
+                    data.title != "Assign to Specialist") &&
                   data.title != "Assign to Me" &&
                   data.title != "Upload & Assign" &&
                   data.title != "Project Settings" &&

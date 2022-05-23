@@ -14,8 +14,48 @@ const ApiUrl = {
   updateProfilePassword: "userManagement/updatePassword",
   getServersList: "serverManagement/fetchAllServer/",
   addServer: "serverManagement/add",
-  //get all docs list assigned by specialist/user
-  docsAssignedByMe: "fetchAssignedByMeDocumentDetails/",
+  //get all docs list assigned by specialist for specialist/user screen
+  allDocsListAssignedBySpecialist: "fetchAssignedByMeDocumentDetails/",
+  //get pending docs list assigned by specialist for specialist screen
+  pendingDocsListAssignedBySpecialist:
+    "fetchAssignedByMePendingDocumentDetailsForSpecialist/",
+  //get processing docs list assigned by specialist for specialist screen
+  processingDocsListAssignedBySpecialist:
+    "fetchAssignedByMeProcessingDocumentDetailsForSpecialist/",
+  //get completed docs list assigned by specialist for specialist screen
+  completedDocsListAssignedBySpecialist:
+    "fetchAssignedByMeProcessedDocumentDetailsForSpecialist/",
+  //get all docs list assigned by user for specialist screen
+  allDocsListAssignedByUser: "fetchAssignedToMeDocumentDetails/",
+  //get pending docs list assigned by user for specialist screen
+  pendingDocsListAssignedByUser:
+    "fetchAssignedToMePendingDocumentDetailsForSpecialist/",
+  //get ok docs list assigned by user for specialist screen
+  oKDocsListAssignedByUser: "fetchAssignedToMeOkDocumentDetails/",
+  //get not ok docs list assigned by user for specialist screen
+  notOKDocsListAssignedByUser: "fetchAssignedToMeNotOkDocumentDetails/",
+  //get pending docs list assigned by specialist To User for user screen
+  pendingDocsListAssignedByUserToSpecialist:
+    "fetchAssignedByMePendingDocumentDetailsForUser/",
+  // get user assigned specialist oked docs list for user screen
+  oKDocsListAssignedByUserToSpecialist:
+    "fetchAssignedByMeOkDocumentDetailsForUser/",
+  // get user assigned specialist not oked docs list for user screen
+  NotOKDocsListAssignedByUserToSpecialist:
+    "fetchAssignedByMeNotOkDocumentDetailsForUser/",
+  // get specialist assigned pending docs to user for user screen
+  specialistAssignedPendingDocsToUser:
+    "fetchAssignedToMePendingDocumentDetailsForUser/",
+  // get specialist assigned processing docs to user for user screen
+  specialistAssignedProcessingDocsToUser:
+    "fetchAssignedToMeProcessingDocumentDetailsForUser/",
+  // get specialist assigned processed docs to user for user screen
+  specialistAssignedProcessedDocsToUser:
+    "fetchAssignedToMeProcessedDocumentDetailsForUser/",
+  // get specialist assigned ok docs to user for user screen
+  specialistAssignedOkDocsToUser: "fetchAssignedToMeOkDocumentDetails/",
+  // get specialist assigned not ok docs to user for user screen
+  specialistAssignedNotOkDocsToUser: "fetchAssignedToMeNotOkDocumentDetails/",
 };
 
 export default ApiUrl;
