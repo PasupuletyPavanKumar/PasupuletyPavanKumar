@@ -134,7 +134,7 @@ export class AuthenticatedService {
   // get all docs list assigned by specialist for specialist/user screen
   allDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = "6274d9972381980ad0f0c764"
   ) => {
     const url =
       this.docsListDomain +
@@ -234,7 +234,7 @@ export class AuthenticatedService {
   // get all docs assigned by user/specialist for specialist/user screen
   allDocsAssignedByUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = "6274d9972381980ad0f0c764"
   ) => {
     const url =
       this.docsListDomain + ApiUrl.allDocsListAssignedByUser + role + "/" + id;
@@ -560,7 +560,12 @@ export class AuthenticatedService {
 
   getUsers = async () => {
     const url = this.allUsersDomain + ApiUrl.allUsersList;
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
 
     if (response) {
       const resData = response.data;
@@ -569,11 +574,9 @@ export class AuthenticatedService {
     }
   };
 
-  getProfileDetails = async (user = "superUser") => {
+  getProfileDetails = async (user = sessionStorage.getItem("username")) => {
     const url = this.AdminDomain + ApiUrl.getProfileDetails + user;
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos/1"
-    );
+    const response = await axios.get(url);
 
     if (response) {
       const resData = response.data;
