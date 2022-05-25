@@ -16,6 +16,7 @@ const UploadAssign = () => {
   const [projectList, setProjectList] = useState();
   const [usersList, setUsersList] = useState();
   const [filesList, setFilesList] = useState();
+  const [projectRes, setProjectRes] = useState();
 
   const handleClose = () => setShow(false);
 
@@ -40,19 +41,41 @@ const UploadAssign = () => {
   const handleDeleteModalShow = () => setshowDeleteModal(true);
 
   const showFiles = () => {
-    console.log("show selected project files");
+    console.log(projectList);
     authenticatedService.getFiles().then((res) => {
       if (res) {
-        setFilesList(res);
+        res != "404" ? setFilesList(res) : setFilesList("No Files yet");
+        console.log(res);
       }
       console.log(res);
     });
   };
 
+  const storeProjectValues = (res) => {
+    const arr = [];
+    res.forEach((ele) => {
+      arr.push(ele.projectName);
+    });
+    setProjectRes(res);
+    setProjectList(arr);
+  };
+
+  const extractProjectId = (value) => {
+    let id = null;
+    projectRes.filter((ele) => {
+      if (value === ele.projectName) id = ele.id;
+    });
+
+    return id;
+  };
+
   const getProjectList = () => {
     authenticatedService.getProjects().then((res) => {
       if (res) {
-        setProjectList(res);
+        res != "404"
+          ? storeProjectValues(res)
+          : setProjectList("No Projects yet");
+        console.log(res);
       }
       console.log(res);
     });

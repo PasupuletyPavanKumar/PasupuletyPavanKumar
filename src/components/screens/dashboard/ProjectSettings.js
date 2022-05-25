@@ -6,20 +6,179 @@ import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 import { Modal } from "react-bootstrap";
 
 const ProjectSettings = () => {
-  const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
-  const [allDocsList, setAllDocsList] = useState([]);
-
   const authenticatedService = new AuthenticatedService();
+  const [usercontrolchange, setUsercontrolchange] = useState("SETTINGS");
+  const [allDocsList, setAllDocsList] = useState([]);
+  const [projectList, setProjectList] = useState();
+  const [settingsList, setSettingsList] = useState();
+  const [addSettingFields, setAddSettingFields] = useState({
+    settingName: "",
+    settingDescription: "",
+  });
+  const [settingInfo, setSettingInfo] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const [addProjectFields, setAddProjectFields] = useState({
+    projectName: "",
+    projectType: "PO",
+    description: "",
+  });
+
+  const handleSwitchChange = (e, index) => {
+    console.log(e.target);
+    // Destructuring
+    const { value, checked } = e.target;
+
+    console.log(`${value} is ${checked}`);
+
+    setSettingInfo([
+      index === 0 ? (checked ? true : false) : settingInfo[0],
+      index === 1 ? (checked ? true : false) : settingInfo[1],
+      index === 2 ? (checked ? true : false) : settingInfo[2],
+      index === 3 ? (checked ? true : false) : settingInfo[3],
+      index === 4 ? (checked ? true : false) : settingInfo[4],
+      index === 5 ? (checked ? true : false) : settingInfo[5],
+    ]);
+  };
+
+  const inputValidators = () => {
+    let inputFields = true;
+    let settingFields = false;
+    if (
+      addSettingFields.settingName == "" ||
+      addSettingFields.settingDescription == ""
+    ) {
+      alert("All fields required");
+      inputFields = false;
+    }
+
+    settingInfo.forEach((element) => {
+      if (element === true) settingFields = true;
+    });
+
+    if (!settingFields && inputFields)
+      alert("Any one of the setting should be selected");
+
+    if (inputFields && settingFields) return true;
+    else return false;
+  };
+
+  const createSetting = () => {
+    if (inputValidators()) {
+      console.log(settingInfo);
+      console.log("Create Setting");
+      var reqBody = new FormData();
+      reqBody.append("settingName", addSettingFields.settingName);
+      reqBody.append("settingDescription", addSettingFields.settingDescription);
+      reqBody.append("isImageCorrectionOn", settingInfo[1]);
+      reqBody.append("isRoiOn", settingInfo[2]);
+      reqBody.append("isIqmon", settingInfo[0]);
+      reqBody.append("isOcrOn", settingInfo[4]);
+      reqBody.append("isSignatureAndLogoOn", settingInfo[5]);
+      reqBody.append("isTemplateDetectionOn", settingInfo[3]);
+      reqBody.append("specialistId", "");
+      reqBody.append("byUser", sessionStorage.getItem("username"));
+      reqBody.append("byUserRole", sessionStorage.getItem("role"));
+
+      for (var pair of reqBody.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      authenticatedService.addSetting(reqBody).then((res) => {
+        if (res) {
+          console.log("Setting added successfully");
+        }
+      });
+    }
+  };
+
+  const projectInputValidators = () => {
+    if (
+      addProjectFields.projectName == "" ||
+      addProjectFields.description == ""
+    ) {
+      alert("All fields required");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const createProject = () => {
+    if (projectInputValidators()) {
+      var reqBody = new FormData();
+      reqBody.append("projectName", addProjectFields.projectName);
+      reqBody.append("projectDescription", addProjectFields.description);
+      reqBody.append("projectType", addProjectFields.projectType);
+      reqBody.append("specialistId", "");
+      reqBody.append("settingId", extractSettingId());
+      reqBody.append("byUser", sessionStorage.getItem("username"));
+      reqBody.append("byUserRole", sessionStorage.getItem("role"));
+      reqBody.append("preprocessingConfigId", "dvz");
+      reqBody.append("roiConfigId", "vdzxc");
+      reqBody.append("iqmConfigId", "czc");
+      reqBody.append("ocrConfigId", "zdc");
+      reqBody.append("signatureAndLogoConfigId", "dcz");
+      reqBody.append("templateDetectionConfigId", "cdzc");
+      reqBody.append("nlpConfigId", "czdc");
+
+      for (var pair of reqBody.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      authenticatedService.addProject(reqBody).then((res) => {
+        if (res) {
+          console.log("Project added successfully");
+        }
+      });
+    }
+  };
+
+  const extractSettingId = (value) => {
+    let id = null;
+    settingsList.filter((ele) => {
+      if (value === ele.projectName) id = ele.id;
+    });
+
+    return id;
+  };
 
   const setDocType = (docState) => {
     setUsercontrolchange(docState);
     console.log(docState);
+    getProjectsSettingsList(docState);
   };
 
-  const getAssignedByMeList = () => {
-    authenticatedService.docsAssignedByMeList().then((res) => {
+  const getProjectsSettingsList = (docState) => {
+    if (docState === "SETTINGS") {
+      getSettingsList();
+    } else {
+      getProjectList();
+    }
+  };
+
+  const getSettingsList = () => {
+    authenticatedService.getSettings().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404"
+          ? setSettingsList(res)
+          : setSettingsList("No Settings yet");
+        console.log(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const getProjectList = () => {
+    authenticatedService.getProjects().then((res) => {
+      if (res) {
+        res != "404" ? setProjectList(res) : setProjectList("No Projects yet");
         console.log(res);
       }
       console.log(res);
@@ -27,15 +186,7 @@ const ProjectSettings = () => {
   };
 
   useEffect(() => {
-    let page = window.location.pathname;
-    page = page.replace(/[/]/g, "");
-    console.log(page);
-    if (page === "assignToUser") {
-      // specialist get the docs assigned to user
-      getAssignedByMeList();
-    } else {
-      console.log("call assign to me api");
-    }
+    getSettingsList();
   }, []);
 
   const [show, setShow] = useState(false);
@@ -52,13 +203,6 @@ const ProjectSettings = () => {
     setShow(true);
   };
 
-  const [addProjectFields, setAddProjectFields] = useState({
-    projectName: "",
-    projectType: "",
-    description: "",
-    settingName: "",
-  });
-
   const handleInputFields = (event, field) => {
     setAddProjectFields({
       projectName:
@@ -69,6 +213,15 @@ const ProjectSettings = () => {
         field === 3 ? event.target.value.trim() : addProjectFields.description,
       settingName:
         field === 4 ? event.target.value.trim() : addProjectFields.settingName,
+    });
+
+    setAddSettingFields({
+      settingName:
+        field === 1 ? event.target.value.trim() : addSettingFields.settingName,
+      settingDescription:
+        field === 2
+          ? event.target.value.trim()
+          : addSettingFields.settingDescription,
     });
   };
 
@@ -101,7 +254,7 @@ const ProjectSettings = () => {
               />
             </div>
             <div className="form-group col-sm-6 m-auto p-3">
-              <label for="type" className="label-popup">
+              {/* <label for="type" className="label-popup">
                 Project Type
               </label>
               <br />
@@ -111,7 +264,25 @@ const ProjectSettings = () => {
                 id="projectType"
                 value={addProjectFields.projectType}
                 onChange={(e) => handleInputFields(e, 2)}
-              />
+              /> */}
+
+              <div className="input-field">
+                <label for="type" className="label-popup">
+                  Project Type
+                </label>
+                <br />
+                <select
+                  name="Locations"
+                  id="location"
+                  className="select-pane"
+                  value={addProjectFields.projectType}
+                  onChange={(e) => handleInputFields(e, 2)}
+                >
+                  <option value="PO">PO</option>
+                  <option value="MTR">MTR</option>
+                  <option value="PR">PR</option>
+                </select>
+              </div>
             </div>
             <div className="form-group col-sm-6 m-auto p-3">
               <label for="description" className="label-popup">
@@ -136,9 +307,16 @@ const ProjectSettings = () => {
                   name="SettingName"
                   id="settingName"
                   className="input-field"
-                  value={addProjectFields.settingName}
+                  value={settingsList}
                   onChange={(e) => handleInputFields(e, 4)}
                 >
+                  {/* {settingsList.map((e, key) => {
+                    return (
+                      <option key={key} value={e.value}>
+                        {e.name}
+                      </option>
+                    );
+                  })} */}
                   <option value="test1">TEST1</option>
                   <option value="test2">TEST2</option>
                   <option value="test3">TEST3</option>
@@ -149,7 +327,9 @@ const ProjectSettings = () => {
           </div>
         </form>
         <center>
-          <button className="modal-button">SUBMIT</button>
+          <button className="modal-button" onClick={createProject}>
+            SUBMIT
+          </button>
         </center>
       </div>
     );
@@ -167,7 +347,7 @@ const ProjectSettings = () => {
       <div className="project-setting-flex">
         <form className="p-3 mt-2">
           <div className="row">
-            <div className="form-group col-sm-4">
+            <div className="form-group col-sm-4 m-auto p-3">
               <label for="usr" className="label-popup">
                 Name
               </label>
@@ -176,11 +356,11 @@ const ProjectSettings = () => {
                 type="text"
                 className="input-field"
                 id="SettingName"
-                //value={addServerFields.serverName}
-                //onChange={(e) => handleInputFields(e, 1)}
+                value={addSettingFields.settingName}
+                onChange={(e) => handleInputFields(e, 1)}
               />
             </div>
-            <div className="form-group col-sm-4">
+            <div className="form-group col-sm-4 m-auto p-3">
               <label for="usr" className="label-popup">
                 Description
               </label>
@@ -189,23 +369,23 @@ const ProjectSettings = () => {
                 type="text"
                 className="input-field"
                 id="ipAddre"
-                //value={addServerFields.ipAddress}
-                //onChange={(e) => handleInputFields(e, 2)}
+                value={addSettingFields.settingDescription}
+                onChange={(e) => handleInputFields(e, 2)}
               />
             </div>
-            <div className="form-group col-sm-4">
+            {/* <div className="form-group col-sm-4 m-auto p-3">
               <label for="usr" className="label-popup">
                 Date
               </label>
               <br />
               <input
-                type="text"
+                type="date"
                 className="input-field"
                 id="ipAddre"
-                //value={addServerFields.ipAddress}
-                //onChange={(e) => handleInputFields(e, 3)}
+                value={addSettingFields.settingAddedDate}
+                onChange={(e) => handleInputFields(e, 3)}
               />
-            </div>
+            </div> */}
           </div>
         </form>
 
@@ -216,6 +396,8 @@ const ProjectSettings = () => {
                 type="checkbox"
                 class="custom-control-input"
                 id="customSwitch1"
+                value="IQM"
+                onChange={(e) => handleSwitchChange(e, 0)}
               />
               <label class="custom-control-label" for="customSwitch1">
                 IQM
@@ -228,6 +410,8 @@ const ProjectSettings = () => {
                 type="checkbox"
                 class="custom-control-input"
                 id="customSwitch2"
+                value="IC"
+                onChange={(e) => handleSwitchChange(e, 1)}
               />
               <label class="custom-control-label" for="customSwitch2">
                 IC
@@ -242,6 +426,8 @@ const ProjectSettings = () => {
                 type="checkbox"
                 class="custom-control-input"
                 id="customSwitch3"
+                value="ROI"
+                onChange={(e) => handleSwitchChange(e, 2)}
               />
               <label class="custom-control-label" for="customSwitch3">
                 ROI
@@ -257,6 +443,8 @@ const ProjectSettings = () => {
                 type="checkbox"
                 class="custom-control-input"
                 id="customSwitch4"
+                value="TEMP"
+                onChange={(e) => handleSwitchChange(e, 3)}
               />
               <label class="custom-control-label" for="customSwitch4">
                 TEMP
@@ -271,6 +459,8 @@ const ProjectSettings = () => {
                 type="checkbox"
                 class="custom-control-input"
                 id="customSwitch5"
+                value="OCR"
+                onChange={(e) => handleSwitchChange(e, 4)}
               />
               <label class="custom-control-label" for="customSwitch5">
                 OCR
@@ -284,6 +474,8 @@ const ProjectSettings = () => {
                 type="checkbox"
                 class="custom-control-input"
                 id="customSwitch6"
+                value="SIGN"
+                onChange={(e) => handleSwitchChange(e, 5)}
               />
               <label class="custom-control-label" for="customSwitch6">
                 SIGN
@@ -294,7 +486,9 @@ const ProjectSettings = () => {
           <br />
           <div className="col-sm-12">
             <div className="setting-button m-4 p-auto">
-              <button className="modal-button">CREATE SETTING</button>
+              <button className="modal-button" onClick={createSetting}>
+                CREATE SETTING
+              </button>
             </div>
           </div>
         </div>

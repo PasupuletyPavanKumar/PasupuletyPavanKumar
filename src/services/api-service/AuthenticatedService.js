@@ -84,6 +84,38 @@ export class AuthenticatedService {
     }
   };
 
+  addSetting = async (reqBody) => {
+    const url = this.projectListDomain + ApiUrl.addSetting;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
+  addProject = async (reqBody) => {
+    const url = this.projectListDomain + ApiUrl.addProject;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
   updateAdmin = async (reqBody, user = "Mithun") => {
     const url = this.AdminDomain + ApiUrl.updateAdmin + user;
     const response = await axios.put(url, reqBody, {
@@ -538,23 +570,31 @@ export class AuthenticatedService {
 
   getProjects = async () => {
     const url = this.projectListDomain + ApiUrl.getProjectList;
-    const response = await axios.get(url);
-
-    if (response) {
-      const resData = response.data;
-      console.log(resData);
-      return resData;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
     }
   };
 
   getFiles = async (id) => {
     const url = this.filesListDomain + ApiUrl.getFilesList + "/" + id;
-    const response = await axios.get(url);
-
-    if (response) {
-      const resData = response.data;
-      console.log(resData);
-      return resData;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
     }
   };
 
@@ -571,6 +611,21 @@ export class AuthenticatedService {
       const resData = response.data;
       console.log(resData);
       return resData;
+    }
+  };
+
+  getSettings = async () => {
+    const url = this.projectListDomain + ApiUrl.getSettingsList;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
     }
   };
 

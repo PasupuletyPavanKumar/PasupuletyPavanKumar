@@ -344,32 +344,34 @@ const AssignFiles = (props) => {
               {" "}
               PENDING
             </h6>
-            <h6
-              className={
-                usercontrolchange === "PROCESSING" ? "controlchange" : ""
-              }
-              onClick={() => setDocState("PROCESSING")}
-            >
-              {" "}
-              PROCESSING
-            </h6>
-            <h6
-              className={
-                usercontrolchange === "COMPLETED" ? "controlchange" : ""
-              }
-              onClick={() => setDocState("COMPLETED")}
-            >
-              {" "}
-              PROCESSED
-            </h6>
-            {/* if(
-            {(page === "assignToUser" &&
+
+            {((page === "assignToUser" &&
               sessionStorage.getItem("role") === "specialist") ||
               (page === "assignToMe" &&
-                sessionStorage.getItem("role") === "user")}
-            )
-            {
-              <div> */}
+                sessionStorage.getItem("role") === "user")) && (
+              <div className="d-flex ">
+                <h6
+                  className={
+                    usercontrolchange === "PROCESSING"
+                      ? "controlchange mr-2"
+                      : "mr-2"
+                  }
+                  onClick={() => setDocState("PROCESSING")}
+                >
+                  {" "}
+                  PROCESSING
+                </h6>
+                <h6
+                  className={
+                    usercontrolchange === "COMPLETED" ? "controlchange" : ""
+                  }
+                  onClick={() => setDocState("COMPLETED")}
+                >
+                  {" "}
+                  PROCESSED
+                </h6>
+              </div>
+            )}
             <h6
               className={usercontrolchange === "OK" ? "controlchange" : ""}
               onClick={() => setDocState("OK")}
@@ -384,8 +386,6 @@ const AssignFiles = (props) => {
               {" "}
               NOT OK
             </h6>
-            {/* </div>
-            } */}
           </div>
           <table class="table">
             <thead>
