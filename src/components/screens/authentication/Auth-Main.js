@@ -106,20 +106,18 @@ const AuthMain = () => {
 
   return (
     //container for all login forms
-    <div class="container-fluid authmain-flex">
-      <div class="row-sm-12">
-        <div class="col-sm-12 screen">
-          {/*displays the title*/}
-          <div class="title">
-            {login != "done" && (
-              <div className="logo text-center">{setTitle()}</div>
-            )}
-            {/* {setTitle()} */}
-          </div>
-
-          {/*displays the container for forms*/}
-          <div class="formbox">{renderComponent()}</div>
+    <div class="container authmain-flex">
+      <div>
+        {/*displays the title*/}
+        <div class="title">
+          {login != "done" && (
+            <div className="logo text-center">{setTitle()}</div>
+          )}
+          {/* {setTitle()} */}
         </div>
+
+        {/*displays the container for forms*/}
+        <div class="formbox">{renderComponent()}</div>
       </div>
     </div>
   );

@@ -4,13 +4,8 @@ import AuthMain from "../authentication/Auth-Main";
 import Logo from "..\\src\\assets\\logo\\lttslogo.svg";
 import AiknoLogo from "..\\src\\assets\\logo\\AiKnologo.svg";
 
-<<<<<<< Updated upstream
-// import Logo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/lttslogo.svg";
-// import AiknoLogo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/AiKnologo.svg";
-=======
 //import Logo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/lttslogo.svg";
 //import AiknoLogo from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/logo/AiKnologo.svg";
->>>>>>> Stashed changes
 
 //Description:main function consist of the background implementation of the login screens.
 //input:null

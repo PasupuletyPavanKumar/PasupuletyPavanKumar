@@ -55,8 +55,10 @@ const ResetPassword = (props) => {
   return (
     <div class="form" className="form-style">
       <div class="form-group">
-        <label for="usr" className="label">New Password</label>
-        <br/>
+        <label for="usr" className="label">
+          New Password
+        </label>
+        <br />
         <input
           type="password"
           className="input-field"
@@ -67,11 +69,14 @@ const ResetPassword = (props) => {
       </div>
 
       <div class="form-group">
-        <label  for="pwd" className="label"> Confirm Password</label>
-        <br/>
+        <label for="pwd" className="label">
+          {" "}
+          Confirm Password
+        </label>
+        <br />
         <input
           type="password"
-         className="input-field"
+          className="input-field"
           id="pwd"
           value={inputFields.confirmPassword}
           onChange={(e) => handleInputFields(e, 2)}
@@ -86,6 +91,16 @@ const ResetPassword = (props) => {
           >
             {_LABELS[3].reset}
           </button>
+        </center>
+      </div>
+      <div class="mt-2">
+        <center>
+          <text
+            onClick={() => props.parentCallBack(_LABELS[2].otp)}
+            className="backlink"
+          >
+            GO BACK
+          </text>
         </center>
       </div>
     </div>

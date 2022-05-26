@@ -69,7 +69,7 @@ const OtpVerification = (props) => {
       </button>
       <br />
       <br />
-      <div>
+      <div class="mt-2">
         <center>
           <text
             onClick={() => props.parentCallBack(_LABELS[1].password)}

@@ -64,7 +64,7 @@ const Home = (props) => {
       active: "server",
     },
     {
-      src: "assets/icons/Pro_settings_white.svg",
+      src: "assets/icons/pro_settings_white.svg",
       title: "Project Settings",
       active: "project",
     },

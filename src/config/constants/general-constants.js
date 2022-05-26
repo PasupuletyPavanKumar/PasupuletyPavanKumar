@@ -1,8 +1,8 @@
 //defines the titles for the login screen
 export const _AUTHTITLES = [
   {
-    title: "Welcome Back",
-    desc: "Please login to your account!",
+    title: "Welcome To!",
+    desc: "your account please login",
   },
   {
     title: "Forgot your Password?",
@@ -21,7 +21,6 @@ export const _AUTHTITLES = [
     desc: "Your registration verification has been completed successfully",
   },
 ];
-
 
 //defines the label of the login screens
 export const _LABELS = [
