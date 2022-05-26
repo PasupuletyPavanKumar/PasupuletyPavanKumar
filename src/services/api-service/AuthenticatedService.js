@@ -9,6 +9,9 @@ export class AuthenticatedService {
   AdminDomain = "http://localhost:8092/";
   exportFileDomain = "http://localhost:8053/";
   docsListDomain = "http://localhost:8066/";
+  projectListDomain = "http://localhost:9097/";
+  allUsersDomain = "http://localhost:8095/";
+  filesListDomain = "http://localhost:8099/";
 
   getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
@@ -81,6 +84,38 @@ export class AuthenticatedService {
     }
   };
 
+  addSetting = async (reqBody) => {
+    const url = this.projectListDomain + ApiUrl.addSetting;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
+  addProject = async (reqBody) => {
+    const url = this.projectListDomain + ApiUrl.addProject;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
   updateAdmin = async (reqBody, user = "Mithun") => {
     const url = this.AdminDomain + ApiUrl.updateAdmin + user;
     const response = await axios.put(url, reqBody, {
@@ -131,7 +166,7 @@ export class AuthenticatedService {
   // get all docs list assigned by specialist for specialist/user screen
   allDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = "6274d9972381980ad0f0c764"
   ) => {
     const url =
       this.docsListDomain +
@@ -231,7 +266,7 @@ export class AuthenticatedService {
   // get all docs assigned by user/specialist for specialist/user screen
   allDocsAssignedByUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = "6274d9972381980ad0f0c764"
   ) => {
     const url =
       this.docsListDomain + ApiUrl.allDocsListAssignedByUser + role + "/" + id;
@@ -533,11 +568,70 @@ export class AuthenticatedService {
     }
   };
 
-  getProfileDetails = async (user = "superUser") => {
+  getProjects = async () => {
+    const url = this.projectListDomain + ApiUrl.getProjectList;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  getFiles = async (id) => {
+    const url = this.filesListDomain + ApiUrl.getFilesList + "/" + id;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  getUsers = async () => {
+    const url = this.allUsersDomain + ApiUrl.allUsersList;
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getSettings = async () => {
+    const url = this.projectListDomain + ApiUrl.getSettingsList;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  getProfileDetails = async (user = sessionStorage.getItem("username")) => {
     const url = this.AdminDomain + ApiUrl.getProfileDetails + user;
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos/1"
-    );
+    const response = await axios.get(url);
 
     if (response) {
       const resData = response.data;

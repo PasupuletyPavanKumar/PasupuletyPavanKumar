@@ -50,12 +50,12 @@ const ServerManagement = () => {
   });
 
   const getServersList = () => {
-    authenticatedService.getServerList().then((res) => {
-      if (res) {
-        setServersList(res);
-      }
-      console.log(res);
-    });
+    // authenticatedService.getServerList().then((res) => {
+    //   if (res) {
+    //     setServersList(res);
+    //   }
+    //   console.log(res);
+    // });
   };
 
   useEffect(() => {
@@ -137,11 +137,11 @@ const ServerManagement = () => {
         console.log(pair[0] + ", " + pair[1]);
       }
 
-      authenticatedService.addServer(reqBody).then((res) => {
-        if (res) {
-          <div>{handleClose()}</div>;
-        }
-      });
+      // authenticatedService.addServer(reqBody).then((res) => {
+      //   if (res) {
+      //     handleClose();
+      //   }
+      // });
     }
   };
 

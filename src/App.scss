@@ -1124,7 +1124,10 @@ row-flex {
   opacity: 1;
   border-radius: 8px;
 }
-
+.combo {
+  height: 5vh;
+  width: 35vw;
+}
 .content {
   height: 100%;
   padding: 20px 20px 10px;
@@ -1711,3 +1714,16 @@ select {
   }
 }
 //end
+
+// @media (min-width: 576px) and (max-width: 767px) {
+//   .dashboard-main:nth-child(3),
+//   .dashboard-main:nth-child(4) {
+//     margin-top: 12px;
+//   }
+// }
+
+// @media (max-width: 575px) {
+//   .dashboard-main {
+//     margin-top: 12px;
+//   }
+// }

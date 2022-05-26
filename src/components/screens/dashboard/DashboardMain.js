@@ -17,7 +17,10 @@ const DashboardMain = (props) => {
   const config = {
     role: props.role,
     column: props.role === "super-user" ? 2 : 4,
-    colClass: props.role === "super-user" ? "col-md-6" : "col-md-3",
+    colClass:
+      props.role === "super-user"
+        ? "col-md-6"
+        : "col-xs-12 col-sm-6 col-md-3 dashboard-main",
     image: props.images,
   };
 

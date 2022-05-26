@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
 import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
@@ -7,7 +8,7 @@ import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 // import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
 // import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
 
-const AssignFiles = () => {
+const AssignFiles = (props) => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
   const [allDocsList, setAllDocsList] = useState([]);
   const [page, setPage] = useState([]);
@@ -290,18 +291,20 @@ const AssignFiles = () => {
   };
 
   useEffect(() => {
-    let page = window.location.pathname;
-    page = page.replace(/[/]/g, "");
+    // let page = window.location.pathname;
+    // page = page.replace(/[/]/g, "");
+    const page = props.page;
     setPage(page);
-    console.log(page);
+    console.log("files --->", page);
     if (page === "assignToUser") {
       // specialist get the docs assigned to user
       getSpecialistAssignedAllDocsList();
+      console.log("files --->", "getSpecialistAssignedAllDocsList");
     } else {
       getUserAssignedAllDocsList();
-      console.log("call assign to me api");
+      console.log("getUserAssignedAllDocsList");
     }
-  }, []);
+  }, [props]);
 
   return (
     <div>
@@ -341,32 +344,34 @@ const AssignFiles = () => {
               {" "}
               PENDING
             </h6>
-            <h6
-              className={
-                usercontrolchange === "PROCESSING" ? "controlchange" : ""
-              }
-              onClick={() => setDocState("PROCESSING")}
-            >
-              {" "}
-              PROCESSING
-            </h6>
-            <h6
-              className={
-                usercontrolchange === "COMPLETED" ? "controlchange" : ""
-              }
-              onClick={() => setDocState("COMPLETED")}
-            >
-              {" "}
-              PROCESSED
-            </h6>
-            {/* if(
-            {(page === "assignToUser" &&
+
+            {((page === "assignToUser" &&
               sessionStorage.getItem("role") === "specialist") ||
               (page === "assignToMe" &&
-                sessionStorage.getItem("role") === "user")}
-            )
-            {
-              <div> */}
+                sessionStorage.getItem("role") === "user")) && (
+              <div className="d-flex ">
+                <h6
+                  className={
+                    usercontrolchange === "PROCESSING"
+                      ? "controlchange mr-2"
+                      : "mr-2"
+                  }
+                  onClick={() => setDocState("PROCESSING")}
+                >
+                  {" "}
+                  PROCESSING
+                </h6>
+                <h6
+                  className={
+                    usercontrolchange === "COMPLETED" ? "controlchange" : ""
+                  }
+                  onClick={() => setDocState("COMPLETED")}
+                >
+                  {" "}
+                  PROCESSED
+                </h6>
+              </div>
+            )}
             <h6
               className={usercontrolchange === "OK" ? "controlchange" : ""}
               onClick={() => setDocState("OK")}
@@ -381,8 +386,6 @@ const AssignFiles = () => {
               {" "}
               NOT OK
             </h6>
-            {/* </div>
-            } */}
           </div>
           <table class="table">
             <thead>

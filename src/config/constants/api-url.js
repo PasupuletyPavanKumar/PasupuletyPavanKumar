@@ -14,6 +14,12 @@ const ApiUrl = {
   updateProfilePassword: "userManagement/updatePassword",
   getServersList: "serverManagement/fetchAllServer/",
   addServer: "serverManagement/add",
+  getProjectList: "fetchAllProjects",
+  getSettingsList: "fetchAllSettings",
+  allUsersList: "userManagement/fetchAll",
+  getFilesList: "fetchDocumentDetailsByDocumentId/",
+  addSetting: "createSetting",
+  addProject: "createProject",
   //get all docs list assigned by specialist for specialist/user screen
   allDocsListAssignedBySpecialist: "fetchAssignedByMeDocumentDetails/",
   //get pending docs list assigned by specialist for specialist screen
