@@ -106,6 +106,7 @@ const AuthMain = () => {
 
   return (
     //container for all login forms
+
     <div class="container authmain-flex">
       <div>
         {/*displays the title*/}
