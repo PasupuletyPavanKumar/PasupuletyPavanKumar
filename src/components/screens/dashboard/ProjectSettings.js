@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+
+// import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+// import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+
+import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
+import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+
 import { Modal } from "react-bootstrap";
 
 const ProjectSettings = () => {
@@ -10,7 +15,8 @@ const ProjectSettings = () => {
   const [usercontrolchange, setUsercontrolchange] = useState("SETTINGS");
   const [allDocsList, setAllDocsList] = useState([]);
   const [projectList, setProjectList] = useState();
-  const [settingsList, setSettingsList] = useState();
+  const [settingsList, setSettingsList] = useState([]);
+  const [selectedDetail, setSelectedDetail] = useState(null);
   const [addSettingFields, setAddSettingFields] = useState({
     settingName: "",
     settingDescription: "",
@@ -78,11 +84,11 @@ const ProjectSettings = () => {
       reqBody.append("settingDescription", addSettingFields.settingDescription);
       reqBody.append("isImageCorrectionOn", settingInfo[1]);
       reqBody.append("isRoiOn", settingInfo[2]);
-      reqBody.append("isIqmon", settingInfo[0]);
+      reqBody.append("isIqmOn", settingInfo[0]);
       reqBody.append("isOcrOn", settingInfo[4]);
       reqBody.append("isSignatureAndLogoOn", settingInfo[5]);
       reqBody.append("isTemplateDetectionOn", settingInfo[3]);
-      reqBody.append("specialistId", "");
+      reqBody.append("specialistId", "6274d9472381980ad0f0c763");
       reqBody.append("byUser", sessionStorage.getItem("username"));
       reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
@@ -117,7 +123,10 @@ const ProjectSettings = () => {
       reqBody.append("projectDescription", addProjectFields.description);
       reqBody.append("projectType", addProjectFields.projectType);
       reqBody.append("specialistId", "");
-      reqBody.append("settingId", extractSettingId());
+      reqBody.append(
+        "settingId",
+        selectedDetail ? selectedDetail.id : settingsList[0].id
+      );
       reqBody.append("byUser", sessionStorage.getItem("username"));
       reqBody.append("byUserRole", sessionStorage.getItem("role"));
       reqBody.append("preprocessingConfigId", "dvz");
@@ -138,15 +147,6 @@ const ProjectSettings = () => {
         }
       });
     }
-  };
-
-  const extractSettingId = (value) => {
-    let id = null;
-    settingsList.filter((ele) => {
-      if (value === ele.projectName) id = ele.id;
-    });
-
-    return id;
   };
 
   const setDocType = (docState) => {
@@ -185,6 +185,17 @@ const ProjectSettings = () => {
     });
   };
 
+  const getSettingName = (settingId) => {
+    let name = null;
+    authenticatedService.getIndividualSettings(settingId).then((res) => {
+      if (res) {
+        console.log(res.settingName);
+        name = res.settingName;
+        return name;
+      }
+    });
+  };
+
   useEffect(() => {
     getSettingsList();
   }, []);
@@ -196,11 +207,19 @@ const ProjectSettings = () => {
     setshowProjectModal(false);
     setAddProjectFields({
       projectName: "",
-      projectType: "",
+      projectType: "PO",
       description: "",
       settingName: "",
     });
     setShow(true);
+  };
+
+  const getSettingDetails = (e) => {
+    console.log(e.target.value);
+    const selected = e.target.value;
+    settingsList.filter((data) => {
+      if (data.settingName === selected) setSelectedDetail(data);
+    });
   };
 
   const handleInputFields = (event, field) => {
@@ -209,12 +228,14 @@ const ProjectSettings = () => {
         field === 1 ? event.target.value.trim() : addProjectFields.projectName,
       projectType:
         field === 2 ? event.target.value.trim() : addProjectFields.projectType,
-      projectDescription:
+      description:
         field === 3 ? event.target.value.trim() : addProjectFields.description,
-      settingName:
-        field === 4 ? event.target.value.trim() : addProjectFields.settingName,
+      // settingName:
+      //   field === 4 ? event.target.value.trim() : addProjectFields.settingName,
     });
+  };
 
+  const handleSettingInputFields = (event, field) => {
     setAddSettingFields({
       settingName:
         field === 1 ? event.target.value.trim() : addSettingFields.settingName,
@@ -303,25 +324,25 @@ const ProjectSettings = () => {
               </label>
               <br />
               <div className="input-field">
-                <select
-                  name="SettingName"
-                  id="settingName"
-                  className="input-field"
-                  value={settingsList}
-                  onChange={(e) => handleInputFields(e, 4)}
-                >
-                  {/* {settingsList.map((e, key) => {
-                    return (
-                      <option key={key} value={e.value}>
-                        {e.name}
+                {settingsList.length > 0 && (
+                  <select
+                    name="SettingName"
+                    id="settingName"
+                    className="input-field"
+                    value={settingsList.settingName}
+                    onChange={(e) => getSettingDetails(e)}
+                  >
+                    {settingsList.map((e, key) => (
+                      <option key={key} value={e.settingName}>
+                        {e.settingName}
                       </option>
-                    );
-                  })} */}
-                  <option value="test1">TEST1</option>
-                  <option value="test2">TEST2</option>
-                  <option value="test3">TEST3</option>
-                  <option value="test4">TEST4</option>
-                </select>
+                    ))}
+                    {/* <option value="test1">TEST1</option>
+    <option value="test2">TEST2</option>
+    <option value="test3">TEST3</option>
+    <option value="test4">TEST4</option> */}
+                  </select>
+                )}
               </div>
             </div>
           </div>
@@ -357,7 +378,7 @@ const ProjectSettings = () => {
                 className="input-field"
                 id="SettingName"
                 value={addSettingFields.settingName}
-                onChange={(e) => handleInputFields(e, 1)}
+                onChange={(e) => handleSettingInputFields(e, 1)}
               />
             </div>
             <div className="form-group col-sm-4 m-auto p-3">
@@ -370,7 +391,7 @@ const ProjectSettings = () => {
                 className="input-field"
                 id="ipAddre"
                 value={addSettingFields.settingDescription}
-                onChange={(e) => handleInputFields(e, 2)}
+                onChange={(e) => handleSettingInputFields(e, 2)}
               />
             </div>
             {/* <div className="form-group col-sm-4 m-auto p-3">
@@ -533,42 +554,93 @@ const ProjectSettings = () => {
                   PROJECT
                 </h6>
               </div>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>DATE OF CREATION</th>
-                    <th>PROJECT NAME</th>
-                    <th>PROJECT TYPE</th>
-                    <th>DESCRIPTION</th>
-                    <th>SETTING NAME</th>
-                    <th>ACTION</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allDocsList &&
-                    allDocsList.map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.dateOfAssignment}</td>
+              {usercontrolchange === "SETTINGS" && (
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>DATE OF CREATED</th>
+                      <th>SETTING NAME</th>
+                      <th>DESCRIPTION</th>
+                      <th>SETTINGS</th>
+                      <th>ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {settingsList &&
+                      settingsList.map((item) => (
+                        <tr key={item.id}>
+                          <td>{item.date}</td>
 
-                        <td>{item.projectId}</td>
+                          <td>{item.settingName}</td>
 
-                        <td>{item.projectType}</td>
+                          <td>{item.settingDescription}</td>
 
-                        <td>{item.description}</td>
+                          <td>
+                            {item.isIqmOn
+                              ? "IQM"
+                              : " " + "," + item.isImageCorrectionOn
+                              ? "IC"
+                              : " " + "," + item.isOcrOn
+                              ? "OCR"
+                              : " " + "," + item.isRoiOn
+                              ? "ROI"
+                              : " " + "," + item.isSignatureAndLogoOn
+                              ? "SIGN"
+                              : " " + "," + item.isTemplateDetectionOn
+                              ? "TEMP"
+                              : " "}
+                          </td>
 
-                        <td>{item.settingId}</td>
+                          {/* <td>{item.contactNumber}</td> */}
+                          <td>
+                            <img src={Icon_eye}></img>
+                            <img src={Icon_trash}></img>
+                          </td>
 
-                        {/* <td>{item.contactNumber}</td> */}
-                        <td>
-                          <img src={Icon_eye}></img>
-                          <img src={Icon_trash}></img>
-                        </td>
+                          {/* <td>{item.onUser}</td> */}
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              )}
+              {usercontrolchange === "PROJECT" && (
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>DATE OF CREATION</th>
+                      <th>PROJECT NAME</th>
+                      <th>PROJECT TYPE</th>
+                      <th>DESCRIPTION</th>
+                      <th>SETTING NAME</th>
+                      <th>ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {projectList &&
+                      projectList.map((item) => (
+                        <tr key={item.id}>
+                          <td>{item.date}</td>
 
-                        {/* <td>{item.onUser}</td> */}
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+                          <td>{item.projectName}</td>
+
+                          <td>{item.projectType}</td>
+
+                          <td>{item.projectDescription}</td>
+
+                          <td>{getSettingName(item.settingId)}</td>
+
+                          {/* <td>{item.contactNumber}</td> */}
+                          <td>
+                            <img src={Icon_eye}></img>
+                            <img src={Icon_trash}></img>
+                          </td>
+
+                          {/* <td>{item.onUser}</td> */}
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>

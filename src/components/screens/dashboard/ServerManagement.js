@@ -50,12 +50,12 @@ const ServerManagement = () => {
   });
 
   const getServersList = () => {
-    // authenticatedService.getServerList().then((res) => {
-    //   if (res) {
-    //     setServersList(res);
-    //   }
-    //   console.log(res);
-    // });
+    authenticatedService.getServerList().then((res) => {
+      if (res) {
+        setServersList(res);
+      }
+      console.log(res);
+    });
   };
 
   useEffect(() => {
@@ -127,7 +127,7 @@ const ServerManagement = () => {
       reqBody.append("serverStartDate", addServerFields.startDate);
       reqBody.append("serverStopDate", addServerFields.stopDate);
       reqBody.append("status", addServerFields.serverStatus);
-      reqBody.append("listOfApplications", addServerFields.listOfApplication);
+      reqBody.append("listOfApplication", addServerFields.listOfApplication);
       reqBody.append("serverCPU", addServerFields.cpu);
       reqBody.append("serverGPU", addServerFields.GPU);
       reqBody.append("serverRAM", addServerFields.RAM);
@@ -137,11 +137,11 @@ const ServerManagement = () => {
         console.log(pair[0] + ", " + pair[1]);
       }
 
-      // authenticatedService.addServer(reqBody).then((res) => {
-      //   if (res) {
-      //     handleClose();
-      //   }
-      // });
+      authenticatedService.addServer(reqBody).then((res) => {
+        if (res) {
+          handleClose();
+        }
+      });
     }
   };
 
@@ -366,7 +366,7 @@ const ServerManagement = () => {
                 <div class="col-sm-6">
                   <div class="server-tab">
                     <div class="row">
-                      <div className="server-title"> Server A</div>
+                      <div className="server-title">{item.serverName}</div>
                       <div>
                         <button type="button" className="export-button">
                           Export
@@ -428,13 +428,13 @@ const ServerManagement = () => {
 
                             <tbody className="tblbody">
                               <tr>
-                                <td>Data</td>
+                                <td>{item.serverStartDate}</td>
 
-                                <td>Data</td>
+                                <td>{item.serverStaticIpAddress}</td>
 
-                                <td>Data</td>
+                                <td>{item.serverName}</td>
 
-                                <td>Data</td>
+                                <td>{item.status}</td>
                               </tr>
                             </tbody>
                           </ReactBootStrap.Table>
@@ -444,85 +444,6 @@ const ServerManagement = () => {
                   </div>
                 </div>
               ))}
-
-            <div class="col-sm-6">
-              <div class="server-tab">
-                <div class="row">
-                  <div className="server-title"> Server B</div>
-                  <div>
-                    <button type="button" className="export-button">
-                      Export
-                    </button>
-                  </div>
-                </div>
-                <br />
-                <div>
-                  {/* first row */}
-                  <div class="row row-flex">
-                    {/* CPU daily */}
-                    <div class="col-sm-5 server-content">
-                      <div className="row-sm-5 divleft">
-                        <label className="col-sm-2 server-text">
-                          CPU Daily
-                        </label>
-                        <p className="mtag">Usage</p>
-                      </div>
-                      <div className="col-sm-3 divright">
-                        <CircularProgressbar value={66} text={"100%"} />
-                      </div>
-                    </div>
-                    <div class="col-sm-5 server-content">
-                      <div className="row-sm-5 divleft">
-                        <label className="col-sm-2 server-text">Storage</label>
-                        <p className="mtag">
-                          Usage
-                          <text className="storage"> D TB</text>
-                        </p>
-                      </div>
-                      <div className="col-sm-3 divright">
-                        <CircularProgressbar
-                          value={66}
-                          text={"66%"}
-                          className
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Table */}
-                <div class="row row-flex ">
-                  <div class="col server-table">
-                    <div className="tblheight">
-                      <ReactBootStrap.Table>
-                        <thead className="tblhead">
-                          <tr>
-                            <th>DATE</th>
-
-                            <th>IP ADDRESS</th>
-
-                            <th>SERVER NAME</th>
-
-                            <th>SERVER STATUS</th>
-                          </tr>
-                        </thead>
-
-                        <tbody className="tblbody">
-                          <tr>
-                            <td>Data</td>
-
-                            <td>Data</td>
-
-                            <td>Data</td>
-
-                            <td>Data</td>
-                          </tr>
-                        </tbody>
-                      </ReactBootStrap.Table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

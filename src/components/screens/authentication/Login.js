@@ -49,31 +49,31 @@ const Login = (props) => {
   };
 
   const submitLogin = () => {
-    if (inputValidators()) {
-      var urlencoded = new URLSearchParams();
-      urlencoded.append("grant_type", "password");
-      urlencoded.append("client_id", "aiknossd");
-      urlencoded.append("client_secret", "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4");
-      urlencoded.append("username", loginFields.username);
-      urlencoded.append("password", loginFields.password);
-      urlencoded.append("scope", "openid");
+    // if (inputValidators()) {
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "password");
+    urlencoded.append("client_id", "aiknossd");
+    urlencoded.append("client_secret", "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4");
+    urlencoded.append("username", loginFields.username);
+    urlencoded.append("password", loginFields.password);
+    urlencoded.append("scope", "openid");
 
-      const reqBody = {
-        grant_type: "password",
-        client_id: "aikno-ssd",
-        client_secret: "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4",
-        scope: "openid",
-        username: loginFields.username,
-        password: loginFields.password,
-        scope: "openid",
-      };
-      authService.login(urlencoded).then((res) => {
-        if (res) {
-          getProfileDetails();
-          navigate("/dashboard");
-        }
-      });
-    }
+    const reqBody = {
+      grant_type: "password",
+      client_id: "aikno-ssd",
+      client_secret: "L38cGElKRUJSkX6ZkImNViw7c9KiGyg4",
+      scope: "openid",
+      username: loginFields.username,
+      password: loginFields.password,
+      scope: "openid",
+    };
+    authService.login(urlencoded).then((res) => {
+      if (res) {
+        getProfileDetails();
+        navigate("/dashboard");
+      }
+    });
+    // }
   };
 
   const handleInputFields = (event, field) => {

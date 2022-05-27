@@ -12,6 +12,7 @@ export class AuthenticatedService {
   projectListDomain = "http://localhost:9097/";
   allUsersDomain = "http://localhost:8095/";
   filesListDomain = "http://localhost:8099/";
+  serverDomain = "http://localhost:8091/";
 
   getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
     const url = this.notificationDomain + ApiUrl.notificationsCount + user;
@@ -113,6 +114,49 @@ export class AuthenticatedService {
       const resData = response.data;
       console.log(resData);
       return true;
+    }
+  };
+
+  uploadDocs = async (reqBody) => {
+    const url = this.filesListDomain + ApiUrl.uploadDocs;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
+  addServer = async (reqBody) => {
+    const url = this.serverDomain + ApiUrl.addServer;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
+  getServerList = async (username = sessionStorage.getItem("username")) => {
+    const url = this.serverDomain + ApiUrl.getServerList + username;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
     }
   };
 
@@ -584,7 +628,7 @@ export class AuthenticatedService {
   };
 
   getFiles = async (id) => {
-    const url = this.filesListDomain + ApiUrl.getFilesList + "/" + id;
+    const url = this.filesListDomain + ApiUrl.getFilesList + id;
     let apiRes = null;
     try {
       apiRes = await axios.get(url);
@@ -626,6 +670,18 @@ export class AuthenticatedService {
       console.error(err.response.status);
       console.error(err.response.headers);
       return err.response.data;
+    }
+  };
+
+  getIndividualSettings = async (settingId) => {
+    const url =
+      this.projectListDomain + ApiUrl.getIndividualSettings + settingId;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
     }
   };
 

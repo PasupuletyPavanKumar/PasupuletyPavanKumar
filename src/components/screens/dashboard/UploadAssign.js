@@ -7,20 +7,26 @@ import { Autocomplete, Checkbox } from "@mui/material";
 import { TextField } from "@mui/material";
 import Upload from "../../../assets/icons/icon_upload.svg";
 import file from "../../../assets/icons/file.svg";
+
+let files = [];
+
 const UploadAssign = () => {
   const myoption = ["Rahul", "Riya", "Himanshu", "Ashwin", "Aravind"];
   const projectoption = ["MTR", "PO", "PR"];
   const authenticatedService = new AuthenticatedService();
   const [show, setShow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [projectList, setProjectList] = useState();
+  const [projectList, setProjectList] = useState([]);
   const [usersList, setUsersList] = useState();
   const [filesList, setFilesList] = useState();
   const [projectRes, setProjectRes] = useState();
+  const [selectedProjName, setSelectedProjName] = useState(null);
+  const [selectedFile, setSelectedFile] = useState([]);
 
   const handleClose = () => setShow(false);
 
   const handleShow = () => {
+    files = [];
     setshowDeleteModal(false);
     setIsEdit(false);
     setAddAdminFields({
@@ -40,9 +46,10 @@ const UploadAssign = () => {
   const handleDeleteModalClose = () => setshowDeleteModal(false);
   const handleDeleteModalShow = () => setshowDeleteModal(true);
 
-  const showFiles = () => {
-    console.log(projectList);
-    authenticatedService.getFiles().then((res) => {
+  const showFiles = (value) => {
+    const id = extractProjectId(value);
+    // console.log(extractProjectId(value));
+    authenticatedService.getFiles(id).then((res) => {
       if (res) {
         res != "404" ? setFilesList(res) : setFilesList("No Files yet");
         console.log(res);
@@ -56,6 +63,7 @@ const UploadAssign = () => {
     res.forEach((ele) => {
       arr.push(ele.projectName);
     });
+    console.log(arr);
     setProjectRes(res);
     setProjectList(arr);
   };
@@ -103,6 +111,56 @@ const UploadAssign = () => {
         field === 2 ? event.target.value.trim() : addAdminFields.ipAddress,
     });
   };
+
+  const selectedProject = (e) => {
+    setSelectedProjName(e.target.value);
+  };
+
+  const changeHandler = (event) => {
+    console.log("length -->", event.target.files.length);
+    const FileLength = event.target.files.length;
+
+    for (const file in event.target.files) {
+      if (file <= FileLength) files.push(event.target.files[file]);
+    }
+
+    console.log(files);
+    setSelectedFile(files);
+    // setIsSelected(true);
+  };
+
+  const uploadDocs = () => {
+    if (files.length > 0) {
+      const id = extractProjectId(
+        selectedProjName ? selectedProjName : projectList[0]
+      );
+
+      var reqBody = new FormData();
+
+      for (let index = 0; index < files.length; index++) {
+        reqBody.append("document", files[index], files[index].name);
+      }
+
+      reqBody.append("documentType", "PO");
+      reqBody.append("uploadedBy", "6274d9472381980ad0f0c763");
+      reqBody.append("projectId", id);
+      reqBody.append("byUser", sessionStorage.getItem("username"));
+      reqBody.append("byUserRole", sessionStorage.getItem("role"));
+
+      for (var pair of reqBody.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      authenticatedService.uploadDocs(reqBody).then((res) => {
+        if (res) {
+          console.log("Uploaded docs successfully");
+        }
+      });
+    } else {
+      alert("Upload atleast one document");
+    }
+  };
+
   const adminForm = () => {
     return (
       <div className="popup">
@@ -129,11 +187,16 @@ const UploadAssign = () => {
                   name="projectname"
                   id="projectname"
                   className="select-pane"
-                  value={addAdminFields.projectName}
-                  onChange={(e) => handleInputFields(e, 1)}
+                  value={selectedProjName ? selectedProjName : projectList[0]}
+                  onChange={(e) => selectedProject(e)}
                 >
-                  <option value="Thales">Thales</option>
-                  <option value="HaliBurton">HaliBurton</option>
+                  {projectList.map((e, index) => (
+                    <option key={index} value={projectList[index]}>
+                      {projectList[index]}
+                    </option>
+                  ))}
+                  {/* <option value="Thales">Thales</option>
+                  <option value="HaliBurton">HaliBurton</option> */}
                 </select>
               </div>
             </div>
@@ -141,7 +204,13 @@ const UploadAssign = () => {
               <button className="upload-button">Upload</button>
             </div>
             <div className="form-group col-sm-2 m-auto p-3">
-              <button className="upload-submit">Submit</button>
+              <button
+                className="upload-submit"
+                onClick={uploadDocs}
+                type="button"
+              >
+                Submit
+              </button>
             </div>
           </div>
 
@@ -150,6 +219,7 @@ const UploadAssign = () => {
               class="form-control"
               type="file"
               id="formFileMultiple"
+              onChange={changeHandler}
               multiple
             />
           </div>
@@ -237,10 +307,10 @@ const UploadAssign = () => {
               <div className="form-group col-sm-3 mt-4 ml-4">
                 <Autocomplete
                   autoSelect
-                  options={projectoption}
+                  options={projectList}
                   // style={{ height: "5vh", width: "35vw" }}
                   className="combo"
-                  onChange={showFiles}
+                  onChange={(event, value) => showFiles(value)}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -260,9 +330,9 @@ const UploadAssign = () => {
                       <img src={file} className="file-img" />
                     </div>
                     <div className="tab-right">
-                      <label className="tab-text">FileName1</label>
+                      <label className="tab-text">{item.fileName}</label>
                       <p className="">description</p>
-                      <p className="">MTR</p>
+                      <p className="">{item.documentType}</p>
                     </div>
                     <div className="checkbox2">
                       <input type="checkbox" />
