@@ -85,11 +85,11 @@ const Login = (props) => {
 
   return (
     <div class="form" className="form-style">
-      <div class="form-group">
+      <div class="form-group mb-4">
         <label for="usr" className="label">
           Username
         </label>
-        <br />
+
         <input
           type="text"
           className="input-field"
@@ -99,9 +99,8 @@ const Login = (props) => {
         />
       </div>
 
-      <div class="form-group">
-        <label className="label">Password</label>
-        <br />
+      <div class="form-group m-1">
+        <label className="label ">Password</label>
         <input
           type="password"
           className="input-field"
@@ -111,8 +110,8 @@ const Login = (props) => {
         />
       </div>
 
-      <div class="form-group">
-        <div class="row">
+      <div class="form-group m-1">
+        <div class="row mt-3 mb-3">
           <FormCheck type="checkbox" label="Remember me" className="check" />
           <text
             onClick={() => props.parentCallBack(_LABELS[1].password)}
@@ -122,13 +121,14 @@ const Login = (props) => {
           </text>
         </div>
       </div>
-      <center>
+      {/* <center>
         <ReCAPTCHA
           className="captcha"
           sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
           //onChange={onChange}
         />
-      </center>
+      </center> */}
+      <br />
       <button
         variant="primary"
         type="button"

@@ -24,21 +24,16 @@ const Main = () => {
       */
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid screen-split">
+      {/*left container*/}
       <div class="row">
-        {/*left container*/}
-        <div className="col-sm-6 bgImage1">
-          <div className="col-sm-6">
-            {/*ltts logo */}
-            <img src={Logo} className="lttslogo" />
-            {/*AiKnoSSD logo */}
-            <img src={AiknoLogo} className="aiknologo" />
-          </div>
-        </div>
+        <div className="col-md-6 bgImage1">
+          <img src={Logo} className="lttslogo" />
 
+          <img src={AiknoLogo} className="aiknologo" />
+        </div>
         {/*right container*/}
-        <div className="col-sm-6 bgImage2">
-          {/*navigate to Auth-Main.js which consist of login forms*/}
+        <div className="col-md-6 bgImage2">
           <AuthMain />
         </div>
       </div>

@@ -69,8 +69,8 @@ const ForgotPassword = (props) => {
         {_LABELS[1].password}
       </a> */}
       </div>
-      <br />
-      <div>
+
+      <div class="mt-2">
         <center>
           <text
             onClick={() => props.parentCallBack(_LABELS[0].login)}
