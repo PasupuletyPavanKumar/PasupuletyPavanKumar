@@ -133,6 +133,22 @@ export class AuthenticatedService {
     }
   };
 
+  assignFiles = async (reqObj) => {
+    const url = this.docsListDomain + ApiUrl.assignFiles;
+    const response = await axios.post(url, reqObj, {
+      headers: {
+        // "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
+  };
+
   addServer = async (reqBody) => {
     const url = this.serverDomain + ApiUrl.addServer;
     const response = await axios.post(url, reqBody, {
@@ -646,7 +662,6 @@ export class AuthenticatedService {
     const url = this.allUsersDomain + ApiUrl.allUsersList;
     const response = await axios.get(url, {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
         Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
       },
     });
