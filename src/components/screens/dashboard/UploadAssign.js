@@ -9,6 +9,7 @@ import Upload from "../../../assets/icons/icon_upload.svg";
 import file from "../../../assets/icons/file.svg";
 
 let files = [];
+let storedFiles = [];
 
 const UploadAssign = () => {
   const myoption = ["Rahul", "Riya", "Himanshu", "Ashwin", "Aravind"];
@@ -18,10 +19,13 @@ const UploadAssign = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [projectList, setProjectList] = useState([]);
   const [usersList, setUsersList] = useState();
+  const [usersResponse, setUsersResponse] = useState();
+  const [userValues, setUserValues] = useState();
   const [filesList, setFilesList] = useState();
   const [projectRes, setProjectRes] = useState();
   const [selectedProjName, setSelectedProjName] = useState(null);
   const [selectedFile, setSelectedFile] = useState([]);
+  const [checkBoxInput, setCheckBox] = useState([]);
 
   const handleClose = () => setShow(false);
 
@@ -29,18 +33,10 @@ const UploadAssign = () => {
     files = [];
     setshowDeleteModal(false);
     setIsEdit(false);
-    setAddAdminFields({
-      ServerName: "",
-      ipAddress: "",
-    });
     setShow(true);
   };
 
   const [adminList, setadminList] = useState([]);
-  const [addAdminFields, setAddAdminFields] = useState({
-    ServerName: "",
-    ipAddress: "",
-  });
 
   const [showDeleteModal, setshowDeleteModal] = useState(false);
   const handleDeleteModalClose = () => setshowDeleteModal(false);
@@ -55,6 +51,74 @@ const UploadAssign = () => {
         console.log(res);
       }
       console.log(res);
+    });
+  };
+
+  const setSelectedPdfFiles = () => {
+    const files = [];
+    storedFiles.forEach((item) => {
+      files.push({
+        fileReference: item.id,
+
+        fileName: item.fileName,
+
+        fileType: "pdf",
+
+        documentType: "PO",
+
+        projectId: item.projectId,
+      });
+    });
+
+    console.log("files ---->", files);
+
+    return files;
+  };
+
+  const assignFiles = () => {
+    console.log(userValues);
+
+    const reqObj = {
+      assignedToUserId: userValues.id,
+
+      assignedToUserName: userValues.userName,
+
+      assignedToUserEmail: userValues.email,
+
+      assignedBySpecialistId: "6274d9472381980ad0f0c763",
+
+      assignedBySpecialistName: sessionStorage.getItem("username"),
+
+      assignedBySpecialistEmail: "Mithun652@ltts.com",
+
+      assignedDocumentsList: setSelectedPdfFiles(),
+    };
+
+    authenticatedService.assignFiles(reqObj).then((res) => {
+      if (res) {
+        console.log("Assigned docs successfully");
+        setProjectList([]);
+      }
+    });
+
+    console.log("reqObj ---------->", reqObj);
+  };
+
+  const storeUsersValues = (res) => {
+    const arr = [];
+    res.forEach((ele) => {
+      arr.push(ele.userName);
+    });
+    console.log(arr);
+    setUsersResponse(res);
+    setUsersList(arr);
+  };
+
+  const extractUserValue = (value) => {
+    usersResponse.filter((ele) => {
+      if (value === ele.userName) {
+        setUserValues(ele);
+      }
     });
   };
 
@@ -92,7 +156,7 @@ const UploadAssign = () => {
   const getUsersList = () => {
     authenticatedService.getUsers().then((res) => {
       if (res) {
-        setUsersList(res);
+        storeUsersValues(res);
       }
       console.log(res);
     });
@@ -102,15 +166,6 @@ const UploadAssign = () => {
     getProjectList();
     getUsersList();
   }, []);
-
-  const handleInputFields = (event, field) => {
-    setAddAdminFields({
-      firstname:
-        field === 1 ? event.target.value.trim() : addAdminFields.ServerName,
-      lastname:
-        field === 2 ? event.target.value.trim() : addAdminFields.ipAddress,
-    });
-  };
 
   const selectedProject = (e) => {
     setSelectedProjName(e.target.value);
@@ -227,6 +282,32 @@ const UploadAssign = () => {
       </div>
     );
   };
+
+  const selectFiles = (item) => {
+    let isDataAvailable = false;
+
+    //if item present uncheck
+
+    if (storedFiles.length > 0) {
+      storedFiles.filter((list, index) => {
+        if (list.id === item.id) {
+          isDataAvailable = true;
+          storedFiles.splice(index, 1);
+        }
+      });
+    }
+
+    //else item store
+    if (
+      (!isDataAvailable && storedFiles.length > 0) ||
+      (storedFiles.length === 0 && !isDataAvailable)
+    )
+      storedFiles.push(item);
+
+    setCheckBox(storedFiles);
+    console.log(storedFiles);
+  };
+
   return (
     //container start
     <div className="container-fluid">
@@ -252,6 +333,7 @@ const UploadAssign = () => {
                       height: "4vh",
                       width: "30vw",
                     }}
+                    onChange={(event, value) => extractUserValue(value)}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -263,7 +345,11 @@ const UploadAssign = () => {
                 </div>
 
                 <div className="col-sm-4 right-side">
-                  <button type="button" className="assign-button">
+                  <button
+                    type="button"
+                    className="assign-button"
+                    onClick={assignFiles}
+                  >
                     Assign
                   </button>
                 </div>
@@ -324,7 +410,7 @@ const UploadAssign = () => {
 
             <div className="row row-flex">
               {filesList &&
-                filesList.map((item) => (
+                filesList.map((item, index) => (
                   <div className="col-12 col-sm-2 tab-flex">
                     <div className="tab-left">
                       <img src={file} className="file-img" />
@@ -335,7 +421,18 @@ const UploadAssign = () => {
                       <p className="">{item.documentType}</p>
                     </div>
                     <div className="checkbox2">
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        onClick={() => selectFiles(item)}
+                        // checked={
+                        //   checkBoxInput.length > 0 &&
+                        //   index <= checkBoxInput.length
+                        //     ? item.id === checkBoxInput[index].id
+                        //       ? true
+                        //       : false
+                        //     : false
+                        // }
+                      />
                     </div>
                   </div>
                 ))}

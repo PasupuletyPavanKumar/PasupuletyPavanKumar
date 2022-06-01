@@ -24,6 +24,7 @@ const ApiUrl = {
   getServerList: "serverManagement/fetchAllServer/",
   getIndividualSettings: "fetchSettingBySettingId/",
   uploadDocs: "uploadDocuments",
+  assignFiles: "assignDocumentsToUser",
   //get all docs list assigned by specialist for specialist/user screen
   allDocsListAssignedBySpecialist: "fetchAssignedByMeDocumentDetails/",
   //get pending docs list assigned by specialist for specialist screen

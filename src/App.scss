@@ -1574,6 +1574,10 @@ select {
   justify-content: center;
   font: normal normal bold 14px Open Sans;
   color: #004072;
+  max-width: 76px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .upload-right {
