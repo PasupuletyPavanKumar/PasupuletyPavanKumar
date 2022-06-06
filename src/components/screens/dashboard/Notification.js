@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
-
+import * as ReactBootstrap from "react-bootstrap";
+import { ReactComponent as NotificationLogo } from "../../../assets/icons/setting_blue.svg";
+// import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
 const Notification = () => {
   const authenticatedService = new AuthenticatedService();
 
@@ -22,25 +24,23 @@ const Notification = () => {
   };
 
   return (
-    <div>
-      <h1>All Notifications</h1>
-      <div className="Notificationscontainermain">
-        {/* {notifications &&
+    <div className="main-screen screen-main">
+      <div className="head1">All Notifications</div>
+      <div className="Notificationscontainermain p-3">
+        {notifications &&
           notifications.map((item) => (
-            <p key={notifications.id}>{notifications.title}</p>
-          ))} */}
-
-        {notifications != "No Notifications" &&
-          notifications.map((item) => (
-            <p>
-              <p className="p1" key={item.id}>
-                {item.operation}
-              </p>
-
-              <p className="p2" key={item.id}>
-                {item.description}
-              </p>
-            </p>
+            <div className="d-flex">
+              <div className="notifaction-title w-100">
+                <div className="notiLogo">
+                  <NotificationLogo />
+                </div>
+                <div className="notification-heading">
+                  <div className="font-16 fontweight-700"> {item.title}</div>
+                  <div className="font-14 color959595"> {item.title}</div>
+                </div>
+              </div>
+              {/* <div>30 min ago</div> */}
+            </div>
           ))}
       </div>
     </div>
@@ -48,3 +48,37 @@ const Notification = () => {
 };
 
 export default Notification;
+
+// <ReactBootstrap.Table class="notification-table">
+//           <tbody className="table-wrapper m-3">
+//             {notifications &&
+//               notifications.map((item) => (
+//                 <tr key={item.id}>
+//                   <td>
+//                     <div className="">
+//                       <CheckCircleOutlineIcon className="notification-icon">
+//                         {" "}
+//                       </CheckCircleOutlineIcon>
+//                     </div>
+//                   </td>
+
+//                   <td>
+//                     <div className="p-2">
+//                       <text className="p1" key={item.id}>
+//                         {item.title}
+//                       </text>
+//                       <br />
+//                       <text className="p2" key={item.id}>
+//                         {item.title}
+//                       </text>{" "}
+//                     </div>
+//                   </td>
+
+//                   {/* <td> <div className="DATE">date Of Activity</div></td> */}
+//                   <td>
+//                     <div className="DATE p2">{item.title}</div>
+//                   </td>
+//                 </tr>
+//               ))}
+//           </tbody>
+//         </ReactBootstrap.Table>

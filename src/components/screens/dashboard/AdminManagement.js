@@ -1,13 +1,97 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import CloseIcon from "../../../assets/icons/close.svg";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import * as XLSX from "xlsx/xlsx.mjs";
+import ReactPaginate from "react-paginate";
+import ReactDOM from "react-dom";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const AdminManagement = () => {
+  const [open, setOpen] = useState(false);
+  const [openFirst, setOpenFirst] = React.useState(false);
+
+  const onOpenModal = () => {
+    console.log("onOpenModal");
+    setOpen(true);
+  };
+  const onCloseModal = () => setOpen(false);
+  const onCloseModalDelete = () => setOpenFirst(false);
+
   const authenticatedService = new AuthenticatedService();
+
+  //pagination and get data-
+  const [offset, setOffset] = useState(0);
+  const [TableData, setData] = useState([]);
+  const [perPage] = useState(10);
+  const [pageCount, setPageCount] = useState(0);
+
+  useEffect(() => {
+    getAdminsList();
+  }, [offset]);
+
+  const getAdminsList = () => {
+    authenticatedService.getAdmin().then((res) => {
+      if (res) {
+        GetTableData(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const GetTableData = (res) => {
+    const TableData = res;
+    const slice = TableData.slice(offset, offset + perPage);
+    let postData;
+    <div>
+      <div class="d-flex align-items-start">
+        <ReactBootStrap.Table>
+          {
+            (postData = slice.map((item) => (
+              <tbody>
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>
+                    {/* <button className="cursor-pointer" onClick={onOpenModal}>
+                      EDIT
+                    </button> */}
+                    <EditIcon
+                      className="cursor-pointer admg-Edit-delete-color"
+                      onClick={() => updateAdmin(item)}
+                    />
+                    &nbsp;
+                    <DeleteIcon
+                      className="cursor-pointer admg-Edit-delete-color"
+                      onClick={() => deleteAdminModal(item)}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            )))
+          }
+        </ReactBootStrap.Table>
+      </div>
+    </div>;
+
+    setData(postData);
+    setPageCount(Math.ceil(TableData.length / perPage));
+  };
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1);
+  };
+
   const [show, setShow] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -23,7 +107,8 @@ const AdminManagement = () => {
       location: "Bangalore",
       role: "",
     });
-    setShow(true);
+    // setShow(true);
+    setOpen(true);
   };
 
   const [showDeleteModal, setshowDeleteModal] = useState(false);
@@ -99,15 +184,6 @@ const AdminManagement = () => {
     console.log("createSpecialistUser");
   };
 
-  const getAdminsList = () => {
-    authenticatedService.getAdmin().then((res) => {
-      if (res) {
-        setadminList(res);
-      }
-      console.log(res);
-    });
-  };
-
   const deleteAdmin = () => {
     var reqBody = new FormData();
     reqBody.append("byUser", "");
@@ -160,18 +236,17 @@ const AdminManagement = () => {
       location: item.location,
       role: isAdmin(item),
     });
-    setShow(true);
+    // setShow(true);
+    console.log("updateAdmin");
+    setOpen(true);
     console.log(item);
   };
 
   const deleteAdminModal = (item) => {
-    setShow(true);
+    //setShow(true);
+    setOpen(true);
     setshowDeleteModal(true);
   };
-
-  useEffect(() => {
-    getAdminsList();
-  }, []);
 
   const handleInputFields = (event, field) => {
     setAddAdminFields({
@@ -191,15 +266,6 @@ const AdminManagement = () => {
   const adminForm = () => {
     return (
       <div className="popup">
-        <button
-          type="button"
-          className="close"
-          aria-label="Close"
-          onClick={handleClose}
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-
         <div className="modal-heading">
           {isEdit
             ? sessionStorage.getItem("role") === "super-user"
@@ -268,7 +334,6 @@ const AdminManagement = () => {
                 Location
               </label>
               <br />
-              {/* <input type="text" className="input-field" id="usr" /> */}
               <div className="input-field">
                 <select
                   name="Locations"
@@ -328,16 +393,6 @@ const AdminManagement = () => {
             SUBMIT
           </button>
         </center>
-        {/* <Button
-          className="modal-button"
-          onClick={
-            sessionStorage.getItem("role") === "super-user"
-              ? createAdmin
-              : createSpecialistUser
-          }
-        >
-          Submit
-        </Button> */}
       </div>
     );
   };
@@ -345,25 +400,24 @@ const AdminManagement = () => {
   const deletModal = () => {
     return (
       <div className="del-popup">
-        <button
-          type="button"
-          className="close"
-          aria-label="Close"
-          onClick={handleClose}
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
         <div className="delete-modal">Are you sure?</div>
         <br />
 
         <div className="delete-text">
-          Do you want to delete this admin.
+          Do you want to delete this{" "}
+          {sessionStorage.getItem("role") === "super-user"
+            ? "admin"
+            : "specialist/user"}
           <br />
           The process cannot be undone.
         </div>
         <br />
         <center>
-          <button type="button" className="cancel-button" onClick={handleClose}>
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={onCloseModal}
+          >
             Cancel
           </button>
           &ensp;
@@ -377,101 +431,128 @@ const AdminManagement = () => {
 
   return (
     <div>
-      <div className="text-right m-3">
-        <button type="button" onClick={handleShow} className="custom-button">
-          {sessionStorage.getItem("role") === "super-user"
-            ? "Add Admin"
-            : "Add Specialist/User"}
-        </button>
-      </div>
-      <div className="container">
-        <div className="row row-flex">
-          <div className="welcome-tag"> Admin Management</div> <br /> <br />
-          <br />
-        </div>
-
-        <div class="main">
-          <div class="form-group has-search">
-            <span class="fa fa-search form-control-feedback"></span>
-            <input type="text" class="form-control" placeholder="Search" />
-          </div>
-          <div className="Drop">
-            <select className="filter">filter</select>
-            <div className="text-right m-3">
-              <Button type="button" onClick={exportFile}>
-                Export
-              </Button>
+      <div class="screen-main main-screen">
+        <div class="container admg-head">
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <h6>Admin Management</h6>
             </div>
-            {/* <select className="export">export</select> */}
+
+            <div>
+              {/* <button type="button" className="admg-add-admin">
+                Add Admin
+              </button> */}
+              <button
+                type="button"
+                onClick={handleShow}
+                className="admg-add-admin"
+              >
+                {sessionStorage.getItem("role") === "super-user"
+                  ? "Add Admin"
+                  : "Add Specialist/User"}
+              </button>
+            </div>
           </div>
         </div>
 
-        <div>
-          <ReactBootStrap.Table className="tbl1">
-            <thead>
-              <tr className="title1">
-                <th>DATE</th>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-sm-12">
+              <div className="admg-tbl-outline">
+                <div
+                  class="row"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div class="col-sm-3 mb-4">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Search"
+                      aria-label="Search"
+                    />
+                  </div>
 
-                <th>USERNAME</th>
+                  <div
+                    class="col-sm-3  mb-4"
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Dropdown className="admg-filter-export">
+                      <Dropdown.Toggle variant="" id="dropdown-basic">
+                        Filter
+                      </Dropdown.Toggle>
 
-                <th>FIRSTNAME</th>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
 
-                <th>EMAILID</th>
+                    <Dropdown className="admg-filter-export">
+                      <Dropdown.Toggle variant="" id="dropdown-basic">
+                        Export
+                      </Dropdown.Toggle>
 
-                <th>MOBILE NUMBER</th>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                </div>
 
-                <th style={{ minWidth: "160px" }}>ROLE</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {adminList &&
-                adminList.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.title}</td>
-
-                    <td>{item.id}</td>
-
-                    <td>{item.firstName}</td>
-
-                    <td>{item.email}</td>
-
-                    <td>{item.contactNumber}</td>
-
-                    {/* <td>{item.onUser}</td> */}
-
-                    <td className="d-flex justify-content-between">
-                      <div>{isAdmin(item)} </div>
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => updateAdmin(item)}
-                      >
-                        EDIT
-                      </div>
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => deleteAdminModal(item)}
-                      >
-                        DELETE
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </ReactBootStrap.Table>
+                <div className="p-4">
+                  <div className="tblheight table-responsive">
+                    <ReactBootStrap.Table>
+                      <thead>
+                        <tr className="admg-tblhead">
+                          <th className="test-admg">DATE </th>
+                          <th>USERNAME</th>
+                          <th>FIRSTNAME</th>
+                          <th>EMAILID</th>
+                          <th>NUMBER</th>
+                          <th>ROLE</th>
+                          <th>ACTION</th>
+                        </tr>
+                      </thead>
+                      {TableData}
+                    </ReactBootStrap.Table>
+                    <br />
+                    <ReactPaginate
+                      className="pagination justify-content-end admg-pagination-tab"
+                      previousLabel={"prev"}
+                      nextLabel={"next"}
+                      breakLabel={"..."}
+                      breakClassName={"break-me"}
+                      pageCount={pageCount}
+                      marginPagesDisplayed={2}
+                      pageRangeDisplayed={3}
+                      onPageChange={handlePageClick}
+                      containerClassName={"pagination"}
+                      subContainerClassName={"pages pagination"}
+                      activeClassName={"active"}
+                      breakLinkClassName={"page-link"}
+                      pageClassName={"page-item"}
+                      pageLinkClassName={"page-link"}
+                      previousClassName={"page-item"}
+                      previousLinkClassName={"page-link"}
+                      nextClassName={"page-item"}
+                      nextLinkClassName={"page-link"}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div>
+          {/* <button onClick={onOpenModal}>Open modal</button> */}
+          <Modal open={open} onClose={onCloseModal} center>
+            {showDeleteModal ? deletModal() : adminForm()}
+          </Modal>
+        </div>
+        <div></div>
       </div>
-
-      {/* Edit/Add Admin Modal  */}
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size={"md"}
-        className="bootstrap-modal"
-      >
-        {showDeleteModal ? deletModal() : adminForm()}
-      </Modal>
     </div>
   );
 };

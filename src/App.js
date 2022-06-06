@@ -1,5 +1,5 @@
 import "./App.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./components/screens/main/Main";
 import { Routes, Route, useNavigate } from "react-router-dom";
 // import ForgotPassword from "./components/screens/authentication/ForgotPassword";

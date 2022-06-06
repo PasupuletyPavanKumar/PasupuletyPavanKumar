@@ -444,6 +444,84 @@ const ServerManagement = () => {
                   </div>
                 </div>
               ))}
+            <div class="col-sm-6">
+              <div class="server-tab">
+                <div class="row">
+                  <div className="server-title">{"item.serverName"}</div>
+                  <div>
+                    <button type="button" className="export-button">
+                      Export
+                    </button>
+                  </div>
+                </div>
+                <br />
+                <div>
+                  {/* first row */}
+                  <div class="row row-flex">
+                    {/* CPU daily */}
+                    <div class="col-sm-5 server-content">
+                      <div className="row-sm-5 divleft">
+                        <label className="col-sm-2 server-text">
+                          CPU Daily
+                        </label>
+                        <p className="mtag">Usage</p>
+                      </div>
+                      <div className="col-sm-3 divright">
+                        <CircularProgressbar value={66} text={"100%"} />
+                      </div>
+                    </div>
+                    <div class="col-sm-5 server-content">
+                      <div className="row-sm-5 divleft">
+                        <label className="col-sm-3 server-text">Storage</label>
+                        <p className="mtag">
+                          Usage
+                          <text className="storage"> D TB</text>
+                        </p>
+                      </div>
+                      <div className="col-sm-3 divright">
+                        <CircularProgressbar
+                          value={66}
+                          text={"66%"}
+                          className
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Table */}
+                <div class="row row-flex ">
+                  <div class="col server-table">
+                    <div className="tblheight">
+                      <ReactBootStrap.Table>
+                        <thead className="tblhead">
+                          <tr>
+                            <th>DATE</th>
+
+                            <th>IP ADDRESS</th>
+
+                            <th>SERVER NAME</th>
+
+                            <th>SERVER STATUS</th>
+                          </tr>
+                        </thead>
+
+                        <tbody className="tblbody">
+                          <tr>
+                            <td>{"item.serverStartDate"}</td>
+
+                            <td>{"item.serverStaticIpAddress"}</td>
+
+                            <td>{"item.serverName"}</td>
+
+                            <td>{"item.status"}</td>
+                          </tr>
+                        </tbody>
+                      </ReactBootStrap.Table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
