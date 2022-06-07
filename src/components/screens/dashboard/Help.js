@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./Help.css";
-import My_ticket from "..\\src\\assets\\icons\\My_ticket.svg";
-import Help_center from "..\\src\\assets\\icons\\Help_center.svg";
-import FAQ from "..\\src\\assets\\icons\\FAQ.svg";
+//import My_ticket from "..\\src\\assets\\icons\\My_ticket.svg";
+//import Help_center from "..\\src\\assets\\icons\\Help_center.svg";
+//import FAQ from "..\\src\\assets\\icons\\FAQ.svg";
 
-// import My_ticket from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/My_ticket.svg";
-// import Help_center from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Help_center.svg";
-// import FAQ from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/FAQ.svg";
+import My_ticket from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/My_ticket.svg";
+import Help_center from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Help_center.svg";
+import FAQ from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/FAQ.svg";
 
 import Mytickets from "./Mytickets";
 import Helpcenter from "./Helpcenter";

@@ -1,0 +1,36 @@
+---
+- hosts: webservers
+  become: True
+  tasks:
+    - name: Install python pip
+      apt: name=python3-pip state=present update_cache=true
+    - name: Install docker
+      apt: name=docker state=present
+    - name: Start docker
+      service: name=docker state=started enabled=yes
+    - name: Install docker-py python module
+      pip: name=docker-py state=present
+    ## - name: Stop old haproxy container
+    ##   docker_container: name=haproxy state=stopped
+    ## - name: remove old haproxy container
+    ##   docker_container: name=haproxy state=absent
+    ## - name: remove old haproxy image
+    ##   docker_image: name=aravind2k/haproxy-docker-jenkins tag=latest state=absent
+    ## - name: Pull new haproxy image
+    ##   docker_image: name=aravind2k/haproxy-docker-jenkins tag=latest source=pull state=present
+    ## - name: Start new haproxy container
+    ##   docker_container: name=haproxy image=aravind2k/haproxy-docker-jenkins state=started
+    - name: Stop old reactjs container
+      docker_container: name=ReactJs state=stopped
+    - name: Remove old reactjs container
+      docker_container: name=ReactJs state=absent
+    - name: Remove old reactjs image
+      docker_image: name=aravind2k/reactjs-docker-jenkins tag=latest state=absent force_absent=yes
+    - name: pull new reactjs image
+      docker_image: name=aravind2k/reactjs-docker-jenkins tag=latest source=pull state=present
+    - name: Start new reactjs container
+      docker_container: name=ReactJs image=aravind2k/reactjs-docker-jenkins network_mode="host" state=started
+  ##  - name: Docker login
+  ##    docker_login: username=aravind2k password=Aravind2000#
+  ##  - name: Start spring container
+  ##    docker_container: name=Spring image=aravind2k/jenkins-docker-integration state=started
