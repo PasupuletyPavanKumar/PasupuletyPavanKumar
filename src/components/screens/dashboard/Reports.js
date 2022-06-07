@@ -36,7 +36,7 @@ const Reports = () => {
     let postData;
     <div>
       <div class="d-flex align-items-start">
-        <table class="table">
+        <ReactBootStrap.Table>
           {
             (postData = slice.map((item) => (
               <tbody>
@@ -51,7 +51,7 @@ const Reports = () => {
               </tbody>
             )))
           }
-        </table>
+        </ReactBootStrap.Table>
       </div>
     </div>;
 
