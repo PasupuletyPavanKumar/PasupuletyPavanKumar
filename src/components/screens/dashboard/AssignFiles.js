@@ -347,25 +347,26 @@ const AssignFiles = (props) => {
     setOffset(selectedPage + 1);
   };
 
-  useEffect(() => {
-    getActivityList();
-  }, [offset]);
-
   // useEffect(() => {
-  //   // let page = window.location.pathname;
-  //   // page = page.replace(/[/]/g, "");
-  //   const page = props.page;
-  //   setPage(page);
-  //   console.log("files --->", page);
-  //   if (page === "assignToUser") {
-  //     // specialist get the docs assigned to user
-  //     getSpecialistAssignedAllDocsList();
-  //     console.log("files --->", "getSpecialistAssignedAllDocsList");
-  //   } else {
-  //     getUserAssignedAllDocsList();
-  //     console.log("getUserAssignedAllDocsList");
-  //   }
-  // }, [props]);
+  //   getActivityList();
+  // }, [offset]);
+
+  useEffect(() => {
+    // let page = window.location.pathname;
+    // page = page.replace(/[/]/g, "");
+    const page = props.page;
+    setPage(page);
+    console.log("files --->", page);
+    if (page === "assignToUser") {
+      // specialist get the docs assigned to user
+      //getSpecialistAssignedAllDocsList();
+      getActivityList();
+      console.log("files --->", "getSpecialistAssignedAllDocsList");
+    } else {
+      getUserAssignedAllDocsList();
+      console.log("getUserAssignedAllDocsList");
+    }
+  }, [props, offset]);
 
   return (
     <div class="container-fluid">
@@ -438,24 +439,35 @@ const AssignFiles = (props) => {
                     {" "}
                     PENDING
                   </th>
-                  <th
-                    className={
-                      usercontrolchange === "PROCESSING" ? "controlchange" : ""
-                    }
-                    onClick={() => setUsercontrolchange("PROCESSING")}
-                  >
-                    {" "}
-                    PROCESSING{" "}
-                  </th>
-                  <th
-                    className={
-                      usercontrolchange === "PROCESSED" ? "controlchange" : ""
-                    }
-                    onClick={() => setUsercontrolchange("PROCESSED")}
-                  >
-                    {" "}
-                    PROCESSED{" "}
-                  </th>
+                  {((page === "assignToUser" &&
+                    sessionStorage.getItem("role") === "specialist") ||
+                    (page === "assignToMe" &&
+                      sessionStorage.getItem("role") === "user")) && (
+                    <div>
+                      <th
+                        className={
+                          usercontrolchange === "PROCESSING"
+                            ? "controlchange"
+                            : ""
+                        }
+                        onClick={() => setUsercontrolchange("PROCESSING")}
+                      >
+                        {" "}
+                        PROCESSING{" "}
+                      </th>
+                      <th
+                        className={
+                          usercontrolchange === "PROCESSED"
+                            ? "controlchange"
+                            : ""
+                        }
+                        onClick={() => setUsercontrolchange("PROCESSED")}
+                      >
+                        {" "}
+                        PROCESSED{" "}
+                      </th>
+                    </div>
+                  )}
 
                   <th
                     className={
