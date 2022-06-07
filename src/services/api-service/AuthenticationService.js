@@ -6,8 +6,10 @@ import jwtDecode from "jwt-decode";
 
 export class AuthenticationService {
   // constructor() {}
-  loginDomain = "http://localhost:8096/";
+  // loginDomain = "http://localhost:8096/";
   logoutDomain = "http://localhost:8095/";
+
+  loginDomain = "http://10.9.225.10:8096/";
 
   login = async (reqBody) => {
     const url = this.loginDomain + ApiUrl.login;
