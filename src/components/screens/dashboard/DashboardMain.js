@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-// import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
-// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import LogoNotification from "..\\src\\assets\\icons\\Notification-bg.svg";
+import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
-import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
-import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
+// import LogoNotification from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Notification-bg.svg";
+// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
@@ -19,7 +19,7 @@ const DashboardMain = (props) => {
     column: props.role === "super-user" ? 2 : 4,
     colClass:
       props.role === "super-user"
-        ? "col-md-6"
+        ? "col-md-6 dashboard-main-superuser"
         : "col-xs-12 col-sm-6 col-md-3 dashboard-main",
     image: props.images,
   };
@@ -41,14 +41,14 @@ const DashboardMain = (props) => {
   //pagination and get data
   const [offset, setOffset] = useState(0);
   const [data, setData] = useState([]);
-  const [perPage] = useState(3);
+  const [perPage] = useState(6);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     getNotificationCount();
     getAdminCount();
     getActivityList();
-  }, []);
+  }, [offset]);
 
   const reuseCountCode = (res, name) => {
     const obj = {
@@ -103,11 +103,11 @@ const DashboardMain = (props) => {
               <tbody>
                 <tr key={item.id}>
                   <td>{item.userId}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
+                  <td>{item.title}</td>
+                  <td>{item.title}</td>
+                  <td>{item.title}</td>
+                  <td>{item.title}</td>
+                  <td>{item.title}</td>
                 </tr>
               </tbody>
             )))
@@ -128,7 +128,8 @@ const DashboardMain = (props) => {
   const notification = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{notificationCount}</label>
+        <div>{notificationCount}</div>
+        {/* <label className="lblLeft">{notificationCount}</label> */}
         <p className="ptag">Notification</p>
       </div>
     );
@@ -137,7 +138,8 @@ const DashboardMain = (props) => {
   const admin = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{adminsCount}</label>
+        <div>{adminsCount}</div>
+        {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Admin</p>
       </div>
     );
@@ -146,7 +148,8 @@ const DashboardMain = (props) => {
   const reports = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{adminsCount}</label>
+        <div className="font-25 fontweight-700">{adminsCount} 55</div>
+        {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Reports</p>
       </div>
     );
@@ -155,7 +158,8 @@ const DashboardMain = (props) => {
   const serverManagementCount = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{adminsCount}</label>
+        <div>{adminsCount}</div>
+        {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Server Management</p>
       </div>
     );
@@ -164,7 +168,8 @@ const DashboardMain = (props) => {
   const assignToUserCount = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{adminsCount}</label>
+        <div>{adminsCount}</div>
+        {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Assign To User</p>
       </div>
     );
@@ -173,7 +178,8 @@ const DashboardMain = (props) => {
   const assignToSpecialistCount = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{adminsCount}</label>
+        <div>{adminsCount}</div>
+        {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Assign to Specialist</p>
       </div>
     );
@@ -184,7 +190,7 @@ const DashboardMain = (props) => {
     for (let index = 0; index < config.column; index++) {
       options.push(
         <div class={config.colClass}>
-          <div class="content">
+          <div class="content d-flex align-items-center">
             {props.role === "super-user"
               ? index === 0
                 ? notification()
@@ -219,6 +225,8 @@ const DashboardMain = (props) => {
               <img
                 src={require(`../../../${config.image[index]}`)}
                 class="img"
+                width="40"
+                height="40"
                 key={index.toString()}
               />
             </div>
@@ -230,9 +238,10 @@ const DashboardMain = (props) => {
   };
 
   return (
-    <div>
+    <div className="ptb-2 main-screen">
       <div class="div-head">
-        <div className="sub-head"> Welcome to Dashboard</div> <br />
+        <div className="sub-head"> Welcome to Dashboard</div>
+        {/* <br /> */}
         <div class="row row-flex">
           {loopData()}
 
@@ -248,14 +257,13 @@ const DashboardMain = (props) => {
             </div>
           </div> */}
         </div>
-        <br />
-        <div className="sub-head"> Recent Activity</div> <br />
+        {/* <br /> */}
+        <div className="sub-head"> Recent Activity</div>
+        {/* <br /> */}
       </div>
 
-      <div className="divbody">
-        <br />
-
-        <div className="tblheight">
+      <div className="divbody p-4">
+        <div className="tblheight table-responsive">
           <ReactBootStrap.Table>
             <thead className="tblhead">
               <tr>
@@ -274,31 +282,52 @@ const DashboardMain = (props) => {
             </thead>
             {data}
           </ReactBootStrap.Table>
-          <ReactPaginate
-            className="pagination justify-content-end"
-            previousLabel={"prev"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={3}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-            breakClassName={"page-item"}
-            breakLinkClassName={"page-link"}
-            containerClassName={"pagination"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"page-link"}
-            activeClassName={"active"}
-          />
         </div>
+        {/* <ReactPaginate
+          className="pagination justify-content-end pagination-tab"
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          // breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          // containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          // activeClassName={"active"}
+        /> */}
+        <ReactPaginate
+          className="pagination justify-content-end pagination-tab"
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          // marginPagesDisplayed={2}
+          // pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          breakLinkClassName={"page-link"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+        />
       </div>
     </div>
   );

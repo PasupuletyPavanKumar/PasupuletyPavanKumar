@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import ReactPaginate from "react-paginate";
 
-import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
-
+// import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 import * as ReactBootStrap from "react-bootstrap";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 
@@ -62,48 +64,86 @@ const Reports = () => {
     setOffset(selectedPage);
   };
   return (
-    <div>
-      <div class="d-flex flex-column div-head-admin">
-        <div className="sub-head">Reports</div> <br />
-        <div class="row row-flex">
-          <div class="col-sm-5">
-            <div class="content">
-              <div>
-                <img src={LogoAdmin} class="img-adminreport" />
+    <div class="container-fuild ">
+      <div class="container">
+        <div className=" mt-4 mb-4">
+          <h4 className="reportsheading">Reports</h4>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-6 col-md-6  mb-15">
+            <div className="specilistanduserreports shadow ">
+              <div
+                className="circle shadow"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {<GroupOutlinedIcon />}
               </div>
-              <div className="div-specilist-admin">
-                <p className="ptag-adminreports"> Specialist Users</p>
-                <label className="lbl-adminreports">370</label>
-                <p> 320 Active Users</p>
+              <div>
+                <p className="reportscontentheading">Specialist Users</p>
+                <h4 className="reportstext">370</h4>
+                <p>320 Active Users</p>
               </div>
             </div>
           </div>
-          <div class="col-sm-5">
-            <div class="content">
-              <div>
-                <img src={LogoAdmin} class="img-adminreport" />
+          <div class="col-12 col-lg-6 col-md-6  mb-15">
+            <div className="specilistanduserreports shadow ">
+              <div
+                className="circle shadow"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {<GroupOutlinedIcon />}
               </div>
-              <div className="div-specilist-admin">
-                <p className="ptag-adminreports">Users</p>
-                <label className="lbl-adminreports">500</label>
+              <div>
+                <p className="reportscontentheading"> Users</p>
+                <h4 className="reportstext">500</h4>
                 <p>450 Active Users</p>
               </div>
             </div>
           </div>
         </div>
-        <br />
-        <div className="sub-head">
-          {" "}
-          Specialist & User Report
-          <select className="filter-adminreports">
-            <option value="lastweek"> Last 7 days </option>
-          </select>
-        </div>{" "}
-        <br />
       </div>
-      <div className="divbody-admin-reports">
-        <br />
-        <div className="tblheight">
+
+      <div class="container">
+        <div
+          class="row"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <div className="col-6 col-lg-6 col-md-6 mt-4 mb-4">
+            <h4 className="reportsheading">Recent Activity</h4>
+          </div>
+
+          <div className=" col-6 col-lg-6  col-md-6 mt-4 mb-4">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                color: "#003763",
+              }}
+            >
+              <select className="reportsdrop p-2">
+                <option value="Filter">Last 7 Days</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="divbody p-4">
+        <div className="tblheight table-responsive">
           <ReactBootStrap.Table>
             <thead className="tblhead">
               <tr>
@@ -111,18 +151,63 @@ const Reports = () => {
 
                 <th>USERNAME</th>
 
-                <th>FIRSTNAME</th>
+                <th>ACTION</th>
 
                 <th>EMAILID</th>
 
-                <th>MOBILENUMBER</th>
+                <th>OPERATION</th>
 
-                <th>ROLE</th>
+                <th>ON USER</th>
               </tr>
             </thead>
             {data}
           </ReactBootStrap.Table>
         </div>
+        {/* <ReactPaginate
+          className="pagination justify-content-end pagination-tab"
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          // breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          // containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          // activeClassName={"active"}
+        /> */}
+        <ReactPaginate
+          className="pagination justify-content-end pagination-tab"
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          // marginPagesDisplayed={2}
+          // pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          breakLinkClassName={"page-link"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+        />
       </div>
     </div>
   );

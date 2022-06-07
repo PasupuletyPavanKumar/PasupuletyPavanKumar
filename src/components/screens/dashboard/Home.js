@@ -10,6 +10,7 @@ import Settings from "./Settings";
 import Help from "./Help";
 import { ReactComponent as LttsLogo } from "../../../assets/logo/LTTS_blue.svg";
 import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
+import { ReactComponent as SideMenu } from "../../../assets/icons/Menu_white.svg";
 import SettingsPage from "./SettingsPage";
 import Reports from "./Reports";
 import AssignFiles from "./AssignFiles";
@@ -17,12 +18,18 @@ import UploadAssign from "./UploadAssign";
 import ServerManagement from "./ServerManagement";
 import UserReports from "./UserReports";
 import ProjectSettings from "./ProjectSettings";
+import LanguageIcon from "@mui/icons-material/Language";
 
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
+  const [sideDrawer, setSideDrawer] = useState(null);
+  // const { height, width } = ();
+  // sessionStorage.setItem("role", "super-user");
+  // sessionStorage.setItem("role", "admin");
   // sessionStorage.setItem("role", "specialist");
-
+  sessionStorage.setItem("role", "admin");
+  console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
     {
@@ -169,7 +176,8 @@ const Home = (props) => {
           key={index.toString()}
           className="dashboard-icons"
         />
-        <div className="font12 text-white">{data.title}</div>
+
+        <div className="font12 text-white sidebar-title">{data.title}</div>
       </div>
     );
   };
@@ -286,45 +294,247 @@ const Home = (props) => {
     let page = window.location.pathname;
     page = page.replace(/[/]/g, "");
     setSidebarActive(page);
+
+    setSideDrawer(window.innerWidth > 767 ? true : false);
   }, []);
+
+  /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+  const openNav = () => {
+    setSideDrawer(true);
+
+    if (!sideDrawer) {
+      document.getElementById("mySidenav").style.width =
+        window.innerWidth >= 768 && window.innerWidth <= 991
+          ? "92.5px"
+          : window.innerWidth > 991
+          ? "94.5px"
+          : "59.5px";
+      document.getElementById("main").style.marginLeft =
+        window.innerWidth >= 768 && window.innerWidth <= 991
+          ? "92.5px"
+          : window.innerWidth > 991
+          ? "94.5px"
+          : "59.5px";
+    } else {
+      closeNav();
+    }
+  };
+
+  /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+  const closeNav = () => {
+    setSideDrawer(false);
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+  };
+
+  const inde = 0;
 
   return (
     <div>
-      <div className="d-flex justify-content-flex-start">
-        <div className="home-sideMenu">{sideMenuBar()}</div>
-
-        <div className="w-100 bgImage3">
-          <div className="home-header">
-            {/* <img src={require("../../../assets/logo/LTTS_blue.svg")}></img> */}
-            <LttsLogo />
-            <AiKnoLogo />
-            {/* <Button
-              type="button"
-              onClick={logOut()}
-              className="button-right m-3"
+      <div class="parent">
+        <div class="background"></div>
+        <div class="foreground">
+          <div className="d-flex header-sticky tobHeader">
+            <div
+              className=" sidenav-btn cursor-pointer"
+              onClick={() => openNav()}
             >
-              Logout
-            </Button> */}
-            <img
-              src={require("../../../assets/logo/profile.png")}
-              className="button-right m-3 rounded"
-              style={{ height: "35px", width: "35px" }}
-              onClick={profileIconData()}
-            />
+              <SideMenu />
+            </div>
+            <div className="home-header d-flex w-100">
+              <div className="home-header-logo">
+                <LttsLogo />
+                {/* <AiKnoLogo className="ml-4" /> */}
+              </div>
+
+              <div className="d-flex aling-item-center home-header-dropdown">
+                <div className="dropdown language-dropdown">
+                  <div
+                    type="button"
+                    className="dropdown-toggle pl-2"
+                    data-toggle="dropdown"
+                  >
+                    <img
+                      src={require(`../../../${sideBarIcons[inde].src}`)}
+                      key={inde.toString()}
+                      className="dashboard-icons header-icon"
+                    />
+                    {/* <LanguageIcon/> */}
+                    {window.innerWidth > 576 && <span>Language</span>}
+                  </div>
+
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="#">
+                      Link 1
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      Link 2
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      Link 3
+                    </a>
+                  </div>
+                </div>
+
+                <div className="dropdown profileDropdown">
+                  <div
+                    type="button"
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                  >
+                    <img
+                      src={require("../../../assets/logo/profile.png")}
+                      className="button-right rounded header-icon"
+                      // style={{ height: "35px", width: "35px" }}
+                      onClick={profileIconData()}
+                    />
+                  </div>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="#">
+                      adfd 1
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      Link 2
+                    </a>
+                    <a className="dropdown-item" href="#">
+                      Link 3
+                    </a>
+                  </div>
+                </div>
+                {/* <b className="dropdown-toggle" data-toggle="dropdown">
+                  Language
+                </b>
+                <div className="dropdown-menu">
+                  <a className="dropdown-item">Link 1</a>
+                  <a className="dropdown-item">Link 2</a>
+                  <a className="dropdown-item">Link 3</a>
+                </div> */}
+                {/* </div> */}
+
+                {/* <div className="dropdown-profile">
+                  <button
+                    type="button"
+                    className="btn dropdown-toggle"
+                    data-toggle="dropdown-profile"
+                  >
+                  
+                  </button>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item">Link 1</a>
+                    <a className="dropdown-item">Link 2</a>
+                    <a className="dropdown-item">Link 3</a>
+                  </div>
+                </div> */}
+
+                {/* <div className="dropdown-toggle" data-toggle="dropdown">
+                  <img
+                    src={require("../../../assets/logo/profile.png")}
+                    className="button-right m-3 rounded "
+                    style={{ height: "35px", width: "35px" }}
+                    onClick={profileIconData()}
+                  />
+                </div>
+
+                <div className="dropdown-menu">
+                  <a className="dropdown-item">sdfd 1</a>
+                  <a className="dropdown-item">Link 2</a>
+                  <a className="dropdown-item">Link 3</a>
+                </div> */}
+              </div>
+              {/* <div className="dropdown"> */}
+            </div>
           </div>
-          {mainContent()}
+
+          <div id="main">{mainContent()}</div>
+          {/* <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div> */}
+          <div className="home-sideMenu" id="mySidenav" class="sidenav">
+            {sideMenuBar()}
+          </div>
         </div>
       </div>
-
-      {/* <Button
-        variant="primary"
-        type="button"
-        className="submit-button"
-        onClick={logOut}
-      >
-        Logout
-      </Button> */}
     </div>
+    // <div className="posRelative">
+    //   {/* <div className="bgImage3"></div> */}
+
+    //   <div className="posRelative">
+    //     <div className="w-100 ">
+    //       <div className="d-flex">
+    //         <div
+    //           className="p-3 sidenav-btn cursor-pointer"
+    //           onClick={() => openNav()}
+    //         >
+    //           {sideDrawer ? "Close" : "Open"}
+    //         </div>
+    //         <div className="home-header w-100">
+    //           {/* <img src={require("../../../assets/logo/LTTS_blue.svg")}></img> */}
+    //           <LttsLogo />
+    //           <AiKnoLogo />
+    //           {/* <Button
+    //           type="button"
+    //           onClick={logOut()}
+    //           className="button-right m-3"
+    //         >
+    //           Logout
+    //         </Button> */}
+    //           <img
+    //             src={require("../../../assets/logo/profile.png")}
+    //             className="button-right m-3 rounded"
+    //             style={{ height: "35px", width: "35px" }}
+    //             onClick={profileIconData()}
+    //           />
+    //         </div>
+    //       </div>
+
+    //       <div id="main">{mainContent()}</div>
+    //     </div>
+    //   </div>
+
+    // <div className="home-sideMenu" id="mySidenav" class="sidenav">
+    //   {sideMenuBar()}
+    // </div>
+
+    //   {/* <Button
+    //     variant="primary"
+    //     type="button"
+    //     className="submit-button"
+    //     onClick={logOut}
+    //   >
+    //     Logout
+    //   </Button> */}
+    // </div>
   );
 };
 

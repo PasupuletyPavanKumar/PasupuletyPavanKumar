@@ -1,3 +1,60 @@
+html,
+body {
+  height: 100vh;
+}
+
+$color003763: #003763;
+
+/*  DEFAULT FONT SIZE START  */
+.font-8 {
+  font-size: 8px;
+}
+.font-10 {
+  font-size: 10px;
+}
+.font-14 {
+  font-size: 14px;
+}
+.font-16 {
+  font-size: 16px;
+}
+.font-24 {
+  font-size: 24px;
+}
+.font-25 {
+  font-size: 25px;
+}
+
+/*  DEFAULT FONT SIZE END  */
+
+/*  DEFAULT FONT WEIGHT START */
+
+.fontweight-500 {
+  font-weight: 500;
+}
+.fontweight-600 {
+  font-weight: 500;
+}
+.fontweight-700 {
+  font-weight: 500;
+}
+
+/*  DEFAULT FONT WEIGHT END  */
+
+/*  DEFAULT FONT COLOR START */
+.color959595 {
+  color: #959595;
+}
+.color003763 {
+  color: #003763;
+}
+
+/*  DEFAULT FONT COLOR END */
+
+.posRelative {
+  position: relative;
+}
+
 /*removes the highlight of the input field on click*/
 *:focus {
   outline: none;
@@ -60,8 +117,53 @@
   background-position: center;
 }*/
 
+.parent {
+  position: relative;
+}
+
+.tobHeader {
+  // position: absolute;
+  background: url(../src/assets/bg/Background-lightcolor.png) no-repeat center
+    center fixed;
+  width: 100%;
+  // height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  // opacity: 0.3;
+}
+
+.background {
+  position: absolute;
+  background: url(../src/assets/bg/Background-lightcolor.png) no-repeat center
+    center fixed;
+  width: 100%;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  // opacity: 0.3;
+}
+.foreground {
+  position: relative;
+  // height: 100vh;
+}
+
 .bgImage3 {
-  background-image: url(../src/assets/bg/Background-lightcolor.png);
+  position: absolute;
+  background: url(../src/assets/bg/Background-lightcolor.png) no-repeat center
+    center fixed;
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
+  width: 100%;
+  height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  // opacity: 0.3;
 }
 /*LTTS logo setting for all the web pages*/
 .lttslogo {
@@ -544,15 +646,43 @@
   background: rgba(255, 255, 255, 0.4);
   // padding: 15px;
   height: 60px;
-  box-shadow: -1px 10px 7px -8px rgba(0, 0, 0, 0.56);
-  -webkit-box-shadow: -1px 10px 7px -8px rgba(0, 0, 0, 0.56);
-  -moz-box-shadow: -1px 10px 7px -8px rgba(0, 0, 0, 0.56);
+  box-shadow: -1px 6px 9px -10px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: -1px 6px 9px -10px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: -1px 6px 9px -10px rgba(0, 0, 0, 0.56);
+  padding: 0 46px;
+  align-items: center;
+
+  svg:nth-child(1) {
+    width: 225px;
+  }
+
+  svg:nth-child(2) {
+    width: 200px;
+  }
+}
+
+.home-header-logo {
+  padding: 6px 0;
+}
+
+.home-header-dropdown {
+  column-gap: 20px;
+}
+.profileDropdown {
+  .dropdown-menu {
+    left: -70px;
+  }
+}
+
+.header-icon {
+  height: 35px;
+  width: 35px;
 }
 
 .home-sideMenu {
   background: #004072;
   width: 100px;
-  height: 100vh;
+  min-height: 100vh;
   box-shadow: 6px -2px 9px -4px rgba(0, 0, 0, 0.56);
   -webkit-box-shadow: 6px -2px 9px -4px rgba(0, 0, 0, 0.56);
   -moz-box-shadow: 6px -2px 9px -4px rgba(0, 0, 0, 0.56);
@@ -824,12 +954,20 @@ option:not(:checked) {
 }
 
 .dashboard-icons-margin {
-  margin-top: 100px;
+  // margin-top: 100px;
+}
+.sidenav-btn {
+  background-color: #004072;
+  // width: 100px;
+  padding: 15px 33.4px;
+  text-align: center;
+  // padding-top: 14px;
+  // padding-bottom: 14px;
 }
 
-.button-right {
-  float: right;
-}
+// .button-right {
+//   float: right;
+// }
 
 // Notification Style starts
 
@@ -1103,12 +1241,12 @@ row-flex {
   letter-spacing: 0px;
   color: #003763;
   opacity: 1;
-  padding-top: 10px;
+  padding: 10px 0;
 }
 
-.img {
-  float: right;
-}
+// .img {
+//   float: right;
+// }
 
 .lblLeft {
   padding-top: 5px;
@@ -1129,12 +1267,12 @@ row-flex {
   width: 35vw;
 }
 .content {
-  height: 100%;
-  padding: 20px 20px 10px;
+  height: 100px;
+  padding: 20px 15px;
   background: rgba(255, 255, 255, 0.5) 0% 0% no-repeat padding-box;
   box-shadow: 6px 6px 10px #00376340;
   opacity: 1;
-  border-radius: 25px;
+  border-radius: 14px;
 }
 .content:hover {
   background-color: #00adee;
@@ -1146,7 +1284,7 @@ row-flex {
   box-shadow: 6px 6px 10px #00376340;
   border-radius: 18px;
   opacity: 0.5;
-  height: 300px;
+  // height: 300px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -1154,8 +1292,15 @@ row-flex {
 .paginav {
   margin-top: 85px;
 }
+.pagination-tab {
+  margin: 27px 0 0 0;
+}
 .tblheight {
-  height: 100px;
+  height: 350px;
+  // table {
+  //   height: 208px;
+  //   overflow: scroll;
+  // }
 }
 .tblhead {
   color: #004072;
@@ -1171,23 +1316,23 @@ row-flex {
   color: #000000;
   opacity: 0.5;
 }
-.divleft {
-  display: flex;
-  flex-direction: column;
-  width: 270px;
-  height: 90px;
-}
-.divright {
-  float: right;
-  width: 270px;
-  height: 90px;
-  margin-top: -81px;
-}
+// .divleft {
+//   display: flex;
+//   flex-direction: column;
+//   width: 270px;
+//   height: 90px;
+// }
+// .divright {
+//   float: right;
+//   width: 270px;
+//   height: 90px;
+//   margin-top: -81px;
+// }
 
 .ptag {
-  margin-bottom: 0.5rem;
-  margin-top: -10px;
-  text-align: left;
+  // margin-bottom: 0.5rem;
+  // margin-top: -10px;
+  // text-align: left;
   //font: normal normal normal 16px/25px Open Sans;
   font-size: 15px;
 }
@@ -1719,19 +1864,6 @@ select {
 }
 //end
 
-// @media (min-width: 576px) and (max-width: 767px) {
-//   .dashboard-main:nth-child(3),
-//   .dashboard-main:nth-child(4) {
-//     margin-top: 12px;
-//   }
-// }
-
-// @media (max-width: 575px) {
-//   .dashboard-main {
-//     margin-top: 12px;
-//   }
-// }
-
 // Document View
 .bgImage4 {
   background-image: url(../src/assets/bg/Background-lightcolor.png);
@@ -1765,3 +1897,615 @@ select {
   height: 50%;
   width: 50%;
 }
+
+// sidebar
+/* The side navigation menu */
+.sidenav {
+  // min-height: 100vh; /* 100% Full-height */
+  width: 94.5px; /* 0 width - change this with JavaScript */
+  position: absolute; /* Stay in place */
+  // z-index: 1; /* Stay on top */'
+  z-index: 0;
+  top: 0; /* Stay at the top */
+  bottom: 0;
+  left: 0;
+  background-color: #004072;
+  // overflow-x: hidden; /* Disable horizontal scroll */
+  overflow: hidden;
+  padding-top: 15px;
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.main-screen {
+  margin-top: 60px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left 0.5s;
+  margin-left: 94.5px;
+  padding-bottom: 20px;
+}
+
+// /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+// @media screen and (max-height: 450px) {
+//   .sidenav {
+//     padding-top: 15px;
+//   }
+//   .sidenav a {
+//     font-size: 18px;
+//   }
+// }
+
+.header-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.sidenav-btn {
+  // width: 104px;
+  padding: 15px 33.4px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .sidenav {
+    width: 92.5px;
+  }
+  .sidenav-btn {
+    // width: 104px;
+    padding: 15px 32.4px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .dashboard-main:nth-child(3),
+  .dashboard-main:nth-child(4),
+  .dashboard-main-superuser:nth-child(2) {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidenav {
+    width: 0;
+  }
+  .sidenav-btn {
+    // width: 68px;
+    padding: 15px 15.5px;
+  }
+  #main {
+    margin-left: 0;
+  }
+  .sidebar-title {
+    display: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .dashboard-main,
+  .dashboard-main-superuser:nth-child(2) {
+    margin-top: 12px;
+  }
+
+  .home-header svg:nth-child(1) {
+    width: 171px;
+  }
+  .home-header {
+    padding: 0 15px;
+  }
+  .header-icon {
+    height: 25px;
+    width: 25px;
+  }
+  .profileDropdown {
+    .dropdown-menu {
+      left: -58px !important;
+    }
+  }
+  .language-dropdown {
+    .dropdown-menu {
+      left: -65px !important;
+    }
+  }
+}
+
+//Notification CSS starts
+
+// Notification Style starts
+
+/* Solid border */
+// hr.solid {
+//   border-top: 1px solid #000;
+// }
+
+// .head1 {
+//   @media (min-width: 426px) and (max-width: 1440px) {
+//     // font-size: 36px;
+//     font: normal normal bold 20px/27px Open Sans;
+
+//     // margin-top: auto;
+//     // opacity: 0.5;
+//   }
+//   @media (min-width: 2560px) and (max-width: 1440px) {
+//   }
+//   @media (min-width: 320px) and (max-width: 491px) {
+//     // font-size: 25px;
+//     font: normal normal bold 16px/23px Open Sans;
+//     // margin-top: 5%;
+//   }
+//   padding-top: 24px;
+//   // padding-left: 120px;
+//   margin-left: 10%;
+//   height: 27px;
+//   text-align: left;
+//   font: normal normal bold 20px/27px Open Sans;
+//   letter-spacing: 0px;
+//   color: #003763;
+//   margin-top: auto;
+// }
+
+.DATE {
+  float: right;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.Notificationscontainermain {
+  margin: 0 auto;
+  width: 80%;
+  height: 400px;
+  overflow-y: auto;
+}
+.head1 {
+  margin: 0 auto;
+  width: 80%;
+  padding: 25px 0 15px 0;
+  font-weight: bold;
+}
+
+.notifaction-title {
+  display: flex;
+  padding: 8px 0;
+  .notification-heading {
+    padding: 0 0 10px 10px;
+    width: 100%;
+    border-bottom: 1.2px solid rgba(0, 55, 99, 0.2);
+  }
+}
+
+// .notification-background {
+//   background-image: url(../src/assets/bg/Background-lightcolor.png);
+//   height: 100vh;
+//   width: 100vw;
+//   justify-content: right;
+// }
+
+// .Notificationscontainermain {
+//   // margin-top: 64px;
+//   // margin-left: 97px;
+//   // width: 942px;
+//   // height: 320px;
+//   // border: 2px solid #ffffff;
+//   // border-radius: 18px;
+//   // opacity: 0.7;
+//   // background-color: white;
+
+//   // margin-top: 64px;
+//   // margin-left: 97px;
+//   @media (min-width: 320px) and (max-width: 425px) {
+//     margin-top: 10%;
+//     width: 85%;
+//     height: fit-content;
+
+//     margin-left: 8%;
+//     background-color: rgba(255, 255, 255, 0.4);
+//   }
+//   @media (min-width: 425px) and (max-width: 1440px) {
+//     margin-top: 4%;
+//     margin-left: 10%;
+//     width: 75%;
+//     height: fit-content;
+//     border: 2px solid #ffffff;
+//     border-radius: 18px;
+//     // opacity: 1;
+//     background-color: rgba(255, 255, 255, 0.4);
+//     flex: 1;
+//   }
+//   @media (min-width: 1440px) and (max-width: 2560px) {
+//     margin-top: 4%;
+//     margin-left: 10%;
+//     width: 75%;
+//     height: fit-content;
+//     border: 2px solid #ffffff;
+//     border-radius: 18px;
+//     // opacity: 1;
+//     background-color: rgba(255, 255, 255, 0.4);
+//     //  flex:1;
+//   }
+// }
+
+.table-wrapper {
+  @media (min-width: 425px) and (max-width: 1440px) {
+    font-size: 3vh;
+    //  overflow-y: auto ;
+    position: absolute;
+    // text-align: left;
+    font: normal normal 600 16px/20px Open Sans;
+    // letter-spacing: 0px;
+    color: #003763;
+    opacity: 1;
+  }
+  @media (min-width: 320px) and (max-width: 425px) {
+    font-size: 2vh;
+    height: min-content;
+    position: absolute;
+  }
+}
+
+.notification-table {
+  @media (min-width: 425px) and (max-width: 1440px) {
+    font-size: medium;
+    align-content: space-between;
+    height: 60vh;
+    width: 100vh;
+  }
+}
+// .description{
+//   text-align: left;
+// font: normal normal normal 14px/20px Open Sans;
+// letter-spacing: 0px;
+// color: #000000;
+// opacity: 0.5;
+// }
+
+.notification-icon {
+  // height: 20vh;
+  // width: 40vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  justify-self: center;
+  color: rgb(8, 208, 102);
+}
+
+.p1 {
+  @media (min-width: 325px) and (max-width: 425px) {
+  }
+
+  text-align: left;
+  font: normal normal 600 16px/20px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+}
+
+.p2 {
+  @media (min-width: 425px) and (max-width: 1440px) {
+  }
+
+  text-align: left;
+  font: normal normal normal 14px/20px Open Sans;
+  // letter-spacing: 0px;
+  color: #000000;
+  opacity: 0.7;
+}
+
+.notiLogo {
+  align-self: center;
+}
+
+// .p3 {
+//   margin-top: -7px;
+//   margin-left: 120px;
+//   width: 354px;
+//   height: 22px;
+
+//   /* UI Properties */
+
+//   text-align: left;
+//   font: normal normal 600 16px/20px Open Sans;
+//   letter-spacing: 0px;
+//   color: #003763;
+//   opacity: 1;
+// }
+
+// .p5 {
+//   margin-top: -7px;
+//   margin-left: 120px;
+//   width: 354px;
+//   height: 22px;
+
+//   /* UI Properties */
+
+//   text-align: left;
+//   font: normal normal 600 16px/20px Open Sans;
+//   letter-spacing: 0px;
+//   color: #003763;
+//   opacity: 1;
+// }
+
+// .p7 {
+//   margin-top: -7px;
+//   margin-left: 120px;
+//   width: 502px;
+//   height: 22px;
+
+//   /* UI Properties */
+
+//   text-align: left;
+//   font: normal normal 600 16px/20px Open Sans;
+//   letter-spacing: 0px;
+//   color: #003763;
+//   opacity: 1;
+// }
+
+//Notification CSS ends
+
+.screen-main {
+  height: 100vh;
+}
+
+////Admin management css
+
+.admg-head {
+  padding: 18px;
+  color: #003763;
+  font-style: bold;
+}
+.admg-tbl-outline {
+  padding: 15px;
+  border: 1px solid #ffffff;
+  box-shadow: 3px;
+  background-color: #ffffff8a;
+  border-radius: 18px;
+  opacity: 1;
+}
+.admg-tbl-style {
+  background-color: #fff;
+  font: normal normal 600 12px/17px Open Sans;
+  color: #004072;
+  border-radius: 18px;
+}
+
+.admg-add-admin {
+  border-radius: 18px;
+  background-color: #ffaa00;
+  border: 1px solid #ffaa00;
+  color: #ffffff;
+}
+.admg-filter-export {
+  border-radius: 15px;
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  color: #003763;
+  font: normal normal 600 12px/20px Open Sans;
+  opacity: 1;
+}
+.admg-Edit-delete-color {
+  color: #00adee;
+}
+.admg-tblheight {
+  height: 350px;
+}
+.admg-tblhead {
+  color: #003763;
+  text-align: left;
+  font: normal normal 600 12px/17px Open Sans;
+  background-color: #fff;
+  border-radius: 24px;
+}
+.admg-pagination-tab {
+  margin: 27px 0 0 0;
+}
+
+//end
+
+//Admin Reports css
+
+.reportsheading {
+  text-align: left;
+  font: normal normal bold 20px/27px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+}
+
+.specilistanduserreports {
+  color: #004072;
+  font-size: medium;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #ffffff8a;
+  border-radius: 12px;
+  padding: 20px;
+  font-weight: bold;
+  display: block;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 40px;
+}
+
+.circle {
+  display: flex;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  justify-content: center !important;
+  background: linear-gradient(#003f72, #00adee);
+  align-items: center;
+  color: #fff;
+}
+
+.reportscontentheading {
+  text-align: left;
+  font: normal normal 600 18px/25px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+  margin-bottom: -5px;
+}
+
+.reportstext {
+  text-align: left;
+  font: normal normal bold 30px/40px Open Sans;
+  letter-spacing: 0px;
+  color: #004072;
+  opacity: 1;
+}
+
+.reportsdrop {
+  border: 2px solid #fff;
+  border-radius: 50px;
+  opacity: 1;
+
+  text-align: center;
+  font: normal normal 600 16px Open Sans;
+  cursor: pointer;
+  color: #003763;
+}
+
+.tableouline {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid #ffffff;
+  border-radius: 24px;
+  opacity: 1;
+  height: auto;
+  width: auto;
+}
+
+.headingstyle1 {
+  background-color: #fff;
+  text-align: left;
+  font: normal normal 600 12px/17px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  text-transform: uppercase;
+  border-radius: 20px;
+  opacity: 1;
+}
+
+// Admin report css ends
+
+//Assigned to me/by me css starts
+
+.assigndrop {
+  border: 2px solid #fff;
+  border-radius: 50px;
+  opacity: 1;
+
+  text-align: center;
+  font: normal normal 600 16px Open Sans;
+  cursor: pointer;
+  color: #003763;
+}
+
+.headingstyle {
+  background-color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font: normal normal normal 12px/25px Open Sans;
+  letter-spacing: 0px;
+  color: #004072;
+  text-transform: uppercase;
+}
+
+.headingstyle1 {
+  background-color: #fff;
+  text-align: left;
+  font: normal normal 600 12px/17px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  text-transform: uppercase;
+  border-radius: 20px;
+  opacity: 1;
+}
+.assignicons {
+  color: #00adee;
+}
+.assignbutton {
+  border: 2px solid #fff;
+  border-radius: 50px;
+  opacity: 1;
+  padding: 10px;
+  text-align: center;
+  font: normal normal 600 16px Open Sans;
+  cursor: pointer;
+  color: green;
+  width: 75px;
+  margin-left: -14px;
+
+  background-color: rgba(255, 255, 255, 0.5);
+
+  box-shadow: 6px 6px 12px rgba(48, 46, 46, 0.1);
+}
+.controlchange {
+  border-bottom: 1px solid #00adee;
+  padding-bottom: 1px;
+  // text-align: center;
+  // font: normal normal 600 12px/25px Open Sans;
+  letter-spacing: 0px;
+  color: #00adee;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.selectprojectfilter {
+  border: 2px solid #00adee;
+  border-radius: 50px;
+  background-color: #00adee;
+  color: #fff;
+  opacity: 1;
+  // width: 35%;
+  cursor: pointer;
+}
+@media only screen and (min-width: 320px) {
+  .selectprojectfilter {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .selectprojectfilter {
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width: 1140px) {
+  .selectprojectfilter {
+    width: 35%;
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  .selectprojectfilter {
+    width: 30%;
+  }
+}
+
+//Assigned to me/by me css ends

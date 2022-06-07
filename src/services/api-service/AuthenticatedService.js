@@ -47,7 +47,8 @@ export class AuthenticatedService {
   };
 
   getNotifications = async (user = "yogesh") => {
-    const url = this.notificationDomain + ApiUrl.notifications + user;
+    // const url = this.notificationDomain + ApiUrl.notifications + user;
+    const url = "https://jsonplaceholder.typicode.com/todos";
     //const response = await axios.get(url);
 
     let apiRes = null;
