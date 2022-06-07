@@ -64,7 +64,7 @@ const Reports = () => {
     setOffset(selectedPage);
   };
   return (
-    <div class="container-fuild screen-main main-screen">
+    <div class="container-fuild ">
       <div class="container">
         <div className=" mt-4 mb-4">
           <h4 className="reportsheading">Reports</h4>
@@ -142,45 +142,72 @@ const Reports = () => {
         </div>
       </div>
 
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm-12 mt-15">
-            <div className="tableouline shadow p-3 scrolltable">
-              <table class="table p-5 ">
-                <thead>
-                  <tr className="headingstyle1">
-                    <th scope="col">Date</th>
-                    <th scope="col">User Name</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Email Id</th>
-                    <th scope="col">Mobile Number</th>
-                    <th scope="col">Role</th>
-                  </tr>
-                </thead>
-                {data}
-              </table>
-              <ReactPaginate
-                className="pagination justify-content-end"
-                previousLabel={"prev"}
-                nextLabel={"next"}
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={pageCount}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-                breakLinkClassName={"page-link"}
-                pageClassName={"page-item"}
-                pageLinkClassName={"page-link"}
-                previousClassName={"page-item"}
-                previousLinkClassName={"page-link"}
-                nextClassName={"page-item"}
-                nextLinkClassName={"page-link"}
-              />
-            </div>
-          </div>
+      <div className="divbody p-4">
+        <div className="tblheight table-responsive">
+          <ReactBootStrap.Table>
+            <thead className="tblhead">
+              <tr>
+                <th>DATE</th>
+
+                <th>USERNAME</th>
+
+                <th>ACTION</th>
+
+                <th>EMAILID</th>
+
+                <th>OPERATION</th>
+
+                <th>ON USER</th>
+              </tr>
+            </thead>
+            {data}
+          </ReactBootStrap.Table>
         </div>
+        {/* <ReactPaginate
+          className="pagination justify-content-end pagination-tab"
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          // breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          // containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          // activeClassName={"active"}
+        /> */}
+        <ReactPaginate
+          className="pagination justify-content-end pagination-tab"
+          previousLabel={"prev"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          // marginPagesDisplayed={2}
+          // pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          breakLinkClassName={"page-link"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+        />
       </div>
     </div>
   );

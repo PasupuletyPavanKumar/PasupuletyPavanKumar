@@ -449,21 +449,31 @@ const AssignFiles = (props) => {
                   </th>
                   <th
                     className={
-                      usercontrolchange === "COMPLETED" ? "controlchange" : ""
+                      usercontrolchange === "PROCESSED" ? "controlchange" : ""
                     }
-                    onClick={() => setUsercontrolchange("COMPLETED")}
+                    onClick={() => setUsercontrolchange("PROCESSED")}
                   >
                     {" "}
-                    COMPLETED{" "}
+                    PROCESSED{" "}
+                  </th>
+
+                  <th
+                    className={
+                      usercontrolchange === "OK" ? "controlchange" : ""
+                    }
+                    onClick={() => setUsercontrolchange("OK")}
+                  >
+                    {" "}
+                    OK{" "}
                   </th>
                   <th
                     className={
-                      usercontrolchange === "REJECTED" ? "controlchange" : ""
+                      usercontrolchange === "NOT OK" ? "controlchange" : ""
                     }
-                    onClick={() => setUsercontrolchange("REJECTED")}
+                    onClick={() => setUsercontrolchange("NOT OK")}
                   >
                     {" "}
-                    REJECTED{" "}
+                    NOT OK{" "}
                   </th>
                 </tr>
               </thead>
