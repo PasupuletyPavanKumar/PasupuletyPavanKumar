@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+//import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+//import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import ReactPaginate from "react-paginate";
 import VisibilityIcon from "@mui/icons-material/Visibility";
