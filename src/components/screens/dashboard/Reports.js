@@ -13,7 +13,7 @@ const Reports = () => {
   //pagination and get data
   const [offset, setOffset] = useState(0);
   const [data, setData] = useState([]);
-  const [perPage] = useState(3);
+  const [perPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Reports = () => {
   const getActivityList = () => {
     authenticatedService.recentActivity().then((res) => {
       if (res) {
-        //setActivityData(res);
+        // setActivityData(res);
         paginationCode(res);
       }
       console.log(res);

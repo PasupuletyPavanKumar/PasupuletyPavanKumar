@@ -26,9 +26,9 @@ const Home = (props) => {
   const [sideDrawer, setSideDrawer] = useState(null);
   // const { height, width } = ();
   // sessionStorage.setItem("role", "super-user");
-  // sessionStorage.setItem("role", "admin");
-  // sessionStorage.setItem("role", "specialist");
   sessionStorage.setItem("role", "admin");
+  // sessionStorage.setItem("role", "specialist");
+  // sessionStorage.setItem("role", "user");
   console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -189,16 +189,16 @@ const Home = (props) => {
           {sideBarIcons.map((data, index) => (
             <div>
               {data.title != "Reports" &&
+              data.title != "Assign to Me" &&
               data.title != "Assign to User" &&
-              (data.title != "Assign to Me" ||
-                data.title != "Assign to Specialist") &&
+              data.title != "Assign to Specialist" &&
               data.title != "Upload & Assign" &&
               data.title != "Server Management" &&
               data.title != "Project Settings" &&
               sessionStorage.getItem("role") === "super-user"
                 ? loadSideBarIcons(data, index)
-                : (data.title != "Assign to Me" ||
-                    data.title != "Assign to Specialist") &&
+                : data.title != "Assign to User" &&
+                  data.title != "Assign to Specialist" &&
                   data.title != "Assign to Me" &&
                   data.title != "Upload & Assign" &&
                   data.title != "Project Settings" &&
@@ -354,12 +354,12 @@ const Home = (props) => {
                     className="dropdown-toggle pl-2"
                     data-toggle="dropdown"
                   >
-                    <img
+                    {/* <img
                       src={require(`../../../${sideBarIcons[inde].src}`)}
                       key={inde.toString()}
                       className="dashboard-icons header-icon"
-                    />
-                    {/* <LanguageIcon/> */}
+                    /> */}
+                    <LanguageIcon style={{ height: "25px", width: "25px" }} />
                     {window.innerWidth > 576 && <span>Language</span>}
                   </div>
 
@@ -446,40 +446,7 @@ const Home = (props) => {
           </div>
 
           <div id="main">{mainContent()}</div>
-          {/* <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div>
-          <div id="main">hello</div> */}
+
           <div className="home-sideMenu" id="mySidenav" class="sidenav">
             {sideMenuBar()}
           </div>
