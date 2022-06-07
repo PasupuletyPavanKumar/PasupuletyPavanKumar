@@ -18,15 +18,16 @@ import UploadAssign from "./UploadAssign";
 import ServerManagement from "./ServerManagement";
 import UserReports from "./UserReports";
 import ProjectSettings from "./ProjectSettings";
+import LanguageIcon from "@mui/icons-material/Language";
 
 const Home = (props) => {
   const navigate = useNavigate();
   const authService = new AuthenticationService();
   const [sideDrawer, setSideDrawer] = useState(null);
   // const { height, width } = ();
-  sessionStorage.setItem("role", "super-user");
+  // sessionStorage.setItem("role", "super-user");
   // sessionStorage.setItem("role", "specialist");
-  // sessionStorage.setItem("role", "admin");
+  sessionStorage.setItem("role", "admin");
   console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -357,6 +358,7 @@ const Home = (props) => {
                       key={inde.toString()}
                       className="dashboard-icons header-icon"
                     />
+                    {/* <LanguageIcon/> */}
                     {window.innerWidth > 576 && <span>Language</span>}
                   </div>
 
