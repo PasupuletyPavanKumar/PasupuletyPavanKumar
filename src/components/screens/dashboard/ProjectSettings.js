@@ -5,8 +5,8 @@ import { AuthenticatedService } from "../../../services/api-service/Authenticate
 //import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
 //import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
-import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
-import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+import Icon_eye from "../../.././assets/icons/Icon_eye.svg";
+import Icon_trash from "../../.././assets/icons/Icon_trash.svg";
 
 import { Modal } from "react-bootstrap";
 
