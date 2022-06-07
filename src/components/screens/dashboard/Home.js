@@ -26,8 +26,9 @@ const Home = (props) => {
   const [sideDrawer, setSideDrawer] = useState(null);
   // const { height, width } = ();
   // sessionStorage.setItem("role", "super-user");
-  // sessionStorage.setItem("role", "specialist");
-  sessionStorage.setItem("role", "admin");
+  // sessionStorage.setItem("role", "admin");
+  sessionStorage.setItem("role", "specialist");
+  // sessionStorage.setItem("role", "admin");
   console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -303,13 +304,13 @@ const Home = (props) => {
 
     if (!sideDrawer) {
       document.getElementById("mySidenav").style.width =
-        window.innerWidth > 768 && window.innerWidth <= 991
+        window.innerWidth >= 768 && window.innerWidth <= 991
           ? "92.5px"
           : window.innerWidth > 991
           ? "94.5px"
           : "59.5px";
       document.getElementById("main").style.marginLeft =
-        window.innerWidth > 768 && window.innerWidth <= 991
+        window.innerWidth >= 768 && window.innerWidth <= 991
           ? "92.5px"
           : window.innerWidth > 991
           ? "94.5px"

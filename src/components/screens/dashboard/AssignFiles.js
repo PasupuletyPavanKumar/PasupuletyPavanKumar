@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
+import React, { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
 import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
-
-// import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
-// import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
+import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
+import ReactPaginate from "react-paginate";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const AssignFiles = (props) => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
+
+  const [offset, setOffset] = useState(0);
+  const [data, setData] = useState([]);
+  const [perPage] = useState(10);
+  const [pageCount, setPageCount] = useState(0);
+
   const [allDocsList, setAllDocsList] = useState([]);
   const [page, setPage] = useState([]);
 
@@ -290,175 +295,214 @@ const AssignFiles = (props) => {
     });
   };
 
+  const getActivityList = () => {
+    authenticatedService.recentActivity().then((res) => {
+      if (res) {
+        //setActivityData(res);
+        paginationCode(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const paginationCode = (res) => {
+    const data = res;
+    const slice = data.slice(offset, offset + perPage);
+    let postData;
+    <div>
+      <div class="d-flex align-items-start">
+        <table class="table">
+          {
+            (postData = slice.map((item) => (
+              <tbody>
+                <tr key={item.id}>
+                  <td>{item.userId}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.id}</td>
+                  <td>
+                    <button className="assignbutton">start</button>
+                  </td>
+                  <td>
+                    <VisibilityIcon className="cursor-pointer assignicons" />
+                    &nbsp;
+                    <DeleteIcon className="cursor-pointer assignicons" />
+                  </td>
+                </tr>
+              </tbody>
+            )))
+          }
+        </table>
+      </div>
+    </div>;
+
+    setData(postData);
+    setPageCount(Math.ceil(data.length / perPage));
+  };
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1);
+  };
+
   useEffect(() => {
-    // let page = window.location.pathname;
-    // page = page.replace(/[/]/g, "");
-    const page = props.page;
-    setPage(page);
-    console.log("files --->", page);
-    if (page === "assignToUser") {
-      // specialist get the docs assigned to user
-      getSpecialistAssignedAllDocsList();
-      console.log("files --->", "getSpecialistAssignedAllDocsList");
-    } else {
-      getUserAssignedAllDocsList();
-      console.log("getUserAssignedAllDocsList");
-    }
-  }, [props]);
+    getActivityList();
+  }, [offset]);
+
+  // useEffect(() => {
+  //   // let page = window.location.pathname;
+  //   // page = page.replace(/[/]/g, "");
+  //   const page = props.page;
+  //   setPage(page);
+  //   console.log("files --->", page);
+  //   if (page === "assignToUser") {
+  //     // specialist get the docs assigned to user
+  //     getSpecialistAssignedAllDocsList();
+  //     console.log("files --->", "getSpecialistAssignedAllDocsList");
+  //   } else {
+  //     getUserAssignedAllDocsList();
+  //     console.log("getUserAssignedAllDocsList");
+  //   }
+  // }, [props]);
 
   return (
-    <div>
-      <div className="user">
-        <div>Assign to User</div>
-      </div>
-      <div className="AssignUsermain">
-        <div className="usersearchanddropdown">
-          <div class="main assifnsearch">
-            <div class="form-group has-search">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search" />
-            </div>
-            <div className="assigndropdown">
-              <select className="assigndrop">filter</select>
-              <select className="assigndrop">filter</select>
-              <select className="assigndrop">filter</select>
-            </div>
-          </div>
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <div className=" mt-4 mb-4">
+          <h4 className="reportsheading">Assign To Me</h4>
         </div>
+      </div>
 
-        <div class="container">
-          <div className="assignuserheadings">
-            <h6
-              className={
-                usercontrolchange === "ALL FILES" ? "controlchange" : ""
-              }
-              onClick={() => setDocState("ALL FILES")}
+      <div class="container-fluid">
+        <div class="row">
+          <div className="tableouline p-3 col-12">
+            <div
+              class="row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
             >
-              {" "}
-              ALL FILES
-            </h6>
-            <h6
-              className={usercontrolchange === "PENDING" ? "controlchange" : ""}
-              onClick={() => setDocState("PENDING")}
-            >
-              {" "}
-              PENDING
-            </h6>
-
-            {((page === "assignToUser" &&
-              sessionStorage.getItem("role") === "specialist") ||
-              (page === "assignToMe" &&
-                sessionStorage.getItem("role") === "user")) && (
-              <div className="d-flex ">
-                <h6
-                  className={
-                    usercontrolchange === "PROCESSING"
-                      ? "controlchange mr-2"
-                      : "mr-2"
-                  }
-                  onClick={() => setDocState("PROCESSING")}
-                >
-                  {" "}
-                  PROCESSING
-                </h6>
-                <h6
-                  className={
-                    usercontrolchange === "COMPLETED" ? "controlchange" : ""
-                  }
-                  onClick={() => setDocState("COMPLETED")}
-                >
-                  {" "}
-                  PROCESSED
-                </h6>
+              <div class=" col-7 col-md-4 col-lg-4 col-xl-3 mb-4">
+                <div>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                </div>
               </div>
-            )}
-            <h6
-              className={usercontrolchange === "OK" ? "controlchange" : ""}
-              onClick={() => setDocState("OK")}
-            >
-              {" "}
-              OK
-            </h6>
-            <h6
-              className={usercontrolchange === "NOT OK" ? "controlchange" : ""}
-              onClick={() => setDocState("NOT OK")}
-            >
-              {" "}
-              NOT OK
-            </h6>
+
+              <div
+                class="col-12 col-md-8 col-lg-6 col-xl-4 mb-4"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                }}
+              >
+                <select className="selectprojectfilter p-2">
+                  <option value="Filter">Select Project</option>
+                </select>
+
+                <select className="assigndrop">
+                  <option value="Filter">Filter</option>
+                </select>
+
+                <select className="assigndrop">
+                  <option value="Export">Export</option>
+                </select>
+              </div>
+            </div>
+
+            <table class="table">
+              <thead>
+                <tr className="headingstyle">
+                  <th
+                    className={
+                      usercontrolchange === "ALL FILES" ? "controlchange" : ""
+                    }
+                    onClick={() => setUsercontrolchange("ALL FILES")}
+                  >
+                    {" "}
+                    <span className="span">ALLFILES</span>
+                  </th>
+                  <th
+                    className={
+                      usercontrolchange === "PENDING" ? "controlchange" : ""
+                    }
+                    onClick={() => setUsercontrolchange("PENDING")}
+                  >
+                    {" "}
+                    PENDING
+                  </th>
+                  <th
+                    className={
+                      usercontrolchange === "PROCESSING" ? "controlchange" : ""
+                    }
+                    onClick={() => setUsercontrolchange("PROCESSING")}
+                  >
+                    {" "}
+                    PROCESSING{" "}
+                  </th>
+                  <th
+                    className={
+                      usercontrolchange === "COMPLETED" ? "controlchange" : ""
+                    }
+                    onClick={() => setUsercontrolchange("COMPLETED")}
+                  >
+                    {" "}
+                    COMPLETED{" "}
+                  </th>
+                  <th
+                    className={
+                      usercontrolchange === "REJECTED" ? "controlchange" : ""
+                    }
+                    onClick={() => setUsercontrolchange("REJECTED")}
+                  >
+                    {" "}
+                    REJECTED{" "}
+                  </th>
+                </tr>
+              </thead>
+
+              <thead>
+                <tr className="headingstyle1">
+                  <th scope="col">DATE</th>
+                  <th scope="col">FILE NAME</th>
+                  <th scope="col">PROJECT NAME</th>
+                  <th scope="col">FILE TYPE</th>
+                  <th scope="col">USER NAME</th>
+                  <th scope="col">EMAIL ID</th>
+                  <th scope="col">STATUS</th>
+                  <th scope="col">ACTION</th>
+                  <th></th>
+                </tr>
+              </thead>
+              {data}
+            </table>
+            <ReactPaginate
+              className="pagination justify-content-end"
+              previousLabel={"prev"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+              breakLinkClassName={"page-link"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+            />
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>DATE</th>
-                <th>FILE NAME</th>
-                <th>PROJECT NAME</th>
-                <th>FILE TYPE</th>
-                <th>USER NAME</th>
-                <th>MAIL ID</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allDocsList &&
-                allDocsList.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.dateOfAssignment}</td>
-
-                    <td>{item.fileName}</td>
-
-                    <td>{item.projectId}</td>
-
-                    <td>{item.fileType}</td>
-
-                    <td>{item.assignedToUserName}</td>
-
-                    <td>{item.assignedToUserEmail}</td>
-
-                    <td>{item.status}</td>
-
-                    {/* <td>{item.contactNumber}</td> */}
-                    <td>
-                      <img src={Icon_eye}></img>
-                      <img src={Icon_trash}></img>
-                    </td>
-
-                    {/* <td>{item.onUser}</td> */}
-                  </tr>
-                ))}
-
-              {/* <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>Dooley</td>
-                <td>john@example.com</td>
-                <td>Completed</td>
-                <td>
-                  <img src={Icon_eye}></img>
-                  <img src={Icon_trash}></img>
-                </td>
-              </tr>
-              <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>Dooley</td>
-                <td>mary@example.com</td>
-              </tr>
-              <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-              </tr> */}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
