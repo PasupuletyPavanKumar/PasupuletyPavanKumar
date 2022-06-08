@@ -43,7 +43,8 @@ const Login = (props) => {
     console.log("inside getProfileDetails");
     authenticatedService.getProfileDetails().then((res) => {
       if (res) {
-        console.log(res);
+        console.log(res.id);
+        sessionStorage.setItem("userId", res.id);
       }
     });
   };

@@ -102,12 +102,12 @@ const DashboardMain = (props) => {
             (postData = slice.map((item) => (
               <tbody>
                 <tr key={item.id}>
-                  <td>{item.userId}</td>
-                  <td>{item.title}</td>
-                  <td>{item.title}</td>
-                  <td>{item.title}</td>
-                  <td>{item.title}</td>
-                  <td>{item.title}</td>
+                  <td>{item.dateOfActivity}</td>
+                  <td>{item.byUser}</td>
+                  <td>{item.email}</td>
+                  <td>{item.action}</td>
+                  <td>{item.operation}</td>
+                  <td>{item.onUser}</td>
                 </tr>
               </tbody>
             )))
@@ -148,7 +148,7 @@ const DashboardMain = (props) => {
   const reports = () => {
     return (
       <div className="divleft">
-        <div className="font-25 fontweight-700">{adminsCount} 55</div>
+        <div className="font-25 fontweight-700">{adminsCount}</div>
         {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Reports</p>
       </div>
@@ -268,15 +268,10 @@ const DashboardMain = (props) => {
             <thead className="tblhead">
               <tr>
                 <th>DATE</th>
-
                 <th>USERNAME</th>
-
-                <th>ACTION</th>
-
                 <th>EMAILID</th>
-
+                <th>ACTION</th>
                 <th>OPERATION</th>
-
                 <th>ON USER</th>
               </tr>
             </thead>

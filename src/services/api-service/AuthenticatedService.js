@@ -5,7 +5,7 @@ import { DataService } from "../data-service/DataService";
 export class AuthenticatedService {
   notificationDomain = "http://localhost:8078/";
   recentDomain = "http://localhost:8097/";
-  //addAdminDomain = "http://localhost:8095/";
+  addAdminDomain = "http://localhost:8095/";
   AdminDomain = "http://localhost:8092/";
   exportFileDomain = "http://localhost:8053/";
   docsListDomain = "http://localhost:8066/";
@@ -46,9 +46,9 @@ export class AuthenticatedService {
     }
   };
 
-  getNotifications = async (user = "yogesh") => {
-    // const url = this.notificationDomain + ApiUrl.notifications + user;
-    const url = "https://jsonplaceholder.typicode.com/todos";
+  getNotifications = async (user = sessionStorage.getItem("username")) => {
+    const url = this.notificationDomain + ApiUrl.notifications + user;
+    // const url = "https://jsonplaceholder.typicode.com/todos";
     //const response = await axios.get(url);
 
     let apiRes = null;
@@ -71,7 +71,7 @@ export class AuthenticatedService {
   };
 
   addAdmin = async (reqBody) => {
-    const url = this.AdminDomain + ApiUrl.addAdmin;
+    const url = this.addAdminDomain + ApiUrl.addAdmin;
     const response = await axios.post(url, reqBody, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -177,8 +177,8 @@ export class AuthenticatedService {
     }
   };
 
-  updateAdmin = async (reqBody, user = "Mithun") => {
-    const url = this.AdminDomain + ApiUrl.updateAdmin + user;
+  updateAdmin = async (reqBody, username) => {
+    const url = this.AdminDomain + ApiUrl.updateAdmin + username;
     const response = await axios.put(url, reqBody, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -194,9 +194,9 @@ export class AuthenticatedService {
   };
 
   // for delete api call pass headers and then reqBody or else it wont work
-  deleteAdmin = async (reqBody, user = "nfrgasrfgfddra") => {
+  deleteAdmin = async (reqBody, username) => {
     console.log(sessionStorage.getItem("accessToken"));
-    const url = this.AdminDomain + ApiUrl.deleteAdmin + user;
+    const url = this.AdminDomain + ApiUrl.deleteAdmin + username;
     const response = await axios.delete(url, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -212,9 +212,9 @@ export class AuthenticatedService {
     }
   };
 
-  recentActivity = async (user = "Mithun") => {
-    //const url = this.recentDomain + ApiUrl.recentActivity + user;
-    const url = "https://jsonplaceholder.typicode.com/todos";
+  recentActivity = async (user = sessionStorage.getItem("username")) => {
+    const url = this.recentDomain + ApiUrl.recentActivity + user;
+    // const url = "https://jsonplaceholder.typicode.com/todos";
     const response = await axios.get(url);
 
     if (response) {
@@ -616,11 +616,9 @@ export class AuthenticatedService {
     }
   };
 
-  getAdmin = async (user = "superUser") => {
-    const url = this.AdminDomain + ApiUrl.getAllAdmins + user;
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos"
-    );
+  getAdmin = async (role = sessionStorage.getItem("role")) => {
+    const url = this.AdminDomain + ApiUrl.getAllAdmins + role;
+    const response = await axios.get(url);
 
     if (response) {
       const resData = response.data;

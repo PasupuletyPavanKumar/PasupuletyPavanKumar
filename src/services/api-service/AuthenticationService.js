@@ -9,7 +9,7 @@ export class AuthenticationService {
   // loginDomain = "http://localhost:8096/";
   logoutDomain = "http://localhost:8095/";
 
-  loginDomain = "http://10.9.225.10:8096/";
+  loginDomain = "http://localhost:8096/";
 
   login = async (reqBody) => {
     const url = this.loginDomain + ApiUrl.login;
@@ -53,7 +53,7 @@ export class AuthenticationService {
     const response = await axios.post(url, reqBody, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + DataService.getUserDetails().accessToken,
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
       },
     });
     if (response) {

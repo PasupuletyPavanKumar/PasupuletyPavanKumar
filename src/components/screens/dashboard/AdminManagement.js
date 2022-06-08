@@ -15,6 +15,7 @@ import EditIcon from "@mui/icons-material/Edit";
 const AdminManagement = () => {
   const [open, setOpen] = useState(false);
   const [openFirst, setOpenFirst] = React.useState(false);
+  const [toBeUpdatedUsername, setToBeUpdatedUsername] = useState();
 
   const onOpenModal = () => {
     console.log("onOpenModal");
@@ -55,12 +56,18 @@ const AdminManagement = () => {
             (postData = slice.map((item) => (
               <tbody>
                 <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
+                  <td>{item.date}</td>
+                  <td>{item.userName}</td>
+                  <td>{item.firstName}</td>
+                  <td>{item.email}</td>
+                  <td>{item.contactNumber}</td>
+                  <td>
+                    {item.isAdmin
+                      ? "Admin"
+                      : item.isSpecialist
+                      ? "Specialist"
+                      : "User"}
+                  </td>
                   <td>
                     {/* <button className="cursor-pointer" onClick={onOpenModal}>
                       EDIT
@@ -105,7 +112,10 @@ const AdminManagement = () => {
       username: "",
       emailid: "",
       location: "Bangalore",
-      role: "",
+      role:
+        sessionStorage.getItem("role") === "super-user"
+          ? "Admin"
+          : "Specialist",
     });
     // setShow(true);
     setOpen(true);
@@ -124,7 +134,8 @@ const AdminManagement = () => {
     username: "",
     emailid: "",
     location: "Bangalore",
-    role: "",
+    role:
+      sessionStorage.getItem("role") === "super-user" ? "Admin" : "Specialist",
   });
 
   const createAdmin = () => {
@@ -137,21 +148,23 @@ const AdminManagement = () => {
     reqBody.append("email", addAdminFields.emailid);
     reqBody.append("location", addAdminFields.location);
     //reqBody.append("role", addAdminFields.role);
-    reqBody.append(
-      "isSuperUser",
-      sessionStorage.getItem("role") === "super-user" ? "true" : "false"
-    );
+
+    // reqBody.append(addAdminFields.role === "Admin" ? "true" : "false");
+    reqBody.append("isSuperUser", "false");
     reqBody.append(
       "isAdmin",
-      sessionStorage.getItem("role") === "admin" ? "true" : "false"
+      // sessionStorage.getItem("role") === "admin" ? "true" : "false"
+      addAdminFields.role === "Admin" ? "true" : "false"
     );
     reqBody.append(
       "isSpecialist",
-      sessionStorage.getItem("role") === "specialist" ? "true" : "false"
+      // sessionStorage.getItem("role") === "specialist" ? "true" : "false"
+      addAdminFields.role === "Specialist" ? "true" : "false"
     );
     reqBody.append(
       "isUser",
-      sessionStorage.getItem("role") === "user" ? "true" : "false"
+      // sessionStorage.getItem("role") === "user" ? "true" : "false"
+      addAdminFields.role === "User" ? "true" : "false"
     );
     reqBody.append("byUser", sessionStorage.getItem("username"));
     reqBody.append("byUserRole", sessionStorage.getItem("role"));
@@ -167,16 +180,18 @@ const AdminManagement = () => {
     if (!isEdit) {
       authenticatedService.addAdmin(reqBody).then((res) => {
         if (res) {
-          <div>{handleClose()}</div>;
+          <div>{handleClose}</div>;
         }
       });
     } else {
       console.log("Call Edit Api", reqBody);
-      authenticatedService.updateAdmin(reqBody).then((res) => {
-        if (res) {
-          <div>{handleClose()}</div>;
-        }
-      });
+      authenticatedService
+        .updateAdmin(reqBody, toBeUpdatedUsername)
+        .then((res) => {
+          if (res) {
+            <div>{handleClose()}</div>;
+          }
+        });
     }
   };
 
@@ -186,15 +201,17 @@ const AdminManagement = () => {
 
   const deleteAdmin = () => {
     var reqBody = new FormData();
-    reqBody.append("byUser", "");
-    reqBody.append("byUserRole", "");
+    reqBody.append("byUser", sessionStorage.getItem("username"));
+    reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
-    authenticatedService.deleteAdmin(reqBody).then((res) => {
-      if (res) {
-        handleClose();
-      }
-      console.log(res);
-    });
+    authenticatedService
+      .deleteAdmin(reqBody, toBeUpdatedUsername)
+      .then((res) => {
+        if (res) {
+          handleClose();
+        }
+        console.log(res);
+      });
   };
 
   const exportFile = () => {
@@ -228,10 +245,11 @@ const AdminManagement = () => {
   const updateAdmin = (item) => {
     setIsEdit(true);
     setshowDeleteModal(false);
+    setToBeUpdatedUsername(item.userName);
     setAddAdminFields({
-      firstname: item.title,
-      lastname: item.lastname,
-      username: item.username,
+      firstname: item.firstName,
+      lastname: item.lastName,
+      username: item.userName,
       emailid: item.email,
       location: item.location,
       role: isAdmin(item),
@@ -244,6 +262,7 @@ const AdminManagement = () => {
 
   const deleteAdminModal = (item) => {
     //setShow(true);
+    setToBeUpdatedUsername(item.userName);
     setOpen(true);
     setshowDeleteModal(true);
   };
@@ -518,29 +537,29 @@ const AdminManagement = () => {
                       {TableData}
                     </ReactBootStrap.Table>
                     <br />
-                    <ReactPaginate
-                      className="pagination justify-content-end admg-pagination-tab"
-                      previousLabel={"prev"}
-                      nextLabel={"next"}
-                      breakLabel={"..."}
-                      breakClassName={"break-me"}
-                      pageCount={pageCount}
-                      marginPagesDisplayed={2}
-                      pageRangeDisplayed={3}
-                      onPageChange={handlePageClick}
-                      containerClassName={"pagination"}
-                      subContainerClassName={"pages pagination"}
-                      activeClassName={"active"}
-                      breakLinkClassName={"page-link"}
-                      pageClassName={"page-item"}
-                      pageLinkClassName={"page-link"}
-                      previousClassName={"page-item"}
-                      previousLinkClassName={"page-link"}
-                      nextClassName={"page-item"}
-                      nextLinkClassName={"page-link"}
-                    />
                   </div>
                 </div>
+                <ReactPaginate
+                  className="pagination justify-content-end admg-pagination-tab"
+                  previousLabel={"prev"}
+                  nextLabel={"next"}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={3}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  subContainerClassName={"pages pagination"}
+                  activeClassName={"active"}
+                  breakLinkClassName={"page-link"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                />
               </div>
             </div>
           </div>
@@ -548,7 +567,7 @@ const AdminManagement = () => {
         <div>
           {/* <button onClick={onOpenModal}>Open modal</button> */}
           <Modal open={open} onClose={onCloseModal} center>
-            {showDeleteModal ? deletModal() : adminForm()}
+            {showDeleteModal ? deletModal(TableData) : adminForm()}
           </Modal>
         </div>
         <div></div>

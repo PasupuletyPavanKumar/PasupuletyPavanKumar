@@ -15,9 +15,7 @@ const Notification = () => {
   const getNotifications = () => {
     authenticatedService.getNotifications().then((res) => {
       if (res) {
-        res != "404"
-          ? setNotifications(res)
-          : setNotifications("No Notifications");
+        res != "404" ? setNotifications(res) : setNotifications("");
         console.log(res);
       }
     });
@@ -35,8 +33,11 @@ const Notification = () => {
                   <NotificationLogo />
                 </div>
                 <div className="notification-heading">
-                  <div className="font-16 fontweight-700"> {item.title}</div>
-                  <div className="font-14 color959595"> {item.title}</div>
+                  <div className="font-16 fontweight-700">
+                    {" "}
+                    {item.operation}
+                  </div>
+                  <div className="font-14 color959595"> {item.description}</div>
                 </div>
               </div>
               {/* <div>30 min ago</div> */}

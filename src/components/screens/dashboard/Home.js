@@ -26,7 +26,7 @@ const Home = (props) => {
   const [sideDrawer, setSideDrawer] = useState(null);
   // const { height, width } = ();
   // sessionStorage.setItem("role", "super-user");
-  sessionStorage.setItem("role", "admin");
+  // sessionStorage.setItem("role", "admin");
   // sessionStorage.setItem("role", "specialist");
   // sessionStorage.setItem("role", "user");
   console.log("width ---> ", window.innerWidth);
@@ -102,11 +102,11 @@ const Home = (props) => {
       // refresh_token: DataService.getUserDetails().refreshToken,
       refresh_token: sessionStorage.getItem("refreshToken"),
     };
-    // authService.logout(urlencoded).then((res) => {
-    //   if (res) {
-    //     navigate("/");
-    //   }
-    // });
+    authService.logout(urlencoded).then((res) => {
+      if (res) {
+        navigate("/");
+      }
+    });
   };
 
   const profileIconData = () => {
@@ -390,15 +390,18 @@ const Home = (props) => {
                     />
                   </div>
                   <div className="dropdown-menu">
-                    <a className="dropdown-item" href="#">
-                      adfd 1
+                    <a
+                      className="dropdown-item cursor-pointer"
+                      onClick={logOut}
+                    >
+                      Logout
                     </a>
-                    <a className="dropdown-item" href="#">
+                    {/* <a className="dropdown-item" href="#">
                       Link 2
                     </a>
                     <a className="dropdown-item" href="#">
                       Link 3
-                    </a>
+                    </a> */}
                   </div>
                 </div>
                 {/* <b className="dropdown-toggle" data-toggle="dropdown">
