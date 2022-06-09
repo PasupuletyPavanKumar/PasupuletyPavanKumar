@@ -27,7 +27,7 @@ const Home = (props) => {
   // const { height, width } = ();
   // sessionStorage.setItem("role", "super-user");
   // sessionStorage.setItem("role", "admin");
-  sessionStorage.setItem("role", "specialist");
+  // sessionStorage.setItem("role", "specialist");
   // sessionStorage.setItem("role", "user");
 
   console.log("width ---> ", window.innerWidth);
