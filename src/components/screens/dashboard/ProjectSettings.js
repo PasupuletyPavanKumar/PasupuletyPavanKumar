@@ -88,7 +88,8 @@ const ProjectSettings = () => {
       reqBody.append("isOcrOn", settingInfo[4]);
       reqBody.append("isSignatureAndLogoOn", settingInfo[5]);
       reqBody.append("isTemplateDetectionOn", settingInfo[3]);
-      reqBody.append("specialistId", "6274d9472381980ad0f0c763");
+      reqBody.append("isPdfMinerOn", "true");
+      reqBody.append("specialistId", sessionStorage.getItem("userId"));
       reqBody.append("byUser", sessionStorage.getItem("username"));
       reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
@@ -122,7 +123,7 @@ const ProjectSettings = () => {
       reqBody.append("projectName", addProjectFields.projectName);
       reqBody.append("projectDescription", addProjectFields.description);
       reqBody.append("projectType", addProjectFields.projectType);
-      reqBody.append("specialistId", "");
+      reqBody.append("specialistId", sessionStorage.getItem("userId"));
       reqBody.append(
         "settingId",
         selectedDetail ? selectedDetail.id : settingsList[0].id
@@ -183,6 +184,11 @@ const ProjectSettings = () => {
       }
       console.log(res);
     });
+  };
+
+  const setSettingName = (settingId) => {
+    let settingname = getSettingName(settingId);
+    console.log(settingname);
   };
 
   const getSettingName = (settingId) => {
@@ -358,7 +364,7 @@ const ProjectSettings = () => {
 
   return (
     <div>
-      <div className="project-head">
+      <div className="project-head main-screen">
         Project Settings
         <button type="button" onClick={handleShow} className="project-button">
           Create Project
@@ -627,7 +633,7 @@ const ProjectSettings = () => {
 
                           <td>{item.projectDescription}</td>
 
-                          <td>{getSettingName(item.settingId)}</td>
+                          <td>{setSettingName(item.settingId)}</td>
 
                           {/* <td>{item.contactNumber}</td> */}
                           <td>

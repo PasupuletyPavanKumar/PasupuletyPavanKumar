@@ -30,9 +30,68 @@ export class AuthenticatedService {
     }
   };
 
-  getAdminsCount = async (user = "superUser") => {
-    const url = this.AdminDomain + ApiUrl.adminsCount + user;
+  getAdminsCount = async () => {
+    const url = this.AdminDomain + ApiUrl.getAdminsCount + "admin";
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
 
+  // getServerCount = async (username = sessionStorage.getItem("username")) => {
+  //   const url = this.serverDomain + ApiUrl.getServerCount + username;
+  //   let apiRes = null;
+  //   try {
+  //     apiRes = await axios.get(url);
+  //     return apiRes.data;
+  //   } catch (err) {
+  //     console.error("Error response:");
+  //     console.error(err.response.data);
+  //     console.error(err.response.status);
+  //     console.error(err.response.headers);
+  //     return err.response.data;
+  //   }
+  // };
+
+  getServerCount = async (username = sessionStorage.getItem("username")) => {
+    const url = this.serverDomain + ApiUrl.getServerCount + username;
+    const response = await axios.get(url);
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getReportCount = async (
+    role = sessionStorage.getItem("role"),
+    username = sessionStorage.getItem("username")
+  ) => {
+    const url =
+      this.exportFileDomain + ApiUrl.getReportCount + role + "/" + username;
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  getSpecialistAndAdminCount = async () => {
+    const url = this.AdminDomain + ApiUrl.getSpecialistAndAdminCount + "admin";
     let apiRes = null;
     try {
       apiRes = await axios.get(url);
@@ -228,7 +287,7 @@ export class AuthenticatedService {
   // get all docs list assigned by specialist for specialist/user screen
   allDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -253,7 +312,7 @@ export class AuthenticatedService {
   // get pending docs list assigned by specialist for specialist screen
   pendingDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -278,7 +337,7 @@ export class AuthenticatedService {
   // get processing docs list assigned by specialist for specialist screen
   processingDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -303,7 +362,7 @@ export class AuthenticatedService {
   // get completed docs list assigned by specialist for specialist screen
   completedDocsAssignedBySpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -328,7 +387,7 @@ export class AuthenticatedService {
   // get all docs assigned by user/specialist for specialist/user screen
   allDocsAssignedByUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain + ApiUrl.allDocsListAssignedByUser + role + "/" + id;
@@ -349,7 +408,7 @@ export class AuthenticatedService {
   // get pending docs list assigned by user for specialist screen
   pendingDocsAssignedByUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -374,7 +433,7 @@ export class AuthenticatedService {
   // get Ok docs list assigned by user for specialist screen
   oKDocsAssignedByUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain + ApiUrl.oKDocsListAssignedByUser + role + "/" + id;
@@ -395,7 +454,7 @@ export class AuthenticatedService {
   // get Not Ok docs list assigned by user for specialist screen
   notOKDocsAssignedByUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9472381980ad0f0c763"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -420,7 +479,7 @@ export class AuthenticatedService {
   // get pending docs list assigned by user to specialist for user screen
   pendingDocsAssignedByUserToSpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -445,7 +504,7 @@ export class AuthenticatedService {
   // get Ok docs list assigned by user for user screen
   oKDocsAssignedByUserToSpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -470,7 +529,7 @@ export class AuthenticatedService {
   // get Not Ok docs list assigned by user for user screen
   notOKDocsAssignedByUserToSpecialist = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -495,7 +554,7 @@ export class AuthenticatedService {
   // get pending docs list assigned by specialist to user for user screen
   specialistAssignedPendingDocsToUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -520,7 +579,7 @@ export class AuthenticatedService {
   // get processing docs list assigned by specialist to user for user screen
   specialistAssignedProcessingDocsToUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -545,7 +604,7 @@ export class AuthenticatedService {
   // get processed docs list assigned by specialist to user for user screen
   specialistAssignedProcessedDocsToUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -570,7 +629,7 @@ export class AuthenticatedService {
   // get ok docs list assigned by specialist to user for user screen
   specialistAssignedOkDocsToUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -595,7 +654,7 @@ export class AuthenticatedService {
   // get not ok docs list assigned by specialist to user for user screen
   specialistAssignedNotOkDocsToUser = async (
     role = sessionStorage.getItem("role"),
-    id = "6274d9972381980ad0f0c764"
+    id = sessionStorage.getItem("userId")
   ) => {
     const url =
       this.docsListDomain +
@@ -660,6 +719,21 @@ export class AuthenticatedService {
 
   getUsers = async () => {
     const url = this.allUsersDomain + ApiUrl.allUsersList;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
+
+  getUserByUserRole = async (role = "user") => {
+    const url = this.allUsersDomain + ApiUrl.getUserByUserRole + role;
     const response = await axios.get(url, {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("accessToken"),

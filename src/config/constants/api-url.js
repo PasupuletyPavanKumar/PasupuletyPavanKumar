@@ -2,7 +2,10 @@ const ApiUrl = {
   login: "login",
   logout: "logout",
   notificationsCount: "notification/count/superUser/",
-  adminsCount: "userManagement/fetchUsersCount/",
+  getReportCount: "reportsCount/",
+  getSpecialistAndAdminCount: "userManagement/fetchUsersCount/",
+  getServerCount: "serverManagement/serverCount/activeAndInactive/",
+  getAdminsCount: "userManagement/fetchUsersCountOfRole/",
   notifications: "notification/superUser/",
   recentActivity: "recentActivity/superUser/fetch/",
   getAllAdmins: "userManagement/fetchUsers/",
@@ -25,6 +28,7 @@ const ApiUrl = {
   getIndividualSettings: "fetchSettingBySettingId/",
   uploadDocs: "uploadDocuments",
   assignFiles: "assignDocumentsToUser",
+  getUserByUserRole: "userManagement/fetchByUserRole/",
   //get all docs list assigned by specialist for specialist/user screen
   allDocsListAssignedBySpecialist: "fetchAssignedByMeDocumentDetails/",
   //get pending docs list assigned by specialist for specialist screen

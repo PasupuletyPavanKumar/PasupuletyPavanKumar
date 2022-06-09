@@ -65,7 +65,7 @@ const AssignFiles = (props) => {
           console.log("specialistAssignedProcessingDocsToUser");
         }
       }
-    } else if (docState === "COMPLETED") {
+    } else if (docState === "PROCESSED") {
       if (page === "assignToUser") {
         if (sessionStorage.getItem("role") === "specialist") {
           getSpecialistAssignedProcessedDocs();
@@ -120,7 +120,8 @@ const AssignFiles = (props) => {
   const getSpecialistAssignedAllDocsList = () => {
     authenticatedService.allDocsAssignedBySpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -131,7 +132,8 @@ const AssignFiles = (props) => {
   const getSpecialistAssignedPendingDocs = () => {
     authenticatedService.pendingDocsAssignedBySpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -142,7 +144,8 @@ const AssignFiles = (props) => {
   const getSpecialistAssignedProcessingDocs = () => {
     authenticatedService.processingDocsAssignedBySpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -153,7 +156,8 @@ const AssignFiles = (props) => {
   const getSpecialistAssignedProcessedDocs = () => {
     authenticatedService.completedDocsAssignedBySpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -164,7 +168,8 @@ const AssignFiles = (props) => {
   const getUserAssignedAllDocsList = () => {
     authenticatedService.allDocsAssignedByUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -175,7 +180,8 @@ const AssignFiles = (props) => {
   const getUserAssignedPendingDocs = () => {
     authenticatedService.pendingDocsAssignedByUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -186,7 +192,8 @@ const AssignFiles = (props) => {
   const getUserAssignedOkDocs = () => {
     authenticatedService.oKDocsAssignedByUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -197,7 +204,8 @@ const AssignFiles = (props) => {
   const getUserAssignedNotOkDocs = () => {
     authenticatedService.notOKDocsAssignedByUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -208,7 +216,8 @@ const AssignFiles = (props) => {
   const getSpecialistAssignedPendingDocsToUser = () => {
     authenticatedService.pendingDocsAssignedByUserToSpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -219,7 +228,8 @@ const AssignFiles = (props) => {
   const assignedToSpecialistOkDocs = () => {
     authenticatedService.oKDocsAssignedByUserToSpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -230,7 +240,8 @@ const AssignFiles = (props) => {
   const assignedToSpecialistNotOkDocs = () => {
     authenticatedService.notOKDocsAssignedByUserToSpecialist().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -241,7 +252,8 @@ const AssignFiles = (props) => {
   const specialistAssignedPendingDocsToUser = () => {
     authenticatedService.specialistAssignedPendingDocsToUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -254,9 +266,10 @@ const AssignFiles = (props) => {
       .specialistAssignedProcessingDocsToUser()
       .then((res) => {
         if (res) {
-          res != "404"
-            ? setAllDocsList(res)
-            : setAllDocsList("No Docs Assigned");
+          // res != "404"
+          //   ? setAllDocsList(res)
+          //   : setAllDocsList("No Docs Assigned");
+          res != "404" ? paginationCode(res) : paginationCode("");
           console.log(res);
         }
         console.log(res);
@@ -267,7 +280,8 @@ const AssignFiles = (props) => {
   const specialistAssignedProcessedDocsToUser = () => {
     authenticatedService.specialistAssignedProcessedDocsToUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -278,7 +292,8 @@ const AssignFiles = (props) => {
   const specialistAssignedOkDocsToUser = () => {
     authenticatedService.specialistAssignedOkDocsToUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -289,7 +304,8 @@ const AssignFiles = (props) => {
   const specialistAssignedNotOkDocsToUser = () => {
     authenticatedService.specialistAssignedNotOkDocsToUser().then((res) => {
       if (res) {
-        res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
+        res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
       }
       console.log(res);
@@ -317,19 +333,24 @@ const AssignFiles = (props) => {
             (postData = slice.map((item) => (
               <tbody>
                 <tr key={item.id}>
-                  <td>{item.userId}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>
-                    <button className="assignbutton">start</button>
-                  </td>
+                  <td>{item.dateOfAssignment}</td>
+                  <td>{item.fileName}</td>
+                  <td>{item.projectName}</td>
+                  <td>{item.documentType}</td>
+                  <td>{item.assignedBySpecialistName}</td>
+                  <td>{item.assignedBySpecialistEmail}</td>
+                  <td>{item.status}</td>
                   <td style={{ display: "flex" }}>
-                    <VisibilityIcon className="cursor-pointer assignicons" />
-                    &nbsp;
-                    <DeleteIcon className="cursor-pointer assignicons" />
+                    {item.status !== "pending" ? (
+                      <button className="assignbutton">start</button>
+                    ) : item.status !== "processed" ? (
+                      <VisibilityIcon className="cursor-pointer assignicons" />
+                    ) : (
+                      ""
+                    )}
+
+                    {/* &nbsp;
+                    <DeleteIcon className="cursor-pointer assignicons" /> */}
                   </td>
                 </tr>
               </tbody>
@@ -360,8 +381,8 @@ const AssignFiles = (props) => {
     console.log("files --->", page);
     if (page === "assignToUser") {
       // specialist get the docs assigned to user
-      //getSpecialistAssignedAllDocsList();
-      getActivityList();
+      getSpecialistAssignedAllDocsList();
+      // getActivityList();
       console.log("files --->", "getSpecialistAssignedAllDocsList");
     } else {
       getUserAssignedAllDocsList();
@@ -424,7 +445,7 @@ const AssignFiles = (props) => {
                 className={
                   usercontrolchange === "ALL FILES" ? "controlchange" : ""
                 }
-                onClick={() => setUsercontrolchange("ALL FILES")}
+                onClick={() => setDocState("ALL FILES")}
               >
                 {" "}
                 <span className="span">ALLFILES</span>
@@ -433,7 +454,7 @@ const AssignFiles = (props) => {
                 className={
                   usercontrolchange === "PENDING" ? "controlchange" : ""
                 }
-                onClick={() => setUsercontrolchange("PENDING")}
+                onClick={() => setDocState("PENDING")}
               >
                 {" "}
                 PENDING
@@ -454,7 +475,7 @@ const AssignFiles = (props) => {
                     className={
                       usercontrolchange === "PROCESSING" ? "controlchange" : ""
                     }
-                    onClick={() => setUsercontrolchange("PROCESSING")}
+                    onClick={() => setDocState("PROCESSING")}
                   >
                     {" "}
                     PROCESSING{" "}
@@ -463,7 +484,7 @@ const AssignFiles = (props) => {
                     className={
                       usercontrolchange === "PROCESSED" ? "controlchange" : ""
                     }
-                    onClick={() => setUsercontrolchange("PROCESSED")}
+                    onClick={() => setDocState("PROCESSED")}
                   >
                     {" "}
                     PROCESSED{" "}
@@ -473,7 +494,7 @@ const AssignFiles = (props) => {
 
               <th
                 className={usercontrolchange === "OK" ? "controlchange" : ""}
-                onClick={() => setUsercontrolchange("OK")}
+                onClick={() => setDocState("OK")}
               >
                 {" "}
                 OK{" "}
@@ -482,7 +503,7 @@ const AssignFiles = (props) => {
                 className={
                   usercontrolchange === "NOT OK" ? "controlchange" : ""
                 }
-                onClick={() => setUsercontrolchange("NOT OK")}
+                onClick={() => setDocState("NOT OK")}
               >
                 {" "}
                 NOTOK{" "}
@@ -496,7 +517,7 @@ const AssignFiles = (props) => {
                     <th>DATE</th>
                     <th>FILE NAME</th>
                     <th>PROJECT NAME</th>
-                    <th>FILE TYPE</th>
+                    <th>DOCUMENT TYPE</th>
                     <th>USER NAME</th>
                     <th>EMAIL ID</th>
                     <th>STATUS</th>

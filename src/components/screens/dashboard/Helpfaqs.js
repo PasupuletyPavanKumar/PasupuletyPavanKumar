@@ -1,8 +1,8 @@
 import React from "react";
 
-import helpfarsnin from "..\\src\\assets\\icons\\fullscreen.svg";
+// import helpfarsnin from "..\\src\\assets\\icons\\fullscreen.svg";
 
-// import helpfarsnin from "../../.././assets/icons/fullscreen.svg";
+import helpfarsnin from "../../.././assets/icons/fullscreen.svg";
 
 function Helpfaqs({ maxmin, setMaxmin }) {
   return (

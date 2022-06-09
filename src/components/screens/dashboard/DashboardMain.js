@@ -34,6 +34,12 @@ const DashboardMain = (props) => {
 
   const [adminsCount, setAdminsCount] = useState([]);
 
+  const [reportCount, setReportCount] = useState([]);
+
+  const [serverCount, setServerCount] = useState([]);
+
+  const [specialistAndAdminCount, setSpecialistAndAdminCount] = useState([]);
+
   const [activityData, setActivityData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +52,23 @@ const DashboardMain = (props) => {
 
   useEffect(() => {
     getNotificationCount();
-    getAdminCount();
+
+    if (sessionStorage.getItem("role") === "super-user") {
+      getAdminCount();
+    } else if (sessionStorage.getItem("role") === "admin") {
+      getServerCount();
+      getSpecialistAndAdminCount();
+    }
+    // else if (sessionStorage.getItem("role") !== "super-user") {
+    //   getReportCount();
+    // }
+
+    if (sessionStorage.getItem("role") !== "super-user") getReportCount();
+
+    // sessionStorage.getItem("role") === "super-user"
+    //   ? getAdminCount()
+    //   : getSpecialistAndAdminCount();
+
     getActivityList();
   }, [offset]);
 
@@ -78,6 +100,29 @@ const DashboardMain = (props) => {
       console.log(res);
       // reuseCountCode(res, "Admin");
       setAdminsCount(res);
+    });
+  };
+
+  const getSpecialistAndAdminCount = () => {
+    console.log("getSpecialistAndAdminCount-------------->");
+    authenticatedService.getSpecialistAndAdminCount().then((res) => {
+      console.log(res);
+      setSpecialistAndAdminCount(res);
+    });
+  };
+
+  const getServerCount = () => {
+    console.log("server Count-------------->");
+    authenticatedService.getServerCount().then((res) => {
+      console.log(res);
+      setServerCount(res);
+    });
+  };
+
+  const getReportCount = () => {
+    authenticatedService.getReportCount().then((res) => {
+      console.log(res);
+      setReportCount(res);
     });
   };
 
@@ -138,7 +183,11 @@ const DashboardMain = (props) => {
   const admin = () => {
     return (
       <div className="divleft">
-        <div>{adminsCount}</div>
+        <div>
+          {sessionStorage.getItem("role") === "super-user"
+            ? adminsCount
+            : specialistAndAdminCount}
+        </div>
         {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Admin</p>
       </div>
@@ -148,7 +197,7 @@ const DashboardMain = (props) => {
   const reports = () => {
     return (
       <div className="divleft">
-        <div className="font-25 fontweight-700">{adminsCount}</div>
+        <div className="font-25 fontweight-700">{reportCount}</div>
         {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Reports</p>
       </div>
@@ -159,7 +208,7 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <div>{adminsCount}</div>
-        {/* <label className="lblLeft">{adminsCount}</label> */}
+        <label className="lblLeft">{serverCount.totalServerCount}</label>
         <p className="ptag">Server Management</p>
       </div>
     );

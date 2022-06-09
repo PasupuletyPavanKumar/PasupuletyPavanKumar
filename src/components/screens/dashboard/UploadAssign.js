@@ -47,7 +47,7 @@ const UploadAssign = () => {
     // console.log(extractProjectId(value));
     authenticatedService.getFiles(id).then((res) => {
       if (res) {
-        res != "404" ? setFilesList(res) : setFilesList("No Files yet");
+        res != "404" ? setFilesList(res) : setFilesList("");
         console.log(res);
       }
       console.log(res);
@@ -57,6 +57,7 @@ const UploadAssign = () => {
   const setSelectedPdfFiles = () => {
     const files = [];
     storedFiles.forEach((item) => {
+      const projectName = extractProjectName(item.projectId);
       files.push({
         fileReference: item.id,
 
@@ -67,6 +68,8 @@ const UploadAssign = () => {
         documentType: "PO",
 
         projectId: item.projectId,
+
+        projectName: projectName,
       });
     });
 
@@ -141,6 +144,15 @@ const UploadAssign = () => {
     return id;
   };
 
+  const extractProjectName = (value) => {
+    let name = null;
+    projectRes.filter((ele) => {
+      if (value === ele.id) name = ele.projectName;
+    });
+
+    return name;
+  };
+
   const getProjectList = () => {
     authenticatedService.getProjects().then((res) => {
       if (res) {
@@ -154,7 +166,7 @@ const UploadAssign = () => {
   };
 
   const getUsersList = () => {
-    authenticatedService.getUsers().then((res) => {
+    authenticatedService.getUserByUserRole().then((res) => {
       if (res) {
         storeUsersValues(res);
       }
@@ -310,7 +322,7 @@ const UploadAssign = () => {
 
   return (
     //container start
-    <div className="container-fluid">
+    <div className="container-fluid main-screen screen-main">
       {/* heading */}
       <div className="row row-flex">
         <div className="assign-head">Upload and Assign User</div>
@@ -373,20 +385,6 @@ const UploadAssign = () => {
             </div>
             {/* end of upload */}
           </div>
-
-          {/* second row */}
-          {/* <div class="row-sm-12 mt-4 ml-5">
-                <div className="time">
-                  <img src={timer} className="time"></img>
-                  <label>Time</label>
-                </div>
-                <div class="refresh">
-                  <img src={ref} className="refresh"></img>
-                  <label>Time</label>
-                </div>
-              </div> */}
-          {/* end of second row */}
-          {/* third row */}
           <br />
           <div class="main-tab">
             <div className="row-sm-12">
@@ -437,116 +435,6 @@ const UploadAssign = () => {
                   </div>
                 ))}
             </div>
-            {/* <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div> */}
-
-            {/* <div className="row row-flex">
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-              <div className="col-12 col-sm-2 tab-flex">
-                <div className="tab-left">
-                  <img src={file} className="file-img" />
-                </div>
-                <div className="tab-right">
-                  <label className="tab-text">FileName1</label>
-                  <p className="">description</p>
-                  <p className="">MTR</p>
-                </div>
-                <div className="checkbox2">
-                  <input type="checkbox" />
-                </div>
-              </div>
-            </div> */}
-            {/* end of third row */}
           </div>
         </div>
       </div>

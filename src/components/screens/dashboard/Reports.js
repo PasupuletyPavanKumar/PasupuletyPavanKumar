@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import ReactPaginate from "react-paginate";
-import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
+// import LogoAdmin from "..\\src\\assets\\icons\\Admin_graditi_bg.svg";
 
 // import LogoAdmin from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Admin_graditi_bg.svg";
 
