@@ -6,6 +6,7 @@ import { AuthenticatedService } from "../../../services/api-service/Authenticate
 import ReactPaginate from "react-paginate";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+import * as ReactBootStrap from "react-bootstrap";
 
 const AssignFiles = (props) => {
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
@@ -311,7 +312,7 @@ const AssignFiles = (props) => {
     let postData;
     <div>
       <div class="d-flex align-items-start">
-        <table class="table">
+        <ReactBootStrap.Table>
           {
             (postData = slice.map((item) => (
               <tbody>
@@ -325,7 +326,7 @@ const AssignFiles = (props) => {
                   <td>
                     <button className="assignbutton">start</button>
                   </td>
-                  <td>
+                  <td style={{ display: "flex" }}>
                     <VisibilityIcon className="cursor-pointer assignicons" />
                     &nbsp;
                     <DeleteIcon className="cursor-pointer assignicons" />
@@ -334,7 +335,7 @@ const AssignFiles = (props) => {
               </tbody>
             )))
           }
-        </table>
+        </ReactBootStrap.Table>
       </div>
     </div>;
 
@@ -369,7 +370,7 @@ const AssignFiles = (props) => {
   }, [props, offset]);
 
   return (
-    <div class="container-fluid">
+    <div class="container-fluid main-screen screen-main">
       <div class="container-fluid">
         <div className=" mt-4 mb-4">
           <h4 className="reportsheading">Assign To Me</h4>
@@ -378,7 +379,7 @@ const AssignFiles = (props) => {
 
       <div class="container-fluid">
         <div class="row">
-          <div className="tableouline p-3 col-12">
+          <div className="tableouline p-3 col-12 col-md-12 col-lg-12 col-xl-12">
             <div
               class="row"
               style={{
@@ -386,7 +387,7 @@ const AssignFiles = (props) => {
                 justifyContent: "space-between",
               }}
             >
-              <div class=" col-7 col-md-4 col-lg-4 col-xl-3 mb-4">
+              <div class=" col-10 col-md-4 col-lg-4 col-xl-3 mb-4">
                 <div>
                   <input
                     class="form-control"
@@ -398,13 +399,13 @@ const AssignFiles = (props) => {
               </div>
 
               <div
-                class="col-12 col-md-8 col-lg-6 col-xl-4 mb-4"
+                class="col-12 col-md-8 col-lg-7 col-xl-5 mb-4"
                 style={{
                   display: "flex",
                   justifyContent: "space-around",
                 }}
               >
-                <select className="selectprojectfilter p-2">
+                <select className="selectprojectfilter p-2 ">
                   <option value="Filter">Select Project</option>
                 </select>
 
@@ -418,112 +419,113 @@ const AssignFiles = (props) => {
               </div>
             </div>
 
-            <table class="table">
-              <thead>
-                <tr className="headingstyle">
+            <div className="headingstyle col-lg-8">
+              <th
+                className={
+                  usercontrolchange === "ALL FILES" ? "controlchange" : ""
+                }
+                onClick={() => setUsercontrolchange("ALL FILES")}
+              >
+                {" "}
+                <span className="span">ALLFILES</span>
+              </th>
+              <th
+                className={
+                  usercontrolchange === "PENDING" ? "controlchange" : ""
+                }
+                onClick={() => setUsercontrolchange("PENDING")}
+              >
+                {" "}
+                PENDING
+              </th>
+              {((page === "assignToUser" &&
+                sessionStorage.getItem("role") === "specialist") ||
+                (page === "assignToMe" &&
+                  sessionStorage.getItem("role") === "user")) && (
+                <div
+                  className="justchange"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "60px",
+                  }}
+                >
                   <th
                     className={
-                      usercontrolchange === "ALL FILES" ? "controlchange" : ""
+                      usercontrolchange === "PROCESSING" ? "controlchange" : ""
                     }
-                    onClick={() => setUsercontrolchange("ALL FILES")}
+                    onClick={() => setUsercontrolchange("PROCESSING")}
                   >
                     {" "}
-                    <span className="span">ALLFILES</span>
+                    PROCESSING{" "}
                   </th>
                   <th
                     className={
-                      usercontrolchange === "PENDING" ? "controlchange" : ""
+                      usercontrolchange === "PROCESSED" ? "controlchange" : ""
                     }
-                    onClick={() => setUsercontrolchange("PENDING")}
+                    onClick={() => setUsercontrolchange("PROCESSED")}
                   >
                     {" "}
-                    PENDING
+                    PROCESSED{" "}
                   </th>
-                  {((page === "assignToUser" &&
-                    sessionStorage.getItem("role") === "specialist") ||
-                    (page === "assignToMe" &&
-                      sessionStorage.getItem("role") === "user")) && (
-                    <div>
-                      <th
-                        className={
-                          usercontrolchange === "PROCESSING"
-                            ? "controlchange"
-                            : ""
-                        }
-                        onClick={() => setUsercontrolchange("PROCESSING")}
-                      >
-                        {" "}
-                        PROCESSING{" "}
-                      </th>
-                      <th
-                        className={
-                          usercontrolchange === "PROCESSED"
-                            ? "controlchange"
-                            : ""
-                        }
-                        onClick={() => setUsercontrolchange("PROCESSED")}
-                      >
-                        {" "}
-                        PROCESSED{" "}
-                      </th>
-                    </div>
-                  )}
+                </div>
+              )}
 
-                  <th
-                    className={
-                      usercontrolchange === "OK" ? "controlchange" : ""
-                    }
-                    onClick={() => setUsercontrolchange("OK")}
-                  >
-                    {" "}
-                    OK{" "}
-                  </th>
-                  <th
-                    className={
-                      usercontrolchange === "NOT OK" ? "controlchange" : ""
-                    }
-                    onClick={() => setUsercontrolchange("NOT OK")}
-                  >
-                    {" "}
-                    NOT OK{" "}
-                  </th>
-                </tr>
-              </thead>
+              <th
+                className={usercontrolchange === "OK" ? "controlchange" : ""}
+                onClick={() => setUsercontrolchange("OK")}
+              >
+                {" "}
+                OK{" "}
+              </th>
+              <th
+                className={
+                  usercontrolchange === "NOT OK" ? "controlchange" : ""
+                }
+                onClick={() => setUsercontrolchange("NOT OK")}
+              >
+                {" "}
+                NOTOK{" "}
+              </th>
+            </div>
 
-              <thead>
-                <tr className="headingstyle1">
-                  <th scope="col">DATE</th>
-                  <th scope="col">FILE NAME</th>
-                  <th scope="col">PROJECT NAME</th>
-                  <th scope="col">FILE TYPE</th>
-                  <th scope="col">USER NAME</th>
-                  <th scope="col">EMAIL ID</th>
-                  <th scope="col">STATUS</th>
-                  <th scope="col">ACTION</th>
-                  <th></th>
-                </tr>
-              </thead>
-              {data}
-            </table>
-            <ReactPaginate
-              className="pagination justify-content-end"
-              previousLabel={"prev"}
-              nextLabel={"next"}
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={pageCount}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-              breakLinkClassName={"page-link"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-            />
+            <div className="table-responsive">
+              <ReactBootStrap.Table>
+                <thead>
+                  <tr className="headingstyle1">
+                    <th>DATE</th>
+                    <th>FILE NAME</th>
+                    <th>PROJECT NAME</th>
+                    <th>FILE TYPE</th>
+                    <th>USER NAME</th>
+                    <th>EMAIL ID</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                {data}
+              </ReactBootStrap.Table>
+              <ReactPaginate
+                className="pagination justify-content-end"
+                previousLabel={"prev"}
+                nextLabel={"next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+                breakLinkClassName={"page-link"}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+              />
+            </div>
           </div>
         </div>
       </div>

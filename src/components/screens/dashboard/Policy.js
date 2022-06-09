@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-// import maximize from "..\\src\\assets\\icons\\fullscreen.svg";
+import maximize from "..\\src\\assets\\icons\\fullscreen.svg";
 
-import maximize from "../../.././assets/icons/fullscreen.svg";
+// import maximize from "../../.././assets/icons/fullscreen.svg";
 
 const Policy = ({ value, setValue }) => {
   return (

@@ -27,8 +27,9 @@ const Home = (props) => {
   // const { height, width } = ();
   // sessionStorage.setItem("role", "super-user");
   // sessionStorage.setItem("role", "admin");
-  // sessionStorage.setItem("role", "specialist");
+  sessionStorage.setItem("role", "specialist");
   // sessionStorage.setItem("role", "user");
+
   console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
     { src: "assets/icons/home_white.svg", title: "Home", active: "dashboard" },
@@ -71,7 +72,7 @@ const Home = (props) => {
       active: "server",
     },
     {
-      src: "assets/icons/pro_settings_white.svg",
+      src: "assets/icons/Pro_settings_white.svg",
       title: "Project Settings",
       active: "project",
     },
@@ -396,12 +397,6 @@ const Home = (props) => {
                     >
                       Logout
                     </a>
-                    {/* <a className="dropdown-item" href="#">
-                      Link 2
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      Link 3
-                    </a> */}
                   </div>
                 </div>
                 {/* <b className="dropdown-toggle" data-toggle="dropdown">
@@ -449,7 +444,40 @@ const Home = (props) => {
           </div>
 
           <div id="main">{mainContent()}</div>
-
+          {/* <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div>
+          <div id="main">hello</div> */}
           <div className="home-sideMenu" id="mySidenav" class="sidenav">
             {sideMenuBar()}
           </div>

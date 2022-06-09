@@ -6,6 +6,7 @@ body {
 $color003763: #003763;
 
 /*  DEFAULT FONT SIZE START  */
+
 .font-8 {
   font-size: 8px;
 }
@@ -18,6 +19,7 @@ $color003763: #003763;
 .font-16 {
   font-size: 16px;
 }
+
 .font-24 {
   font-size: 24px;
 }
@@ -50,6 +52,7 @@ $color003763: #003763;
 }
 
 /*  DEFAULT FONT COLOR END */
+/*  DEFAULT FONT SIZE START  */
 
 .posRelative {
   position: relative;
@@ -1912,6 +1915,7 @@ select {
   background-color: #004072;
   // overflow-x: hidden; /* Disable horizontal scroll */
   overflow: hidden;
+
   padding-top: 15px;
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
@@ -2414,37 +2418,6 @@ select {
 
 //Assigned to me/by me css starts
 
-.assigndrop {
-  border: 2px solid #fff;
-  border-radius: 50px;
-  opacity: 1;
-
-  text-align: center;
-  font: normal normal 600 16px Open Sans;
-  cursor: pointer;
-  color: #003763;
-}
-
-.headingstyle {
-  background-color: #fff;
-  border-radius: 20px;
-  cursor: pointer;
-  font: normal normal normal 12px/25px Open Sans;
-  letter-spacing: 0px;
-  color: #004072;
-  text-transform: uppercase;
-}
-
-.headingstyle1 {
-  background-color: #fff;
-  text-align: left;
-  font: normal normal 600 12px/17px Open Sans;
-  letter-spacing: 0px;
-  color: #003763;
-  text-transform: uppercase;
-  border-radius: 20px;
-  opacity: 1;
-}
 .assignicons {
   color: #00adee;
 }
@@ -2464,15 +2437,78 @@ select {
 
   box-shadow: 6px 6px 12px rgba(48, 46, 46, 0.1);
 }
+
+.reportsheading {
+  text-align: left;
+  font: normal normal bold 20px/27px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+}
+
+.tableouline {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid #ffffff;
+  border-radius: 24px;
+  opacity: 1;
+  height: auto;
+  width: auto;
+}
+
+.assigndrop {
+  border: 2px solid #ffffff;
+  border-radius: 50px;
+  opacity: 1;
+  background-color: white;
+  height: 45px;
+  text-align: center;
+  font: normal normal 600 16px Open Sans;
+  color: #003763;
+}
+
 .controlchange {
-  border-bottom: 1px solid #00adee;
-  padding-bottom: 1px;
-  // text-align: center;
-  // font: normal normal 600 12px/25px Open Sans;
+  border-bottom: 3px solid #00adee;
+  padding-bottom: 3px;
+
   letter-spacing: 0px;
   color: #00adee;
-  text-transform: uppercase;
+
   opacity: 1;
+}
+
+.headingstyle1 {
+  // background-color: #fff;
+  text-align: left;
+  font: normal normal 600 12px/17px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  text-transform: uppercase;
+  border-radius: 20px;
+  opacity: 1;
+}
+
+.headingstyle {
+  // background-color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font: normal normal normal 12px/25px Open Sans;
+  letter-spacing: 0px;
+  color: #004072;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+
+  // @media (min-width: 425px) {
+  //   display: flex;
+  //   justify-content: space-between;
+  // }
+
+  @media (max-width: 426px) {
+    overflow-x: scroll;
+    display: flex;
+    gap: 35px;
+    justify-content: space-between;
+  }
 }
 
 .selectprojectfilter {
