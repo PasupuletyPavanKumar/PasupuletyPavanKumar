@@ -40,6 +40,12 @@ const DashboardMain = (props) => {
 
   const [specialistAndAdminCount, setSpecialistAndAdminCount] = useState([]);
 
+  const [assignedToUserCount, setAssignedToUserCount] = useState([]);
+
+  const [assignedToSpecialistCount, setAssignedToSpecialistCount] = useState(
+    []
+  );
+
   const [activityData, setActivityData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +53,7 @@ const DashboardMain = (props) => {
   //pagination and get data
   const [offset, setOffset] = useState(0);
   const [data, setData] = useState([]);
-  const [perPage] = useState(6);
+  const [perPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
@@ -68,6 +74,13 @@ const DashboardMain = (props) => {
     // sessionStorage.getItem("role") === "super-user"
     //   ? getAdminCount()
     //   : getSpecialistAndAdminCount();
+    if (
+      sessionStorage.getItem("role") === "specialist" ||
+      sessionStorage.getItem("role") === "user"
+    ) {
+      getAssignedToUserCount();
+      getAssignedToSpecialistCount();
+    }
 
     getActivityList();
   }, [offset]);
@@ -87,6 +100,22 @@ const DashboardMain = (props) => {
     }
   };
 
+  const getAssignedToUserCount = () => {
+    authenticatedService.getAssignedToUserCount().then((res) => {
+      console.log(res);
+      setAssignedToUserCount(res);
+      // reuseCountCode(res, "Notification");
+    });
+  };
+
+  const getAssignedToSpecialistCount = () => {
+    authenticatedService.getAssignedToSpecialistCount().then((res) => {
+      console.log(res);
+      setAssignedToSpecialistCount(res);
+      // reuseCountCode(res, "Notification");
+    });
+  };
+
   const getNotificationCount = () => {
     authenticatedService.getNotificationsCount().then((res) => {
       console.log(res);
@@ -96,7 +125,7 @@ const DashboardMain = (props) => {
   };
 
   const getAdminCount = () => {
-    authenticatedService.getAdminsCount().then((res) => {
+    authenticatedService.getAdminsCount("admin").then((res) => {
       console.log(res);
       // reuseCountCode(res, "Admin");
       setAdminsCount(res);
@@ -173,8 +202,8 @@ const DashboardMain = (props) => {
   const notification = () => {
     return (
       <div className="divleft">
-        <div>{notificationCount}</div>
-        {/* <label className="lblLeft">{notificationCount}</label> */}
+        <label className="lblLeft">{notificationCount}</label>
+        {/* <div>{notificationCount}</div> */}
         <p className="ptag">Notification</p>
       </div>
     );
@@ -183,11 +212,11 @@ const DashboardMain = (props) => {
   const admin = () => {
     return (
       <div className="divleft">
-        <div>
+        <label className="lblLeft">
           {sessionStorage.getItem("role") === "super-user"
             ? adminsCount
             : specialistAndAdminCount}
-        </div>
+        </label>
         {/* <label className="lblLeft">{adminsCount}</label> */}
         <p className="ptag">Admin</p>
       </div>
@@ -197,8 +226,8 @@ const DashboardMain = (props) => {
   const reports = () => {
     return (
       <div className="divleft">
-        <div className="font-25 fontweight-700">{reportCount}</div>
-        {/* <label className="lblLeft">{adminsCount}</label> */}
+        {/* <div className="font-25 fontweight-700">{reportCount}</div> */}
+        <label className="lblLeft">{reportCount}</label>
         <p className="ptag">Reports</p>
       </div>
     );
@@ -218,7 +247,7 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <div>{adminsCount}</div>
-        {/* <label className="lblLeft">{adminsCount}</label> */}
+        <label className="lblLeft">{assignedToUserCount}</label>
         <p className="ptag">Assign To User</p>
       </div>
     );
@@ -228,7 +257,7 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <div>{adminsCount}</div>
-        {/* <label className="lblLeft">{adminsCount}</label> */}
+        <label className="lblLeft">{assignedToSpecialistCount}</label>
         <p className="ptag">Assign to Specialist</p>
       </div>
     );
@@ -287,7 +316,7 @@ const DashboardMain = (props) => {
   };
 
   return (
-    <div className="ptb-2 main-screen">
+    <div className="ptb-2 main-screen screen-main">
       <div class="div-head">
         <div className="sub-head"> Welcome to Dashboard</div>
         {/* <br /> */}

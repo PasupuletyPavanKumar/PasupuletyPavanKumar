@@ -33,7 +33,7 @@ const Notification = () => {
                   <NotificationLogo />
                 </div>
                 <div className="notification-heading">
-                  <div className="font-16 fontweight-700">
+                  <div className="font-16 fontweight-700 color003763">
                     {" "}
                     {item.operation}
                   </div>

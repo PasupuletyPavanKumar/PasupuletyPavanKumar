@@ -54,6 +54,10 @@ const UploadAssign = () => {
     });
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const setSelectedPdfFiles = () => {
     const files = [];
     storedFiles.forEach((item) => {
@@ -101,6 +105,7 @@ const UploadAssign = () => {
       if (res) {
         console.log("Assigned docs successfully");
         setProjectList([]);
+        refreshPage();
       }
     });
 
@@ -221,6 +226,7 @@ const UploadAssign = () => {
       authenticatedService.uploadDocs(reqBody).then((res) => {
         if (res) {
           console.log("Uploaded docs successfully");
+          refreshPage();
         }
       });
     } else {

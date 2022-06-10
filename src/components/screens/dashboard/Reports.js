@@ -16,10 +16,39 @@ const Reports = () => {
   const [data, setData] = useState([]);
   const [perPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
+  const [adminsCount, setAdminsCount] = useState([]);
+  const [specialistCount, setSpecialistCount] = useState([]);
+  const [detailedReport, setDetailedReport] = useState([]);
 
   useEffect(() => {
-    getActivityList();
+    getAdminCount();
+    getSpecialistCount();
+    getDetailedReport();
+    // getActivityList();
   }, [offset]);
+
+  const getAdminCount = () => {
+    authenticatedService.getAdminsCount("admin").then((res) => {
+      console.log(res);
+      setAdminsCount(res);
+    });
+  };
+
+  const getSpecialistCount = () => {
+    authenticatedService.getAdminsCount("specialist").then((res) => {
+      console.log(res);
+      setSpecialistCount(res);
+    });
+  };
+
+  const getDetailedReport = () => {
+    authenticatedService.getDetailedReport().then((res) => {
+      if (res) {
+        res != "404" ? paginationCode(res) : paginationCode("");
+        console.log(res);
+      }
+    });
+  };
 
   const getActivityList = () => {
     authenticatedService.recentActivity().then((res) => {
@@ -42,12 +71,12 @@ const Reports = () => {
             (postData = slice.map((item) => (
               <tbody>
                 <tr key={item.id}>
-                  <td>{item.userId}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
-                  <td>{item.id}</td>
+                  <td>{item.dateOfActivity}</td>
+                  <td>{item.onUser}</td>
+                  <td>{item.operation}</td>
+                  <td>{item.description}</td>
+                  {/* <td>{item.id}</td>
+                  <td>{item.id}</td> */}
                 </tr>
               </tbody>
             )))
@@ -65,7 +94,7 @@ const Reports = () => {
     setOffset(selectedPage);
   };
   return (
-    <div class="container-fuild ">
+    <div class="container-fuild main-screen">
       <div class="container">
         <div className=" mt-4 mb-4">
           <h4 className="reportsheading">Reports</h4>
@@ -88,8 +117,8 @@ const Reports = () => {
               </div>
               <div>
                 <p className="reportscontentheading">Specialist Users</p>
-                <h4 className="reportstext">370</h4>
-                <p>320 Active Users</p>
+                <h4 className="reportstext">{adminsCount}</h4>
+                {/* <p>320 Active Users</p> */}
               </div>
             </div>
           </div>
@@ -107,8 +136,8 @@ const Reports = () => {
               </div>
               <div>
                 <p className="reportscontentheading"> Users</p>
-                <h4 className="reportstext">500</h4>
-                <p>450 Active Users</p>
+                <h4 className="reportstext">{specialistCount}</h4>
+                {/* /<p>450 Active Users</p> */}
               </div>
             </div>
           </div>
@@ -124,7 +153,7 @@ const Reports = () => {
           }}
         >
           <div className="col-6 col-lg-6 col-md-6 mt-4 mb-4">
-            <h4 className="reportsheading">Recent Activity</h4>
+            <h4 className="reportsheading">Reports</h4>
           </div>
 
           <div className=" col-6 col-lg-6  col-md-6 mt-4 mb-4">
@@ -150,15 +179,15 @@ const Reports = () => {
               <tr>
                 <th>DATE</th>
 
-                <th>USERNAME</th>
-
-                <th>ACTION</th>
-
-                <th>EMAILID</th>
+                <th>ON USER</th>
 
                 <th>OPERATION</th>
 
-                <th>ON USER</th>
+                <th>DESCRIPTION</th>
+
+                {/* <th>OPERATION</th>
+
+                <th>ON USER</th> */}
               </tr>
             </thead>
             {data}

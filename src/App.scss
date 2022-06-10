@@ -1442,64 +1442,6 @@ select {
   //font: normal normal normal 16px/25px Open Sans;
   font-size: 12px;
 }
-
-//Specialist Reports css
-.user-head {
-  padding-top: 20px;
-  margin-left: 36px;
-}
-.userfiles-specialist-rpt {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 6px 6px 10px #00376340;
-  border-radius: 18px;
-  opacity: 0.5;
-  height: 250px;
-  width: 300px;
-  margin-left: 50px;
-}
-.user-file-activity:hover {
-  background-color: #0077bd;
-}
-.user-file-activity {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 6px 6px 10px #00376340;
-  border-radius: 10px;
-  opacity: 1;
-  height: 50px;
-  width: 200px;
-  margin-left: 50px;
-  margin-top: 5px;
-}
-.user-files-head {
-  margin-top: 20px;
-  margin-left: 50px;
-}
-.user-chartdiv {
-  margin-top: 10px;
-  margin-left: 20px;
-  width: 600px;
-}
-.user-weekly {
-  margin-left: 180px;
-  margin-top: 10px;
-}
-.div-userchart-head {
-  height: 30px;
-  margin-left: 15px;
-  margin-top: 10px;
-}
-.specilist-head {
-  margin-left: 36px;
-}
-.userweekly-specialist-rpt {
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 6px 6px 10px #00376340;
-  border-radius: 18px;
-  opacity: 0.5;
-  height: 250px;
-  width: 650px;
-  margin-left: 20px;
-}
 // AssignUser
 
 .user {
@@ -2549,15 +2491,13 @@ select {
 //server management css starts
 
 .custom-button {
-  height: 7vh;
-  width: 13vw;
   background-color: #ffaa00;
   color: white;
   border: 2px solid #ffaa00;
   opacity: 1;
   font: normal normal 600 14px/20px Open Sans;
   letter-spacing: 0px;
-
+  height: 7vh;
   opacity: 1;
   border-radius: 100px;
   font-weight: 500;
@@ -2571,6 +2511,14 @@ select {
   @media (max-width: 320px) {
     width: 35vw;
     // margin-top: 1vh;
+  }
+  @media (min-width: 769px) and (max-width: 1440px) {
+    width: 15vw;
+  }
+  @media (min-width: 1441px) {
+    height: 5vh;
+    width: 10vw;
+    font: normal normal 600 20px Open Sans;
   }
 }
 
@@ -2614,6 +2562,10 @@ select {
   @media (max-width: 425px) {
     width: 20vw;
   }
+  @media (min-width: 1441px) {
+    width: 3vw;
+    height: 3vh;
+  }
 }
 
 .status1-button {
@@ -2634,6 +2586,10 @@ select {
   }
   @media (max-width: 425px) {
     width: 17vw;
+  }
+  @media (min-width: 1441px) {
+    width: 3vw;
+    height: 3vh;
   }
 }
 .export-button {
@@ -2660,6 +2616,12 @@ select {
     margin: 3%;
     width: 15vw;
   }
+
+  @media (min-width: 1441px) {
+    margin: 3%;
+    height: 3vh;
+    width: 4vw;
+  }
 }
 
 .del-popup {
@@ -2685,6 +2647,11 @@ select {
   align-items: center;
   @media (max-width: 320px) {
     margin-left: -5vw;
+  }
+  @media (min-width: 1441px) {
+    height: 6vh;
+    width: 8vw;
+    margin-left: -4vw;
   }
 }
 
@@ -2717,7 +2684,7 @@ select {
   outline: 100px;
 }
 .cont1 {
-  width: fit-content;
+  width: max-content;
 }
 .server-head {
   margin-top: 3vh;
@@ -2726,6 +2693,9 @@ select {
   letter-spacing: 0px;
   color: #003763;
   opacity: 1;
+}
+.page-position {
+  margin: 20px;
 }
 
 .server-title {
@@ -2767,12 +2737,15 @@ select {
 
 .server-tbl {
   color: #004072;
-  text-align: left;
+  text-align: center;
   height: 5vh;
 
   font: normal normal 600 12px/17px Open Sans;
   background-color: #ffff;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  @media (min-width: 1440px) {
+    height: 6vh;
+  }
 }
 
 .storage {
@@ -2800,9 +2773,13 @@ select {
 
 .server-text {
   margin-top: 4vh;
+
   justify-content: center;
   font: normal normal bold 14px Open Sans;
   color: #004072;
+  @media (min-width: 1441px) {
+    margin-top: 3vh;
+  }
 }
 
 .modal-button {
@@ -2817,3 +2794,102 @@ select {
 }
 
 // server management css ends
+
+// Spec/user Reports css starts
+
+.user-rpt-head {
+  color: #003763;
+  font: normal normal bold 14px/21px Open Sans;
+  margin-left: 10px;
+  //margin-top: 50px;
+}
+.userfiles-specialist-rpt {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 18px;
+  opacity: 0.6;
+  height: 275px;
+  width: 255px;
+  margin-left: 10px;
+}
+.user-file-activity:hover {
+  background: transparent
+    linear-gradient(180deg, #003763 0%, #0077bd 66%, #00adee 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 3px 6px 10px #00376340;
+  //border-radius: 12px;
+  opacity: 1;
+}
+.user-file-activity {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 12px;
+  opacity: 1;
+  height: 70px;
+  width: 200px;
+  margin-left: 35px;
+  margin-top: 5px;
+}
+.user-files-head {
+  margin-top: 14px;
+  margin-left: 25px;
+  color: #003763;
+  font: normal normal bold 14px/21px Open Sans;
+}
+.user-files-weekly-head {
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #003763;
+  font: normal normal bold 14px/21px Open Sans;
+}
+.user-chartdiv {
+  margin-top: 10px;
+  margin-left: 20px;
+  //width: 600px;
+}
+
+.user-rpt-export {
+  border-radius: 18px;
+  border: 2px solid #003763;
+  font: normal normal 600 12px/20px Open Sans;
+  color: #003763;
+}
+.div-userchart-head {
+  height: 30px;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.userweekly-specialist-rpt {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 6px 6px 10px #00376340;
+  border-radius: 18px;
+  opacity: 0.6;
+  height: 275px;
+  width: 650px;
+  margin-left: 10px;
+}
+
+.rpt-files-count {
+  color: #003763;
+  font: normal normal bold 18px/7px Open Sans;
+  margin-left: 10px;
+}
+.rpt-files-txt {
+  margin-left: 15px;
+}
+
+.rpt-filter-export {
+  margin-top: 5px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.078);
+  border: 2px solid #e1dfea;
+  color: #003763;
+  font: normal normal 600 12px/20px Open Sans;
+  height: 35px;
+}
+.user-filter-left-div {
+  margin-right: 30px;
+}
+
+// Spec/user Reports css ends

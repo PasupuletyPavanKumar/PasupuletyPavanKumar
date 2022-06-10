@@ -14,8 +14,16 @@ export class AuthenticatedService {
   filesListDomain = "http://localhost:8099/";
   serverDomain = "http://localhost:8091/";
 
-  getNotificationsCount = async (user = sessionStorage.getItem("username")) => {
-    const url = this.notificationDomain + ApiUrl.notificationsCount + user;
+  getNotificationsCount = async (
+    username = sessionStorage.getItem("username"),
+    role = sessionStorage.getItem("role")
+  ) => {
+    const url =
+      this.notificationDomain +
+      ApiUrl.notificationsCount +
+      role +
+      "/" +
+      username;
 
     let apiRes = null;
     try {
@@ -30,8 +38,52 @@ export class AuthenticatedService {
     }
   };
 
-  getAdminsCount = async () => {
-    const url = this.AdminDomain + ApiUrl.getAdminsCount + "admin";
+  getAssignedToUserCount = async (
+    userId = sessionStorage.getItem("userId"),
+    role = sessionStorage.getItem("role")
+  ) => {
+    const url =
+      this.docsListDomain + ApiUrl.getAssignedToUserCount + role + "/" + userId;
+
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  getAssignedToSpecialistCount = async (
+    userId = sessionStorage.getItem("userId"),
+    role = sessionStorage.getItem("role")
+  ) => {
+    const url =
+      this.docsListDomain +
+      ApiUrl.getAssignedToSpecialistCount +
+      role +
+      "/" +
+      userId;
+
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  getAdminsCount = async (role) => {
+    const url = this.AdminDomain + ApiUrl.getAdminsCount + role;
     let apiRes = null;
     try {
       apiRes = await axios.get(url);
@@ -105,12 +157,12 @@ export class AuthenticatedService {
     }
   };
 
-  getNotifications = async (user = sessionStorage.getItem("username")) => {
-    const url = this.notificationDomain + ApiUrl.notifications + user;
-    // const url = "https://jsonplaceholder.typicode.com/todos";
-
-    //const response = await axios.get(url);
-
+  getNotifications = async (
+    username = sessionStorage.getItem("username"),
+    role = sessionStorage.getItem("role")
+  ) => {
+    const url =
+      this.notificationDomain + ApiUrl.notifications + role + "/" + username;
     let apiRes = null;
     try {
       apiRes = await axios.get(url);
@@ -128,6 +180,42 @@ export class AuthenticatedService {
     //   console.log(resData);
     //   return resData;
     // }
+  };
+
+  getDetailedReport = async (
+    username = sessionStorage.getItem("username"),
+    role = sessionStorage.getItem("role")
+  ) => {
+    const url =
+      this.exportFileDomain + ApiUrl.getDetailedReport + role + "/" + username;
+
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.status;
+    }
+  };
+
+  processDocument = async (reqBody) => {
+    const url = this.filesListDomain + ApiUrl.processDocument;
+    const response = await axios.post(url, reqBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return true;
+    }
   };
 
   addAdmin = async (reqBody) => {
@@ -272,8 +360,12 @@ export class AuthenticatedService {
     }
   };
 
-  recentActivity = async (user = sessionStorage.getItem("username")) => {
-    const url = this.recentDomain + ApiUrl.recentActivity + user;
+  recentActivity = async (
+    username = sessionStorage.getItem("username"),
+    role = sessionStorage.getItem("role")
+  ) => {
+    const url =
+      this.recentDomain + ApiUrl.recentActivity + role + "/" + username;
     // const url = "https://jsonplaceholder.typicode.com/todos";
     const response = await axios.get(url);
 

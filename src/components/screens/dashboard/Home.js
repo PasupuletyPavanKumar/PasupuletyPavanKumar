@@ -360,7 +360,13 @@ const Home = (props) => {
                       key={inde.toString()}
                       className="dashboard-icons header-icon"
                     /> */}
-                    <LanguageIcon style={{ height: "25px", width: "25px" }} />
+                    <LanguageIcon
+                      style={{
+                        height: "25px",
+                        width: "25px",
+                        color: "#003763",
+                      }}
+                    />
                     {window.innerWidth > 576 && <span>Language</span>}
                   </div>
 

@@ -26,6 +26,10 @@ const AssignFiles = (props) => {
     getDocsList(docState);
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const getDocsList = (docState) => {
     if (docState === "ALL FILES") {
       if (page === "assignToUser") {
@@ -312,6 +316,27 @@ const AssignFiles = (props) => {
     });
   };
 
+  const processDocument = (item) => {
+    console.log(item);
+    var reqBody = new FormData();
+    reqBody.append("extractionType", item.documentType);
+    reqBody.append("userId", item.assignedToUserId);
+    reqBody.append("specialistId", item.assignedBySpecialistId);
+    reqBody.append("documentIds", item.id);
+    reqBody.append("byUser", sessionStorage.getItem("username"));
+    reqBody.append("byUserRole", sessionStorage.getItem("role"));
+
+    for (var pair of reqBody.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    authenticatedService.processDocument(reqBody).then((res) => {
+      if (res) {
+        refreshPage();
+      }
+    });
+  };
+
   const getActivityList = () => {
     authenticatedService.recentActivity().then((res) => {
       if (res) {
@@ -342,7 +367,13 @@ const AssignFiles = (props) => {
                   <td>{item.status}</td>
                   <td style={{ display: "flex" }}>
                     {item.status !== "pending" ? (
-                      <button className="assignbutton">start</button>
+                      <button
+                        className="assignbutton"
+                        // onClick={processDocument(item)}
+                        onClick={() => processDocument(item)}
+                      >
+                        start
+                      </button>
                     ) : item.status !== "processed" ? (
                       <VisibilityIcon className="cursor-pointer assignicons" />
                     ) : (

@@ -346,8 +346,8 @@ const ServerManagement = () => {
   return (
     <div>
       <div>
-        <div className="div-head main-screen screen-main">
-          <div className="row row-flex">
+        <div class="div-head">
+          <div class="row row-flex">
             <div className="col server-head"> Server Management</div>
             <div className="col add-server">
               <button

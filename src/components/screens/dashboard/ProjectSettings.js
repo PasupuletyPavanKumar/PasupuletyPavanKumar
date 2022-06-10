@@ -53,6 +53,10 @@ const ProjectSettings = () => {
     ]);
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const inputValidators = () => {
     let inputFields = true;
     let settingFields = false;
@@ -100,6 +104,7 @@ const ProjectSettings = () => {
       authenticatedService.addSetting(reqBody).then((res) => {
         if (res) {
           console.log("Setting added successfully");
+          refreshPage();
         }
       });
     }
@@ -145,6 +150,7 @@ const ProjectSettings = () => {
       authenticatedService.addProject(reqBody).then((res) => {
         if (res) {
           console.log("Project added successfully");
+          refreshPage();
         }
       });
     }

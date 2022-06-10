@@ -138,6 +138,10 @@ const AdminManagement = () => {
       sessionStorage.getItem("role") === "super-user" ? "Admin" : "Specialist",
   });
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const createAdmin = () => {
     console.log("Create Admin");
     // if (inputValidators()) {
@@ -180,7 +184,8 @@ const AdminManagement = () => {
     if (!isEdit) {
       authenticatedService.addAdmin(reqBody).then((res) => {
         if (res) {
-          <div>{handleClose}</div>;
+          // <div>{handleClose}</div>;
+          refreshPage();
         }
       });
     } else {
@@ -189,7 +194,8 @@ const AdminManagement = () => {
         .updateAdmin(reqBody, toBeUpdatedUsername)
         .then((res) => {
           if (res) {
-            <div>{handleClose()}</div>;
+            // <div>{handleClose()}</div>;
+            refreshPage();
           }
         });
     }
@@ -208,7 +214,8 @@ const AdminManagement = () => {
       .deleteAdmin(reqBody, toBeUpdatedUsername)
       .then((res) => {
         if (res) {
-          handleClose();
+          // handleClose();
+          refreshPage();
         }
         console.log(res);
       });
