@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import CloseIcon from "../../../assets/icons/close.svg";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
+import { _EMAIL_VALIDATOR, _PWD_VALIDATOR } from "../../../utils/Validators";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import * as XLSX from "xlsx/xlsx.mjs";
@@ -125,7 +126,24 @@ const AdminManagement = () => {
   const handleDeleteModalClose = () => setshowDeleteModal(false);
   const handleDeleteModalShow = () => setshowDeleteModal(true);
 
-  const inputValidators = () => {};
+  const inputValidators = () => {
+    if (
+      addAdminFields.firstname == "" ||
+      addAdminFields.lastname == "" ||
+      addAdminFields.username == "" ||
+      addAdminFields.emailid == "" ||
+      addAdminFields.location == "" ||
+      addAdminFields.role == ""
+    ) {
+      alert("All fields required");
+      return false;
+    } else if (_EMAIL_VALIDATOR(addAdminFields.emailid)) {
+      alert("Enter valid email");
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const [adminList, setadminList] = useState([]);
   const [addAdminFields, setAddAdminFields] = useState({
@@ -144,60 +162,62 @@ const AdminManagement = () => {
 
   const createAdmin = () => {
     console.log("Create Admin");
-    // if (inputValidators()) {
-    var reqBody = new FormData();
-    reqBody.append("firstName", addAdminFields.firstname);
-    reqBody.append("lastName", addAdminFields.lastname);
-    reqBody.append("userName", addAdminFields.username);
-    reqBody.append("email", addAdminFields.emailid);
-    reqBody.append("location", addAdminFields.location);
-    //reqBody.append("role", addAdminFields.role);
+    if (inputValidators()) {
+      console.log("inside createAdmin");
+      var reqBody = new FormData();
+      reqBody.append("firstName", addAdminFields.firstname);
+      reqBody.append("lastName", addAdminFields.lastname);
+      reqBody.append("userName", addAdminFields.username);
+      reqBody.append("email", addAdminFields.emailid);
+      reqBody.append("location", addAdminFields.location);
+      //reqBody.append("role", addAdminFields.role);
 
-    // reqBody.append(addAdminFields.role === "Admin" ? "true" : "false");
-    reqBody.append("isSuperUser", "false");
-    reqBody.append(
-      "isAdmin",
-      // sessionStorage.getItem("role") === "admin" ? "true" : "false"
-      addAdminFields.role === "Admin" ? "true" : "false"
-    );
-    reqBody.append(
-      "isSpecialist",
-      // sessionStorage.getItem("role") === "specialist" ? "true" : "false"
-      addAdminFields.role === "Specialist" ? "true" : "false"
-    );
-    reqBody.append(
-      "isUser",
-      // sessionStorage.getItem("role") === "user" ? "true" : "false"
-      addAdminFields.role === "User" ? "true" : "false"
-    );
-    reqBody.append("byUser", sessionStorage.getItem("username"));
-    reqBody.append("byUserRole", sessionStorage.getItem("role"));
+      // reqBody.append(addAdminFields.role === "Admin" ? "true" : "false");
+      reqBody.append("isSuperUser", "false");
+      reqBody.append(
+        "isAdmin",
+        // sessionStorage.getItem("role") === "admin" ? "true" : "false"
+        addAdminFields.role === "Admin" ? "true" : "false"
+      );
+      reqBody.append(
+        "isSpecialist",
+        // sessionStorage.getItem("role") === "specialist" ? "true" : "false"
+        addAdminFields.role === "Specialist" ? "true" : "false"
+      );
+      reqBody.append(
+        "isUser",
+        // sessionStorage.getItem("role") === "user" ? "true" : "false"
+        addAdminFields.role === "User" ? "true" : "false"
+      );
+      reqBody.append("byUser", sessionStorage.getItem("username"));
+      reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
-    console.log(addAdminFields);
-    console.log(sessionStorage.getItem("accessToken"));
-    //console.log(sessionStorage.getItem("refreshToken"));
+      console.log(addAdminFields);
+      console.log(sessionStorage.getItem("accessToken"));
+      //console.log(sessionStorage.getItem("refreshToken"));
 
-    for (var pair of reqBody.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+      for (var pair of reqBody.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
 
-    if (!isEdit) {
-      authenticatedService.addAdmin(reqBody).then((res) => {
-        if (res) {
-          // <div>{handleClose}</div>;
-          refreshPage();
-        }
-      });
-    } else {
-      console.log("Call Edit Api", reqBody);
-      authenticatedService
-        .updateAdmin(reqBody, toBeUpdatedUsername)
-        .then((res) => {
+      if (!isEdit) {
+        authenticatedService.addAdmin(reqBody).then((res) => {
           if (res) {
-            // <div>{handleClose()}</div>;
+            // <div>{handleClose}</div>;
             refreshPage();
           }
         });
+      } else {
+        console.log("Call Edit Api", reqBody);
+        authenticatedService
+          .updateAdmin(reqBody, toBeUpdatedUsername)
+          .then((res) => {
+            if (res) {
+              // <div>{handleClose()}</div>;
+              refreshPage();
+            }
+          });
+      }
     }
   };
 
