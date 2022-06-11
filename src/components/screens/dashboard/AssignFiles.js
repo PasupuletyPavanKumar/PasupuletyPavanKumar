@@ -322,7 +322,7 @@ const AssignFiles = (props) => {
     reqBody.append("extractionType", item.documentType);
     reqBody.append("userId", item.assignedToUserId);
     reqBody.append("specialistId", item.assignedBySpecialistId);
-    reqBody.append("documentIds", item.id);
+    reqBody.append("documentIds", item.fileReference);
     reqBody.append("byUser", sessionStorage.getItem("username"));
     reqBody.append("byUserRole", sessionStorage.getItem("role"));
 

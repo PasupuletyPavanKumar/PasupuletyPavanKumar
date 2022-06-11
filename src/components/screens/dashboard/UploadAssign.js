@@ -47,15 +47,11 @@ const UploadAssign = () => {
     // console.log(extractProjectId(value));
     authenticatedService.getFiles(id).then((res) => {
       if (res) {
-        res != "404" ? setFilesList(res) : setFilesList("");
+        res != "404" ? setFilesList(res) : setFilesList("No Files yet");
         console.log(res);
       }
       console.log(res);
     });
-  };
-
-  const refreshPage = () => {
-    window.location.reload();
   };
 
   const setSelectedPdfFiles = () => {
@@ -92,7 +88,7 @@ const UploadAssign = () => {
 
       assignedToUserEmail: userValues.email,
 
-      assignedBySpecialistId: "6274d9472381980ad0f0c763",
+      assignedBySpecialistId: sessionStorage.getItem("userId"),
 
       assignedBySpecialistName: sessionStorage.getItem("username"),
 
@@ -105,7 +101,6 @@ const UploadAssign = () => {
       if (res) {
         console.log("Assigned docs successfully");
         setProjectList([]);
-        refreshPage();
       }
     });
 
@@ -161,9 +156,7 @@ const UploadAssign = () => {
   const getProjectList = () => {
     authenticatedService.getProjects().then((res) => {
       if (res) {
-        res != "404"
-          ? storeProjectValues(res)
-          : setProjectList("No Projects yet");
+        res != "404" ? storeProjectValues(res) : setProjectList("");
         console.log(res);
       }
       console.log(res);
@@ -214,7 +207,7 @@ const UploadAssign = () => {
       }
 
       reqBody.append("documentType", "PO");
-      reqBody.append("uploadedBy", "6274d9472381980ad0f0c763");
+      reqBody.append("uploadedBy", sessionStorage.getItem("userId"));
       reqBody.append("projectId", id);
       reqBody.append("byUser", sessionStorage.getItem("username"));
       reqBody.append("byUserRole", sessionStorage.getItem("role"));
@@ -226,7 +219,6 @@ const UploadAssign = () => {
       authenticatedService.uploadDocs(reqBody).then((res) => {
         if (res) {
           console.log("Uploaded docs successfully");
-          refreshPage();
         }
       });
     } else {
@@ -259,7 +251,7 @@ const UploadAssign = () => {
                 <select
                   name="projectname"
                   id="projectname"
-                  className="select-pane"
+                  className="select-pane input-field"
                   value={selectedProjName ? selectedProjName : projectList[0]}
                   onChange={(e) => selectedProject(e)}
                 >
@@ -272,21 +264,18 @@ const UploadAssign = () => {
                   <option value="HaliBurton">HaliBurton</option> */}
                 </select>
               </div>
-            </div>
-            <div className="form-group col-sm-2 m-auto p-3">
-              <button className="upload-button">Upload</button>
-            </div>
-            <div className="form-group col-sm-2 m-auto p-3">
+              <br />
+              {/* <button className="upload-button m-1">Upload</button> */}
+              &emsp;
               <button
-                className="upload-submit"
+                className="upload-submit m-1"
                 onClick={uploadDocs}
                 type="button"
               >
-                Submit
+                Upload
               </button>
             </div>
           </div>
-
           <div>
             <input
               class="form-control"
@@ -328,131 +317,173 @@ const UploadAssign = () => {
 
   return (
     //container start
-    <div className="container-fluid main-screen screen-main">
-      {/* heading */}
-      <div className="row row-flex">
-        <div className="assign-head">Upload and Assign User</div>
-        <br /> <br />
-        <br />
-      </div>
-      {/* Main Tab */}
-      <div class="d-flex main-tab p-2">
-        <div class="col">
-          {/* first row */}
-          <div class="row row-flex">
-            {/* Assign flex */}
-            <div class="col-12 col-sm-8 assign-tab">
-              <div className="row-md-12 divleft">
-                <div className="form-group col-sm-4 p-3">
-                  <Autocomplete
-                    autoSelect
-                    options={usersList}
-                    style={{
-                      height: "4vh",
-                      width: "30vw",
-                    }}
-                    onChange={(event, value) => extractUserValue(value)}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        label="Select User"
-                      />
-                    )}
-                  />
-                </div>
+    <div className="bgImage4 main-screen screen-main">
+      <div className="container">
+        {/* heading */}
+        <div className="row row-flex">
+          <div className="assign-head">Upload and Assign User</div>
+          <br /> <br />
+          <br />
+        </div>
+        {/* Main Tab */}
+        <div class="d-flex main-tab p-2">
+          <div class="col">
+            {/* first row */}
+            <div class="row row-flex">
+              {/* Assign flex */}
+              <div class="col-md-8 col-sm-10 col-xl-7 assign-tab">
+                <div className="">
+                  <div className="form-group col-sm-2 col-md-6 p-3">
+                    <Autocomplete
+                      autoSelect
+                      options={usersList}
+                      className="assignCombo"
+                      onChange={(event, value) => extractUserValue(value)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          label="Select User"
+                        />
+                      )}
+                    />
+                  </div>
 
-                <div className="col-sm-4 right-side">
-                  <button
-                    type="button"
-                    className="assign-button"
-                    onClick={assignFiles}
-                  >
-                    Assign
-                  </button>
+                  <div className="col-sm-2 col-md-6 div-right">
+                    <button
+                      type="button"
+                      className="assign-button"
+                      onClick={assignFiles}
+                    >
+                      Assign
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* end of assign flex */}
-            {/* Upload */}
-            <div class="col-12 col-sm-3 assign-tab ">
-              <div className="row-sm-3 divleft">
-                <div className="col-sm-1 upload-left">
+              {/* end of assign flex */}
+              {/* Upload */}
+              <div class="col-sm-10 col-md-3 assign-tab ">
+                <div class="justify-content-center">
                   <img
+                    id="upload"
                     src={Upload}
                     className="upload-img"
                     onClick={handleShow}
                   />
+                  &emsp;
+                  <label className="upload-text" for="upload">
+                    Upload
+                  </label>
+                </div>
+
+                {/* end of upload */}
+              </div>
+            </div>
+            {/* second row */}
+            {/* <div class="row-sm-12 mt-4 ml-5">
+                <div className="time">
+                  <img src={timer} className="time"></img>
+                  <label>Time</label>
+                </div>
+                <div class="refresh">
+                  <img src={ref} className="refresh"></img>
+                  <label>Time</label>
+                </div>
+              </div> */}
+            {/* end of second row */}
+            {/* third row */}
+            <br />
+            <div class="main-tab">
+              <div className="row">
+                <div className="form-group mt-4 ml-4">
+                  <Autocomplete
+                    autoSelect
+                    options={projectList}
+                    // style={{ height: "5vh", width: "35vw" }}
+                    className="combo"
+                    onChange={(event, value) => showFiles(value)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="outlined"
+                        label="Select Project"
+                      />
+                    )}
+                  />
                 </div>
               </div>
-              <div className="col-sm-2 upload-right">
-                <label className="upload-text">Upload</label>
-              </div>
-            </div>
-            {/* end of upload */}
-          </div>
-          <br />
-          <div class="main-tab">
-            <div className="row-sm-12">
-              <div className="form-group col-sm-3 mt-4 ml-4">
-                <Autocomplete
-                  autoSelect
-                  options={projectList}
-                  // style={{ height: "5vh", width: "35vw" }}
-                  className="combo"
-                  onChange={(event, value) => showFiles(value)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="outlined"
-                      label="Select Project"
-                    />
-                  )}
-                />
-              </div>
-            </div>
+              <div className="container mt-5">
+                <div className="row row-flex justify-content-center ">
+                  {filesList &&
+                    filesList.map((item, index) => (
+                      <div className="tab-flex">
+                        <div className="tab-left">
+                          <img src={file} className="file-img" />
+                        </div>
+                        <div className="tab-right">
+                          <input
+                            className="checkbox2"
+                            type="checkbox"
+                            onClick={() => selectFiles(item)}
+                            // checked={
+                            //   checkBoxInput.length > 0 &&
+                            //   index <= checkBoxInput.length
+                            //     ? item.id === checkBoxInput[index].id
+                            //       ? true
+                            //       : false
+                            //     : false
+                            // }
+                          />
 
-            <div className="row row-flex">
-              {filesList &&
-                filesList.map((item, index) => (
-                  <div className="col-12 col-sm-2 tab-flex">
-                    <div className="tab-left">
-                      <img src={file} className="file-img" />
+                          <p className="tab-text">{item.fileName}</p>
+                          <p className="">description</p>
+                          <p className="">{item.documentType}</p>
+                        </div>
+                      </div>
+                    ))}
+
+                  {/* <div className="row row-flex justify-content-center ">
+                    <div className="tab-flex">
+                      <div className="tab-left">
+                        <img src={file} className="file-img" />
+                      </div>
+                      <div className="tab-right">
+                        <input
+                          className="checkbox2"
+                          type="checkbox"
+                          onClick={() => selectFiles(item)}
+                          checked={
+                            checkBoxInput.length > 0 &&
+                            index <= checkBoxInput.length
+                              ? item.id === checkBoxInput[index].id
+                                ? true
+                                : false
+                              : false
+                          }
+                        />
+
+                        <p className="tab-text">FileName</p>
+                        <p className="">description</p>
+                        <p className="">documentType</p>
+                      </div>
                     </div>
-                    <div className="tab-right">
-                      <label className="tab-text">{item.fileName}</label>
-                      <p className="">description</p>
-                      <p className="">{item.documentType}</p>
-                    </div>
-                    <div className="checkbox2">
-                      <input
-                        type="checkbox"
-                        onClick={() => selectFiles(item)}
-                        // checked={
-                        //   checkBoxInput.length > 0 &&
-                        //   index <= checkBoxInput.length
-                        //     ? item.id === checkBoxInput[index].id
-                        //       ? true
-                        //       : false
-                        //     : false
-                        // }
-                      />
-                    </div>
-                  </div>
-                ))}
+                  </div> */}
+
+                  {/* end of third row */}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          size={"md"}
+          className="bootstrap-modal"
+        >
+          {showDeleteModal ? null : adminForm()}
+        </Modal>
       </div>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size={"md"}
-        className="upload-modal"
-      >
-        {showDeleteModal ? null : adminForm()}
-      </Modal>
     </div>
   );
 };

@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 
-import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+// import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+// import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
 import ReactPaginate from "react-paginate";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -94,9 +94,10 @@ const ProjectSettings = () => {
       reqBody.append("isOcrOn", settingInfo[4]);
       reqBody.append("isSignatureAndLogoOn", settingInfo[5]);
       reqBody.append("isTemplateDetectionOn", settingInfo[3]);
-      reqBody.append("specialistId", "6274d9472381980ad0f0c763");
+      reqBody.append("specialistId", sessionStorage.getItem("userId"));
       reqBody.append("byUser", sessionStorage.getItem("username"));
       reqBody.append("byUserRole", sessionStorage.getItem("role"));
+      reqBody.append("isPdfMinerOn", "true");
 
       for (var pair of reqBody.entries()) {
         console.log(pair[0] + ", " + pair[1]);
@@ -128,7 +129,7 @@ const ProjectSettings = () => {
       reqBody.append("projectName", addProjectFields.projectName);
       reqBody.append("projectDescription", addProjectFields.description);
       reqBody.append("projectType", addProjectFields.projectType);
-      reqBody.append("specialistId", "");
+      reqBody.append("specialistId", sessionStorage.getItem("userId"));
       reqBody.append(
         "settingId",
         selectedDetail ? selectedDetail.id : settingsList[0].id
@@ -172,14 +173,16 @@ const ProjectSettings = () => {
   const getSettingsList = () => {
     authenticatedService.getSettings().then((res) => {
       if (res) {
-        res != "404"
-          ? // ? setSettingsList(res)
-            // : setSettingsList("No Settings yet");
-            GetTableData(res)
-          : GetTableData("");
-        console.log(res);
+        if (res != "404") {
+          setSettingsList(res);
+          GetTableData(res);
+          console.log(res);
+        } else {
+          GetTableData("");
+        }
+        // res != "404" ? GetTableData(res) : GetTableData("");
       }
-      console.log(res);
+      // console.log(res);
     });
   };
 
@@ -232,6 +235,7 @@ const ProjectSettings = () => {
   };
 
   const GetTableData = (res) => {
+    console.log("GetTableData---------->" + usercontrolchange);
     const TableData = res;
     const slice = TableData.slice(offset, offset + perPage);
     let postData;
@@ -248,7 +252,7 @@ const ProjectSettings = () => {
                     <td>{item.projectType}</td>
                     <td>{item.projectDescription}</td>
                     {/* <td>{item.id}</td> */}
-                    <td>{getSettingName(item.settingId)}</td>
+                    <td>{getSettingName(item.id)}</td>
 
                     <td style={{ display: "flex" }}>
                       <VisibilityIcon
