@@ -2,13 +2,18 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 
-//import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
-//import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
+import Icon_eye from "..\\src\\assets\\icons\\Icon_eye.svg";
+import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 
-import Icon_eye from "../../.././assets/icons/Icon_eye.svg";
-import Icon_trash from "../../.././assets/icons/Icon_trash.svg";
+import ReactPaginate from "react-paginate";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+// import Icon_eye from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_eye.svg";
+// import Icon_trash from "/home/user/AiKno/AiKnoWebApp/AiKno_Mithun_Repo/AiKno/src/assets/icons/Icon_trash.svg";
 
 import { Modal } from "react-bootstrap";
+import * as ReactBootStrap from "react-bootstrap";
 
 const ProjectSettings = () => {
   const authenticatedService = new AuthenticatedService();
@@ -30,6 +35,7 @@ const ProjectSettings = () => {
     false,
   ]);
 
+  const [showDeleteModal, setshowDeleteModal] = useState(false);
   const [addProjectFields, setAddProjectFields] = useState({
     projectName: "",
     projectType: "PO",
@@ -51,10 +57,6 @@ const ProjectSettings = () => {
       index === 4 ? (checked ? true : false) : settingInfo[4],
       index === 5 ? (checked ? true : false) : settingInfo[5],
     ]);
-  };
-
-  const refreshPage = () => {
-    window.location.reload();
   };
 
   const inputValidators = () => {
@@ -92,8 +94,7 @@ const ProjectSettings = () => {
       reqBody.append("isOcrOn", settingInfo[4]);
       reqBody.append("isSignatureAndLogoOn", settingInfo[5]);
       reqBody.append("isTemplateDetectionOn", settingInfo[3]);
-      reqBody.append("isPdfMinerOn", "true");
-      reqBody.append("specialistId", sessionStorage.getItem("userId"));
+      reqBody.append("specialistId", "6274d9472381980ad0f0c763");
       reqBody.append("byUser", sessionStorage.getItem("username"));
       reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
@@ -104,7 +105,6 @@ const ProjectSettings = () => {
       authenticatedService.addSetting(reqBody).then((res) => {
         if (res) {
           console.log("Setting added successfully");
-          refreshPage();
         }
       });
     }
@@ -128,7 +128,7 @@ const ProjectSettings = () => {
       reqBody.append("projectName", addProjectFields.projectName);
       reqBody.append("projectDescription", addProjectFields.description);
       reqBody.append("projectType", addProjectFields.projectType);
-      reqBody.append("specialistId", sessionStorage.getItem("userId"));
+      reqBody.append("specialistId", "");
       reqBody.append(
         "settingId",
         selectedDetail ? selectedDetail.id : settingsList[0].id
@@ -150,7 +150,6 @@ const ProjectSettings = () => {
       authenticatedService.addProject(reqBody).then((res) => {
         if (res) {
           console.log("Project added successfully");
-          refreshPage();
         }
       });
     }
@@ -174,8 +173,10 @@ const ProjectSettings = () => {
     authenticatedService.getSettings().then((res) => {
       if (res) {
         res != "404"
-          ? setSettingsList(res)
-          : setSettingsList("No Settings yet");
+          ? // ? setSettingsList(res)
+            // : setSettingsList("No Settings yet");
+            GetTableData(res)
+          : GetTableData("");
         console.log(res);
       }
       console.log(res);
@@ -185,16 +186,12 @@ const ProjectSettings = () => {
   const getProjectList = () => {
     authenticatedService.getProjects().then((res) => {
       if (res) {
-        res != "404" ? setProjectList(res) : setProjectList("No Projects yet");
+        // res != "404" ? setProjectList(res) : setProjectList("No Projects yet");
+        res != "404" ? GetTableData(res) : GetTableData("");
         console.log(res);
       }
       console.log(res);
     });
-  };
-
-  const setSettingName = (settingId) => {
-    let settingname = getSettingName(settingId);
-    console.log(settingname);
   };
 
   const getSettingName = (settingId) => {
@@ -208,13 +205,120 @@ const ProjectSettings = () => {
     });
   };
 
+  //pagination and get data-
+  const [offset, setOffset] = useState(0);
+  const [TableData, setData] = useState([]);
+  const [perPage] = useState(10);
+  const [pageCount, setPageCount] = useState(0);
+
   useEffect(() => {
     getSettingsList();
-  }, []);
+    // getTableList();
+  }, [offset]);
 
+  const getTableList = () => {
+    authenticatedService.getSettings().then((res) => {
+      if (res) {
+        GetTableData(res);
+      }
+      console.log(res);
+    });
+    authenticatedService.getProjects().then((res) => {
+      if (res) {
+        GetTableData(res);
+      }
+      console.log(res);
+    });
+  };
+
+  const GetTableData = (res) => {
+    const TableData = res;
+    const slice = TableData.slice(offset, offset + perPage);
+    let postData;
+    <div>
+      <div class="d-flex align-items-start">
+        <ReactBootStrap.Table>
+          {
+            (postData = slice.map((item) => (
+              <tbody>
+                {usercontrolchange === "PROJECT" && (
+                  <tr key={item.id}>
+                    <td>{item.date}</td>
+                    <td>{item.projectName}</td>
+                    <td>{item.projectType}</td>
+                    <td>{item.projectDescription}</td>
+                    {/* <td>{item.id}</td> */}
+                    <td>{getSettingName(item.settingId)}</td>
+
+                    <td style={{ display: "flex" }}>
+                      <VisibilityIcon
+                        className=" view-icons "
+                        onClick={() => viewModal(item)}
+                      />
+                      &nbsp;
+                      <DeleteIcon
+                        className="view-icons"
+                        onClick={() => deleteModal(item)}
+                      />
+                    </td>
+                  </tr>
+                )}
+                {usercontrolchange === "SETTINGS" && (
+                  <tr key={item.id}>
+                    <td>{item.date}</td>
+                    <td>{item.settingName}</td>
+                    <td>{item.settingDescription}</td>
+                    {/* <td>{item.id}</td> */}
+                    <td>
+                      {item.isIqmOn
+                        ? "IQM"
+                        : " " + "," + item.isImageCorrectionOn
+                        ? "IC"
+                        : " " + "," + item.isOcrOn
+                        ? "OCR"
+                        : " " + "," + item.isRoiOn
+                        ? "ROI"
+                        : " " + "," + item.isSignatureAndLogoOn
+                        ? "SIGN"
+                        : " " + "," + item.isTemplateDetectionOn
+                        ? "TEMP"
+                        : " "}
+                    </td>
+
+                    <td style={{ display: "flex" }}>
+                      <VisibilityIcon
+                        className=" view-icons "
+                        onClick={() => viewModal(item)}
+                      />
+                      &nbsp;
+                      <DeleteIcon
+                        className="view-icons"
+                        onClick={() => deleteModal(item)}
+                      />
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            )))
+          }
+        </ReactBootStrap.Table>
+      </div>
+    </div>;
+
+    setData(postData);
+    setPageCount(Math.ceil(TableData.length / perPage));
+  };
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1);
+  };
   const [show, setShow] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [showProjectModal, setshowProjectModal] = useState(false);
+  const [showViewProjectModal, setshowViewProjectModal] = useState(false);
   const handleClose = () => setShow(false);
+  const handleDetailsClose = () => setShowDetails(false);
   const handleShow = () => {
     setshowProjectModal(false);
     setAddProjectFields({
@@ -226,10 +330,29 @@ const ProjectSettings = () => {
     setShow(true);
   };
 
+  const handleDetailsShow = () => {
+    setshowViewProjectModal(false);
+    setAddProjectFields({
+      projectName: "",
+      projectType: "",
+      description: "",
+      settingName: "",
+    });
+    setShowDetails(true);
+  };
+
   const getSettingDetails = (e) => {
     console.log(e.target.value);
     const selected = e.target.value;
     settingsList.filter((data) => {
+      if (data.settingName === selected) setSelectedDetail(data);
+    });
+  };
+
+  const getProjectDetails = (e) => {
+    console.log(e.target.value);
+    const selected = e.target.value;
+    projectList.filter((data) => {
       if (data.settingName === selected) setSelectedDetail(data);
     });
   };
@@ -258,6 +381,195 @@ const ProjectSettings = () => {
     });
   };
 
+  const deleteEntry = () => {
+    var reqBody = new FormData();
+    reqBody.append("byUser", "");
+    reqBody.append("byUserRole", "");
+
+    authenticatedService.deleteEntry(reqBody).then((res) => {
+      if (res) {
+        handleClose();
+      }
+      console.log(res);
+    });
+  };
+
+  const deleteModal = (item) => {
+    setShowDetails(true);
+    setshowDeleteModal(true);
+  };
+
+  const deletModal = () => {
+    return (
+      <div className="del-popup">
+        <button
+          type="button"
+          className="close"
+          aria-label="Close"
+          onClick={handleDetailsClose}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div className="delete-modal">Are you sure?</div>
+        <br />
+
+        <div className="delete-text">
+          Do you want to delete this entry.
+          <br />
+          The process cannot be undone.
+        </div>
+        <br />
+        <center>
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={handleDetailsClose}
+          >
+            Cancel
+          </button>
+          &ensp;
+          <button type="button" className="delete-button" onClick={deleteEntry}>
+            Delete
+          </button>
+        </center>
+      </div>
+    );
+  };
+  const viewModal = (item) => {
+    setshowDeleteModal(false);
+    setAddProjectFields({
+      projectName: item.projectName,
+      projectType: item.projectType,
+      description: item.description,
+      settingName: item.setting,
+    });
+    setShowDetails(true);
+    console.log(item);
+  };
+
+  const prView = () => {
+    return (
+      <div className="p-4">
+        <button
+          type="button"
+          className="close"
+          aria-label="Close"
+          onClick={handleDetailsClose}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {usercontrolchange === "SETTINGS" && (
+          <div>
+            <div className="modal-heading">Setting Details</div>
+            <form className="p-3">
+              <div className="row">
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="setting" className="label-popup">
+                    Setting Name
+                  </label>
+                  <br />
+
+                  <input
+                    name="SettingName"
+                    id="settingName"
+                    className="input-field"
+                    value={settingsList.settingName}
+                  />
+                </div>
+
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="description" className="label-popup">
+                    Setting Description
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    className="input-field"
+                    id="description"
+                    value={settingsList.description}
+                  />
+                </div>
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="description" className="label-popup">
+                    Settings
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    className="input-field"
+                    id="settings"
+                    value={settingsList.settingInfo}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {usercontrolchange === "PROJECT" && (
+          <div>
+            <div className="modal-heading">Project Details</div>
+            <form className="p-3">
+              <div className="row">
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="usr" className="label-popup">
+                    Project Name
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    className="input-field"
+                    id="ProjectName"
+                    value={addProjectFields.projectName}
+                  />
+                </div>
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="type" className="label-popup">
+                    Project Type
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    name="type"
+                    id="type"
+                    className="input-field"
+                    value={addProjectFields.projectType}
+                  />
+                </div>
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="description" className="label-popup">
+                    Project Description
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    className="input-field"
+                    id="description"
+                    value={addProjectFields.description}
+                  />
+                </div>
+                <div className="form-group col-sm-6 m-auto p-3">
+                  <label for="setting" className="label-popup">
+                    Setting Name
+                  </label>
+                  <br />
+
+                  <input
+                    name="SettingName"
+                    id="settingName"
+                    className="input-field"
+                    value={settingsList.settingName}
+                    onChange={(e) => getSettingDetails(e)}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const projectForm = () => {
     return (
       <div className="p-4">
@@ -270,7 +582,7 @@ const ProjectSettings = () => {
           <span aria-hidden="true">&times;</span>
         </button>
 
-        <div className="modal-heading">Project Details</div>
+        <div className="modal-heading">Create Project</div>
         <form className="p-3">
           <div className="row">
             <div className="form-group col-sm-6 m-auto p-3">
@@ -369,44 +681,45 @@ const ProjectSettings = () => {
   };
 
   return (
-    <div>
-      <div className="project-head main-screen">
-        Project Settings
-        <button type="button" onClick={handleShow} className="project-button">
-          Create Project
-        </button>
-      </div>
+    <div className="bgImage4">
+      <div class="container main-screen">
+        <div className="server-head">
+          Project Settings
+          <button type="button" onClick={handleShow} className="custom-button">
+            Create Project
+          </button>
+        </div>
 
-      <div className="project-setting-flex">
-        <form className="p-3 mt-2">
-          <div className="row">
-            <div className="form-group col-sm-4 m-auto p-3">
-              <label for="usr" className="label-popup">
-                Name
-              </label>
-              <br />
-              <input
-                type="text"
-                className="input-field"
-                id="SettingName"
-                value={addSettingFields.settingName}
-                onChange={(e) => handleSettingInputFields(e, 1)}
-              />
-            </div>
-            <div className="form-group col-sm-4 m-auto p-3">
-              <label for="usr" className="label-popup">
-                Description
-              </label>
-              <br />
-              <input
-                type="text"
-                className="input-field"
-                id="ipAddre"
-                value={addSettingFields.settingDescription}
-                onChange={(e) => handleSettingInputFields(e, 2)}
-              />
-            </div>
-            {/* <div className="form-group col-sm-4 m-auto p-3">
+        <div className="project-setting-flex">
+          <form className="p-3 m-2">
+            <div className="row">
+              <div className="form-group m-auto p-3">
+                <label for="usr" className="label-popup">
+                  Name
+                </label>
+                <br />
+                <input
+                  type="text"
+                  className="input-field"
+                  id="SettingName"
+                  value={addSettingFields.settingName}
+                  onChange={(e) => handleSettingInputFields(e, 1)}
+                />
+              </div>
+              <div className="form-group m-auto p-3">
+                <label for="usr" className="label-popup">
+                  Description
+                </label>
+                <br />
+                <input
+                  type="text"
+                  className="input-field"
+                  id="ipAddre"
+                  value={addSettingFields.settingDescription}
+                  onChange={(e) => handleSettingInputFields(e, 2)}
+                />
+              </div>
+              {/* <div className="form-group col-sm-4 m-auto p-3">
               <label for="usr" className="label-popup">
                 Date
               </label>
@@ -419,157 +732,177 @@ const ProjectSettings = () => {
                 onChange={(e) => handleInputFields(e, 3)}
               />
             </div> */}
-          </div>
-        </form>
-
-        <div class="row">
-          <div className="form-group col-3 m-auto p-auto setting-flex">
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customSwitch1"
-                value="IQM"
-                onChange={(e) => handleSwitchChange(e, 0)}
-              />
-              <label class="custom-control-label" for="customSwitch1">
-                IQM
-              </label>
             </div>
-          </div>
-          <div className="form-group col-3 m-auto p-auto setting-flex">
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customSwitch2"
-                value="IC"
-                onChange={(e) => handleSwitchChange(e, 1)}
-              />
-              <label class="custom-control-label" for="customSwitch2">
-                IC
-              </label>
-            </div>
-          </div>
-          {/* </div>
+          </form>
+          <div class="setting-content">
+            <div class="row">
+              <div className="form-group m-2 p-3 setting-flex">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch1"
+                    value="IQM"
+                    onChange={(e) => handleSwitchChange(e, 0)}
+                  />
+                  <label
+                    class="custom-control-label setting-label"
+                    for="customSwitch1"
+                  >
+                    IQM
+                  </label>
+                </div>
+              </div>
+              <div className="form-group m-2 p-3 setting-flex">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch2"
+                    value="IC"
+                    onChange={(e) => handleSwitchChange(e, 1)}
+                  />
+                  <label
+                    class="custom-control-label setting-label"
+                    for="customSwitch2"
+                  >
+                    IC
+                  </label>
+                </div>
+              </div>
+              {/* </div>
         <div class="row"> */}
-          <div className="form-group col-3 m-auto p-auto setting-flex">
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customSwitch3"
-                value="ROI"
-                onChange={(e) => handleSwitchChange(e, 2)}
-              />
-              <label class="custom-control-label" for="customSwitch3">
-                ROI
-              </label>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div class="row">
-          <div className="form-group col-3 m-auto p-auto setting-flex">
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customSwitch4"
-                value="TEMP"
-                onChange={(e) => handleSwitchChange(e, 3)}
-              />
-              <label class="custom-control-label" for="customSwitch4">
-                TEMP
-              </label>
-            </div>
-          </div>
-          {/* </div>
+              <div className="form-group m-2 p-3 setting-flex">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch3"
+                    value="ROI"
+                    onChange={(e) => handleSwitchChange(e, 2)}
+                  />
+                  <label
+                    class="custom-control-label setting-label"
+                    for="customSwitch3"
+                  >
+                    ROI
+                  </label>
+                </div>
+              </div>
+
+              <br />
+              {/* <div class="row"> */}
+              <div className="form-group m-2 p-3 setting-flex">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch4"
+                    value="TEMP"
+                    onChange={(e) => handleSwitchChange(e, 3)}
+                  />
+                  <label
+                    class="custom-control-label setting-label"
+                    for="customSwitch4"
+                  >
+                    TEMP
+                  </label>
+                </div>
+              </div>
+              {/* </div>
         <div class="row"> */}
-          <div className="form-group col-3 m-auto p-auto setting-flex">
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customSwitch5"
-                value="OCR"
-                onChange={(e) => handleSwitchChange(e, 4)}
-              />
-              <label class="custom-control-label" for="customSwitch5">
-                OCR
-              </label>
+              <div className="form-group m-2 p-3 setting-flex">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch5"
+                    value="OCR"
+                    onChange={(e) => handleSwitchChange(e, 4)}
+                  />
+                  <label
+                    class="custom-control-label setting-label"
+                    for="customSwitch5"
+                  >
+                    OCR
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group m-2 p-3 setting-flex">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch6"
+                    value="SIGN"
+                    onChange={(e) => handleSwitchChange(e, 5)}
+                  />
+                  <label
+                    class="custom-control-label setting-label"
+                    for="customSwitch6"
+                  >
+                    SIGN
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="form-group col-3 m-auto p-auto setting-flex">
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="customSwitch6"
-                value="SIGN"
-                onChange={(e) => handleSwitchChange(e, 5)}
-              />
-              <label class="custom-control-label" for="customSwitch6">
-                SIGN
-              </label>
-            </div>
-          </div>
-
           <br />
           <div className="col-sm-12">
-            <div className="setting-button m-4 p-auto">
-              <button className="modal-button" onClick={createSetting}>
+            <div className="setting-button m-2 p-auto">
+              <button className="modal-button mb-2" onClick={createSetting}>
                 CREATE SETTING
               </button>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="project-setting-flex">
-        <div className="usersearchanddropdown">
-          <div class="main assifnsearch">
-            <div class="form-group has-search">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" className="search" placeholder="Search" />
-            </div>
-            <div className="filterdropdown">
-              <select className="assigndrop">
-                <option value="Filter">Filter</option>
-              </select>
-              <select className="assigndrop">
-                <option value="Export">Export</option>
-              </select>
+        <div className="project-setting-flex">
+          <div className="usersearchanddropdown">
+            <div class="main assifnsearch">
+              <div class="form-group has-search">
+                <span class="fas fa-search form-control-feedback"></span>
+                <input type="text" className="search" placeholder="Search" />
+              </div>
+              <div className="filterdropdown">
+                <select className="assigndrop">
+                  <option value="Filter">Filter</option>
+                </select>
+                &nbsp;
+                <select className="assigndrop">
+                  <option value="Export">Export</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="container">
+            <div className="projectsettingheadings">
+              <h6
+                className={
+                  usercontrolchange === "SETTINGS" ? "controlchange" : ""
+                }
+                onClick={() => setDocType("SETTINGS")}
+              >
+                {" "}
+                SETTINGS
+              </h6>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-sm-12">
-              <div className="projectsettingheadings">
-                <h6
-                  className={
-                    usercontrolchange === "SETTINGS" ? "controlchange" : ""
-                  }
-                  onClick={() => setDocType("SETTINGS")}
-                >
-                  SETTINGS
-                </h6>
-                <h6
-                  className={
-                    usercontrolchange === "PROJECT" ? "controlchange" : ""
-                  }
-                  onClick={() => setDocType("PROJECT")}
-                >
-                  PROJECT
-                </h6>
-              </div>
-              {usercontrolchange === "SETTINGS" && (
-                <table class="table">
+              <h6
+                className={
+                  usercontrolchange === "PROJECT" ? "controlchange" : ""
+                }
+                onClick={() => setDocType("PROJECT")}
+              >
+                {" "}
+                PROJECTS
+              </h6>
+            </div>
+            {usercontrolchange === "SETTINGS" && (
+              <div class="table-responsive">
+                <ReactBootStrap.Table className="table">
                   <thead>
-                    <tr>
+                    <tr className="headingstyle1">
                       <th>DATE OF CREATED</th>
                       <th>SETTING NAME</th>
                       <th>DESCRIPTION</th>
@@ -577,48 +910,15 @@ const ProjectSettings = () => {
                       <th>ACTION</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {settingsList &&
-                      settingsList.map((item) => (
-                        <tr key={item.id}>
-                          <td>{item.date}</td>
-
-                          <td>{item.settingName}</td>
-
-                          <td>{item.settingDescription}</td>
-
-                          <td>
-                            {item.isIqmOn
-                              ? "IQM"
-                              : " " + "," + item.isImageCorrectionOn
-                              ? "IC"
-                              : " " + "," + item.isOcrOn
-                              ? "OCR"
-                              : " " + "," + item.isRoiOn
-                              ? "ROI"
-                              : " " + "," + item.isSignatureAndLogoOn
-                              ? "SIGN"
-                              : " " + "," + item.isTemplateDetectionOn
-                              ? "TEMP"
-                              : " "}
-                          </td>
-
-                          {/* <td>{item.contactNumber}</td> */}
-                          <td>
-                            <img src={Icon_eye}></img>
-                            <img src={Icon_trash}></img>
-                          </td>
-
-                          {/* <td>{item.onUser}</td> */}
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              )}
-              {usercontrolchange === "PROJECT" && (
-                <table class="table">
+                  {TableData}
+                </ReactBootStrap.Table>
+              </div>
+            )}
+            {usercontrolchange === "PROJECT" && (
+              <div className="">
+                <ReactBootStrap.Table className="table">
                   <thead>
-                    <tr>
+                    <tr className="headingstyle1">
                       <th>DATE OF CREATION</th>
                       <th>PROJECT NAME</th>
                       <th>PROJECT TYPE</th>
@@ -627,44 +927,50 @@ const ProjectSettings = () => {
                       <th>ACTION</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {projectList &&
-                      projectList.map((item) => (
-                        <tr key={item.id}>
-                          <td>{item.date}</td>
+                  {TableData}
+                </ReactBootStrap.Table>
+              </div>
+            )}
 
-                          <td>{item.projectName}</td>
-
-                          <td>{item.projectType}</td>
-
-                          <td>{item.projectDescription}</td>
-
-                          <td>{setSettingName(item.settingId)}</td>
-
-                          {/* <td>{item.contactNumber}</td> */}
-                          <td>
-                            <img src={Icon_eye}></img>
-                            <img src={Icon_trash}></img>
-                          </td>
-
-                          {/* <td>{item.onUser}</td> */}
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
+            <ReactPaginate
+              className="pagination justify-content-end mt-5"
+              previousLabel={"prev"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+              breakLinkClassName={"page-link"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+            />
           </div>
         </div>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          size={"md"}
+          className="bootstrap-modal"
+        >
+          {showProjectModal ? null : projectForm()}
+        </Modal>
+        <Modal
+          show={showDetails}
+          onHide={handleClose}
+          size={"md"}
+          className="bootstrap-modal"
+        >
+          {showDeleteModal ? deletModal() : prView()}
+        </Modal>
       </div>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        size={"md"}
-        className="project-modal"
-      >
-        {showProjectModal ? null : projectForm()}
-      </Modal>
     </div>
   );
 };
