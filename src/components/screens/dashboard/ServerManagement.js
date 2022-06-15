@@ -141,6 +141,9 @@ const ServerManagement = () => {
         if (res) {
           handleClose();
         }
+        else{
+          alert("error in adding server");
+        }
       });
     }
   };

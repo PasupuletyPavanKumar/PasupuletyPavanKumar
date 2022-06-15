@@ -80,6 +80,8 @@ const ApiUrl = {
   processDocument: "fetchDocumentDetailsByDocumentId/",
 
   viewData: "fetchExtractedData/",
+
+  deleteNotification: "",
 };
 
 export default ApiUrl;

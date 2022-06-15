@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./components/screens/dashboard/Home";
 import { useEffect } from "react";
 import PreviewDocument from "./components/screens/dashboard/PreviewDocument";
+import ServerManagement from "./components/screens/dashboard/ServerManagement";
 
 //Description:App function defines the route path to the different element of the project
 
@@ -31,7 +32,7 @@ function App() {
       <Route path="/assignToUser" element={<Home />} />
       <Route path="/assignToMe" element={<Home />} />
       <Route path="/uploadAssign" element={<Home />} />
-      <Route path="/server" element={<Home />} />
+      <Route path="/server-mgmt" element={<ServerManagement />} />
       <Route path="/project" element={<Home />} />
       <Route path="/settings" element={<Home />} />
       <Route path="/help" element={<Home />} />

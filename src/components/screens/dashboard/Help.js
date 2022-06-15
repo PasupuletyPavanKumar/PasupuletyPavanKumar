@@ -18,7 +18,7 @@ const Help = () => {
   // const [next, setNext] = useState(false);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid main-screen screen-main">
       <div class="row">
         <div class="col-md-11 helpcontainer">
           <div>

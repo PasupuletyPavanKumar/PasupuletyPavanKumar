@@ -25,10 +25,10 @@ const Home = (props) => {
   const authService = new AuthenticationService();
   const [sideDrawer, setSideDrawer] = useState(null);
   // const { height, width } = ();
-  // sessionStorage.setItem("role", "super-user");
+  //sessionStorage.setItem("role", "super-user");
   //sessionStorage.setItem("role", "admin");
-  //sessionStorage.setItem("role", "specialist");
-  // sessionStorage.setItem("role", "user");
+  // sessionStorage.setItem("role", "specialist");
+  sessionStorage.setItem("role", "user");
 
   console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
@@ -45,7 +45,10 @@ const Home = (props) => {
     },
     {
       src: "assets/icons/admin_white.svg",
-      title: "Admin Management",
+      title:
+        sessionStorage.getItem("role") === "superuser"
+          ? "Admin Management"
+          : "Specialist/ User Management",
       active: "admin",
     },
     {
@@ -133,6 +136,9 @@ const Home = (props) => {
       case "Admin Management":
         navigate("/admin");
         break;
+      case "Specialist/ User Management":
+        navigate("/admin");
+        break;
       case "Assign to User":
         navigate("/assignToUser");
         break;
@@ -207,10 +213,12 @@ const Home = (props) => {
                 ? loadSideBarIcons(data, index)
                 : data.title != "Admin Management" &&
                   data.title != "Server Management" &&
+                  data.title != "Specialist/ User Management" &&
                   sessionStorage.getItem("role") === "specialist"
                 ? loadSideBarIcons(data, index)
                 : data.title != "Admin Management" &&
                   data.title != "Server Management" &&
+                  data.title != "Specialist/ User Management" &&
                   data.title != "Upload & Assign" &&
                   data.title != "Project Settings" &&
                   sessionStorage.getItem("role") === "user"

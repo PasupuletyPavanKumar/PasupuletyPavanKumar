@@ -203,7 +203,7 @@ const AdminManagement = () => {
       if (!isEdit) {
         authenticatedService.addAdmin(reqBody).then((res) => {
           if (res) {
-            // <div>{handleClose}</div>;
+            <div>{handleClose}</div>;
             refreshPage();
           }
         });
@@ -213,8 +213,10 @@ const AdminManagement = () => {
           .updateAdmin(reqBody, toBeUpdatedUsername)
           .then((res) => {
             if (res) {
-              // <div>{handleClose()}</div>;
+              <div>{handleClose()}</div>;
               refreshPage();
+            } else {
+              alert("Error in creating Admin");
             }
           });
       }
@@ -481,7 +483,11 @@ const AdminManagement = () => {
         <div class="container admg-head">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
-              <h6>Admin Management</h6>
+              <h6>
+                {sessionStorage.getItem("role") === "super-user"
+                  ? "Admin Management"
+                  : "Specialist/ User Management"}
+              </h6>
             </div>
 
             <div>

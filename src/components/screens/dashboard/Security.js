@@ -9,7 +9,8 @@ const Security = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   const handleInputFields = (event, field) => {
     setInputFields({
       password: field === 1 ? event.target.value.trim() : inputFields.password,
@@ -50,7 +51,12 @@ const Security = () => {
 
       authenticatedService.updateProfilePassword(reqBody).then((res) => {
         if (res) {
-          console.log(res);
+          <div>{handleClose()}</div>;
+          console.log("password changed");
+
+          //  refreshPage();
+        } else {
+          alert("Error in creating Admin");
         }
       });
     }

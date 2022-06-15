@@ -13,6 +13,7 @@ const Settings = () => {
   const [first, setFirst] = useState(true);
   const [submitButtonShow, setSubmitButtonShow] = useState(false);
   const authenticatedService = new AuthenticatedService();
+  const [show, setShow] = useState(false);
 
   const [profileDataFields, setProfileDataFields] = useState({
     firstname: "",
@@ -68,6 +69,8 @@ const Settings = () => {
     });
   };
 
+  const handleClose = () => setShow(false);
+
   const updateDetails = () => {
     var reqBody = new FormData();
     reqBody.append("firstName", profileDataFields.firstname);
@@ -92,6 +95,11 @@ const Settings = () => {
 
     authenticatedService.updateAdmin(reqBody).then((res) => {
       if (res) {
+        <div>{handleClose()}</div>;
+
+        //  refreshPage();
+      } else {
+        alert("Error in creating Admin");
       }
     });
   };

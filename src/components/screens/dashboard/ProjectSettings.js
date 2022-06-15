@@ -151,6 +151,10 @@ const ProjectSettings = () => {
       authenticatedService.addProject(reqBody).then((res) => {
         if (res) {
           console.log("Project added successfully");
+          handleClose();
+        } else {
+          alert("error in creating project");
+          console.log("error in creating project");
         }
       });
     }

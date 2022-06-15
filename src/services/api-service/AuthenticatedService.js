@@ -946,4 +946,23 @@ export class AuthenticatedService {
       return err.response.data;
     }
   };
+
+  deleteNotification = async (reqBody, username) => {
+    console.log(sessionStorage.getItem("accessToken"));
+
+    const url = this.notificationDomain + ApiUrl.deleteAdmin + username;
+    const response = await axios.delete(url, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+      data: reqBody,
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+  };
 }
