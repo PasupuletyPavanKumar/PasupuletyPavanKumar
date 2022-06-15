@@ -57,36 +57,58 @@ const Security = () => {
   };
 
   return (
-    <div className="securitybg">
-      <div className="securityitems">
-        <div class="form-group">
-          <label for="usr">NEW PASSWORD</label>
-          <input
-            type="password"
-            class="form-control commonforall text-primary"
-            id="usr"
-            name="firstname"
-            value={inputFields.password}
-            onChange={(e) => handleInputFields(e, 1)}
-          />
+    <div class="  ">
+      <div className="container">
+        <div class="row">
+          <div class="scon1 col-lg-10 col-md-12">
+            <div class="userimage"></div>
+            {/* <div className="container details"> */}
+            {/* <div className="row"> */}
+
+            {/* <div className="row"> */}
+
+            <div class="form-group col-12 col-md-12 col-lg-8">
+              <label className="label2" for="usr">
+                NEW PASSWORD
+              </label>
+              <input
+                type="text"
+                class="text-field1"
+                id="usr"
+                name="firstname"
+                value={inputFields.password}
+                onChange={(e) => handleInputFields(e, 1)}
+              />
+            </div>
+
+            {/* </div> */}
+            {/* <div className="row"> */}
+            <div class="form-group col-12 col-md-12 col-lg-8">
+              <label className="label2" for="usr">
+                CONFIRM PASSWORD
+              </label>
+              <input
+                type="text"
+                class="text-field1"
+                id="usr"
+                name="username"
+                value={inputFields.confirmPassword}
+                onChange={(e) => handleInputFields(e, 2)}
+              />
+            </div>
+
+            {/* </div> */}
+
+            <div
+              class="col-lg-12"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <button onClick={resetPassword} className="submit-button1 p-2">
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="pwd">CONFIRM PASSWORD</label>
-          <input
-            type="password"
-            class="form-control commonforall"
-            id="usr"
-            name="lastname"
-            value={inputFields.confirmPassword}
-            onChange={(e) => handleInputFields(e, 2)}
-          />
-        </div>
-        <input
-          class="btn btn-primary"
-          type="submit"
-          value="Submit"
-          onClick={resetPassword}
-        ></input>
       </div>
     </div>
   );

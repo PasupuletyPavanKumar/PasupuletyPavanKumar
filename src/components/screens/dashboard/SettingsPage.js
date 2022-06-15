@@ -8,26 +8,35 @@ const SettingsPage = () => {
   const [state, setstate] = useState("Settings");
   const [value, setValue] = useState(false);
   return (
-
-    <div className="container-fluid BGimage ">
+    <div className="container-fluid">
+      {/* <div className="container-fluid BGimage "> */}
+      <div className="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h4 className="settingsheading">settings</h4>
+          </div>
+        </div>
+      </div>
       <div class="row justify-content-center">
-        <div class="col-md-1"></div>
         {value ? null : (
-          <div class="col-md-3  lcon">
-
-            <h5 className={state === "Settings" ? "change" : ""}
+          <div class="col-11 col-md-5 col-lg-3  lcon">
+            <h5
+              className={state === "Settings" ? "change" : ""}
               onClick={() => setstate("Settings")}
             >
               {" "}
-              Account Settings</h5>
-            <p>Persional information and email</p>
+              Account Settings
+            </h5>
+            <p>Personal information and email</p>
             <hr></hr>
-            <h5 className={state === "Security" ? "change" : ""}
+            <h5
+              className={state === "Security" ? "change" : ""}
               onClick={() => setstate("Security")}
             >
-              Security</h5>
+              Security
+            </h5>
             <p>change password</p>
-            <hr></hr>
+            <hr />
 
             <h5
               className={state === "Policy" ? "change" : ""}
@@ -37,7 +46,6 @@ const SettingsPage = () => {
               privacy & policy
             </h5>
             <p>Lorem ipsum dolor sit amet Consectet...</p>
-
           </div>
         )}
 
@@ -54,6 +62,7 @@ const SettingsPage = () => {
         </div>
       </div>
     </div>
+    // </div>
   );
 };
 

@@ -176,7 +176,7 @@ const DashboardMain = (props) => {
             (postData = slice.map((item) => (
               <tbody>
                 <tr key={item.id}>
-                  <td>{item.dateOfActivity}</td>
+                  <td>{item.dateOfActivity.toString()}</td>
                   <td>{item.byUser}</td>
                   <td>{item.email}</td>
                   <td>{item.action}</td>
@@ -196,7 +196,7 @@ const DashboardMain = (props) => {
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
-    setOffset(selectedPage + 1);
+    setOffset(selectedPage);
   };
 
   const notification = () => {
@@ -353,7 +353,7 @@ const DashboardMain = (props) => {
                 <th>ON USER</th>
               </tr>
             </thead>
-            {data}
+            {data.sort().reverse()}
           </ReactBootStrap.Table>
         </div>
         {/* <ReactPaginate

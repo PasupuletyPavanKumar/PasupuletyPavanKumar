@@ -101,6 +101,9 @@ const UploadAssign = () => {
       if (res) {
         console.log("Assigned docs successfully");
         setProjectList([]);
+        alert("assigned files to user");
+      } else {
+        alert("error in assigning the files");
       }
     });
 
@@ -333,7 +336,7 @@ const UploadAssign = () => {
               {/* Assign flex */}
               <div class="col-md-8 col-sm-10 col-xl-7 assign-tab">
                 <div className="">
-                  <div className="form-group col-sm-2 col-md-6 p-3">
+                  <div className="form-group col-sm-2 col-md-6 mt-4 mb-4 p-3">
                     <Autocomplete
                       autoSelect
                       options={usersList}
@@ -363,15 +366,19 @@ const UploadAssign = () => {
               {/* end of assign flex */}
               {/* Upload */}
               <div class="col-sm-10 col-md-3 assign-tab ">
-                <div class="justify-content-center">
+                <div class="ml-5 mr-5">
                   <img
                     id="upload"
                     src={Upload}
-                    className="upload-img"
+                    className="upload-img cursor-pointer"
                     onClick={handleShow}
                   />
                   &emsp;
-                  <label className="upload-text" for="upload">
+                  <label
+                    className="upload-text cursor-pointer"
+                    for="upload"
+                    onClick={handleShow}
+                  >
                     Upload
                   </label>
                 </div>
@@ -421,24 +428,23 @@ const UploadAssign = () => {
                           <img src={file} className="file-img" />
                         </div>
                         <div className="tab-right">
-                          <input
-                            className="checkbox2"
-                            type="checkbox"
-                            onClick={() => selectFiles(item)}
-                            // checked={
-                            //   checkBoxInput.length > 0 &&
-                            //   index <= checkBoxInput.length
-                            //     ? item.id === checkBoxInput[index].id
-                            //       ? true
-                            //       : false
-                            //     : false
-                            // }
-                          />
-
                           <p className="tab-text">{item.fileName}</p>
                           <p className="">description</p>
                           <p className="">{item.documentType}</p>
                         </div>
+                        <input
+                          className="checkbox2"
+                          type="checkbox"
+                          onClick={() => selectFiles(item)}
+                          // checked={
+                          //   checkBoxInput.length > 0 &&
+                          //   index <= checkBoxInput.length
+                          //     ? item.id === checkBoxInput[index].id
+                          //       ? true
+                          //       : false
+                          //     : false
+                          // }
+                        />
                       </div>
                     ))}
 

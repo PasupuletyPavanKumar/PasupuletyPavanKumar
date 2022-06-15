@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import { AuthenticationService } from "../../../services/api-service/AuthenticationService";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
+import { event } from "jquery";
 
 const Login = (props) => {
   //const [login, setLogin] = useState("login");
@@ -84,8 +85,14 @@ const Login = (props) => {
     });
   };
 
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      submitLogin();
+    }
+  };
+
   return (
-    <div class="form" className="form-style">
+    <div class="form" className="form-style" onKeyDown={onKeyDownHandler}>
       <div class="form-group mb-4">
         <label for="usr" className="label">
           Username

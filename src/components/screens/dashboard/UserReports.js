@@ -11,8 +11,11 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 
 const UserReports = () => {
+  const authenticatedService = new AuthenticatedService();
+  const [reportsData, setReportsData] = useState([]);
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -22,7 +25,9 @@ const UserReports = () => {
     Legend
   );
 
-  const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  // const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  const labels = [""];
 
   const Userdata = {
     responsive: true,
@@ -30,28 +35,76 @@ const UserReports = () => {
     datasets: [
       {
         label: "Pending",
-        data: [300, 400, 500, 600, 700, 900, 110],
+        data: [
+          sessionStorage.getItem("role") === "user"
+            ? reportsData.pendingFiles
+            : "",
+          400,
+          500,
+          600,
+          700,
+          900,
+          110,
+        ],
         backgroundColor: "#00ADEE",
       },
       {
         label: "Processing ",
-        data: [100, 100, 100, 100, 100, 100, 110],
+        data: [
+          sessionStorage.getItem("role") === "user"
+            ? reportsData.processingFiles
+            : "",
+          100,
+          100,
+          100,
+          100,
+          100,
+          110,
+        ],
         backgroundColor: "#0077BD",
       },
 
       {
         label: "Ok ",
-        data: [200, 200, 200, 200, 200, 200, 130],
+        data: [
+          sessionStorage.getItem("role") === "user" ? reportsData.totalOk : "",
+          200,
+          200,
+          200,
+          200,
+          200,
+          130,
+        ],
         backgroundColor: "#911FFF",
       },
       {
         label: "Completed ",
-        data: [250, 100, 630, 300, 650, 300, 150],
+        data: [
+          sessionStorage.getItem("role") === "user"
+            ? reportsData.completedFiles
+            : "",
+          100,
+          630,
+          300,
+          650,
+          300,
+          150,
+        ],
         backgroundColor: "#73BE44",
       },
       {
         label: "Not Ok Files",
-        data: [250, 100, 630, 300, 650, 300, 110],
+        data: [
+          sessionStorage.getItem("role") === "user"
+            ? reportsData.notOkFiles
+            : "",
+          100,
+          630,
+          300,
+          650,
+          300,
+          110,
+        ],
         backgroundColor: "#FF8300",
       },
     ],
@@ -63,33 +116,90 @@ const UserReports = () => {
     datasets: [
       {
         label: "Total Files",
-        data: [300, 400, 500, 600, 700, 900, 110],
+        data: [
+          sessionStorage.getItem("role") === "specialist"
+            ? reportsData.totalNoOfFilesAssigned
+            : "",
+          400,
+          500,
+          600,
+          700,
+          900,
+          110,
+        ],
         backgroundColor: "#00ADEE",
       },
       {
         label: "Pending Files",
-        data: [100, 100, 100, 100, 100, 100, 110],
+        data: [
+          sessionStorage.getItem("role") === "specialist"
+            ? reportsData.totalNoOfFilesAssigned
+            : "",
+          100,
+          100,
+          100,
+          100,
+          100,
+          110,
+        ],
         backgroundColor: "#911FFF",
       },
 
       {
         label: "Completed ",
-        data: [250, 100, 630, 300, 650, 300, 150],
+        data: [
+          sessionStorage.getItem("role") === "specialist"
+            ? reportsData.completedFiles
+            : "",
+          100,
+          630,
+          300,
+          650,
+          300,
+          150,
+        ],
         backgroundColor: "#73BE44",
       },
       {
         label: "Rejected Files",
-        data: [250, 100, 630, 300, 650, 300, 110],
+        data: [
+          sessionStorage.getItem("role") === "specialist"
+            ? reportsData.notOkFiles
+            : "",
+          100,
+          630,
+          300,
+          650,
+          300,
+          110,
+        ],
         backgroundColor: "#FF8300",
       },
     ],
+  };
+
+  useEffect(() => {
+    getReports();
+  }, []);
+
+  const getReports = () => {
+    authenticatedService.getReports().then((res) => {
+      if (res) {
+        // if (res !== "500") {
+        console.log(res);
+        setReportsData(res);
+        // } else {
+        //   alert("No value present");
+        // }
+      }
+    });
   };
 
   return (
     <div className="container main-screen screen-main">
       <div className="container">
         <div className="mt-2">
-          <label className="user-rpt-head">Total Assign Me</label>
+          <label className="user-rpt-head">Total Assign User</label>
         </div>
       </div>
 
@@ -99,15 +209,31 @@ const UserReports = () => {
             <div className="user-files-head p-2">Files Activity</div>
 
             <div className="user-file-activity">
-              <label className="rpt-files-count">270</label>
+              <label className="rpt-files-count">
+                {sessionStorage.getItem("role") === "user"
+                  ? reportsData.totalNoOfFilesAssigned
+                  : ""}
+              </label>
               <p className="rpt-files-txt"> Total no. of files assigned</p>
             </div>
             <div className="user-file-activity">
-              <label className="rpt-files-count">150/20</label>
+              <label className="rpt-files-count">
+                {sessionStorage.getItem("role") === "user"
+                  ? reportsData.totalOk
+                  : ""}
+                /
+                {sessionStorage.getItem("role") === "user"
+                  ? reportsData.notOkFiles
+                  : ""}
+              </label>
               <p className="rpt-files-txt"> Total OK / NOT-OK Files</p>
             </div>
             <div className="user-file-activity">
-              <label className="rpt-files-count">100</label>
+              <label className="rpt-files-count">
+                {sessionStorage.getItem("role") === "user"
+                  ? reportsData.completedFiles
+                  : ""}
+              </label>
               <p className="rpt-files-txt"> Completed files</p>
             </div>
           </div>
@@ -178,15 +304,27 @@ const UserReports = () => {
             <div className="user-files-head p-2">Files Activity</div>
 
             <div className="user-file-activity">
-              <label className="rpt-files-count">50</label>
+              <label className="rpt-files-count">
+                {sessionStorage.getItem("role") === "specialist"
+                  ? reportsData.totalNoOfFilesAssigned
+                  : ""}
+              </label>
               <p className="rpt-files-txt"> Total no. of files assigned</p>
             </div>
             <div className="user-file-activity">
-              <label className="rpt-files-count">35</label>
+              <label className="rpt-files-count">
+                {sessionStorage.getItem("role") === "specialist"
+                  ? reportsData.pendingFiles
+                  : ""}
+              </label>
               <p className="rpt-files-txt"> Pending Files</p>
             </div>
             <div className="user-file-activity">
-              <label className="rpt-files-count">10</label>
+              <label className="rpt-files-count">
+                {sessionStorage.getItem("role") === "specialist"
+                  ? reportsData.completedFiles
+                  : ""}
+              </label>
               <p className="rpt-files-txt"> Completed files</p>
             </div>
           </div>

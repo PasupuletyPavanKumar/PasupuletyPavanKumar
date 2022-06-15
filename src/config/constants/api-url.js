@@ -33,6 +33,7 @@ const ApiUrl = {
   uploadDocs: "uploadDocuments",
   assignFiles: "assignDocumentsToUser",
   getUserByUserRole: "userManagement/fetchByUserRole/",
+  getReports: "reportsCount/",
   //get all docs list assigned by specialist for specialist/user screen
   allDocsListAssignedBySpecialist: "fetchAssignedByMeDocumentDetails/",
   //get pending docs list assigned by specialist for specialist screen
@@ -75,6 +76,10 @@ const ApiUrl = {
   specialistAssignedOkDocsToUser: "fetchAssignedToMeOkDocumentDetails/",
   // get specialist assigned not ok docs to user for user screen
   specialistAssignedNotOkDocsToUser: "fetchAssignedToMeNotOkDocumentDetails/",
+  //get document
+  processDocument: "fetchDocumentDetailsByDocumentId/",
+
+  viewData: "fetchExtractedData/",
 };
 
 export default ApiUrl;

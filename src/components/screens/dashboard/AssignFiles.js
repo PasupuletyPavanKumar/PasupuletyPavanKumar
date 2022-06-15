@@ -4,17 +4,21 @@ import { Dropdown } from "react-bootstrap";
 //import Icon_trash from "..\\src\\assets\\icons\\Icon_trash.svg";
 import { AuthenticatedService } from "../../../services/api-service/AuthenticatedService";
 import ReactPaginate from "react-paginate";
+import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as ReactBootStrap from "react-bootstrap";
+import PreviewDocument from "./PreviewDocument";
 
 const AssignFiles = (props) => {
+  const navigate = useNavigate();
   const [usercontrolchange, setUsercontrolchange] = useState("ALL FILES");
-
+  const [disable, setDisable] = useState(false);
   const [offset, setOffset] = useState(0);
   const [data, setData] = useState([]);
   const [perPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
+  const [documentView, setDocumentView] = useState([]);
 
   const [allDocsList, setAllDocsList] = useState([]);
   const [page, setPage] = useState([]);
@@ -29,7 +33,16 @@ const AssignFiles = (props) => {
   const refreshPage = () => {
     window.location.reload();
   };
-
+  // const viewDocument = () => {
+  //   authenticatedService.previewDocument().then((res) => {
+  //     if (res) {
+  //       res != "404"
+  //         ? PreviewDocument.previewDoc(res)
+  //         : setDocumentView("No Document to display");
+  //     }
+  //     console.log(res);
+  //   });
+  // };
   const getDocsList = (docState) => {
     if (docState === "ALL FILES") {
       if (page === "assignToUser") {
@@ -366,11 +379,27 @@ const AssignFiles = (props) => {
                   <td>{item.assignedBySpecialistEmail}</td>
                   <td>{item.status}</td>
                   <td style={{ display: "flex" }}>
-                    {item.status !== "pending" ? (
+                    {item.status === "Processed" ? (
                       <button
+                        disabled={disable}
                         className="assignbutton"
                         // onClick={processDocument(item)}
-                        onClick={() => processDocument(item)}
+                        onClick={() => {
+                          <PreviewDocument />;
+                          navigate("/preview");
+                        }}
+                      >
+                        Preview
+                      </button>
+                    ) : item.status !== "pending" ? (
+                      <button
+                        disabled={disable}
+                        className="assignbutton"
+                        // onClick={processDocument(item)}
+                        onClick={() => {
+                          setDisable(true);
+                          processDocument(item);
+                        }}
                       >
                         start
                       </button>

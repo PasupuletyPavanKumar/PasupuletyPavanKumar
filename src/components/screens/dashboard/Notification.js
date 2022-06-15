@@ -15,7 +15,9 @@ const Notification = () => {
   const getNotifications = () => {
     authenticatedService.getNotifications().then((res) => {
       if (res) {
-        res != "404" ? setNotifications(res) : setNotifications("");
+        res != "404"
+          ? setNotifications(res.sort().reverse())
+          : setNotifications("");
         console.log(res);
       }
     });
@@ -38,6 +40,7 @@ const Notification = () => {
                     {item.operation}
                   </div>
                   <div className="font-14 color959595"> {item.description}</div>
+                  {/* <div> <img src="delete-img"><Delete</img></div> */}
                 </div>
               </div>
               {/* <div>30 min ago</div> */}

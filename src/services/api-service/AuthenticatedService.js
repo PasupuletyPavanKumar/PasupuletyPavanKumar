@@ -839,6 +839,32 @@ export class AuthenticatedService {
     }
   };
 
+  getReports = async (userId = sessionStorage.getItem("userId")) => {
+    const url = this.exportFileDomain + ApiUrl.getReports + userId;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response) {
+      const resData = response.data;
+      console.log(resData);
+      return resData;
+    }
+    // let apiRes = null;
+    // try {
+    //   apiRes = await axios.get(url);
+    //   return apiRes.data;
+    // } catch (err) {
+    //   console.error("Error response:");
+    //   console.error(err.response.data);
+    //   console.error(err.response.status);
+    //   console.error(err.response.headers);
+    //   return err.response.data;
+    // }
+  };
+
   getSettings = async () => {
     const url = this.projectListDomain + ApiUrl.getSettingsList;
     let apiRes = null;
@@ -886,6 +912,38 @@ export class AuthenticatedService {
       const resData = response.data;
       console.log(resData);
       return response;
+    }
+  };
+
+  previewDocument = async (id = "62a9678e6e362f36db532d64") => {
+    const url = this.filesListDomain + ApiUrl.processDocument + id;
+    // const response = await axios.get(url);
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
+    }
+  };
+
+  previewData = async (id = "62a8bcd187b5335523c934db") => {
+    const url = this.docsListDomain + ApiUrl.viewData + id;
+    // const response = await axios.get(url);
+    let apiRes = null;
+    try {
+      apiRes = await axios.get(url);
+      return apiRes.data;
+    } catch (err) {
+      console.error("Error response:");
+      console.error(err.response.data);
+      console.error(err.response.status);
+      console.error(err.response.headers);
+      return err.response.data;
     }
   };
 }
