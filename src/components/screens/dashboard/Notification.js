@@ -14,31 +14,34 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
+import SettingsIcon from "@mui/icons-material/Settings";
+
 const Notification = () => {
   const authenticatedService = new AuthenticatedService();
   const [open, setOpen] = useState(false);
   const [toBeUpdatedUsername, setToBeUpdatedUsername] = useState();
   const [showDeleteModal, setshowDeleteModal] = useState(false);
   const [show, setShow] = useState(false);
+  const [notificationId, setNotificationId] = useState([]);
 
   const handleClose = () => setShow(false);
   const [notifications, setNotifications] = useState([]);
 
-  const deleteNotification = () => {
-    var reqBody = new FormData();
-    reqBody.append("byUser", sessionStorage.getItem("username"));
-    reqBody.append("byUserRole", sessionStorage.getItem("role"));
+  // const deleteNotification = () => {
+  //   var reqBody = new FormData();
+  //   reqBody.append("byUser", sessionStorage.getItem("username"));
+  //   reqBody.append("byUserRole", sessionStorage.getItem("role"));
 
-    authenticatedService
-      .deleteNotification(reqBody, toBeUpdatedUsername)
-      .then((res) => {
-        if (res) {
-          handleClose();
-          // refreshPage();
-        }
-        console.log(res);
-      });
-  };
+  //   authenticatedService
+  //     .deleteNotification(reqBody, toBeUpdatedUsername)
+  //     .then((res) => {
+  //       if (res) {
+  //         handleClose();
+  //         // refreshPage();
+  //       }
+  //       console.log(res);
+  //     });
+  // };
 
   const getNotifications = () => {
     authenticatedService.getNotifications().then((res) => {
@@ -50,13 +53,35 @@ const Notification = () => {
       }
     });
   };
-
   const deleteNoftModal = (item) => {
     //setShow(true);
-    setToBeUpdatedUsername(item.userName);
+    // setToBeUpdatedUsername(item.userName);
+    setNotificationId(item.id);
     setShow(true);
     setshowDeleteModal(true);
   };
+  const deleteNotification = () => {
+    console.log(notificationId);
+    const role = sessionStorage.getItem("role");
+    authenticatedService
+      .deleteNotification(notificationId, role)
+      .then((res) => {
+        if (res) {
+          if (res == "Success") {
+            alert("Notification deleted successfully");
+            handleClose();
+          } else {
+            alert("Notification does not exist");
+            handleClose();
+          }
+        } else {
+          alert("Notification does not exist");
+          handleClose();
+        }
+        console.log(res);
+      });
+  };
+
   const deletModal = () => {
     return (
       <div className="del-popup">
@@ -85,6 +110,40 @@ const Notification = () => {
       </div>
     );
   };
+  // const deleteNoftModal = (item) => {
+  //   //setShow(true);
+  //   setToBeUpdatedUsername(item.userName);
+  //   setShow(true);
+  //   setshowDeleteModal(true);
+  // };
+  // const deletModal = () => {
+  //   return (
+  //     <div className="del-popup">
+  //       <div className="delete-modal">Are you sure?</div>
+  //       <br />
+
+  //       <div className="delete-text">
+  //         Do you want to delete this notification
+  //         <br />
+  //         The process cannot be undone.
+  //       </div>
+  //       <br />
+  //       <center>
+  //         <button type="button" className="cancel-button" onClick={handleClose}>
+  //           Cancel
+  //         </button>
+  //         &ensp;
+  //         <button
+  //           type="button"
+  //           className="delete-button"
+  //           onClick={deleteNotification}
+  //         >
+  //           Delete
+  //         </button>
+  //       </center>
+  //     </div>
+  //   );
+  // };
   useEffect(() => {
     getNotifications();
   }, []);
@@ -98,7 +157,7 @@ const Notification = () => {
             <div className="d-flex">
               <div className="notifaction-title w-100">
                 <div className="notiLogo">
-                  {item.type === "success" ? (
+                  {/* {item.type === "success" ? (
                     <CheckCircleOutlineIcon className="success" />
                   ) : item.type === "warning" ? (
                     <WarningAmberIcon className="warn" />
@@ -106,18 +165,18 @@ const Notification = () => {
                     <ErrorOutlineIcon className="error" />
                   ) : item.type === "info" ? (
                     <HighlightOffIcon className="info" />
-                  ) : null
-                  }
+                  ) : null} */}
+                  <SettingsIcon />
                 </div>
                 <div className="notification-heading">
                   <div className="font-16 fontweight-700 color003763">
                     {" "}
-                    {/* {item.operation} */}
-                    {item.id}
+                    {item.operation}
+                    {/* {item.id} */}
                   </div>
                   <div className="font-14 color959595">
-                    {/* {item.description} */}
-                    {item.id}
+                    {item.description}
+                    {/* {item.id} */}
                   </div>
                   {/* <div> <img src="delete-img"><Delete</img></div> */}
                 </div>

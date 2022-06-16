@@ -915,8 +915,8 @@ export class AuthenticatedService {
     }
   };
 
-  previewDocument = async (id = "62a9678e6e362f36db532d64") => {
-    const url = this.filesListDomain + ApiUrl.processDocument + id;
+  previewDocument = async (id) => {
+    const url = this.filesListDomain + ApiUrl.previewDocument + id;
     // const response = await axios.get(url);
     let apiRes = null;
     try {
@@ -931,7 +931,7 @@ export class AuthenticatedService {
     }
   };
 
-  previewData = async (id = "62a8bcd187b5335523c934db") => {
+  previewData = async (id) => {
     const url = this.docsListDomain + ApiUrl.viewData + id;
     // const response = await axios.get(url);
     let apiRes = null;
@@ -947,17 +947,11 @@ export class AuthenticatedService {
     }
   };
 
-  deleteNotification = async (reqBody, username) => {
-    console.log(sessionStorage.getItem("accessToken"));
-
-    const url = this.notificationDomain + ApiUrl.deleteAdmin + username;
-    const response = await axios.delete(url, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-      },
-      data: reqBody,
-    });
+  //delete Notification
+  deleteNotification = async (id, role) => {
+    const url =
+      this.notificationDomain + ApiUrl.deleteNotification + role + "/" + id;
+    const response = await axios.delete(url);
 
     if (response) {
       const resData = response.data;

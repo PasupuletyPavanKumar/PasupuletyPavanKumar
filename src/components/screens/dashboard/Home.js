@@ -8,6 +8,7 @@ import AdminManagement from "./AdminManagement";
 import Licenses from "./Licenses";
 import Settings from "./Settings";
 import Help from "./Help";
+import PreviewDocument from "./PreviewDocument";
 import { ReactComponent as LttsLogo } from "../../../assets/logo/LTTS_blue.svg";
 import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
 import { ReactComponent as SideMenu } from "../../../assets/icons/Menu_white.svg";
@@ -28,7 +29,7 @@ const Home = (props) => {
   //sessionStorage.setItem("role", "super-user");
   //sessionStorage.setItem("role", "admin");
   // sessionStorage.setItem("role", "specialist");
-  sessionStorage.setItem("role", "user");
+  //sessionStorage.setItem("role", "user");
 
   console.log("width ---> ", window.innerWidth);
   const sideBarIcons = [
@@ -46,7 +47,7 @@ const Home = (props) => {
     {
       src: "assets/icons/admin_white.svg",
       title:
-        sessionStorage.getItem("role") === "superuser"
+        sessionStorage.getItem("role") === "super-user"
           ? "Admin Management"
           : "Specialist/ User Management",
       active: "admin",
@@ -159,6 +160,9 @@ const Home = (props) => {
         break;
       case "Settings":
         navigate("/settings");
+        break;
+      case "PreviewDocument":
+        navigate("/PreviewDocument");
         break;
       default:
         navigate("/help");
@@ -294,6 +298,8 @@ const Home = (props) => {
         return <ProjectSettings />;
       case "settings":
         return <SettingsPage />;
+      case "PreviewDocument":
+        return <PreviewDocument />;
       default:
         return <Help />;
     }

@@ -77,11 +77,13 @@ const ApiUrl = {
   // get specialist assigned not ok docs to user for user screen
   specialistAssignedNotOkDocsToUser: "fetchAssignedToMeNotOkDocumentDetails/",
   //get document
-  processDocument: "fetchDocumentDetailsByDocumentId/",
+  processDocument: "processDocuments",
+
+  previewDocument: "fetchDocumentDetailsByDocumentId/",
 
   viewData: "fetchExtractedData/",
 
-  deleteNotification: "",
+  deleteNotification: "notificationDetails/delete/",
 };
 
 export default ApiUrl;

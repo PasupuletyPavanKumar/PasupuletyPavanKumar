@@ -140,8 +140,7 @@ const ServerManagement = () => {
       authenticatedService.addServer(reqBody).then((res) => {
         if (res) {
           handleClose();
-        }
-        else{
+        } else {
           alert("error in adding server");
         }
       });
@@ -347,12 +346,13 @@ const ServerManagement = () => {
   };
 
   return (
-    <div>
+    <div className="main-screen screen-main">
       <div>
         <div class="div-head">
           <div class="row row-flex">
-            <div className="col server-head"> Server Management</div>
-            <div className="col add-server">
+            <div className="col server-head">
+              {" "}
+              Server Management
               <button
                 type="button"
                 className="custom-button"
@@ -366,7 +366,7 @@ const ServerManagement = () => {
           <div class="row row-flex">
             {serversList &&
               serversList.map((item) => (
-                <div class="col-sm-6">
+                <div class="col-sm-5 m-5">
                   <div class="server-tab">
                     <div class="row">
                       <div className="server-title">{item.serverName}</div>

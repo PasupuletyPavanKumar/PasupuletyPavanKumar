@@ -32,11 +32,11 @@ function App() {
       <Route path="/assignToUser" element={<Home />} />
       <Route path="/assignToMe" element={<Home />} />
       <Route path="/uploadAssign" element={<Home />} />
-      <Route path="/server-mgmt" element={<ServerManagement />} />
+      <Route path="/server" element={<Home />} />
       <Route path="/project" element={<Home />} />
       <Route path="/settings" element={<Home />} />
       <Route path="/help" element={<Home />} />
-      <Route path="/preview" element={<PreviewDocument />} />
+      <Route path="/PreviewDocument" element={<Home />} />
 
       {/* <Route path="forgot" element={<ForgotPassword />} /> */}
     </Routes>

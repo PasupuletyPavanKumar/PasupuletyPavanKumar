@@ -33,6 +33,7 @@ const AssignFiles = (props) => {
   const refreshPage = () => {
     window.location.reload();
   };
+
   // const viewDocument = () => {
   //   authenticatedService.previewDocument().then((res) => {
   //     if (res) {
@@ -43,6 +44,7 @@ const AssignFiles = (props) => {
   //     console.log(res);
   //   });
   // };
+  let [fileReferenceTest, setfileReferenceTest] = useState([]);
   const getDocsList = (docState) => {
     if (docState === "ALL FILES") {
       if (page === "assignToUser") {
@@ -297,6 +299,10 @@ const AssignFiles = (props) => {
   const specialistAssignedProcessedDocsToUser = () => {
     authenticatedService.specialistAssignedProcessedDocsToUser().then((res) => {
       if (res) {
+        // setfileReferenceTest(res[0].fileReference);
+        // console.log(fileReferenceTest);
+        localStorage.setItem("docId", res[0].fileReference);
+        console.log(localStorage.getItem("docId"));
         // res != "404" ? setAllDocsList(res) : setAllDocsList("No Docs Assigned");
         res != "404" ? paginationCode(res) : paginationCode("");
         console.log(res);
@@ -345,7 +351,7 @@ const AssignFiles = (props) => {
 
     authenticatedService.processDocument(reqBody).then((res) => {
       if (res) {
-        refreshPage();
+        // refreshPage();
       }
     });
   };
@@ -375,23 +381,26 @@ const AssignFiles = (props) => {
                   <td>{item.fileName}</td>
                   <td>{item.projectName}</td>
                   <td>{item.documentType}</td>
-                  <td>{item.assignedBySpecialistName}</td>
-                  <td>{item.assignedBySpecialistEmail}</td>
+                  <td>{item.assignedToUserName}</td>
+                  <td>{item.assignedToUserEmail}</td>
                   <td>{item.status}</td>
                   <td style={{ display: "flex" }}>
                     {item.status === "Processed" ? (
                       <button
-                        disabled={disable}
                         className="assignbutton"
                         // onClick={processDocument(item)}
                         onClick={() => {
-                          <PreviewDocument />;
-                          navigate("/preview");
+                          console.log(localStorage.getItem("docId"));
+                          <PreviewDocument
+                            id={localStorage.getItem("docId")}
+                          />;
+                          navigate("/PreviewDocument");
                         }}
                       >
                         Preview
                       </button>
-                    ) : item.status !== "pending" ? (
+                    ) : item.status &&
+                      sessionStorage.getItem("user") !== "pending" ? (
                       <button
                         disabled={disable}
                         className="assignbutton"

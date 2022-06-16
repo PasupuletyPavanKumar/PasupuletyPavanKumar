@@ -93,15 +93,17 @@ const Settings = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    authenticatedService.updateAdmin(reqBody).then((res) => {
-      if (res) {
-        <div>{handleClose()}</div>;
+    authenticatedService
+      .updateAdmin(reqBody, sessionStorage.getItem("userName"))
+      .then((res) => {
+        if (res) {
+          <div>{handleClose()}</div>;
 
-        //  refreshPage();
-      } else {
-        alert("Error in creating Admin");
-      }
-    });
+          //  refreshPage();
+        } else {
+          alert("Error in creating Admin");
+        }
+      });
   };
 
   useEffect(() => {

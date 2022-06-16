@@ -1370,11 +1370,12 @@ row-flex {
 
 .server-tab {
   height: 100%;
-  padding: 20px 20px 10px;
+  padding: 3vh;
   background: rgba(255, 255, 255, 0.5) 0% 0% no-repeat padding-box;
   box-shadow: 6px 6px 10px #00376340;
   opacity: 1;
   border-radius: 8px;
+  width: 70vh;
 }
 // .combo {
 //   height: 5vh;
@@ -2629,7 +2630,7 @@ select {
   @media (min-width: 1441px) {
     height: 5vh;
     width: 10vw;
-    font: normal normal 600 20px Open Sans;
+    font: normal normal 600 14px Open Sans;
   }
 }
 
@@ -2828,18 +2829,22 @@ select {
   border-radius: 18px;
 }
 
+.content-flow {
+  overflow: scroll;
+}
 .server-content {
   margin: 10px;
   background: rgba(255, 255, 255, 0.56) 0% 0% no-repeat padding-box;
   box-shadow: 6px 6px 10px #00376340;
   border-radius: 18px;
   width: fit-content;
+  // height: 30vh;
 }
 
 .server-table {
   border-radius: 10px;
   justify-content: space-around;
-  height: 10vh;
+  height: 16vh;
   width: 100%;
   padding: 5%;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -3817,7 +3822,7 @@ select {
 
 .document-flex {
   margin: 2%;
-  height: 70vh;
+  height: 55vh;
   justify-content: center;
   // justify-content: space-between;
   width: 40vw;
@@ -3937,7 +3942,7 @@ select {
 }
 
 .content-flex2 {
-  margin: 4%;
+  margin: 1%;
   height: fit-content;
   justify-content: center;
   width: 50vw;
@@ -3972,4 +3977,8 @@ select {
   width: 6vw;
   float: left;
   color: black;
+}
+
+.space-margin {
+  float: center;
 }
