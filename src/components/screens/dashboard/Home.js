@@ -28,7 +28,7 @@ const Home = (props) => {
   // const { height, width } = ();
   //sessionStorage.setItem("role", "super-user");
   //sessionStorage.setItem("role", "admin");
-  // sessionStorage.setItem("role", "specialist");
+  //sessionStorage.setItem("role", "specialist");
   //sessionStorage.setItem("role", "user");
 
   console.log("width ---> ", window.innerWidth);
@@ -238,21 +238,38 @@ const Home = (props) => {
   };
 
   const adminImage = [
-    "assets/icons/Reports_graditi_bg.svg",
-    "assets/icons/Notification-bg.svg",
-    "assets/icons/Admin_graditi_bg.svg",
-    "assets/icons/Server_graditi_bg.svg",
+    "assets/icons/Reports_bule_new.svg",
+    "assets/icons/Notification_bule_new.svg",
+    "assets/icons/Admin_bule_new.svg",
+    "assets/icons/Server_bule_new.svg",
   ];
   const superUserImage = [
-    "assets/icons/Notification-bg.svg",
-    "assets/icons/Admin_graditi_bg.svg",
+    "assets/icons/Notification_bule_new.svg",
+    "assets/icons/Admin_bule_new.svg",
   ];
   const specialistImage = [
-    "assets/icons/Reports_graditi_bg.svg",
-    "assets/icons/Notification-bg.svg",
-    "assets/icons/Assigned_to_me.svg",
-    "assets/icons/Assigned_to_others.svg",
+    "assets/icons/Reports_bule_new.svg",
+    "assets/icons/Notification_bule_new.svg",
+    "assets/icons/Assign_me_bule.svg",
+    "assets/icons/Assign_user_bule.svg",
   ];
+
+  // const adminImage = [
+  //   "assets/icons/Reports_graditi_bg.svg",
+  //   "assets/icons/Notification-bg.svg",
+  //   "assets/icons/Admin_graditi_bg.svg",
+  //   "assets/icons/Server_graditi_bg.svg",
+  // ];
+  // const superUserImage = [
+  //   "assets/icons/Notification-bg.svg",
+  //   "assets/icons/Admin_graditi_bg.svg",
+  // ];
+  // const specialistImage = [
+  //   "assets/icons/Reports_graditi_bg.svg",
+  //   "assets/icons/Notification-bg.svg",
+  //   "assets/icons/Assigned_to_me.svg",
+  //   "assets/icons/Assigned_to_others.svg",
+  // ];
 
   const mainContent = () => {
     let page = window.location.pathname;
