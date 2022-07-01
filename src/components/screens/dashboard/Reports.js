@@ -54,7 +54,7 @@ const Reports = () => {
     authenticatedService.recentActivity().then((res) => {
       if (res) {
         // setActivityData(res);
-        paginationCode(res);
+        paginationCode(res.sort().reverse());
       }
       console.log(res);
     });
@@ -94,7 +94,7 @@ const Reports = () => {
     setOffset(selectedPage);
   };
   return (
-    <div class="container-fuild main-screen">
+    <div class="container-fluid main-screen screen-main">
       <div class="container">
         <div className=" mt-4 mb-4">
           <h4 className="reportsheading">Reports</h4>

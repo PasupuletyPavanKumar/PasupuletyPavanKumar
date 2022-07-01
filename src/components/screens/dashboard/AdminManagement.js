@@ -6,6 +6,7 @@ import { _EMAIL_VALIDATOR, _PWD_VALIDATOR } from "../../../utils/Validators";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import * as XLSX from "xlsx/xlsx.mjs";
+// import XLSX from "xlsx/xlsx.mjs";
 import ReactPaginate from "react-paginate";
 import ReactDOM from "react-dom";
 import "react-responsive-modal/styles.css";
@@ -47,7 +48,7 @@ const AdminManagement = () => {
   };
 
   const GetTableData = (res) => {
-    const TableData = res;
+    const TableData = res.sort().reverse();
     const slice = TableData.slice(offset, offset + perPage);
     let postData;
     <div>
@@ -246,7 +247,7 @@ const AdminManagement = () => {
   const exportFile = () => {
     authenticatedService.exportFile().then((res) => {
       if (res) {
-        downloadToExcel(res);
+        downloadToExcel(res.data);
       }
       console.log(res.headers);
     });
@@ -542,7 +543,11 @@ const AdminManagement = () => {
                     </Dropdown>
 
                     <Dropdown className="admg-filter-export">
-                      <Dropdown.Toggle variant="" id="dropdown-basic">
+                      <Dropdown.Toggle
+                        variant=""
+                        id="dropdown-basic"
+                        onClick={exportFile}
+                      >
                         Export
                       </Dropdown.Toggle>
 

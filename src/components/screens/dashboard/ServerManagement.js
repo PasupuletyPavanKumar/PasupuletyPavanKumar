@@ -346,8 +346,8 @@ const ServerManagement = () => {
   };
 
   return (
-    <div className="main-screen screen-main">
-      <div>
+    <div class="">
+      <div className=" main-screen screen-main over-flow">
         <div class="div-head">
           <div class="row row-flex">
             <div className="col server-head">
@@ -363,14 +363,16 @@ const ServerManagement = () => {
             </div>
           </div>
           <br />
+
           <div class="row row-flex">
             {serversList &&
               serversList.map((item) => (
                 <div class="col-sm-5 m-5">
                   <div class="server-tab">
-                    <div class="row">
-                      <div className="server-title">{item.serverName}</div>
-                      <div>
+                    <div class="row row-flex">
+                      <div className=" col server-title">
+                        {item.serverName}
+
                         <button type="button" className="export-button">
                           Export
                         </button>
@@ -379,36 +381,38 @@ const ServerManagement = () => {
                     <br />
                     <div>
                       {/* first row */}
-                      <div class="row row-flex">
+                      <div class="row">
                         {/* CPU daily */}
-                        <div class="col-sm-5 server-content">
-                          <div className="row-sm-5 divleft">
-                            <label className="col-sm-2 server-text">
-                              CPU Daily
-                            </label>
+                        <div class="server-content">
+                          <div className="left-content">
+                            <label className="server-text">CPU Daily</label>
+
                             <p className="mtag">Usage</p>
                           </div>
-                          <div className="col-sm-3 divright">
-                            <CircularProgressbar value={66} text={"100%"} />
-                          </div>
+                          {/* <div className="right-content">
+                            <CircularProgressbar
+                              value={item.serverCPU}
+                              text={item.serverCPU + " %"}
+                            />
+                          </div> */}
                         </div>
-                        <div class="col-sm-5 server-content">
-                          <div className="row-sm-5 divleft">
-                            <label className="col-sm-3 server-text">
-                              Storage
-                            </label>
+                        <div class="server-content">
+                          <div className="left-content">
+                            <label className="server-text">Storage</label>
                             <p className="mtag">
                               Usage
-                              <text className="storage"> D TB</text>
+                              <text className="storage">
+                                {item.serverStorage} TB
+                              </text>
                             </p>
                           </div>
-                          <div className="col-sm-3 divright">
+                          {/* <div className="right-content">
                             <CircularProgressbar
-                              value={66}
-                              text={"66%"}
+                              value={item.serverStorage}
+                              text={item.serverStorage + " %"}
                               className
                             />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -437,7 +441,11 @@ const ServerManagement = () => {
 
                                 <td>{item.serverName}</td>
 
-                                <td>{item.status}</td>
+                                <td>
+                                  <button className="status-button">
+                                    {item.status}
+                                  </button>
+                                </td>
                               </tr>
                             </tbody>
                           </ReactBootStrap.Table>

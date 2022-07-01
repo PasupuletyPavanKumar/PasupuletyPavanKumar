@@ -903,7 +903,10 @@ export class AuthenticatedService {
     }
   };
 
-  exportFile = async (userRole = "superUser", userName = "shashi") => {
+  exportFile = async (
+    userRole = sessionStorage.getItem("role"),
+    userName = sessionStorage.getItem("username")
+  ) => {
     const url =
       this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
     const response = await axios.get(url);

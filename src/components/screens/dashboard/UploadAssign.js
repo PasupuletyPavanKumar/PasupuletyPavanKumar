@@ -320,7 +320,7 @@ const UploadAssign = () => {
 
   return (
     //container start
-    <div className="bgImage4 main-screen screen-main">
+    <div className=" main-screen screen-main">
       <div className="container">
         {/* heading */}
         <div className="row row-flex">

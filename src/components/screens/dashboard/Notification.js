@@ -5,7 +5,8 @@ import { ReactComponent as NotificationLogo } from "../../../assets/icons/settin
 // import { ReactComponent as AiKnoLogo } from "../../../assets/icons/AiKno_Logo.svg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "react-responsive-modal";
-
+//import { format } from 'date-fns';
+// import Timestamp from "react-timestamp";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
@@ -37,11 +38,15 @@ const Notification = () => {
   //     .then((res) => {
   //       if (res) {
   //         handleClose();
-  //         // refreshPage();
+
   //       }
   //       console.log(res);
   //     });
   // };
+
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   const getNotifications = () => {
     authenticatedService.getNotifications().then((res) => {
@@ -70,6 +75,7 @@ const Notification = () => {
           if (res == "Success") {
             alert("Notification deleted successfully");
             handleClose();
+            refreshPage();
           } else {
             alert("Notification does not exist");
             handleClose();
@@ -155,18 +161,18 @@ const Notification = () => {
         {notifications &&
           notifications.map((item) => (
             <div className="d-flex">
-              <div className="notifaction-title w-100">
-                <div className="notiLogo">
-                  {/* {item.type === "success" ? (
+              <div className="notifaction-title w-100 ">
+                <div className="notiLogo ml-5 mr-3">
+                  {item.action === "Create" ? (
                     <CheckCircleOutlineIcon className="success" />
-                  ) : item.type === "warning" ? (
-                    <WarningAmberIcon className="warn" />
-                  ) : item.type === "error" ? (
+                  ) : // ) : item.action === "Update" ? (
+                  //   <WarningAmberIcon className="warn" />
+                  item.action === "Delete" ? (
                     <ErrorOutlineIcon className="error" />
-                  ) : item.type === "info" ? (
+                  ) : item.action === "Update" ? (
                     <HighlightOffIcon className="info" />
-                  ) : null} */}
-                  <SettingsIcon />
+                  ) : null}
+                  {/* <SettingsIcon /> */}
                 </div>
                 <div className="notification-heading">
                   <div className="font-16 fontweight-700 color003763">
@@ -174,14 +180,23 @@ const Notification = () => {
                     {item.operation}
                     {/* {item.id} */}
                   </div>
+
                   <div className="font-14 color959595">
                     {item.description}
                     {/* {item.id} */}
                   </div>
+
                   {/* <div> <img src="delete-img"><Delete</img></div> */}
                 </div>
+                {/* <div className="time">
+                  <Timestamp
+                    relative
+                    date={item.notificationDateAndTime}
+                    autoUpdate
+                  />
+                </div> */}
                 <DeleteIcon
-                  className="view-bicons"
+                  className="view-bicons mt-2 mb-2 "
                   onClick={() => deleteNoftModal(item)}
                 />
               </div>
