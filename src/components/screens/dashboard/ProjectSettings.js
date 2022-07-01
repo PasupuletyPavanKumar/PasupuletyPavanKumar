@@ -688,13 +688,19 @@ const ProjectSettings = () => {
   };
 
   return (
-    <div className="bgImage4">
-      <div class="container main-screen">
-        <div className="server-head">
-          Project Settings
-          <button type="button" onClick={handleShow} className="custom-button">
-            Create Project
-          </button>
+    <div className="main-screen screen-main">
+      <div class="container ">
+        <div className="row row-flex">
+          <div className="col server-head">
+            Project Settings
+            <button
+              type="button"
+              onClick={handleShow}
+              className="custom-button"
+            >
+              Create Project
+            </button>
+          </div>
         </div>
 
         <div className="project-setting-flex">

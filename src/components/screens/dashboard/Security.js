@@ -43,7 +43,7 @@ const Security = () => {
   const resetPassword = () => {
     if (validators()) {
       console.log(inputFields);
-      alert("reset Password");
+
       var reqBody = new FormData();
       reqBody.append("password", inputFields.password);
       reqBody.append("userName", sessionStorage.getItem("username"));
@@ -78,7 +78,7 @@ const Security = () => {
                 NEW PASSWORD
               </label>
               <input
-                type="text"
+                type="password"
                 class="text-field1"
                 id="usr"
                 name="firstname"
@@ -94,7 +94,7 @@ const Security = () => {
                 CONFIRM PASSWORD
               </label>
               <input
-                type="text"
+                type="password"
                 class="text-field1"
                 id="usr"
                 name="username"

@@ -147,7 +147,7 @@ const Settings = () => {
                 id="usr"
                 name="firstname"
                 disabled={disabled}
-                value={profileDataFields.firstname}
+                value={profileDataFields.firstName}
                 onChange={(e) => handleInputFields(e, 1)}
               />
             </div>
@@ -161,7 +161,7 @@ const Settings = () => {
                 id="usr"
                 name="lastname"
                 disabled={disabled}
-                value={profileDataFields.lastname}
+                value={profileDataFields.lastName}
                 onChange={(e) => handleInputFields(e, 2)}
               />
             </div>

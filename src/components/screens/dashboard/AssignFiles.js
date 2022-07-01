@@ -406,7 +406,7 @@ const AssignFiles = (props) => {
                         className="assignbutton"
                         // onClick={processDocument(item)}
                         onClick={() => {
-                          setDisable(true);
+                          // setDisable(true);
                           processDocument(item);
                         }}
                       >
