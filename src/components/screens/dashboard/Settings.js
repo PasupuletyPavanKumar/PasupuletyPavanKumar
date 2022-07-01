@@ -111,7 +111,7 @@ const Settings = () => {
   }, []);
 
   return (
-    <div class="">
+    <div>
       <div className="container">
         <div class="row">
           <div class="scon col-lg-12 col-md-12">
@@ -120,12 +120,12 @@ const Settings = () => {
                 <Avatar
                   alt="Remy Sharp"
                   src="/static/images/avatar/1.jpg"
-                  sx={{ width: 120, height: 120 }}
+                  sx={{ width: 100, height: 100 }}
                 />
               </div>
               {/* <img src="https://res.cloudinary.com/urbanclap/image/upload/q_auto,f_auto,fl_progressive:steep,w_64/t_high_res_template/images/growth/home-screen/1609757629780-2b2187.png"></img> */}
               <div
-                className={disabled ? "xxx" : "yyy"}
+                className={disabled ? "xxx" : "hide"}
                 onClick={updateProfileDate}
               >
                 {<EditIcon />}
@@ -147,7 +147,7 @@ const Settings = () => {
                 id="usr"
                 name="firstname"
                 disabled={disabled}
-                value={profileDataFields.firstName}
+                value={profileDataFields.firstname}
                 onChange={(e) => handleInputFields(e, 1)}
               />
             </div>
@@ -161,7 +161,7 @@ const Settings = () => {
                 id="usr"
                 name="lastname"
                 disabled={disabled}
-                value={profileDataFields.lastName}
+                value={profileDataFields.lastname}
                 onChange={(e) => handleInputFields(e, 2)}
               />
             </div>
@@ -236,10 +236,12 @@ const Settings = () => {
             <br />
             {/* </div> */}
             {submitButtonShow ? (
-              <div>
-                <button className="submit-button1 p-2" onClick={updateDetails}>
-                  Submit
-                </button>
+              <div
+                class="col-lg-10"
+                style={{ display: "flex", justifyContent: "space-around" }}
+              >
+                <button className="submit-button1 p-2">Cancel</button>
+                <button className="submit-button1 p-2">Update</button>
               </div>
             ) : (
               ""

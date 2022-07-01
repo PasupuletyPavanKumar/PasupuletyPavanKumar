@@ -1,12 +1,12 @@
 //defines the titles for the login screen
 export const _AUTHTITLES = [
   {
-    title: "Welcome To!",
-    desc: "your account please login",
+    title: "Welcome To",
+    desce: "your account please login.",
   },
   {
     title: "Forgot your Password?",
-    desc: "Please check your email or username",
+    desc: "Please enter your email or username below",
   },
   {
     title: "Check your Email!",

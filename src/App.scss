@@ -247,7 +247,10 @@ $color003763: #003763;
     opacity: 1;
   }
   @media (min-width: 769px) and (max-width: 1440px) {
-    font-size: 32px;
+    text-align: center;
+    font: normal normal bold 24px/36px Open Sans;
+    letter-spacing: 0px;
+    color: #004072;
     opacity: 1;
   }
   @media (min-width: 1441px) and (max-width: 2559px) {
@@ -263,29 +266,55 @@ $color003763: #003763;
   }
 }
 
+.samplecheck {
+  margin: 1%;
+
+  @media (min-width: 426px) and (max-width: 1440px) {
+    text-align: center;
+    font: normal normal bold 24px/36px Open Sans;
+    letter-spacing: 0px;
+    color: #004072;
+    opacity: 1;
+  }
+  @media (min-width: 1441px) and (max-width: 2559px) {
+    font-size: 40px;
+    opacity: 1;
+  }
+  @media (min-width: 2560px) {
+    margin-top: 30px;
+    font-size: 54px;
+  }
+}
+
 .subheading {
   margin: 1%;
 
   @media (min-width: 426px) and (max-width: 1440px) {
-    font-size: 16px;
-    opacity: 0.5;
+    text-align: center;
+    font: normal normal normal 16px/36px Open Sans;
+    letter-spacing: 0px;
+    color: #004072;
+    opacity: 1;
   }
   @media (min-width: 321px) and (max-width: 425px) {
     font-size: 14px;
-    opacity: 0.5;
+    opacity: 1;
   }
   @media (min-width: 1441px) and (max-width: 2559px) {
     font-size: 28px;
-    opacity: 0.5;
+    opacity: 1;
   }
   @media (min-width: 2560px) {
     margin: 6%;
-    font-size: 27px;
-    opacity: 0.5;
+    text-align: center;
+    font: normal normal normal 24px/36px Open Sans;
+    letter-spacing: 0px;
+    color: #004072;
+    opacity: 1;
   }
   @media (max-width: 320px) {
     font: normal normal 600 12px Open Sans;
-    opacity: 0.5;
+    opacity: 1;
   }
 }
 
@@ -1170,15 +1199,15 @@ h1 {
   justify-content: space-around;
 }
 
-h5 {
-  color: #003763;
-  text-align: left;
-  font: normal normal 600 18px/24px Open Sans;
-  letter-spacing: 0px;
-  cursor: pointer;
-  opacity: 1;
-  margin: 1vh;
-}
+// h5 {
+//   color: #003763;
+//   text-align: left;
+//   font: normal normal 600 18px/24px Open Sans;
+//   letter-spacing: 0px;
+//   cursor: pointer;
+//   opacity: 1;
+//   margin: 1vh;
+// }
 
 .change {
   color: #003763;
@@ -1201,6 +1230,23 @@ p {
   opacity: 0.7;
 }
 
+.change {
+  color: #003763;
+  text-align: left;
+  font: normal normal 600 18px/24px Open Sans;
+  letter-spacing: 0px;
+  cursor: pointer;
+  opacity: 1;
+  margin: 1vh;
+}
+
+.dim {
+  font: normal normal 600 18px/24px Open Sans;
+  letter-spacing: 0px;
+  color: #0000007f;
+  opacity: 1;
+  cursor: pointer;
+}
 .xxx {
   width: 40%;
   display: flex;
@@ -4031,4 +4077,223 @@ select {
 
 .space-margin {
   float: center;
+}
+
+//help screen css
+
+.ticket {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 425px) {
+    margin-top: 25px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    // margin-top: 25px;
+    // margin-left: 380px;
+  }
+}
+
+.onclickhelpticket {
+  @media (max-width: 425px) {
+    margin-top: 25px;
+  }
+  @media (min-width: 426px) and (max-width: 768px) {
+    margin-top: 25px;
+  }
+}
+
+.helpbg {
+  background-color: #fff;
+  margin-top: 30px;
+  width: 600px;
+  height: 450px;
+  border: 2px solid #ffffff;
+  border-radius: 18px;
+
+  padding: 15px;
+  @media (min-width: 1441px) and (max-width: 2560px) {
+    max-height: 67vh;
+  }
+}
+
+.helpcontainer {
+  top: 34px;
+  /* height: 493px; */
+  /* width: 50px; */
+  border-radius: 18px;
+  padding: 15px;
+  /* margin-left: 126px; */
+  border: 2px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* opacity: 0.7; */
+}
+
+.leftcon {
+  background-color: #fff;
+  /* top: 9px; */
+  height: 350px;
+  border: 2px solid #ffffff;
+  /* border-radius: 18px; */
+  padding: 15px;
+  margin-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rightcon {
+  background-color: white;
+  margin-left: 20px;
+  height: 165px;
+  width: 692px;
+  margin-top: -6px;
+  border: 2px solid #ffffff;
+}
+
+.right1con {
+  background-color: white;
+  margin-left: 20px;
+  height: 107px;
+  margin-top: -8px;
+  width: 692px;
+  border: 2px solid #ffffff;
+}
+
+.right2con {
+  background-color: rgb(255, 255, 255);
+  margin-left: 20px;
+  height: 95px;
+  margin-top: 9px;
+  width: 692px;
+  border: 2px solid #ffffff;
+}
+
+/* .th {
+  margin-left: 15px;
+  margin-top: -17px;
+  font: normal normal bold 20px/27px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+} */
+
+.ticketheading {
+  font: normal normal bold 20px/27px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+}
+
+.pendingclass {
+}
+
+.btn-success {
+  border-radius: 20px;
+}
+
+.textboxcontrol {
+  /* height: 355px; */
+  margin-left: 15px;
+  margin-right: 25px;
+  margin-top: 30px;
+  border-radius: 8px;
+  border: none;
+}
+
+.submit-help {
+  display: flex;
+
+  margin-top: -81px;
+  margin-left: 547px;
+  border-radius: 8px;
+}
+
+.displaytextbox {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 12px;
+  margin-top: 60px;
+}
+
+.hide {
+  display: none;
+}
+
+.helpicons {
+  height: 36px;
+  width: 36px;
+  margin-top: 8px;
+}
+
+/* .helpleftheading{
+    font: normal normal 600 14px/19px Open Sans;
+letter-spacing: 0px;
+
+opacity: 1;
+} */
+
+.helpheighttextarea {
+  height: 165px;
+}
+
+.onchange {
+  background: #f3f5f9 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  opacity: 1;
+  text-align: left;
+  font: normal normal 600 14px/19px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.cursor {
+  cursor: pointer;
+  letter-spacing: 0px;
+  margin-left: 4px;
+}
+
+/* faqs */
+
+.Helpheading {
+  text-align: left;
+  font: normal normal bold 20px/27px Open Sans;
+  letter-spacing: 0px;
+  color: #003763;
+  opacity: 1;
+}
+
+.faqsbg {
+  background-color: white;
+  margin-top: 16px;
+  width: 640px;
+  height: 420px;
+  border: 2px solid #ffffff;
+  border-radius: 18px;
+  opacity: 1;
+  padding: 15px;
+  margin-left: 25px;
+}
+
+.minmaxfaqs {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitbuttonraiseticket {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.editor {
+  height: 220px;
+  width: 700x;
+  margin-right: 50px;
+}
+
+form i {
+  margin-left: -30px;
+  cursor: pointer;
 }

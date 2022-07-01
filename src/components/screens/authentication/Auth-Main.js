@@ -43,6 +43,7 @@ const AuthMain = () => {
       // displays the title with defined css
       <div className="title">
         <div className="heading">{title.title}</div>
+        <div className="samplecheck">{title.desce}</div>
         <div className="subheading">{title.desc}</div>
       </div>
     );

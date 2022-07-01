@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Help.css";
+
 import My_ticket from "../../.././assets/icons/My_ticket.svg";
 import Help_center from "../../.././assets/icons/Help_center.svg";
 import FAQ from "../../.././assets/icons/FAQ.svg";
@@ -11,6 +11,7 @@ import FAQ from "../../.././assets/icons/FAQ.svg";
 import Mytickets from "./Mytickets";
 import Helpcenter from "./Helpcenter";
 import Helpfaqs from "./Helpfaqs";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Help = () => {
   const [controlchange, setControlchange] = useState("Mytickets");
@@ -18,17 +19,20 @@ const Help = () => {
   // const [next, setNext] = useState(false);
 
   return (
-    <div className="container-fluid main-screen screen-main">
+    <div className="container main-screen screen-main">
       <div class="row">
-        <div class="col-md-11 helpcontainer">
+        <div className="container">
+          <div class="row settingsheading">Help and Support</div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12  helpcontainer">
           <div>
             <div>
               <div class="row">
                 {maxmin ? null : (
-                  <div class="col-md-3 leftcon">
+                  <div class=" col-10 col-md-5 col-lg-3  leftcon">
                     <p>Lets take a step ahead and help you better.</p>
                     <div class="form-group has-search">
-                      <span class="fa fa-search form-control-feedback"></span>
+                      {<SearchIcon />}
                       <input
                         type="text"
                         class="form-control"
@@ -37,7 +41,7 @@ const Help = () => {
                     </div>
                     <div
                       className={
-                        controlchange === "Mytickets" ? "onchange" : ""
+                        controlchange === "Mytickets" ? "change" : "dim"
                       }
                       style={{
                         display: "flex",
@@ -47,55 +51,57 @@ const Help = () => {
                     >
                       <img className="helpicons" src={My_ticket}></img>
                       <div style={{ padding: "2px" }}>
-                        <h6
+                        <h5
                           className="cursor"
                           onClick={() => setControlchange("Mytickets")}
                         >
                           {" "}
                           My Tickets
-                        </h6>
-                        <p>You can see the status your existing</p>
+                        </h5>
+                        <p>You can see the statu your existing</p>
                       </div>
                     </div>
                     <div
                       className={
-                        controlchange === "Helpcenter" ? "onchange" : ""
+                        controlchange === "Helpcenter" ? "change" : "dim"
                       }
                       style={{ display: "flex" }}
                     >
                       <img className="helpicons" src={Help_center}></img>
                       <div style={{ padding: "2px" }}>
-                        <h6
+                        <h5
                           className="cursor"
                           onClick={() => setControlchange("Helpcenter")}
                         >
                           {" "}
                           Help Center
-                        </h6>
+                        </h5>
                         <p>Issues-tree of up three levels</p>
                       </div>
                     </div>
 
                     <div
-                      className={controlchange === "Helpfaqs" ? "onchange" : ""}
+                      className={
+                        controlchange === "Helpfaqs" ? "change" : "dim"
+                      }
                       style={{ display: "flex" }}
                     >
                       <img className="helpicons" src={FAQ}></img>
                       <div style={{ padding: "2px" }}>
-                        <h6
+                        <h5
                           className="cursor"
                           onClick={() => setControlchange("Helpfaqs")}
                         >
                           {""}
-                          FAQs section
-                        </h6>
+                          FAQs
+                        </h5>
                         <p>Issues-tree of up to three levels</p>
                       </div>
                     </div>
                   </div>
                 )}
 
-                <div class={maxmin ? "col-md-12" : "col-md-8"}>
+                <div class={maxmin ? "col-md-12" : "col-md-6 col-lg-8"}>
                   {controlchange === "Mytickets" ? (
                     <Mytickets />
                   ) : controlchange === "Helpcenter" ? (

@@ -8,8 +8,8 @@ function Helpfaqs({ maxmin, setMaxmin }) {
   return (
     <div>
       <div className="Helpheading">FAQs (Frequently Asked Question)</div>
-      <div className="faqsbg">
-        <div className="minmaxfaqs">
+      <div className="helpbg col-md-12 col-lg-12 ">
+        <div className="policyicon ">
           <img onClick={() => setMaxmin(!maxmin)} src={helpfarsnin}></img>
         </div>
       </div>

@@ -27,8 +27,8 @@ const Home = (props) => {
   const [sideDrawer, setSideDrawer] = useState(null);
   // const { height, width } = ();
   //sessionStorage.setItem("role", "super-user");
-  //sessionStorage.setItem("role", "admin");
-  //sessionStorage.setItem("role", "specialist");
+  // sessionStorage.setItem("role", "admin");
+  sessionStorage.setItem("role", "specialist");
   //sessionStorage.setItem("role", "user");
 
   console.log("width ---> ", window.innerWidth);
@@ -76,7 +76,7 @@ const Home = (props) => {
       active: "server",
     },
     {
-      src: "assets/icons/Pro_settings_white.svg",
+      src: "assets/icons/pro_settings_white.svg",
       title: "Project Settings",
       active: "project",
     },

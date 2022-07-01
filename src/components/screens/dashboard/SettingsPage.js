@@ -18,7 +18,7 @@ const SettingsPage = () => {
           {value ? null : (
             <div class="col-11 col-md-5 col-lg-3  lcon">
               <h5
-                className={state === "Settings" ? "change" : ""}
+                className={state === "Settings" ? "change" : "dim"}
                 onClick={() => setstate("Settings")}
               >
                 {" "}
@@ -27,20 +27,20 @@ const SettingsPage = () => {
               <p>Personal information and email</p>
               <hr></hr>
               <h5
-                className={state === "Security" ? "change" : ""}
+                className={state === "Security" ? "change" : "dim"}
                 onClick={() => setstate("Security")}
               >
                 Security
               </h5>
-              <p>change password</p>
+              <p>Change password</p>
               <hr />
 
               <h5
-                className={state === "Policy" ? "change" : ""}
+                className={state === "Policy" ? "change" : "dim"}
                 onClick={() => setstate("Policy")}
               >
                 {" "}
-                privacy & policy
+                Privacy & Policy
               </h5>
               <p>Lorem ipsum dolor sit amet Consectet...</p>
             </div>

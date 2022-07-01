@@ -199,7 +199,7 @@ const UserReports = () => {
     <div className="container main-screen screen-main">
       <div className="container">
         <div className="mt-2">
-          <label className="user-rpt-head">Total Assign User</label>
+          <label className="user-rpt-head">Total Assign to Users</label>
         </div>
       </div>
 
@@ -294,7 +294,7 @@ const UserReports = () => {
 
       <div className="container">
         <div>
-          <label className="user-rpt-head">Total Assigned Specialist</label>
+          <label className="user-rpt-head">Total Assigned to Specialist</label>
         </div>
       </div>
 
