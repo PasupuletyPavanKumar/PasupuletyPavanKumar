@@ -769,7 +769,8 @@ export class AuthenticatedService {
   };
 
   getAdmin = async (role = sessionStorage.getItem("role")) => {
-    const url = this.AdminDomain + ApiUrl.getAllAdmins + role;
+    // const url = this.AdminDomain + ApiUrl.getAllAdmins + role;
+    const url = "https://jsonplaceholder.typicode.com/todos/";
     const response = await axios.get(url);
 
     if (response) {
@@ -909,7 +910,7 @@ export class AuthenticatedService {
   ) => {
     const url =
       this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
-    const response = await axios.get(url);
+    const response = await axios.get(url, { responseType: "arraybuffer" });
 
     if (response) {
       const resData = response.data;
