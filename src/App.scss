@@ -1366,7 +1366,7 @@ row-flex {
 
 .lblLeft {
   padding-top: 5px;
-  font: normal normal bold 20px/30px Open Sans;
+  font: normal normal bold 30px/40px Open Sans;
   color: #004072;
 }
 
@@ -1391,8 +1391,17 @@ row-flex {
   opacity: 1;
   border-radius: 14px;
 }
+
 .content:hover {
-  background-color: #00adee;
+  //background-color: #00adee;
+  background: transparent linear-gradient(180deg, #003763 0%, #00adee 100%) 0%
+    0% no-repeat padding-box;
+}
+.content:hover .ptag {
+  color: white;
+}
+.content:hover .lblLeft {
+  color: white;
 }
 
 .divbody {

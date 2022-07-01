@@ -1,0 +1,8 @@
+<svg id="Assign_me_bule" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 82 82">
+  <path id="Path_31368" data-name="Path 31368" d="M41,0A41,41,0,1,1,0,41,41,41,0,0,1,41,0Z" fill="#00adee"/>
+  <g id="Icon_feather-user-check" data-name="Icon feather-user-check" transform="translate(19.645 20.254)">
+    <path id="Path_541" data-name="Path 541" d="M28.576,33.33V29.72a7.22,7.22,0,0,0-7.22-7.22H8.72A7.22,7.22,0,0,0,1.5,29.72v3.61" transform="translate(0 3.661)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path id="Path_542" data-name="Path 542" d="M21.191,11.72A7.22,7.22,0,1,1,13.97,4.5,7.22,7.22,0,0,1,21.191,11.72Z" transform="translate(1.068)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path id="Path_543" data-name="Path 543" d="M25.5,17.11l3.61,3.61,7.22-7.22" transform="translate(4.881 1.83)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  </g>
+</svg>

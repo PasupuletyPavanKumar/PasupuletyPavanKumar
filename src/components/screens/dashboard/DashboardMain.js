@@ -202,7 +202,7 @@ const DashboardMain = (props) => {
   const notification = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{notificationCount}</label>
+        <label className="lblLeft">{notificationCount}24</label>
         {/* <div>{notificationCount}</div> */}
         <p className="ptag">Notification</p>
       </div>
@@ -303,8 +303,8 @@ const DashboardMain = (props) => {
               <img
                 src={require(`../../../${config.image[index]}`)}
                 class="img"
-                width="40"
-                height="40"
+                // width="40"
+                // height="40"
                 key={index.toString()}
               />
             </div>

@@ -1,0 +1,17 @@
+<svg id="Admin_bule" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 82 82">
+  <path id="Path_31348" data-name="Path 31348" d="M41,0A41,41,0,1,1,0,41,41,41,0,0,1,41,0Z" fill="#00adee"/>
+  <g id="Group_137" data-name="Group 137" transform="translate(10.581 14.548)">
+    <g id="Icon_feather-users" data-name="Icon feather-users">
+      <g id="spacer" fill="rgba(255,255,255,0)" stroke="rgba(0,0,0,0)" stroke-width="1">
+        <rect width="61.619" height="53.242" stroke="none"/>
+        <rect x="0.5" y="0.5" width="60.619" height="52.242" fill="none"/>
+      </g>
+      <g id="Icon_feather-users-2" data-name="Icon feather-users" transform="translate(10.907 10.337)">
+        <path id="Path_427" data-name="Path 427" d="M30.449,33.356V29.737A7.237,7.237,0,0,0,23.211,22.5H8.737A7.237,7.237,0,0,0,1.5,29.737v3.619" transform="translate(-1.5 -0.789)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <path id="Path_428" data-name="Path 428" d="M21.974,11.737A7.237,7.237,0,1,1,14.737,4.5,7.237,7.237,0,0,1,21.974,11.737Z" transform="translate(-0.263 -4.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <path id="Path_429" data-name="Path 429" d="M35.428,33.315V29.7A7.237,7.237,0,0,0,30,22.7" transform="translate(4.376 -0.748)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <path id="Path_430" data-name="Path 430" d="M24,4.7a7.237,7.237,0,0,1,0,14.022" transform="translate(3.139 -4.46)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+      </g>
+    </g>
+  </g>
+</svg>
