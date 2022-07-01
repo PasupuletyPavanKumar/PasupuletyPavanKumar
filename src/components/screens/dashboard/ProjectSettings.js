@@ -914,7 +914,7 @@ const ProjectSettings = () => {
             {usercontrolchange === "SETTINGS" && (
               <div class="table-responsive">
                 <ReactBootStrap.Table className="table">
-                  <thead>
+                  <thead  className="tblhead">
                     <tr className="headingstyle1">
                       <th>DATE OF CREATED</th>
                       <th>SETTING NAME</th>

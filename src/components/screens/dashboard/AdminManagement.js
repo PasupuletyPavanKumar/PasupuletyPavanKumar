@@ -650,7 +650,7 @@ const AdminManagement = () => {
                 <div className="p-4">
                   <div className="tblheight table-responsive">
                     <ReactBootStrap.Table>
-                      <thead>
+                      <thead className="tblhead">
                         <tr className="admg-tblhead">
                           <th className="test-admg">DATE </th>
                           <th>USERNAME</th>

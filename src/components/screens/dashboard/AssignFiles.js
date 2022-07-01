@@ -622,7 +622,7 @@ const AssignFiles = (props) => {
 
             <div className="table-responsive">
               <ReactBootStrap.Table>
-                <thead>
+                <thead  className="tblhead">
                   <tr className="headingstyle1">
                     <th>DATE</th>
                     <th>FILE NAME</th>

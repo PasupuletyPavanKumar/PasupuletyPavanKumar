@@ -202,9 +202,9 @@ const DashboardMain = (props) => {
   const notification = () => {
     return (
       <div className="divleft">
-        <label className="lblLeft">{notificationCount}24</label>
+        <label className="lblLeft">{notificationCount}</label> <br/>
         {/* <div>{notificationCount}</div> */}
-        <p className="ptag">Notification</p>
+        <label className="ptag">Notification</label>
       </div>
     );
   };
@@ -216,9 +216,9 @@ const DashboardMain = (props) => {
           {sessionStorage.getItem("role") === "super-user"
             ? adminsCount
             : specialistAndAdminCount}
-        </label>
+        </label><br/>
         {/* <label className="lblLeft">{adminsCount}</label> */}
-        <p className="ptag">Admin</p>
+        <label className="ptag">Admin</label>
       </div>
     );
   };
@@ -227,8 +227,8 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         {/* <div className="font-25 fontweight-700">{reportCount}</div> */}
-        <label className="lblLeft">{reportCount}</label>
-        <p className="ptag">Reports</p>
+        <label className="lblLeft">{reportCount}</label><br/>
+        <label className="ptag">Reports</label>
       </div>
     );
   };
@@ -237,8 +237,8 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <div>{adminsCount}</div>
-        <label className="lblLeft">{serverCount.totalServerCount}</label>
-        <p className="ptag">Server Management</p>
+        <label className="lblLeft">{serverCount.totalServerCount}</label><br/>
+        <label className="ptag">Server Management</label>
       </div>
     );
   };
@@ -247,8 +247,8 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <div>{adminsCount}</div>
-        <label className="lblLeft">{assignedToUserCount}</label>
-        <p className="ptag">Assign To User</p>
+        <label className="lblLeft">{assignedToUserCount}</label><br/>
+        <label className="ptag">Assign To User</label>
       </div>
     );
   };
@@ -257,8 +257,8 @@ const DashboardMain = (props) => {
     return (
       <div className="divleft">
         <div>{adminsCount}</div>
-        <label className="lblLeft">{assignedToSpecialistCount}</label>
-        <p className="ptag">Assign to Specialist</p>
+        <label className="lblLeft">{assignedToSpecialistCount}</label><br/>
+        <label className="ptag">Assign to Specialist</label>
       </div>
     );
   };
