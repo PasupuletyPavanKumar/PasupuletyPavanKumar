@@ -335,6 +335,47 @@ const AssignFiles = (props) => {
     });
   };
 
+  const exportFile = () => {
+    authenticatedService.exportFile().then((res) => {
+      if (res) {
+        downloadToExcel(res.data);
+      }
+      console.log(res.headers);
+    });
+  };
+
+  const downloadToExcel = (data) => {
+    // let ws = XLSX.utils.json_to_sheet(data);
+    // let wb = XLSX.utils.book_new();
+    // XLSX.utils.book_append_sheet(wb, ws, "sheet");
+    // let buf = XLSX.write(wb, { bookType: "xlsx", type: "buffer" }); // generate a nodejs buffer
+    // let str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
+    // XLSX.writeFile(wb, `myfilename.xlsx`);
+
+    // const url = window.URL.createObjectURL(new Blob([data]));
+    // const link = document.createElement("a");
+
+    // link.href = url;
+    // link.setAttribute("download", `${Date.now()}.xlsx`);
+
+    // document.body.appendChild(link);
+    // link.click();
+
+    // link.remove();
+
+    // const outputFilename = `${Date.now()}.xlsx`;
+
+    const outputFilename = `${sessionStorage.getItem("username")}.xlsx`;
+
+    // If you want to download file automatically using link attribute.
+    const url = URL.createObjectURL(new Blob([data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", outputFilename);
+    document.body.appendChild(link);
+    link.click();
+  };
+
   const processDocument = (item) => {
     console.log(item);
     var reqBody = new FormData();
@@ -503,7 +544,7 @@ const AssignFiles = (props) => {
                   <option value="Filter">Filter</option>
                 </select>
 
-                <select className="assigndrop">
+                <select className="assigndrop" onClick={exportFile}>
                   <option value="Export">Export</option>
                 </select>
               </div>

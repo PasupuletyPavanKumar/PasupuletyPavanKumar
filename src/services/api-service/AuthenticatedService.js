@@ -910,7 +910,7 @@ export class AuthenticatedService {
   ) => {
     const url =
       this.exportFileDomain + ApiUrl.exportFile + userRole + "/" + userName;
-    const response = await axios.get(url);
+    const response = await axios.get(url, { responseType: "arraybuffer" });
 
     if (response) {
       const resData = response.data;
