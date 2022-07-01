@@ -17,6 +17,18 @@ const AdminManagement = () => {
   const [open, setOpen] = useState(false);
   const [openFirst, setOpenFirst] = React.useState(false);
   const [toBeUpdatedUsername, setToBeUpdatedUsername] = useState();
+  const [adminList, setadminList] = useState([]);
+  const [addAdminFields, setAddAdminFields] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    location: "Bangalore",
+    role:
+      sessionStorage.getItem("role") === "super-user" ? "Admin" : "Specialist",
+  });
+
+  const [beforeEditFields, setBeforeEditFields] = useState(null);
 
   const onOpenModal = () => {
     console.log("onOpenModal");
@@ -32,6 +44,8 @@ const AdminManagement = () => {
   const [TableData, setData] = useState([]);
   const [perPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
+  const [adminDetails, setAdminDetails] = useState([]);
+  const [copyAdminDetails, setCopyAdminDetails] = useState([]);
 
   useEffect(() => {
     getAdminsList();
@@ -41,6 +55,8 @@ const AdminManagement = () => {
     authenticatedService.getAdmin().then((res) => {
       if (res) {
         GetTableData(res);
+        setAdminDetails(res);
+        setCopyAdminDetails(res);
       }
       console.log(res);
     });
@@ -57,9 +73,9 @@ const AdminManagement = () => {
             (postData = slice.map((item) => (
               <tbody>
                 <tr key={item.id}>
-                  <td>{item.date}</td>
-                  <td>{item.userName}</td>
-                  <td>{item.firstName}</td>
+                  <td>{item.userId}</td>
+                  <td>{item.id}</td>
+                  <td>{item.title}</td>
                   <td>{item.email}</td>
                   <td>{item.contactNumber}</td>
                   <td>
@@ -108,10 +124,10 @@ const AdminManagement = () => {
     setshowDeleteModal(false);
     setIsEdit(false);
     setAddAdminFields({
-      firstname: "",
-      lastname: "",
-      username: "",
-      emailid: "",
+      firstName: "",
+      lastName: "",
+      userName: "",
+      email: "",
       location: "Bangalore",
       role:
         sessionStorage.getItem("role") === "super-user"
@@ -128,16 +144,16 @@ const AdminManagement = () => {
 
   const inputValidators = () => {
     if (
-      addAdminFields.firstname == "" ||
-      addAdminFields.lastname == "" ||
-      addAdminFields.username == "" ||
-      addAdminFields.emailid == "" ||
+      addAdminFields.firstName == "" ||
+      addAdminFields.lastName == "" ||
+      addAdminFields.userName == "" ||
+      addAdminFields.email == "" ||
       addAdminFields.location == "" ||
       addAdminFields.role == ""
     ) {
       alert("All fields required");
       return false;
-    } else if (_EMAIL_VALIDATOR(addAdminFields.emailid)) {
+    } else if (_EMAIL_VALIDATOR(addAdminFields.email)) {
       alert("Enter valid email");
       return false;
     } else {
@@ -145,30 +161,20 @@ const AdminManagement = () => {
     }
   };
 
-  const [adminList, setadminList] = useState([]);
-  const [addAdminFields, setAddAdminFields] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    emailid: "",
-    location: "Bangalore",
-    role:
-      sessionStorage.getItem("role") === "super-user" ? "Admin" : "Specialist",
-  });
-
   const refreshPage = () => {
     window.location.reload();
   };
 
   const createAdmin = () => {
     console.log("Create Admin");
+    var reqBody = new FormData();
+
     if (inputValidators()) {
       console.log("inside createAdmin");
-      var reqBody = new FormData();
-      reqBody.append("firstName", addAdminFields.firstname);
-      reqBody.append("lastName", addAdminFields.lastname);
-      reqBody.append("userName", addAdminFields.username);
-      reqBody.append("email", addAdminFields.emailid);
+      reqBody.append("firstName", addAdminFields.firstName);
+      reqBody.append("lastName", addAdminFields.lastName);
+      reqBody.append("userName", addAdminFields.userName);
+      reqBody.append("email", addAdminFields.email);
       reqBody.append("location", addAdminFields.location);
       //reqBody.append("role", addAdminFields.role);
 
@@ -219,6 +225,29 @@ const AdminManagement = () => {
               alert("Error in creating Admin");
             }
           });
+        console.log("Call Edit Api", beforeEditFields);
+        console.log("Call Edit Api", addAdminFields);
+        let isValueEdited = false;
+        for (const key in addAdminFields) {
+          if (addAdminFields[key] != beforeEditFields[key]) {
+            isValueEdited = true;
+            reqBody.append(key, addAdminFields[key]);
+          }
+        }
+
+        if (isValueEdited) {
+          for (var pair of reqBody.entries()) {
+            console.log(pair[0] + ", " + pair[1]);
+          }
+          authenticatedService
+            .updateAdmin(reqBody, toBeUpdatedUsername)
+            .then((res) => {
+              if (res) {
+                // <div>{handleClose()}</div>;
+                refreshPage();
+              }
+            });
+        } else alert("values are same");
       }
     }
   };
@@ -272,17 +301,41 @@ const AdminManagement = () => {
   };
 
   const updateAdmin = (item) => {
+    const obj = {
+      // firstname: item.firstName,
+      // lastname: item.lastName,
+      // username: item.userName,
+      // emailid: item.email,
+      // location: item.location,
+      firstName: item.title,
+      lastName: item.lastName,
+      userName: item.id,
+      email: item.email,
+      location: item.location,
+      role: isAdmin(item),
+      role:
+        sessionStorage.getItem("role") === "super-user"
+          ? "Admin"
+          : "Specialist",
+    };
     setIsEdit(true);
     setshowDeleteModal(false);
     setToBeUpdatedUsername(item.userName);
-    setAddAdminFields({
-      firstname: item.firstName,
-      lastname: item.lastName,
-      username: item.userName,
-      emailid: item.email,
-      location: item.location,
-      role: isAdmin(item),
-    });
+    setAddAdminFields(obj);
+    setBeforeEditFields(obj);
+    // setAddAdminFields({
+    //   // firstname: item.firstName,
+    //   // lastname: item.lastName,
+    //   // username: item.userName,
+    //   // emailid: item.email,
+    //   // location: item.location,
+    //   firstname: item.title,
+    //   lastname: item.lastName,
+    //   username: item.id,
+    //   emailid: item.email,
+    //   location: item.location,
+    //   role: isAdmin(item),
+    // });
     // setShow(true);
     console.log("updateAdmin");
     setOpen(true);
@@ -298,13 +351,13 @@ const AdminManagement = () => {
 
   const handleInputFields = (event, field) => {
     setAddAdminFields({
-      firstname:
-        field === 1 ? event.target.value.trim() : addAdminFields.firstname,
-      lastname:
-        field === 2 ? event.target.value.trim() : addAdminFields.lastname,
-      username:
-        field === 3 ? event.target.value.trim() : addAdminFields.username,
-      emailid: field === 4 ? event.target.value.trim() : addAdminFields.emailid,
+      firstName:
+        field === 1 ? event.target.value.trim() : addAdminFields.firstName,
+      lastName:
+        field === 2 ? event.target.value.trim() : addAdminFields.lastName,
+      userName:
+        field === 3 ? event.target.value.trim() : addAdminFields.userName,
+      email: field === 4 ? event.target.value.trim() : addAdminFields.email,
       location:
         field === 5 ? event.target.value.trim() : addAdminFields.location,
       role: field === 6 ? event.target.value.trim() : addAdminFields.role,
@@ -334,7 +387,7 @@ const AdminManagement = () => {
                 type="text"
                 className="input-field"
                 id="usr"
-                value={addAdminFields.firstname}
+                value={addAdminFields.firstName}
                 onChange={(e) => handleInputFields(e, 1)}
               />
             </div>
@@ -347,7 +400,7 @@ const AdminManagement = () => {
                 type="text"
                 className="input-field"
                 id="usr"
-                value={addAdminFields.lastname}
+                value={addAdminFields.lastName}
                 onChange={(e) => handleInputFields(e, 2)}
               />
             </div>
@@ -360,7 +413,7 @@ const AdminManagement = () => {
                 type="text"
                 className="input-field"
                 id="usr"
-                value={addAdminFields.username}
+                value={addAdminFields.userName}
                 onChange={(e) => handleInputFields(e, 3)}
               />
             </div>
@@ -373,7 +426,7 @@ const AdminManagement = () => {
                 type="text"
                 className="input-field"
                 id="usr"
-                value={addAdminFields.emailid}
+                value={addAdminFields.email}
                 onChange={(e) => handleInputFields(e, 4)}
               />
             </div>
@@ -477,6 +530,20 @@ const AdminManagement = () => {
     );
   };
 
+  const searchData = (ev) => {
+    const filterData = [];
+    if (ev.target.value.length > 0) {
+      adminDetails.filter((item) => {
+        if (
+          item.title.toLowerCase().match(ev.target.value.toLowerCase()) ||
+          item.id.toString().toLowerCase().match(ev.target.value.toLowerCase())
+        )
+          filterData.push(item);
+      });
+      GetTableData(filterData);
+    } else GetTableData(copyAdminDetails);
+  };
+
   return (
     <div>
       <div class="screen-main main-screen">
@@ -521,6 +588,7 @@ const AdminManagement = () => {
                       type="text"
                       placeholder="Search"
                       aria-label="Search"
+                      onKeyUp={searchData}
                     />
                   </div>
 

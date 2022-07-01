@@ -257,7 +257,6 @@ const ProjectSettings = () => {
                     <td>{item.projectDescription}</td>
                     {/* <td>{item.id}</td> */}
                     <td>{getSettingName(item.id)}</td>
-
                     <td style={{ display: "flex" }}>
                       <VisibilityIcon
                         className=" view-icons "
